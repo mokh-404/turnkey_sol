@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Clock, Mail, MapPin, Palette, Phone, Plane, Truck } from "lucide-react";
 
-import lobbyImage from "@/assets/lobby-ocean.png";
-import brochureSpread from "@/assets/brochure-spread.png";
+import lobbyImage from "@/assets/lobby-ocean.webp";
+import brochureSpread from "@/assets/brochure-spread.webp";
 import { Button } from "@/components/ui/button";
 import { CtaBand, PageHero, Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
 
@@ -34,6 +34,13 @@ function ServicesPage() {
           description="From custom stand design and decoration to logistics and travel, our appointed service partners ensure a seamless and high-impact exhibition presence at Turnkey Show 2027."
           image={lobbyImage}
           imageAlt="A bright, modern lobby overlooking the Mediterranean coast"
+          primaryBtn={{ label: "Inquire Services", href: "/contact#exhibitor-enquiry" }}
+          secondaryBtn={{ label: "Official Contractors", href: "#services-list" }}
+          pillars={[
+            { label: "Design", value: "Custom Turnkey Booth Build & Decor" },
+            { label: "Logistics", value: "Official Freight & On-Site Handling" },
+            { label: "Support", value: "Dedicated Apex Show Concierge" },
+          ]}
         />
 
         <section className="services-grid-section page-width">

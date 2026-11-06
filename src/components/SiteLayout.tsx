@@ -3,7 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Menu, X, Mail, Phone } from "lucide-react";
 
 import logoImage from "@/assets/logo.png";
-import heroCoast from "@/assets/hero-coast.png";
+import heroCoast from "@/assets/hero-coast.webp";
 import iconInstagram from "@/assets/icon-instagram.png";
 import iconLinkedin from "@/assets/icon-linkedin.png";
 import iconYoutube from "@/assets/icon-youtube.png";
@@ -21,8 +21,6 @@ const navigation = [
 export function SiteLayout({ children }: PropsWithChildren) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isHome = pathname === "/";
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", menuOpen);
@@ -38,14 +36,12 @@ export function SiteLayout({ children }: PropsWithChildren) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerClass = isHome
-    ? scrolled
-      ? "site-header header-scrolled"
-      : "site-header header-transparent"
-    : "site-header header-scrolled header-static";
+  const headerClass = scrolled
+    ? "site-header header-scrolled"
+    : "site-header header-transparent";
 
   return (
-    <div className={`site-shell${!isHome ? " not-home" : ""}`}>
+    <div className="site-shell">
       <header className={headerClass}>
         <div className="header-inner page-width">
           <Link to="/" className="brand-logo-link" aria-label="Turnkey Show home" onClick={() => setMenuOpen(false)}>
@@ -199,6 +195,9 @@ export function PageHero({
   image,
   imageAlt,
   index = "01",
+  primaryBtn,
+  secondaryBtn,
+  pillars,
 }: {
   eyebrow: string;
   title: string;
@@ -206,20 +205,72 @@ export function PageHero({
   image?: string;
   imageAlt?: string;
   index?: string;
+  primaryBtn?: { label: string; href: string };
+  secondaryBtn?: { label: string; href: string };
+  pillars?: Array<{ label: string; value: string }>;
 }) {
   return (
-    <section className={`page-hero${image ? " page-hero-with-image" : ""}`}>
-      <div className="page-width page-hero-inner">
-        <div className="page-hero-copy">
-          <p className="eyebrow">
+    <section className="hero-section page-sub-hero" aria-label={eyebrow}>
+      <div className="hero-media">
+        <img
+          className="hero-bg-img"
+          src={image || heroCoast}
+          alt={imageAlt || ""}
+          width={2400}
+          height={1350}
+          fetchPriority="high"
+        />
+        <div className="hero-gradient-directional" aria-hidden="true" />
+        <div className="hero-gradient-bottom" aria-hidden="true" />
+        <div className="hero-corner-chevron" aria-hidden="true">
+          <svg viewBox="0 0 100 120" fill="var(--tk-red)" width="100%" height="100%">
+            <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+          </svg>
+        </div>
+      </div>
+
+      <div className="page-width hero-container">
+        <div className="hero-stack">
+          <div className="hero-red-rule" aria-hidden="true" />
+          <p className="eyebrow hero-eyebrow">
             <span>{index}</span> {eyebrow}
           </p>
-          <h1>{title}</h1>
-          <p className="page-hero-description">{description}</p>
+          <h1 className="hero-headline page-hero-title">
+            {title}
+          </h1>
+          <p className="hero-subhead page-hero-subhead">
+            {description}
+          </p>
+          {(primaryBtn || secondaryBtn) && (
+            <div className="hero-btn-row">
+              {primaryBtn && (
+                <a href={primaryBtn.href} className="hero-btn hero-btn-primary">
+                  {primaryBtn.label}
+                  <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              )}
+              {secondaryBtn && (
+                <a href={secondaryBtn.href} className="hero-btn hero-btn-secondary">
+                  {secondaryBtn.label}
+                  <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              )}
+            </div>
+          )}
         </div>
-        {image && (
-          <div className="page-hero-image">
-            <img src={image || heroCoast} alt={imageAlt || ""} width={1600} height={1024} fetchPriority="high" />
+
+        {pillars && pillars.length > 0 && (
+          <div className="hero-info-strip liquid-glass-dark" role="region" aria-label="Key Information">
+            {pillars.map((p, i) => (
+              <div key={i} className="info-strip-col">
+                <span className="info-strip-label">{p.label}</span>
+                <span className="info-strip-value">{p.value}</span>
+              </div>
+            ))}
           </div>
         )}
       </div>

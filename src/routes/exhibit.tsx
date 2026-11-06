@@ -15,13 +15,13 @@ import {
   MapPin,
 } from "lucide-react";
 
-import livingRoom from "@/assets/living-room.png";
-import terraceSunset from "@/assets/terrace-sunset.png";
-import smartLiving from "@/assets/smart-living.png";
-import kitchen from "@/assets/kitchen.png";
-import villaShowcase from "@/assets/villa-showcase.png";
-import oceanfrontTerrace from "@/assets/oceanfront-terrace.png";
-import lobbyOcean from "@/assets/lobby-ocean.png";
+import livingRoom from "@/assets/living-room.webp";
+import terraceSunset from "@/assets/terrace-sunset.webp";
+import smartLiving from "@/assets/smart-living.webp";
+import kitchen from "@/assets/kitchen.webp";
+import villaShowcase from "@/assets/villa-showcase.webp";
+import oceanfrontTerrace from "@/assets/oceanfront-terrace.webp";
+import lobbyOcean from "@/assets/lobby-ocean.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CtaBand, PageHero, Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
@@ -79,6 +79,13 @@ function ExhibitPage() {
           description="Alamein Turnkey Show comes at a pivotal moment for the residential, hospitality, and tourism market in New Alamein and the North Coast. Exhibit where demand is being created — and purchasing decisions are being made."
           image={villaShowcase}
           imageAlt="Luxury coastal villa showcase in New Alamein"
+          primaryBtn={{ label: "Book your space", href: "#brochure" }}
+          secondaryBtn={{ label: "Download Sales Brochure", href: "#brochure" }}
+          pillars={[
+            { label: "Target Audience", value: "15,000+ Property Owners & Operators" },
+            { label: "Pipeline", value: "46,189+ Units in New Alamein" },
+            { label: "Format", value: "Specialized Fit-Out & Solution Halls" },
+          ]}
         />
 
         {/* Highlight Banner */}

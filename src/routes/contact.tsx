@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Building2, Mail, MapPin, Phone, Send, User } from "lucide-react";
 
-import coastImage from "@/assets/turquoise-skyline.png";
-import venueImage from "@/assets/venue.png";
+import coastImage from "@/assets/turquoise-skyline.webp";
+import venueImage from "@/assets/venue.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -36,6 +36,13 @@ function ContactPage() {
           description="Whether you're interested in exhibiting, visiting, or exploring sponsorship packages for Turnkey Show 2027, our dedicated event management team is ready to assist."
           image={coastImage}
           imageAlt="Turquoise coastline of New Alamein"
+          primaryBtn={{ label: "Space Enquiry", href: "#exhibitor-enquiry" }}
+          secondaryBtn={{ label: "Visitor Registration", href: "#visitor-registration" }}
+          pillars={[
+            { label: "Organizer", value: "Apex Conventions and Trade Fairs L.L.C" },
+            { label: "Direct Phone", value: "02 369 71 091 / +2 010 17 57 57 57" },
+            { label: "General Email", value: "info@turnkeyshow.com" },
+          ]}
         />
 
         {/* Exhibitor Enquiry */}

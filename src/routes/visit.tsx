@@ -5,17 +5,23 @@ import {
   CalendarDays,
   Clock,
   MapPin,
-  MoveUpRight,
+  Home,
+  TrendingUp,
+  Building2,
+  Hotel,
+  Palette,
+  Wrench,
+  Briefcase,
 } from "lucide-react";
 
-import livingRoom from "@/assets/living-room.png";
-import terraceSunset from "@/assets/terrace-sunset.png";
-import smartLiving from "@/assets/smart-living.png";
-import kitchen from "@/assets/kitchen.png";
-import villaShowcase from "@/assets/villa-showcase.png";
-import lobbyOcean from "@/assets/lobby-ocean.png";
-import chalet from "@/assets/chalet.png";
-import venueImage from "@/assets/venue.png";
+import livingRoom from "@/assets/living-room.webp";
+import terraceSunset from "@/assets/terrace-sunset.webp";
+import smartLiving from "@/assets/smart-living.webp";
+import kitchen from "@/assets/kitchen.webp";
+import villaShowcase from "@/assets/villa-showcase.webp";
+import lobbyOcean from "@/assets/lobby-ocean.webp";
+import chalet from "@/assets/chalet.webp";
+import venueImage from "@/assets/venue.webp";
 import { Button } from "@/components/ui/button";
 import { PageHero, Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
 
@@ -107,6 +113,13 @@ function VisitPage() {
           description="Whether you're furnishing a new coastal villa, upgrading a rental portfolio, or sourcing hospitality fit-outs, discover everything under one roof at New Alamein."
           image={chalet}
           imageAlt="Sunlit coastal retreat showcasing high-end furnishings"
+          primaryBtn={{ label: "Register to visit", href: "/contact#visitor-registration" }}
+          secondaryBtn={{ label: "Plan your route", href: "#venue" }}
+          pillars={[
+            { label: "Dates", value: "06 – 09 MAY 2027" },
+            { label: "Venue", value: "New Alamein International Convention Center" },
+            { label: "Access", value: "Free Trade & Buyer Registration" },
+          ]}
         />
 
         {/* Quick Event Summary Strip */}
@@ -205,32 +218,74 @@ function VisitPage() {
           </div>
         </section>
 
-        {/* Who Should Attend */}
-        <section className="visitor-profile visit-profile page-width">
-          <Reveal className="section-heading text-center mx-auto max-w-2xl">
-            <div>
-              <SectionLabel>Who Should Attend</SectionLabel>
-              <h2>A Meeting Point for the<br /><em>Property &amp; Hospitality Community</em></h2>
-            </div>
-            <p>Whether you're finishing a family chalet or managing a portfolio of hundreds of units, this event is designed for you.</p>
+        {/* Who Should Attend — Redesigned Architectural Feature */}
+        <section className="meeting-point-section page-width">
+          <Reveal className="meeting-point-header">
+            <SectionLabel>Who Should Attend</SectionLabel>
+            <h2>
+              A Meeting Point for the<br />
+              <span className="highlight-red">Property &amp; Hospitality Community.</span>
+            </h2>
+            <p className="meeting-point-sub">
+              Whether you're finishing a private beach chalet or managing an institutional portfolio of hundreds of units, Turnkey Show connects you with specialized manufacturers, smart tech innovators, and turnkey contractors.
+            </p>
           </Reveal>
-          <div className="visit-personas">
+          <div className="meeting-personas-grid">
             {[
-              { role: "Property Owners", note: "Furnishing new handovers or upgrading existing beach homes" },
-              { role: "Real Estate Investors", note: "Optimizing unit appeal to maximize seasonal rental revenue" },
-              { role: "Developers", note: "Sourcing turnkey fit-out partners for upcoming handovers" },
-              { role: "Hospitality Operators", note: "Refurbishing resorts, chalets, and serviced residences" },
-              { role: "Architects & Designers", note: "Selecting premium materials, fixtures, and modern interior lines" },
-              { role: "Contractors & Procurement", note: "Securing bulk supply agreements and specialized installations" },
-              { role: "Commercial Buyers", note: "Procuring commercial equipment, appliances, and smart solutions" },
-            ].map((item, index) => (
-              <Reveal className="visit-persona" key={item.role}>
-                <span className="persona-num">0{index + 1}</span>
-                <h3>{item.role}</h3>
-                <p>{item.note}</p>
-                <span className="persona-arrow">&gt;</span>
-              </Reveal>
-            ))}
+              {
+                role: "Property Owners",
+                note: "Furnishing new handovers or upgrading existing beach homes",
+                icon: Home,
+              },
+              {
+                role: "Real Estate Investors",
+                note: "Optimizing unit appeal to maximize seasonal rental revenue",
+                icon: TrendingUp,
+              },
+              {
+                role: "Developers",
+                note: "Sourcing turnkey fit-out partners for upcoming handovers",
+                icon: Building2,
+              },
+              {
+                role: "Hospitality Operators",
+                note: "Refurbishing resorts, chalets, and serviced residences",
+                icon: Hotel,
+              },
+              {
+                role: "Architects & Designers",
+                note: "Selecting premium materials, fixtures, and modern interior lines",
+                icon: Palette,
+              },
+              {
+                role: "Contractors & Procurement",
+                note: "Securing bulk supply agreements and specialized installations",
+                icon: Wrench,
+              },
+              {
+                role: "Commercial Buyers",
+                note: "Procuring commercial equipment, appliances, and smart solutions",
+                icon: Briefcase,
+              },
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <Reveal className="persona-card" key={item.role}>
+                  <div className="persona-card-top">
+                    <span className="persona-card-idx">0{index + 1}</span>
+                    <div className="persona-card-icon">
+                      <Icon className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                  </div>
+                  <h3>{item.role}</h3>
+                  <p>{item.note}</p>
+                  <div className="persona-card-action">
+                    <span>Connect at the Show</span>
+                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </section>
 
@@ -255,7 +310,7 @@ function VisitPage() {
               target="_blank"
               rel="noreferrer"
             >
-              Explore Location on Google Maps <MoveUpRight aria-hidden="true" />
+              Explore Location on Google Maps <ArrowUpRight aria-hidden="true" />
             </a>
           </Reveal>
           <Reveal className="venue-detail-image">

@@ -11,17 +11,17 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import heroImage from "@/assets/hero-coast.png";
-import livingRoom from "@/assets/living-room.png";
-import terraceSunset from "@/assets/terrace-sunset.png";
-import lobbyOcean from "@/assets/lobby-ocean.png";
-import smartHome from "@/assets/smart-home.png";
-import kitchen from "@/assets/kitchen.png";
-import villaShowcase from "@/assets/villa-showcase.png";
-import oceanfrontTerrace from "@/assets/oceanfront-terrace.png";
-import smartLiving from "@/assets/smart-living.png";
-import turquoiseSkyline from "@/assets/turquoise-skyline.png";
-import venueImage from "@/assets/venue.png";
+import heroImage from "@/assets/hero-coast.webp";
+import livingRoom from "@/assets/living-room.webp";
+import terraceSunset from "@/assets/terrace-sunset.webp";
+import lobbyOcean from "@/assets/lobby-ocean.webp";
+import smartHome from "@/assets/smart-home.webp";
+import kitchen from "@/assets/kitchen.webp";
+import villaShowcase from "@/assets/villa-showcase.webp";
+import oceanfrontTerrace from "@/assets/oceanfront-terrace.webp";
+import smartLiving from "@/assets/smart-living.webp";
+import turquoiseSkyline from "@/assets/turquoise-skyline.webp";
+import venueImage from "@/assets/venue.webp";
 import { Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/")({
@@ -189,14 +189,19 @@ function Index() {
             </Reveal>
             <div className="sector-grid">
               {sectors.map((sector, index) => (
-                <Reveal key={sector.title} className={`sector-card sector-card-${index + 1}`}>
-                  <img src={sector.image} alt={sector.title} width={1600} height={1024} loading="lazy" />
-                  <div className="sector-card-copy">
-                    <span>0{index + 1}</span>
-                    <h3>{sector.title}</h3>
-                    <p>{sector.detail}</p>
-                    <ArrowUpRight className="w-5 h-5 card-arrow" aria-hidden="true" />
-                  </div>
+                <Reveal key={sector.title}>
+                  <a href="/exhibit" className={`sector-card sector-card-${index + 1}`} aria-label={`Explore ${sector.title} Exhibitor Opportunities`}>
+                    <img src={sector.image} alt={sector.title} width={1600} height={1024} loading="lazy" />
+                    <div className="sector-card-copy">
+                      <span>0{index + 1}</span>
+                      <h3>{sector.title}</h3>
+                      <p>{sector.detail}</p>
+                      <div className="sector-card-footer">
+                        <span className="sector-action-link">Explore Opportunities</span>
+                        <ArrowUpRight className="w-5 h-5 card-arrow" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </a>
                 </Reveal>
               ))}
             </div>

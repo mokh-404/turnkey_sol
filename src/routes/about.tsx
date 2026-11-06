@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 
-import oceanfrontTerrace from "@/assets/oceanfront-terrace.png";
-import terraceSunset from "@/assets/terrace-sunset.png";
-import turquoiseSkyline from "@/assets/turquoise-skyline.png";
-import venueImage from "@/assets/venue.png";
-import livingRoom from "@/assets/living-room.png";
-import kitchen from "@/assets/kitchen.png";
-import smartHome from "@/assets/smart-home.png";
-import lobbyOcean from "@/assets/lobby-ocean.png";
+import oceanfrontTerrace from "@/assets/oceanfront-terrace.webp";
+import terraceSunset from "@/assets/terrace-sunset.webp";
+import turquoiseSkyline from "@/assets/turquoise-skyline.webp";
+import venueImage from "@/assets/venue.webp";
+import livingRoom from "@/assets/living-room.webp";
+import kitchen from "@/assets/kitchen.webp";
+import smartHome from "@/assets/smart-home.webp";
+import lobbyOcean from "@/assets/lobby-ocean.webp";
 import { ArrowLink, PageHero, Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/about")({
@@ -36,10 +36,17 @@ function AboutPage() {
         <PageHero
           index="01"
           eyebrow="About the Show"
-          title={"TURNKEY SHOW…\nTHE COAST'S COMPLETE PROPERTY SOLUTIONS PLATFORM"}
+          title={"TURNKEY SHOW...\nTHE COAST'S COMPLETE PROPERTY SOLUTIONS PLATFORM"}
           description="A premium show dedicated to furniture, fit-out, appliances, outdoor living and smart technology for coastal and hospitality properties. Turnkey Show connects property owners, investors, developers and hospitality professionals with leading brands and solution providers."
           image={oceanfrontTerrace}
           imageAlt="Luxury oceanfront terrace overlooking the Mediterranean coast"
+          primaryBtn={{ label: "Explore Exhibiting", href: "/exhibit" }}
+          secondaryBtn={{ label: "Plan Your Visit", href: "/visit" }}
+          pillars={[
+            { label: "Theme", value: "From Property Delivery to Property Value" },
+            { label: "Venue", value: "New Alamein International Convention Center" },
+            { label: "Dates", value: "TO BE CONFIRMED" },
+          ]}
         />
 
         {/* The Concept */}
