@@ -1,5 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  KeyRound,
+  Armchair,
+  Zap,
+  Wifi,
+  SlidersHorizontal,
+  TrendingUp,
+  ChevronRight,
+} from "lucide-react";
 
 import heroImage from "@/assets/hero-coast.png";
 import livingRoom from "@/assets/living-room.png";
@@ -69,6 +79,11 @@ function Index() {
             />
             <div className="hero-gradient-directional" aria-hidden="true" />
             <div className="hero-gradient-bottom" aria-hidden="true" />
+            <div className="hero-corner-chevron" aria-hidden="true">
+              <svg viewBox="0 0 100 120" fill="var(--tk-red)" width="100%" height="100%">
+                <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+              </svg>
+            </div>
           </div>
 
           <div className="page-width hero-container">
@@ -228,6 +243,53 @@ function Index() {
           </Reveal>
         </section>
 
+        {/* Brochure-Style Property Cycle Strip */}
+        <section className="page-width">
+          <Reveal className="property-cycle-strip">
+            <div className="cycle-step">
+              <div className="cycle-icon-circle">
+                <KeyRound className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <span className="cycle-step-title">Handover</span>
+            </div>
+            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
+            <div className="cycle-step">
+              <div className="cycle-icon-circle">
+                <Armchair className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <span className="cycle-step-title">Furnish</span>
+            </div>
+            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
+            <div className="cycle-step">
+              <div className="cycle-icon-circle">
+                <Zap className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <span className="cycle-step-title">Equip</span>
+            </div>
+            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
+            <div className="cycle-step">
+              <div className="cycle-icon-circle">
+                <Wifi className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <span className="cycle-step-title">Connect</span>
+            </div>
+            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
+            <div className="cycle-step">
+              <div className="cycle-icon-circle">
+                <SlidersHorizontal className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <span className="cycle-step-title">Operate</span>
+            </div>
+            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
+            <div className="cycle-step">
+              <div className="cycle-icon-circle">
+                <TrendingUp className="w-7 h-7" aria-hidden="true" />
+              </div>
+              <span className="cycle-step-title">Value</span>
+            </div>
+          </Reveal>
+        </section>
+
         {/* Venue Section */}
         <section className="venue-section" id="venue">
           <div className="venue-image">
@@ -259,8 +321,17 @@ function Index() {
           </Reveal>
         </section>
 
-        {/* Organized by Section (Ample Margins & Full Responsive Breathing Room) */}
+        {/* Organized by Section (Full Bleed Background Photo & Proper Margins) */}
         <section className="organizer-section" aria-label="Organizer Profile">
+          <img
+            src={turquoiseSkyline}
+            alt=""
+            className="organizer-bg-img"
+            width={1920}
+            height={1024}
+            loading="lazy"
+            aria-hidden="true"
+          />
           <div className="page-width organizer-inner">
             <Reveal className="organizer-heading-block">
               <SectionLabel>Organized by</SectionLabel>
@@ -277,15 +348,6 @@ function Index() {
                 </a>
               </div>
             </Reveal>
-            <img
-              src={turquoiseSkyline}
-              alt=""
-              className="organizer-bg-img"
-              width={1920}
-              height={1024}
-              loading="lazy"
-              aria-hidden="true"
-            />
           </div>
         </section>
 

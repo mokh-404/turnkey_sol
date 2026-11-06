@@ -5,6 +5,10 @@ import oceanfrontTerrace from "@/assets/oceanfront-terrace.png";
 import terraceSunset from "@/assets/terrace-sunset.png";
 import turquoiseSkyline from "@/assets/turquoise-skyline.png";
 import venueImage from "@/assets/venue.png";
+import livingRoom from "@/assets/living-room.png";
+import kitchen from "@/assets/kitchen.png";
+import smartHome from "@/assets/smart-home.png";
+import lobbyOcean from "@/assets/lobby-ocean.png";
 import { ArrowLink, PageHero, Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/about")({
@@ -39,12 +43,10 @@ function AboutPage() {
         />
 
         {/* The Concept */}
-        <section className="editorial-section page-width" id="concept">
-          <Reveal className="editorial-heading">
+        <section className="page-width editorial-section-grid" id="concept">
+          <Reveal className="editorial-copy">
             <SectionLabel>The Concept</SectionLabel>
             <h2>FROM PROPERTY DELIVERY<br /><em>TO PROPERTY VALUE.</em></h2>
-          </Reveal>
-          <Reveal className="editorial-body">
             <p>
               A property's journey doesn't end at handover. It needs to be furnished, equipped, connected, and continuously upgraded.
             </p>
@@ -53,15 +55,21 @@ function AboutPage() {
             </p>
             <ArrowLink href="/exhibit">Explore Exhibitor Opportunities</ArrowLink>
           </Reveal>
+          <Reveal className="editorial-media">
+            <img src={livingRoom} alt="Furnished modern coastal interior living room" width={1600} height={1024} loading="lazy" />
+            <div className="media-badge liquid-glass-dark">Complete Furnishing</div>
+          </Reveal>
         </section>
 
         {/* The Show Promise */}
-        <section className="editorial-section page-width" id="promise">
-          <Reveal className="editorial-heading">
+        <section className="page-width editorial-section-grid" id="promise">
+          <Reveal className="editorial-media">
+            <img src={kitchen} alt="Contemporary coastal kitchen and appliances" width={1600} height={1024} loading="lazy" />
+            <div className="media-badge liquid-glass-dark">Smart Appliances &amp; Fixtures</div>
+          </Reveal>
+          <Reveal className="editorial-copy">
             <SectionLabel>The Show Promise</SectionLabel>
             <h2>ONE DESTINATION.<br /><em>THE COMPLETE PROPERTY FIT-OUT.</em></h2>
-          </Reveal>
-          <Reveal className="editorial-body">
             <p>
               From the first furniture piece to the latest smart-home solution, the show is designed to showcase everything required to create a complete, functional, and attractive coastal property.
             </p>
@@ -72,25 +80,29 @@ function AboutPage() {
         </section>
 
         {/* The Vision */}
-        <section className="editorial-section page-width" id="vision">
-          <Reveal className="editorial-heading">
+        <section className="page-width editorial-section-grid" id="vision">
+          <Reveal className="editorial-copy">
             <SectionLabel>The Vision</SectionLabel>
             <h2>THE DESTINATION FOR<br /><em>COASTAL PROPERTY SOLUTIONS.</em></h2>
-          </Reveal>
-          <Reveal className="editorial-body">
             <p>
               To create the leading platform connecting real estate, design, technology, and hospitality — transforming coastal properties into furnished, connected, functional, and investment-ready experiences.
             </p>
           </Reveal>
+          <Reveal className="editorial-media">
+            <img src={smartHome} alt="Connected smart living solutions" width={1600} height={1024} loading="lazy" />
+            <div className="media-badge liquid-glass-dark">Intelligent Living</div>
+          </Reveal>
         </section>
 
         {/* Market Overview */}
-        <section className="editorial-section page-width" id="market-overview">
-          <Reveal className="editorial-heading">
+        <section className="page-width editorial-section-grid" id="market-overview">
+          <Reveal className="editorial-media">
+            <img src={lobbyOcean} alt="Hospitality and resort architectural design" width={1600} height={1024} loading="lazy" />
+            <div className="media-badge liquid-glass-dark">Hospitality &amp; Commercial Growth</div>
+          </Reveal>
+          <Reveal className="editorial-copy">
             <SectionLabel>Market Overview</SectionLabel>
             <h2>THE NORTH COAST IS ENTERING<br /><em>A NEW ERA.</em></h2>
-          </Reveal>
-          <Reveal className="editorial-body">
             <p>
               From seasonal destinations to a growing year-round investment, hospitality, and lifestyle economy. The North Coast and the city of New Alamein are experiencing a new phase of growth, driven by real estate expansion, increased hotel and residential capacity, and a surge in tourism activity.
             </p>
@@ -199,6 +211,15 @@ function AboutPage() {
 
         {/* Organizer */}
         <section className="organizer-section" aria-label="Organizer Profile">
+          <img
+            src={turquoiseSkyline}
+            alt=""
+            className="organizer-bg-img"
+            width={1920}
+            height={1024}
+            loading="lazy"
+            aria-hidden="true"
+          />
           <div className="page-width organizer-inner">
             <Reveal className="organizer-heading-block">
               <SectionLabel>Organized by</SectionLabel>
@@ -215,15 +236,6 @@ function AboutPage() {
                 </a>
               </div>
             </Reveal>
-            <img
-              src={turquoiseSkyline}
-              alt=""
-              className="organizer-bg-img"
-              width={1920}
-              height={1024}
-              loading="lazy"
-              aria-hidden="true"
-            />
           </div>
         </section>
 

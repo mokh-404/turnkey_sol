@@ -77,8 +77,8 @@ function ExhibitPage() {
           eyebrow="Exhibit at Turnkey Show"
           title={"POSITION YOUR BRAND AT THE HEART OF\nTHE NORTH COAST'S NEXT WAVE OF DEMAND."}
           description="Alamein Turnkey Show comes at a pivotal moment for the residential, hospitality, and tourism market in New Alamein and the North Coast. Exhibit where demand is being created — and purchasing decisions are being made."
-          image={oceanfrontTerrace}
-          imageAlt="Luxury coastal living looking toward New Alamein"
+          image={villaShowcase}
+          imageAlt="Luxury coastal villa showcase in New Alamein"
         />
 
         {/* Highlight Banner */}
