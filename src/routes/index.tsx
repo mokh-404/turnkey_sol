@@ -91,12 +91,7 @@ function Index() {
             <div className="hero-stack">
               <div className="hero-red-rule" aria-hidden="true" />
               <h1 className="hero-headline">
-                <span className="hero-line">
-                  <span className="hero-line-inner">Turnkey Show</span>
-                </span>
-                <span className="hero-line">
-                  <span className="hero-line-inner">Alamein</span>
-                </span>
+                Turnkey Show<br />Alamein
               </h1>
               <p className="hero-subhead">
                 The coast's complete property solutions platform.
@@ -105,13 +100,13 @@ function Index() {
                 <a href="/contact#visitor-registration" className="hero-btn hero-btn-primary">
                   Register to visit
                   <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
                 <a href="/contact#exhibitor-enquiry" className="hero-btn hero-btn-secondary">
                   Book your space
                   <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
               </div>
@@ -370,7 +365,7 @@ function Index() {
                 <a href="/contact#exhibitor-enquiry" className="hero-btn hero-btn-primary">
                   Book your space
                   <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
                 <a className="text-link light-link" href="/contact#visitor-registration">
