@@ -373,7 +373,7 @@ function Index() {
               Book your space
               <ArrowUpRight className="hero-btn-icon" width="16" height="16" />
             </a>
-            <a href="/visit/visitor-registration" className="hero-btn hero-btn-secondary" style={{ color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.85)" }}>
+            <a href="/visit/visitor-registration" className="hero-btn hero-btn-secondary">
               REGISTER AS VISITOR
               <ArrowRight className="hero-btn-icon" width="16" height="16" />
             </a>

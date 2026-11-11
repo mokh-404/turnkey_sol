@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { verifyBrochureToken } from "./forms-handler";
+import { verifyBrochureToken, DEFAULT_BROCHURE_SECRET } from "./forms-handler";
 
 export function handleBrochureDownload(request: Request, env: Record<string, string | undefined> = {}): Response {
   const url = new URL(request.url);
@@ -9,7 +9,7 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
   const expStr = url.searchParams.get("exp") || "0";
   const exp = parseInt(expStr, 10);
 
-  const secret = env["BROCHURE_TOKEN_SECRET"] || "turnkey-show-secret-token-key-2027";
+  const secret = env["BROCHURE_TOKEN_SECRET"] || DEFAULT_BROCHURE_SECRET;
 
   // Check token validity
   const isValid = verifyBrochureToken(email, exp, token, secret);
@@ -45,8 +45,12 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
   // Find brochure file
   const candidatePaths = [
     env["BROCHURE_FILE_PATH"],
-    path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027.pdf"),
+    path.resolve(process.cwd(), "public", "Brochure Turnkey Show 2027.pdf"),
     path.resolve(process.cwd(), "Brochure Turnkey Show 2027.pdf"),
+    path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027_compressed.pdf"),
+    path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027.pdf"),
+    "z:\\molla\\Turnkey_Developer_Handoff\\red-thread-visitor-guide\\public\\Brochure Turnkey Show 2027.pdf",
+    "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027_compressed.pdf",
     "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027.pdf",
   ].filter(Boolean) as string[];
 

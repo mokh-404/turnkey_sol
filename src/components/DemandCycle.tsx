@@ -12,13 +12,20 @@ const DEMAND_STEPS = [
 
 export function DemandCycle() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeStepIndex, setActiveStepIndex] = useState<number>(-1);
-  const [hasTriggered, setHasTriggered] = useState<boolean>(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [animState, setAnimState] = useState<"idle" | "running" | "done">("idle");
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
+  const reducedMotion = useRef(
+    typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false
+  );
 
   useEffect(() => {
-    // If user prefers reduced motion, activate all steps immediately
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setActiveStepIndex(DEMAND_STEPS.length - 1);
+    // With reduced motion or JS off: show finished state immediately
+    if (reducedMotion.current) {
+      setActiveIndex(DEMAND_STEPS.length - 1);
+      setAnimState("done");
       return;
     }
 
@@ -27,74 +34,86 @@ export function DemandCycle() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry?.isIntersecting || hasTriggered) return;
-        setHasTriggered(true);
+        if (!entry?.isIntersecting || animState !== "idle") return;
+        setAnimState("running");
         observer.disconnect();
 
-        // Staggered activation of the 7 steps
-        let current = 0;
-        setActiveStepIndex(0);
+        // Stagger: track draws first (CSS handles that), then nodes light up
+        let idx = 0;
+        setActiveIndex(0);
         const timer = setInterval(() => {
-          current += 1;
-          if (current < DEMAND_STEPS.length) {
-            setActiveStepIndex(current);
+          idx += 1;
+          if (idx < DEMAND_STEPS.length) {
+            setActiveIndex(idx);
           } else {
             clearInterval(timer);
+            setAnimState("done");
           }
-        }, 160);
+        }, 180);
       },
       { threshold: 0.15 }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [hasTriggered]);
+  }, [animState]);
+
+  const isLast = (idx: number) => idx === DEMAND_STEPS.length - 1;
+  const isActive = (idx: number) => idx <= activeIndex;
 
   return (
-    <div ref={containerRef} className="demand-cycle-container" aria-label="Seven Stages of Property Demand Cycle">
-      <div className="demand-cycle-stepper">
-        {DEMAND_STEPS.map((step, idx) => {
-          const isActive = idx <= activeStepIndex;
-          const isCurrent = idx === activeStepIndex;
-          const isArrowDrawn = idx < activeStepIndex;
-
-          return (
-            <div key={step} className="demand-cycle-item">
-              <div
-                className={`demand-step-card ${isActive ? "is-active" : ""} ${isCurrent ? "is-current" : ""}`}
-                data-step={idx + 1}
-              >
-                <div className="demand-step-header">
-                  <span className="demand-step-num">0{idx + 1}</span>
-                  <span className="demand-step-indicator" aria-hidden="true" />
-                </div>
-                <span className="demand-step-label">{step}</span>
-              </div>
-
-              {idx < DEMAND_STEPS.length - 1 && (
-                <div className="demand-arrow-slot" aria-hidden="true">
-                  <svg
-                    className={`demand-arrow-svg ${isArrowDrawn ? "is-drawn" : ""}`}
-                    viewBox="0 0 28 20"
-                    width="28"
-                    height="20"
-                  >
-                    <path
-                      d="M2 10 L22 10 M14 3 L22 10 L14 17"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                    />
-                  </svg>
-                </div>
-              )}
-            </div>
-          );
-        })}
+    <div ref={containerRef} className="dc-root">
+      {/* Track + progress line (decorative, hidden from SR) */}
+      <div className="dc-track-wrap" aria-hidden="true">
+        <div className="dc-track-bg" />
+        <div
+          ref={trackRef}
+          className={`dc-track-fill ${animState !== "idle" ? "dc-track-fill--active" : ""}`}
+        />
       </div>
+
+      {/* Steps as ordered list (semantic) */}
+      <ol className="dc-steps" aria-label="Seven stages of property demand cycle">
+        {DEMAND_STEPS.map((step, idx) => (
+          <li
+            key={step}
+            className={`dc-step ${isActive(idx) ? "dc-step--active" : ""} ${isLast(idx) ? "dc-step--last" : ""} ${animState === "done" && isLast(idx) ? "dc-step--pulse" : ""}`}
+          >
+            {/* Node (decorative) */}
+            <div className="dc-node" aria-hidden="true">
+              <svg
+                className="dc-chevron"
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+              >
+                {isLast(idx) ? (
+                  /* Loop-back arrow for last step */
+                  <path
+                    d="M2 6 C2 3 5 1 7 3 L10 6 M7 3 L10 6 L7 9"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                ) : (
+                  /* Chevron for other steps */
+                  <path
+                    d="M4 2.5L8.5 6L4 9.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                )}
+              </svg>
+            </div>
+            {/* Label */}
+            <span className="dc-label">{step}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
-

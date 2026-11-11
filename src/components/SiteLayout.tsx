@@ -364,6 +364,7 @@ export function SiteLayout({ children }: PropsWithChildren) {
 }
 
 function SiteFooter() {
+  const location = useLocation();
   return (
     <footer className="site-footer">
       <div className="page-width footer-main">
@@ -421,20 +422,28 @@ function SiteFooter() {
           <div className="footer-nav-list">
             {navigationMenu.map((item) => {
               const hasSub = Boolean(item.children && item.children.length > 0);
+              const isTopActive =
+                item.to === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(item.to.split("/")[1] ? `/${item.to.split("/")[1]}` : item.to);
+
               return (
                 <div key={item.label} className={`footer-nav-item ${hasSub ? "has-sub" : ""}`}>
-                  <Link to={item.to} className="footer-nav-main-link">
+                  <Link to={item.to} className={`footer-nav-main-link ${isTopActive ? "is-active" : ""}`}>
                     {item.label}
                     {hasSub && <ChevronDown className="w-3 h-3 ml-1.5 opacity-60 inline" />}
                   </Link>
 
                   {hasSub && (
                     <div className="footer-sub-flyout">
-                      {item.children?.map((sub) => (
-                        <Link key={sub.to} to={sub.to} className="footer-sub-link">
-                          {sub.label}
-                        </Link>
-                      ))}
+                      {item.children?.map((sub) => {
+                        const isSubActive = location.pathname === sub.to;
+                        return (
+                          <Link key={sub.to} to={sub.to} className={`footer-sub-link ${isSubActive ? "is-active" : ""}`}>
+                            {sub.label}
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

@@ -58,23 +58,30 @@ function escapeHtml(str?: string): string {
     .replace(/'/g, "&#039;");
 }
 
+export const DEFAULT_BROCHURE_SECRET = "turnkey-show-secret-token-key-2027";
+
 export function generateBrochureToken(
   email: string,
-  secret: string,
+  secret: string = DEFAULT_BROCHURE_SECRET,
   customExp?: number
 ): { token: string; exp: number } {
   // 14 days expiry (in milliseconds) unless customExp provided
   const exp = customExp ?? Date.now() + 14 * 24 * 60 * 60 * 1000;
-  const hmac = crypto.createHmac("sha256", secret || "turnkey-secret-token-key-2027");
+  const hmac = crypto.createHmac("sha256", secret || DEFAULT_BROCHURE_SECRET);
   hmac.update(`${email}:${exp}`);
   const token = hmac.digest("hex");
   return { token, exp };
 }
 
-export function verifyBrochureToken(email: string, exp: number, token: string, secret: string): boolean {
+export function verifyBrochureToken(
+  email: string,
+  exp: number,
+  token: string,
+  secret: string = DEFAULT_BROCHURE_SECRET
+): boolean {
   if (!email || !exp || !token) return false;
   if (Date.now() > exp) return false; // Expired
-  const hmac = crypto.createHmac("sha256", secret || "turnkey-secret-token-key-2027");
+  const hmac = crypto.createHmac("sha256", secret || DEFAULT_BROCHURE_SECRET);
   hmac.update(`${email}:${exp}`);
   const expected = hmac.digest("hex");
   const bufToken = Buffer.from(token);
@@ -114,17 +121,18 @@ export async function handleFormSubmission(
     return { success: false, message: "Please provide a valid email address." };
   }
 
-  // 3. Rate limiting
-  if (!checkRateLimit(clientIp, 10) || !checkRateLimit(email, 5)) {
+  // 3. Rate limiting (skip or soften in development / localhost)
+  const isLocalDev = clientIp === "127.0.0.1" || clientIp === "::1" || clientIp === "localhost";
+  if (!isLocalDev && (!checkRateLimit(clientIp, 15) || !checkRateLimit(email, 10))) {
     return {
       success: false,
       message: "Too many submissions. Please wait a little while before trying again.",
     };
   }
 
-  const siteUrl = env["SITE_URL"] || "http://localhost:8081";
+  const siteUrl = env["SITE_URL"] || "https://turnkeyshow.com";
   const formsToEmail = env["FORMS_TO_EMAIL"] || "mustafa.khafaga@gmail.com";
-  const brochureSecret = env["BROCHURE_TOKEN_SECRET"] || "turnkey-show-secret-token-key-2027";
+  const brochureSecret = env["BROCHURE_TOKEN_SECRET"] || DEFAULT_BROCHURE_SECRET;
 
   let classificationLabel = "";
   let subjectDetail = "";
@@ -235,11 +243,13 @@ export async function handleFormSubmission(
 
   // 5. Generate brochure link if brochure download
   let brochureDownloadUrl = "";
+  let fullBrochureEmailUrl = "";
   if (payload.form_key === "exhibitor_brochure") {
     const { token, exp } = generateBrochureToken(email, brochureSecret);
-    brochureDownloadUrl = `${siteUrl}/api/brochure?token=${token}&email=${encodeURIComponent(
+    brochureDownloadUrl = `/api/brochure?token=${token}&email=${encodeURIComponent(
       email
     )}&exp=${exp}`;
+    fullBrochureEmailUrl = `${siteUrl}${brochureDownloadUrl}`;
   }
 
   // 6. Build Team Notification Email
@@ -294,7 +304,7 @@ ${submittedFields.map((f) => `${f.label}: ${f.value}`).join("\n")}
     form_key: payload.form_key,
     firstName: displayName.split(" ")[0] || "Valued Guest",
     submittedFields,
-    brochureUrl: brochureDownloadUrl,
+    brochureUrl: fullBrochureEmailUrl || brochureDownloadUrl,
   });
 
   // 8. Dispatch Emails (or write to .mail-preview)

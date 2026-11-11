@@ -426,7 +426,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 84px;
+  height: 108px;
 }
 
 .header-brand-group {
@@ -442,7 +442,7 @@ img {
 }
 
 .brand-logo-img {
-  height: 60px;
+  height: 82px;
   width: auto;
   object-fit: contain;
   transition: transform 0.25s ease;
@@ -507,15 +507,20 @@ img {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #1a1a1a !important;
-  padding: 0.65rem 0.25rem;
-  transition: color 0.2s ease;
+  color: #3a3a3a !important;
+  padding: 0.65rem 0.5rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
+  border-radius: 2px;
 }
 
-.navigation-link:hover,
+.navigation-link:hover {
+  color: var(--tk-red) !important;
+}
+
 .navigation-link.is-active {
   color: var(--tk-red) !important;
+  background-color: rgba(233, 41, 36, 0.07);
 }
 
 .dropdown-chevron {
@@ -532,7 +537,7 @@ img {
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 2px);
   left: 0;
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
@@ -544,7 +549,7 @@ img {
   z-index: 150;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
+  transform: translateY(4px);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
 }
 
@@ -614,7 +619,7 @@ img {
 .mobile-drawer {
   display: none;
   position: fixed;
-  top: 120px;
+  top: 148px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -629,7 +634,7 @@ img {
 .mobile-drawer-inner {
   background-color: #ffffff;
   padding: 24px;
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 148px);
   overflow-y: auto;
   border-bottom: 2px solid var(--tk-red);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -1197,14 +1202,15 @@ img {
 }
 
 .hero-btn-secondary:hover {
-  background: #ffffff;
-  color: #0b0b0b;
-  border-color: #ffffff;
+  background: #ffffff !important;
+  color: #080808 !important;
+  border-color: #ffffff !important;
   transform: translateY(-3px) scale(1.01);
   box-shadow: 0 12px 30px -4px rgba(255, 255, 255, 0.4);
 }
 
 .hero-btn-secondary:hover .hero-btn-icon {
+  color: #080808 !important;
   transform: translateX(5px);
 }
 
@@ -2087,10 +2093,19 @@ img {
 .two-market-section {
   padding: clamp(5rem, 8vw, 7.5rem) 0;
   background: var(--tk-white);
+  color: var(--tk-black) !important;
 }
 
 .two-market-heading {
   margin-bottom: 3.5rem;
+}
+
+.two-market-heading h2 {
+  color: #111111 !important;
+}
+
+.two-market-heading .eyebrow {
+  color: var(--tk-red) !important;
 }
 
 .market-columns {
@@ -2101,10 +2116,23 @@ img {
 
 .market-column {
   background: #ffffff;
+  color: #1a1a1a !important;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   padding: 3rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.market-column p {
+  color: #333333 !important;
+}
+
+.market-column li {
+  color: #222222 !important;
+}
+
+.market-column .market-outcome {
+  color: #111111 !important;
 }
 
 .market-column-second {
@@ -2384,16 +2412,17 @@ img {
 }
 
 .stat-text h3 {
-  color: var(--tk-white);
+  color: #111111 !important;
   font-size: 1.55rem;
   margin-bottom: 0.5rem;
 }
 
 .stat-text p {
-  color: #cccccc;
+  color: #374151 !important;
   margin-bottom: 0;
   font-size: 1.1rem;
   line-height: 1.65;
+  font-weight: 500;
 }
 
 .exhibit-statement {
@@ -3491,11 +3520,13 @@ textarea::placeholder {
   padding: clamp(4.5rem, 7vw, 6.5rem) 0 2.5rem;
   margin-top: auto;
   border-top: 1px solid #e5e7eb;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr 1.5fr;
+  grid-template-columns: 1.3fr 1fr 1.1fr 1.3fr;
   gap: 2.5rem;
   padding-bottom: 3.5rem;
   border-bottom: 1px solid #e5e7eb;
@@ -3509,7 +3540,7 @@ textarea::placeholder {
 }
 
 .footer-logo-img {
-  height: 90px;
+  height: 120px;
   width: auto;
   object-fit: contain;
 }
@@ -3923,11 +3954,23 @@ textarea::placeholder {
 
   /* --- Header / Brand --- */
   .header-inner {
-    height: 80px;
+    height: 90px;
   }
 
   .brand-logo-img {
-    height: 58px;
+    height: 68px;
+  }
+
+  .desktop-navigation {
+    display: none !important;
+  }
+
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+
+  .header-cta-btn {
+    display: none;
   }
 
   /* --- Headings --- */
@@ -4187,17 +4230,15 @@ textarea::placeholder {
 
   /* --- Header --- */
   .header-inner {
-    height: 70px;
+    height: 72px;
   }
 
   .brand-logo-img {
-    height: 48px;
+    height: 52px;
   }
 
-  .site-header nav,
-  .main-navigation {
-    top: 70px;
-    padding: 1.75rem 1.25rem;
+  .header-event-meta {
+    display: none !important;
   }
 
   /* --- Typography --- */
@@ -5012,108 +5053,262 @@ textarea::placeholder {
   outline-offset: 3px !important;
 }
 
-/* 12.2.7 Demand Cycle Interactive Component */
-.demand-cycle-container {
-  margin: 3rem 0 2rem;
+/* 12.2.7 Demand Cycle — Redesigned Timeline */
+
+/* ── Layout wrapper ── */
+.dc-root {
+  position: relative;
+  margin: 2.5rem 0 1rem;
   width: 100%;
 }
 
-.demand-cycle-stepper {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem 0.5rem;
+/* ── Track (grey line + red fill) ── */
+.dc-track-wrap {
+  position: absolute;
+  top: 28px; /* aligns with node centre */
+  left: calc(100% / 14); /* half a column */
+  right: calc(100% / 14);
+  height: 2px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.demand-cycle-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+.dc-track-bg {
+  position: absolute;
+  inset: 0;
+  background: #e0e0e0;
+  border-radius: 2px;
 }
 
-.demand-step-card {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  padding: 12px 18px;
+.dc-track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: var(--tk-red);
+  border-radius: 2px;
+  transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dc-track-fill--active {
+  width: 100%;
+}
+
+/* ── Steps grid ── */
+.dc-steps {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Individual step ── */
+.dc-step {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-width: 140px;
-  border-radius: 0;
-  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-}
-
-.demand-step-header {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.demand-step-num {
-  font-family: var(--font-headline);
-  font-size: 0.75rem;
-  font-weight: 900;
-  color: #888888;
-  letter-spacing: 0.08em;
-  transition: color 0.3s ease;
-}
-
-.demand-step-indicator {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #d1d5db;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.demand-step-label {
-  font-family: var(--font-headline);
-  font-size: 0.825rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #333333;
-  line-height: 1.25;
-  transition: color 0.3s ease;
-}
-
-.demand-step-card.is-active {
-  border-color: var(--tk-red);
-  background: #ffffff;
-  box-shadow: 0 4px 16px rgba(233, 41, 36, 0.16);
-  transform: translateY(-2px);
-}
-
-.demand-step-card.is-active .demand-step-num {
-  color: var(--tk-red);
-}
-
-.demand-step-card.is-active .demand-step-indicator {
-  background-color: var(--tk-red);
-  transform: scale(1.3);
-}
-
-.demand-step-card.is-active .demand-step-label {
-  color: #111111;
-}
-
-.demand-arrow-slot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--tk-red);
+  gap: 12px;
   padding: 0 4px;
 }
 
-.demand-arrow-svg path {
-  stroke-dasharray: 40;
-  stroke-dashoffset: 40;
-  transition: stroke-dashoffset 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+/* ── Node ── */
+.dc-node {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #d0d0d0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c0c0c0;
+  transition:
+    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(0.8);
+  opacity: 0;
+  flex-shrink: 0;
 }
 
-.demand-arrow-svg.is-drawn path {
-  stroke-dashoffset: 0;
+/* ── Label ── */
+.dc-label {
+  font-family: var(--font-headline);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #aaaaaa;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 100px;
+  transition: color 0.35s ease, transform 0.35s ease, opacity 0.35s ease;
+  transform: translateY(10px);
+  opacity: 0;
+}
+
+/* ── Active state ── */
+.dc-step--active .dc-node {
+  border-color: var(--tk-red);
+  background: rgba(233, 41, 36, 0.06);
+  color: var(--tk-red);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.dc-step--active .dc-label {
+  color: #111111;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ── Last step (RECURRING DEMAND) — filled red ── */
+.dc-step--last.dc-step--active .dc-node {
+  background: var(--tk-red);
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(233, 41, 36, 0.4);
+}
+
+.dc-step--last.dc-step--active .dc-label {
+  color: var(--tk-red);
+  font-weight: 900;
+}
+
+/* ── Hover on active steps ── */
+.dc-step--active:hover .dc-node {
+  transform: scale(1.08);
+}
+
+.dc-step--active:hover .dc-label {
+  color: var(--tk-red);
+}
+
+/* ── Pulse on last node after animation completes ── */
+@keyframes dc-pulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(233, 41, 36, 0.4); }
+  50%       { box-shadow: 0 4px 32px rgba(233, 41, 36, 0.75), 0 0 0 8px rgba(233, 41, 36, 0.12); }
+}
+
+.dc-step--pulse .dc-node {
+  animation: dc-pulse 4s ease-in-out infinite;
+  animation-delay: 0.3s;
+}
+
+/* ── Tablet (700–1099px): 4+3 wrap ── */
+@media (max-width: 1099px) and (min-width: 700px) {
+  .dc-track-wrap {
+    display: none;
+  }
+
+  .dc-steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem 0;
+  }
+}
+
+/* ── Mobile (<700px): vertical timeline ── */
+@media (max-width: 699px) {
+  .dc-track-wrap {
+    display: none;
+  }
+
+  .dc-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 28px;
+    border-left: 2px solid var(--tk-red);
+    position: relative;
+  }
+
+  .dc-step {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0 0 24px 0;
+    position: relative;
+  }
+
+  .dc-node {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    margin-left: -50px; /* pull onto the left line */
+  }
+
+  .dc-label {
+    text-align: left;
+    max-width: 100%;
+    padding-top: 10px;
+  }
+}
+
+/* ── prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .dc-node {
+    transition: none !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+  }
+
+  .dc-label {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    color: #111111 !important;
+  }
+
+  .dc-step--active .dc-node {
+    border-color: var(--tk-red);
+    background: rgba(233, 41, 36, 0.06);
+    color: var(--tk-red);
+  }
+
+  .dc-step--last.dc-step--active .dc-node {
+    background: var(--tk-red);
+    color: #ffffff;
+  }
+
+  .dc-track-fill {
+    transition: none !important;
+    width: 100% !important;
+  }
+
+  .dc-step--pulse .dc-node {
+    animation: none !important;
+  }
+}
+
+/* ── Old demand cycle CSS kept inert ── */
+.demand-cycle-container { margin: 2rem 0; width: 100%; }
+.demand-cycle-stepper { display: none; }
+.demand-step-card { display: none; }
+.demand-arrow-slot { display: none; }
+.demand-arrow-svg { display: none; }
+
+/* demand-cycle-closing text */
+.demand-cycle-closing {
+  font-size: 1.125rem;
+  color: #333333;
+  line-height: 1.6;
+  max-width: 65ch;
+  margin-top: 2rem;
+}
+
+/* demand-cycle-lead */
+.demand-cycle-lead {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333333;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
 }
 
 /* 12.2.11 Diagonal Section Transitions */
@@ -5414,6 +5609,20 @@ textarea::placeholder {
   line-height: 1 !important;
 }
 
+.exhibit-stat-card .stat-text h3 {
+  color: #111111 !important;
+  font-size: 1.55rem !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 800 !important;
+}
+
+.exhibit-stat-card .stat-text p {
+  color: #374151 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+  font-weight: 500 !important;
+}
+
 /* 5. High-Contrast Editorial Buttons */
 .hero-btn-editorial {
   display: inline-flex;
@@ -5457,6 +5666,7 @@ textarea::placeholder {
 
 .footer-nav-item {
   position: relative;
+  width: fit-content;
 }
 
 .footer-nav-main-link {
@@ -5465,19 +5675,26 @@ textarea::placeholder {
   font-family: var(--font-headline);
   font-size: 0.95rem;
   font-weight: 700;
-  color: #cccccc !important;
+  color: #1f2937 !important;
   transition: color 0.2s ease;
+  padding: 2px 6px;
+  border-radius: 3px;
 }
 
 .footer-nav-main-link:hover {
   color: var(--tk-red) !important;
 }
 
+.footer-nav-main-link.is-active {
+  color: var(--tk-red) !important;
+  background-color: rgba(233, 41, 36, 0.08);
+}
+
 .footer-sub-flyout {
   position: absolute;
-  left: calc(100% + 14px);
+  left: calc(100% + 10px);
   top: -6px;
-  background: #141416;
+  background: #18181b;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-left: 3px solid var(--tk-red);
   padding: 10px 14px;
@@ -5489,9 +5706,18 @@ textarea::placeholder {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-6px);
-  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
   pointer-events: none;
+}
+
+.footer-sub-flyout::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: -14px;
+  width: 16px;
 }
 
 .footer-nav-item:hover .footer-sub-flyout,
@@ -5505,7 +5731,7 @@ textarea::placeholder {
 .footer-sub-link {
   font-size: 0.85rem !important;
   font-weight: 600 !important;
-  color: #e0e0e0 !important;
+  color: #e5e7eb !important;
   padding: 4px 6px;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -5514,6 +5740,12 @@ textarea::placeholder {
 .footer-sub-link:hover {
   color: var(--tk-red) !important;
   padding-left: 10px;
+}
+
+.footer-sub-link.is-active {
+  color: var(--tk-red) !important;
+  background-color: rgba(233, 41, 36, 0.15);
+  border-radius: 2px;
 }
 
 /* 7. Comprehensive Responsive Breakpoints (Tablet & Mobile Perfection) */
@@ -5619,16 +5851,150 @@ textarea::placeholder {
     grid-template-columns: 1fr !important;
   }
 
+  .header-top-strip {
+    display: none !important;
+  }
+
+  .site-header {
+    height: auto !important;
+  }
+
+  .header-main-bar {
+    height: 84px !important;
+  }
+
   .header-inner {
-    height: 72px !important;
+    height: 84px !important;
+    padding: 0 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .header-brand-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
   }
 
   .brand-logo-img {
-    height: 48px !important;
+    height: 56px !important;
+    width: auto !important;
   }
 
   .header-event-meta {
     display: none !important;
+  }
+
+  .desktop-navigation {
+    display: none !important;
+  }
+
+  .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .header-cta-btn {
+    display: inline-flex !important;
+    height: 38px !important;
+    padding: 0 14px !important;
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+  }
+
+  .mobile-menu-toggle {
+    display: flex !important;
+    padding: 6px !important;
+    color: #111111 !important;
+  }
+
+  .mobile-drawer {
+    top: 84px !important;
+  }
+
+  .mobile-drawer-inner {
+    max-height: calc(100vh - 84px) !important;
+  }
+
+  /* Centered Footer on Mobile & Tablet */
+  .footer-main {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 2.5rem !important;
+    justify-items: center !important;
+  }
+
+  .footer-brand-block,
+  .footer-column,
+  .footer-organizer-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .footer-social-icons {
+    justify-content: center !important;
+  }
+
+  .footer-nav-list {
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .footer-nav-item {
+    width: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .footer-sub-flyout {
+    position: static !important;
+    display: none !important;
+    margin-top: 6px !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #f3f4f6 !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    align-items: center !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .footer-sub-flyout .footer-sub-link {
+    color: #1f2937 !important;
+  }
+
+  .footer-nav-item:hover .footer-sub-flyout,
+  .footer-nav-item:focus-within .footer-sub-flyout {
+    display: flex !important;
+  }
+
+  .footer-link-flex {
+    justify-content: center !important;
+  }
+
+  .organizer-logo-card {
+    margin: 0 auto 0.5rem auto !important;
+  }
+
+  .organizer-contact-lines {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    text-align: center !important;
   }
 }
 

@@ -88,14 +88,16 @@ function VenuePage() {
       </section>
 
       {/* Feature Blocks [BROCHURE] */}
-      <section className="venue-features-section section-band page-width" id="venue-features">
-        <div className="venue-features-grid">
-          {featureBlocks.map((block) => (
-            <Reveal key={block.title} className="venue-feature-card">
-              <h3>{block.title}</h3>
-              <p>{block.desc}</p>
-            </Reveal>
-          ))}
+      <section className="venue-features-section section-band full-width-section" id="venue-features">
+        <div className="page-width">
+          <div className="venue-features-grid">
+            {featureBlocks.map((block) => (
+              <Reveal key={block.title} className="venue-feature-card">
+                <h3>{block.title}</h3>
+                <p>{block.desc}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </SiteLayout>

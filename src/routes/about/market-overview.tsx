@@ -132,14 +132,12 @@ function MarketOverviewPage() {
 
       {/* Block M-4 — The Demand Cycle [BROCHURE] (Section 12.2.7) */}
       <section className="demand-cycle-section page-width" id="demand-cycle">
-        <Reveal className="section-heading">
-          <div>
-            <p className="eyebrow">Transformation Cycle</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>THE <span className="headline-accent">DEMAND</span> CYCLE</h2>
-            <p className="section-subtitle">FROM REAL ESTATE GROWTH TO FURNISHING DEMAND</p>
-          </div>
-          <p>Every new property creates a new demand cycle.</p>
+        <Reveal>
+          <p className="eyebrow">TRANSFORMATION CYCLE</p>
+          <div className="section-red-bar" aria-hidden="true" />
+          <h2>THE <span className="headline-accent">DEMAND</span> CYCLE</h2>
+          <p className="section-subtitle">FROM REAL ESTATE GROWTH TO FURNISHING DEMAND</p>
+          <p className="demand-cycle-lead">Every new property creates a new demand cycle.</p>
         </Reveal>
 
         {/* Sequential 7-step light-up flow with drawn SVG arrows */}
