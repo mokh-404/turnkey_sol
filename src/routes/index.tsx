@@ -1,15 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  KeyRound,
-  Armchair,
-  Zap,
-  Wifi,
-  SlidersHorizontal,
-  TrendingUp,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 import heroImage from "@/assets/hero-coast.webp";
 import livingRoom from "@/assets/living-room.webp";
@@ -20,9 +10,10 @@ import kitchen from "@/assets/kitchen.webp";
 import villaShowcase from "@/assets/villa-showcase.webp";
 import oceanfrontTerrace from "@/assets/oceanfront-terrace.webp";
 import smartLiving from "@/assets/smart-living.webp";
-import turquoiseSkyline from "@/assets/turquoise-skyline.webp";
 import venueImage from "@/assets/venue.webp";
-import { Reveal, SectionLabel, SiteLayout } from "@/components/SiteLayout";
+import { AnimatedCounter, Reveal, SiteLayout } from "@/components/SiteLayout";
+import { MarqueeRibbon } from "@/components/MarqueeRibbon";
+import { EVENT_CONFIG } from "@/config/event";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -60,78 +51,135 @@ const stats = [
   { value: "46,189+", label: "Residential Units", sub: "New Alamein" },
 ];
 
-const eventDates = "TO BE CONFIRMED";
-
 function Index() {
   return (
     <SiteLayout>
-      <main>
-        {/* Redesigned Homepage Hero Section */}
-        <section className="hero-section" aria-label="Introduction">
-          <div className="hero-media">
-            <img
-              className="hero-bg-img"
-              src={heroImage}
-              alt="Aerial view of New Alamein turquoise Mediterranean coastline with modern residential and resort towers"
-              width={2400}
-              height={1350}
-              fetchPriority="high"
-            />
-            <div className="hero-gradient-directional" aria-hidden="true" />
-            <div className="hero-gradient-bottom" aria-hidden="true" />
-            <div className="hero-corner-chevron" aria-hidden="true">
-              <svg viewBox="0 0 100 120" fill="var(--tk-red)" width="100%" height="100%">
-                <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
-              </svg>
+      {/* Homepage Hero Section */}
+      <section className="hero-section" aria-label="Introduction">
+        <div className="hero-media">
+          <img
+            className="hero-bg-img hero-zoom"
+            src={villaShowcase}
+            alt="Turnkey Show 2027 Luxury Furnished Coastal Interior"
+            width={2400}
+            height={1350}
+            fetchPriority="high"
+          />
+          <div className="hero-diagonal-overlay" aria-hidden="true" />
+          <div className="hero-gradient-directional" aria-hidden="true" />
+          <div className="hero-gradient-bottom" aria-hidden="true" />
+          <div className="hero-corner-chevron" aria-hidden="true">
+            <svg viewBox="0 0 100 120" fill="var(--tk-red)" width="100%" height="100%">
+              <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+            </svg>
+          </div>
+        </div>
+
+        <div className="page-width hero-container">
+          <div className="hero-stack">
+            <div className="hero-red-rule" aria-hidden="true" />
+            <h1 className="hero-headline">
+              Turnkey Show<br />Alamein
+            </h1>
+            <div className="hero-red-bar" aria-hidden="true" />
+            <p className="hero-subhead">
+              The coast's complete property solutions platform.
+            </p>
+            <div className="hero-btn-row">
+              <a href="/visit/visitor-registration" className="hero-btn hero-btn-primary">
+                Register to visit
+                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <a href="/exhibit/book-your-space" className="hero-btn hero-btn-secondary">
+                Book your space
+                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
             </div>
           </div>
 
-          <div className="page-width hero-container">
-            {/* Left-aligned content stack */}
-            <div className="hero-stack">
-              <div className="hero-red-rule" aria-hidden="true" />
-              <h1 className="hero-headline">
-                Turnkey Show<br />Alamein
-              </h1>
-              <p className="hero-subhead">
-                The coast's complete property solutions platform.
-              </p>
-              <div className="hero-btn-row">
-                <a href="/contact#visitor-registration" className="hero-btn hero-btn-primary">
-                  Register to visit
-                  <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-                <a href="/contact#exhibitor-enquiry" className="hero-btn hero-btn-secondary">
-                  Book your space
-                  <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              </div>
+          {/* Anchored Info Strip */}
+          <div className="hero-info-strip liquid-glass-dark" role="region" aria-label="Event Key Information">
+            <div className="info-strip-col">
+              <span className="info-strip-label">Dates</span>
+              <span className="info-strip-value">{EVENT_CONFIG.dates}</span>
             </div>
-
-            {/* Anchored Info Strip (Subtle Dark Glass Bar) */}
-            <div className="hero-info-strip liquid-glass-dark" role="region" aria-label="Event Key Information">
-              <div className="info-strip-col">
-                <span className="info-strip-label">Dates</span>
-                <span className="info-strip-value">{eventDates}</span>
-              </div>
-              <div className="info-strip-col">
-                <span className="info-strip-label">Venue</span>
-                <span className="info-strip-value">New Alamein International Convention and Exhibition Center</span>
-              </div>
-              <div className="info-strip-col info-strip-focus">
-                <span className="info-strip-label">Focus</span>
-                <span className="info-strip-value">People · Spaces · Ideas · Opportunities</span>
-              </div>
+            <div className="info-strip-col">
+              <span className="info-strip-label">Venue</span>
+              <span className="info-strip-value">{EVENT_CONFIG.venue}</span>
+            </div>
+            <div className="info-strip-col info-strip-focus">
+              <span className="info-strip-label">Focus</span>
+              <span className="info-strip-value">People · Spaces · Ideas · Opportunities</span>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Market Overview Section */}
-        <section className="intro-section page-width" id="about">
+      {/* 1. First Section after hero: About the Expo (Block A-1, Decision D10) */}
+      <section className="expo-intro-section page-width" style={{ padding: "calc(var(--section-gap) + 10px) 0" }}>
+        <div className="expo-intro-grid">
+          <Reveal className="expo-intro-content">
+            <p className="eyebrow">About the Expo</p>
+            <div className="section-red-bar" aria-hidden="true" />
+            <h2 style={{ fontSize: "clamp(2rem, 3.6vw, 3rem)", lineHeight: 1.15, marginBottom: "1.25rem" }}>
+              TURNKEY SHOW…THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
+            </h2>
+            <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "#222222", marginBottom: "1rem" }}>
+              A premium show dedicated to furniture, fit-out, appliances, outdoor living and smart technology for coastal and hospitality properties.
+            </p>
+            <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "#333333", marginBottom: "1.5rem" }}>
+              Turnkey Show connects property owners, investors, developers and hospitality professionals with leading brands and solution providers, offering everything needed to transform delivered properties into ready-to-live, ready-to-rent and investment-ready destinations.
+            </p>
+
+            {/* Core Pillars Feature Badges */}
+            <div className="expo-pillar-chips">
+              <div className="pillar-chip">
+                <span className="pillar-dot" aria-hidden="true" />
+                <span>Furniture &amp; Interiors</span>
+              </div>
+              <div className="pillar-chip">
+                <span className="pillar-dot" aria-hidden="true" />
+                <span>Home Appliances</span>
+              </div>
+              <div className="pillar-chip">
+                <span className="pillar-dot" aria-hidden="true" />
+                <span>Smart Living &amp; IoT</span>
+              </div>
+              <div className="pillar-chip">
+                <span className="pillar-dot" aria-hidden="true" />
+                <span>Hospitality Fit-Out</span>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal className="expo-intro-media">
+            <div className="expo-media-frame">
+              <img
+                src={livingRoom}
+                alt="Turnkey Show contemporary coastal furnishing and design"
+                width={1600}
+                height={1024}
+                loading="lazy"
+              />
+              <div className="expo-media-badge liquid-glass-dark">
+                <span className="badge-title">From Handover to Value</span>
+                <span className="badge-subtitle">Alamein International Convention Center</span>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Marquee Ribbon: Seamless infinite sector loop (Section 12.2.8) */}
+      <MarqueeRibbon />
+
+      {/* 2. Second Section: Industry Section with 'Learn more' button -> /about/market-overview (Decision D10) */}
+      <section className="intro-section page-width" id="market-overview" style={{ paddingTop: "calc(var(--section-gap) + 10px)" }}>
+        <div className="intro-main-row">
           <Reveal className="intro-image-wrap">
             <img
               src={oceanfrontTerrace}
@@ -143,246 +191,195 @@ function Index() {
             <span className="image-index liquid-glass-dark">From Handover to Ready-to-Live</span>
           </Reveal>
           <Reveal className="intro-copy">
-            <p className="eyebrow">Market Insights</p>
+            <p className="eyebrow">Market Overview</p>
+            <div className="section-red-bar" aria-hidden="true" />
             <h2>
-              The North Coast is entering<br />
-              <em>a new era.</em>
+              THE NORTH COAST IS ENTERING A NEW <span className="headline-accent">ERA</span>
             </h2>
-            <p>
-              From seasonal destinations to a growing year-round investment, hospitality, and lifestyle economy.
-              The North Coast and the city of New Alamein are experiencing unprecedented real estate expansion, creating a surge in demand for properties ready for immediate occupancy, rental, and investment.
+            <p style={{ fontWeight: 600, color: "var(--tk-red)", marginBottom: "0.75rem", fontSize: "1.1rem" }}>
+              From seasonal destinations to a growing year-round investment, hospitality and lifestyle economy.
             </p>
-            <div className="home-stats">
-              {stats.map((stat) => (
-                <div className="home-stat" key={stat.value}>
-                  <strong>{stat.value}</strong>
-                  <span>
-                    {stat.label}<br />
-                    {stat.sub}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <a className="text-link" href="/about">
-              Discover the Show Concept <ArrowRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
-            </a>
-          </Reveal>
-        </section>
-
-        {/* Sectors Section */}
-        <section className="sectors-section section-band" id="sectors">
-          <div className="page-width">
-            <Reveal className="section-heading">
-              <div>
-                <p className="eyebrow">All Needs Under One Roof</p>
-                <h2>Explore the Sectors</h2>
-                <p>Complete fitting-out sectors required to transform a property into a fully furnished, finished space.</p>
-              </div>
-              <a className="text-link" href="/exhibit">
-                Exhibitor Opportunities <ArrowUpRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
+            <p style={{ fontSize: "1.125rem", lineHeight: 1.7, color: "#333333" }}>
+              The North Coast and the city of New Alamein are experiencing a new phase of growth, driven by real estate expansion, increased hotel and residential capacity, and a surge in tourism activity, alongside a growing trend to transform the region into a year-round destination.
+            </p>
+            <div style={{ marginTop: "1.75rem" }}>
+              <a className="hero-btn hero-btn-primary" href="/about/market-overview" style={{ display: "inline-flex" }}>
+                Learn more
+                <ArrowUpRight className="hero-btn-icon" width="16" height="16" />
               </a>
-            </Reveal>
-            <div className="sector-grid">
-              {sectors.map((sector, index) => (
-                <Reveal key={sector.title}>
-                  <a href="/exhibit" className={`sector-card sector-card-${index + 1}`} aria-label={`Explore ${sector.title} Exhibitor Opportunities`}>
-                    <img src={sector.image} alt={sector.title} width={1600} height={1024} loading="lazy" />
-                    <div className="sector-card-copy">
-                      <span>0{index + 1}</span>
-                      <h3>{sector.title}</h3>
-                      <p>{sector.detail}</p>
-                      <div className="sector-card-footer">
-                        <span className="sector-action-link">Explore Opportunities</span>
-                        <ArrowUpRight className="w-5 h-5 card-arrow" aria-hidden="true" />
-                      </div>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Full-width numbers banner spanning across the entire section width with counting animation */}
+        <Reveal className="home-stats-banner">
+          {stats.map((stat) => (
+            <div className="home-stat-box" key={stat.value}>
+              <strong className="stat-num">
+                <AnimatedCounter value={stat.value} />
+              </strong>
+              <span className="stat-label">{stat.label}</span>
+              <span className="stat-sub">{stat.sub}</span>
+            </div>
+          ))}
+        </Reveal>
+      </section>
+
+      {/* 3. Sectors Section: Grayscale default, color on hover, NO number labels (Section 4.3 & 4.4) */}
+      <section className="sectors-section section-band" id="sectors">
+        <div className="page-width">
+          <Reveal className="section-heading">
+            <div>
+              <p className="eyebrow">Core Sectors</p>
+              <div className="section-red-bar" aria-hidden="true" />
+              <h2>All Needs Under One <span className="headline-accent">Roof</span></h2>
+              <p>Complete fitting-out sectors required to transform a property into a fully furnished, finished space.</p>
+            </div>
+            <a className="text-link" href="/exhibit/why-exhibit">
+              Exhibitor Opportunities <ArrowUpRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
+            </a>
+          </Reveal>
+          <div className="sector-grid">
+            {sectors.map((sector) => (
+              <Reveal key={sector.title}>
+                <a href="/exhibit/why-exhibit" className="sector-card" aria-label={`Explore ${sector.title} Exhibitor Opportunities`}>
+                  <img src={sector.image} alt={sector.title} width={1600} height={1024} loading="lazy" />
+                  <div className="sector-card-copy">
+                    <h3>{sector.title}</h3>
+                    <p>{sector.detail}</p>
+                    <div className="sector-card-footer">
+                      <span className="sector-action-link">Explore Opportunities</span>
+                      <ArrowUpRight className="w-5 h-5 card-arrow" aria-hidden="true" />
                     </div>
-                  </a>
-                </Reveal>
-              ))}
-            </div>
+                  </div>
+                </a>
+              </Reveal>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Ecosystem / Opportunity Section */}
-        <section className="opportunity-section page-width">
-          <Reveal className="opportunity-copy">
-            <p className="eyebrow">The Demand Engine</p>
-            <h2>
-              From Property Delivery<br />
-              <em>to Property Value.</em>
-            </h2>
-            <p>
-              A property's journey doesn't end at handover. It needs to be furnished, equipped, connected, and continuously upgraded.
-              Turnkey Show connects the entire ecosystem — manufacturers, suppliers, developers, operators, and property buyers — under one roof.
-            </p>
-            <div className="sector-pill-list">
-              <span>Furniture</span>
-              <span>Appliances</span>
-              <span>Outdoor</span>
-              <span>Smart Home</span>
-              <span>Hospitality Fit-Out</span>
-              <span>Complete Solutions</span>
-            </div>
-            <a className="text-link" href="/about#market-overview">
-              Explore the Market Insights <ArrowRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
-            </a>
-          </Reveal>
-          <Reveal className="opportunity-visual">
-            <img
-              src={smartLiving}
-              alt="Smart coastal living space with modern furnishings"
-              width={1600}
-              height={1024}
-              loading="lazy"
-            />
-            <div className="opportunity-stamp liquid-glass-dark">
-              <span>ONE DESTINATION</span>
-              <span>EVERY SOLUTION</span>
-              <span className="stamp-sub">COMPLETE PURCHASE JOURNEY</span>
-            </div>
-          </Reveal>
-        </section>
-
-        {/* Brochure-Style Property Cycle Strip */}
-        <section className="page-width">
-          <Reveal className="property-cycle-strip">
-            <div className="cycle-step">
-              <div className="cycle-icon-circle">
-                <KeyRound className="w-7 h-7" aria-hidden="true" />
-              </div>
-              <span className="cycle-step-title">Handover</span>
-            </div>
-            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
-            <div className="cycle-step">
-              <div className="cycle-icon-circle">
-                <Armchair className="w-7 h-7" aria-hidden="true" />
-              </div>
-              <span className="cycle-step-title">Furnish</span>
-            </div>
-            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
-            <div className="cycle-step">
-              <div className="cycle-icon-circle">
-                <Zap className="w-7 h-7" aria-hidden="true" />
-              </div>
-              <span className="cycle-step-title">Equip</span>
-            </div>
-            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
-            <div className="cycle-step">
-              <div className="cycle-icon-circle">
-                <Wifi className="w-7 h-7" aria-hidden="true" />
-              </div>
-              <span className="cycle-step-title">Connect</span>
-            </div>
-            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
-            <div className="cycle-step">
-              <div className="cycle-icon-circle">
-                <SlidersHorizontal className="w-7 h-7" aria-hidden="true" />
-              </div>
-              <span className="cycle-step-title">Operate</span>
-            </div>
-            <ChevronRight className="cycle-arrow w-6 h-6" aria-hidden="true" />
-            <div className="cycle-step">
-              <div className="cycle-icon-circle">
-                <TrendingUp className="w-7 h-7" aria-hidden="true" />
-              </div>
-              <span className="cycle-step-title">Value</span>
-            </div>
-          </Reveal>
-        </section>
-
-        {/* Venue Section */}
-        <section className="venue-section" id="venue">
-          <div className="venue-image">
-            <img
-              src={venueImage}
-              alt="Al Alamein International Conference & Exhibition Center"
-              width={1600}
-              height={1024}
-              loading="lazy"
-            />
+      {/* 4. Ecosystem / Opportunity Section */}
+      <section className="opportunity-section page-width">
+        <Reveal className="opportunity-copy">
+          <p className="eyebrow">The Concept</p>
+          <div className="section-red-bar" aria-hidden="true" />
+          <h2>
+            From Property Delivery<br />
+            to Property <span className="headline-accent">Value.</span>
+          </h2>
+          <p>
+            A property's journey doesn't end at handover. It needs to be furnished, equipped, connected, and continuously upgraded.
+            Turnkey Show connects the entire ecosystem — manufacturers, suppliers, developers, operators, and property buyers — under one roof.
+          </p>
+          <div className="sector-pill-list">
+            <span>Furniture</span>
+            <span>Appliances</span>
+            <span>Outdoor</span>
+            <span>Smart Home</span>
+            <span>Hospitality Fit-Out</span>
+            <span>Complete Solutions</span>
           </div>
+        </Reveal>
+        <Reveal className="opportunity-visual">
+          <img
+            src={smartLiving}
+            alt="Smart coastal living space with modern furnishings"
+            width={1600}
+            height={1024}
+            loading="lazy"
+          />
+          <div className="opportunity-stamp liquid-glass-dark">
+            <span>ONE DESTINATION</span>
+            <span>EVERY SOLUTION</span>
+            <span className="stamp-sub">COMPLETE PURCHASE JOURNEY</span>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Venue Section */}
+      <section className="venue-section" id="venue">
+        <div className="venue-image">
+          <img
+            src={venueImage}
+            alt="New Alamein International Convention and Exhibition Center"
+            width={1600}
+            height={1024}
+            loading="lazy"
+          />
+        </div>
+        <div className="page-width venue-content-wrap">
           <Reveal className="venue-copy">
-            <p className="eyebrow">The Venue</p>
+            <p className="eyebrow">World-Class Destination</p>
+            <div className="section-red-bar" aria-hidden="true" />
             <h2>
-              Al Alamein International<br />
-              Conference &amp; Exhibition Center
+              New Alamein International<br />
+              <span className="headline-accent">Convention &amp; Exhibition Center</span>
             </h2>
             <p>
-              A purpose-built venue equipped to support high-level international trade fairs. Featuring modern exhibition halls, advanced audiovisual technology, fully equipped conference suites, and integrated visitor facilities.
+              A purpose-built international venue equipped with plenary conference halls, advanced audiovisual and interpretation systems, dedicated bilateral meeting suites, and integrated professional services on Egypt's Mediterranean coast.
             </p>
-            <div className="venue-badge-strip">
-              <span>Modern Halls</span>
-              <span>Advanced Tech</span>
-              <span>Integrated Services</span>
+            <div className="venue-specs">
+              <div className="venue-spec-item">
+                <span className="spec-val">Plenary</span>
+                <span className="spec-label">Halls &amp; Meeting Suites</span>
+              </div>
+              <div className="venue-spec-item">
+                <span className="spec-val">Modern</span>
+                <span className="spec-label">AV &amp; Interpretation</span>
+              </div>
+              <div className="venue-spec-item">
+                <span className="spec-val">Integrated</span>
+                <span className="spec-label">Technical Services</span>
+              </div>
             </div>
-            <a className="text-link light-link" href="/visit#venue">
-              Plan Your Visit <ArrowUpRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
-            </a>
           </Reveal>
-        </section>
+        </div>
+      </section>
 
-        {/* Organized by Section (Full Bleed Background Photo & Proper Margins) */}
-        <section className="organizer-section" aria-label="Organizer Profile">
-          <img
-            src={turquoiseSkyline}
-            alt=""
-            className="organizer-bg-img"
-            width={1920}
-            height={1024}
-            loading="lazy"
-            aria-hidden="true"
-          />
-          <div className="page-width organizer-inner">
-            <Reveal className="organizer-heading-block">
-              <SectionLabel>Organized by</SectionLabel>
-              <h2>BUILT ON A DEEP UNDERSTANDING OF MARKETS.</h2>
-            </Reveal>
-            <Reveal className="organizer-details">
-              <strong>APEX</strong>
-              <p>
-                Apex Conventions and Trade Fairs L.L.C is a trade-fair organizer with more than 15 years of experience in developing and delivering specialized exhibitions. Our work is built around a simple principle: a successful trade fair starts with understanding the market. We identify the industry, understand its business environment, define the right audience, and develop an exhibition platform that brings the relevant companies and professionals together.
-              </p>
-              <div className="organizer-link-wrap">
-                <a href="mailto:info@turnkeyshow.com" className="organizer-email-link">
-                  info@turnkeyshow.com
-                </a>
-              </div>
-            </Reveal>
-          </div>
-        </section>
+      {/* Architectural Separation between Venue & CTA Band */}
+      <div className="section-divider-band" aria-hidden="true">
+        <div className="page-width">
+          <div className="divider-line" />
+        </div>
+      </div>
 
-        {/* CTA Section */}
-        <section className="home-cta page-width">
-          <div className="home-cta-content">
-            <Reveal>
-              <p className="eyebrow">Move Forward</p>
-              <h2>
-                A Brighter Living<br />
-                Tomorrow Starts Here.
-              </h2>
-              <p>Position your brand at the heart of the North Coast's next wave of demand.</p>
-              <div className="cta-actions">
-                <a href="/contact#exhibitor-enquiry" className="hero-btn hero-btn-primary">
-                  Book your space
-                  <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-                <a className="text-link light-link" href="/contact#visitor-registration">
-                  Register to visit <ArrowUpRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
-                </a>
-              </div>
-            </Reveal>
-          </div>
+      {/* CTA Band */}
+      <section className="cta-band" aria-label="Call to Action">
+        <div className="cta-band-media">
           <img
-            src={turquoiseSkyline}
-            alt="Sunset over the turquoise Mediterranean coast at New Alamein"
-            width={1920}
-            height={1024}
+            src={heroImage}
+            alt="New Alamein Mediterranean coast"
+            width={2400}
+            height={900}
             loading="lazy"
           />
-        </section>
-      </main>
+          <div className="cta-band-shade" aria-hidden="true" />
+        </div>
+        <div className="page-width cta-band-content">
+          <div className="cta-band-text">
+            <p className="eyebrow" style={{ color: "var(--tk-red)", fontWeight: 800, letterSpacing: "0.12em", marginBottom: "0.75rem" }}>
+              READY TO JOIN TURNKEY SHOW?
+            </p>
+            <h2 style={{ color: "#ffffff", fontWeight: 900, marginBottom: "1rem" }}>
+              Connect with the coast's complete property <span className="headline-accent">ecosystem.</span>
+            </h2>
+            <p style={{ color: "#f3f4f6", fontSize: "1.25rem", lineHeight: 1.6, maxWidth: "680px", marginBottom: "1.5rem" }}>
+              Position your brand where 15,000+ delivered units enter the finishing, furnishing, and smart living cycle.
+            </p>
+          </div>
+          <div className="cta-band-actions">
+            <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
+              Book your space
+              <ArrowUpRight className="hero-btn-icon" width="16" height="16" />
+            </a>
+            <a href="/visit/visitor-registration" className="hero-btn hero-btn-secondary" style={{ color: "#ffffff", borderColor: "rgba(255, 255, 255, 0.85)" }}>
+              REGISTER AS VISITOR
+              <ArrowRight className="hero-btn-icon" width="16" height="16" />
+            </a>
+          </div>
+        </div>
+      </section>
     </SiteLayout>
   );
 }

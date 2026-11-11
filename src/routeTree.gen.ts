@@ -15,6 +15,20 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ExhibitRouteImport } from './routes/exhibit'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as VisitRouteImport } from './routes/visit'
+import { Route as AboutMarketOverviewRouteImport } from './routes/about/market-overview'
+import { Route as AboutOrganizerRouteImport } from './routes/about/organizer'
+import { Route as AboutTurnkeyShowRouteImport } from './routes/about/turnkey-show'
+import { Route as AboutVenueRouteImport } from './routes/about/venue'
+import { Route as ExhibitBookYourSpaceRouteImport } from './routes/exhibit/book-your-space'
+import { Route as ExhibitDownloadBrochureRouteImport } from './routes/exhibit/download-brochure'
+import { Route as ExhibitVisitorProfileRouteImport } from './routes/exhibit/visitor-profile'
+import { Route as ExhibitWhyExhibitRouteImport } from './routes/exhibit/why-exhibit'
+import { Route as ServicesFreightForwardingRouteImport } from './routes/services/freight-forwarding'
+import { Route as ServicesSpecialDecorationRouteImport } from './routes/services/special-decoration'
+import { Route as ServicesTravelRouteImport } from './routes/services/travel'
+import { Route as VisitExhibitorProfileRouteImport } from './routes/visit/exhibitor-profile'
+import { Route as VisitVisitorRegistrationRouteImport } from './routes/visit/visitor-registration'
+import { Route as VisitWhyVisitRouteImport } from './routes/visit/why-visit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,37 +60,192 @@ const VisitRoute = VisitRouteImport.update({
   path: '/visit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutMarketOverviewRoute = AboutMarketOverviewRouteImport.update({
+  id: '/market-overview',
+  path: '/market-overview',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutOrganizerRoute = AboutOrganizerRouteImport.update({
+  id: '/organizer',
+  path: '/organizer',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutTurnkeyShowRoute = AboutTurnkeyShowRouteImport.update({
+  id: '/turnkey-show',
+  path: '/turnkey-show',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutVenueRoute = AboutVenueRouteImport.update({
+  id: '/venue',
+  path: '/venue',
+  getParentRoute: () => AboutRoute,
+} as any)
+const ExhibitBookYourSpaceRoute = ExhibitBookYourSpaceRouteImport.update({
+  id: '/book-your-space',
+  path: '/book-your-space',
+  getParentRoute: () => ExhibitRoute,
+} as any)
+const ExhibitDownloadBrochureRoute = ExhibitDownloadBrochureRouteImport.update({
+  id: '/download-brochure',
+  path: '/download-brochure',
+  getParentRoute: () => ExhibitRoute,
+} as any)
+const ExhibitVisitorProfileRoute = ExhibitVisitorProfileRouteImport.update({
+  id: '/visitor-profile',
+  path: '/visitor-profile',
+  getParentRoute: () => ExhibitRoute,
+} as any)
+const ExhibitWhyExhibitRoute = ExhibitWhyExhibitRouteImport.update({
+  id: '/why-exhibit',
+  path: '/why-exhibit',
+  getParentRoute: () => ExhibitRoute,
+} as any)
+const ServicesFreightForwardingRoute =
+  ServicesFreightForwardingRouteImport.update({
+    id: '/freight-forwarding',
+    path: '/freight-forwarding',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesSpecialDecorationRoute =
+  ServicesSpecialDecorationRouteImport.update({
+    id: '/special-decoration',
+    path: '/special-decoration',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesTravelRoute = ServicesTravelRouteImport.update({
+  id: '/travel',
+  path: '/travel',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const VisitExhibitorProfileRoute = VisitExhibitorProfileRouteImport.update({
+  id: '/exhibitor-profile',
+  path: '/exhibitor-profile',
+  getParentRoute: () => VisitRoute,
+} as any)
+const VisitVisitorRegistrationRoute =
+  VisitVisitorRegistrationRouteImport.update({
+    id: '/visitor-registration',
+    path: '/visitor-registration',
+    getParentRoute: () => VisitRoute,
+  } as any)
+const VisitWhyVisitRoute = VisitWhyVisitRouteImport.update({
+  id: '/why-visit',
+  path: '/why-visit',
+  getParentRoute: () => VisitRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteWithChildren
   '/contact': typeof ContactRoute
-  '/exhibit': typeof ExhibitRoute
-  '/services': typeof ServicesRoute
-  '/visit': typeof VisitRoute
+  '/exhibit': typeof ExhibitRouteWithChildren
+  '/services': typeof ServicesRouteWithChildren
+  '/visit': typeof VisitRouteWithChildren
+  '/about/market-overview': typeof AboutMarketOverviewRoute
+  '/about/organizer': typeof AboutOrganizerRoute
+  '/about/turnkey-show': typeof AboutTurnkeyShowRoute
+  '/about/venue': typeof AboutVenueRoute
+  '/exhibit/book-your-space': typeof ExhibitBookYourSpaceRoute
+  '/exhibit/download-brochure': typeof ExhibitDownloadBrochureRoute
+  '/exhibit/visitor-profile': typeof ExhibitVisitorProfileRoute
+  '/exhibit/why-exhibit': typeof ExhibitWhyExhibitRoute
+  '/services/freight-forwarding': typeof ServicesFreightForwardingRoute
+  '/services/special-decoration': typeof ServicesSpecialDecorationRoute
+  '/services/travel': typeof ServicesTravelRoute
+  '/visit/exhibitor-profile': typeof VisitExhibitorProfileRoute
+  '/visit/visitor-registration': typeof VisitVisitorRegistrationRoute
+  '/visit/why-visit': typeof VisitWhyVisitRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteWithChildren
   '/contact': typeof ContactRoute
-  '/exhibit': typeof ExhibitRoute
-  '/services': typeof ServicesRoute
-  '/visit': typeof VisitRoute
+  '/exhibit': typeof ExhibitRouteWithChildren
+  '/services': typeof ServicesRouteWithChildren
+  '/visit': typeof VisitRouteWithChildren
+  '/about/market-overview': typeof AboutMarketOverviewRoute
+  '/about/organizer': typeof AboutOrganizerRoute
+  '/about/turnkey-show': typeof AboutTurnkeyShowRoute
+  '/about/venue': typeof AboutVenueRoute
+  '/exhibit/book-your-space': typeof ExhibitBookYourSpaceRoute
+  '/exhibit/download-brochure': typeof ExhibitDownloadBrochureRoute
+  '/exhibit/visitor-profile': typeof ExhibitVisitorProfileRoute
+  '/exhibit/why-exhibit': typeof ExhibitWhyExhibitRoute
+  '/services/freight-forwarding': typeof ServicesFreightForwardingRoute
+  '/services/special-decoration': typeof ServicesSpecialDecorationRoute
+  '/services/travel': typeof ServicesTravelRoute
+  '/visit/exhibitor-profile': typeof VisitExhibitorProfileRoute
+  '/visit/visitor-registration': typeof VisitVisitorRegistrationRoute
+  '/visit/why-visit': typeof VisitWhyVisitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteWithChildren
   '/contact': typeof ContactRoute
-  '/exhibit': typeof ExhibitRoute
-  '/services': typeof ServicesRoute
-  '/visit': typeof VisitRoute
+  '/exhibit': typeof ExhibitRouteWithChildren
+  '/services': typeof ServicesRouteWithChildren
+  '/visit': typeof VisitRouteWithChildren
+  '/about/market-overview': typeof AboutMarketOverviewRoute
+  '/about/organizer': typeof AboutOrganizerRoute
+  '/about/turnkey-show': typeof AboutTurnkeyShowRoute
+  '/about/venue': typeof AboutVenueRoute
+  '/exhibit/book-your-space': typeof ExhibitBookYourSpaceRoute
+  '/exhibit/download-brochure': typeof ExhibitDownloadBrochureRoute
+  '/exhibit/visitor-profile': typeof ExhibitVisitorProfileRoute
+  '/exhibit/why-exhibit': typeof ExhibitWhyExhibitRoute
+  '/services/freight-forwarding': typeof ServicesFreightForwardingRoute
+  '/services/special-decoration': typeof ServicesSpecialDecorationRoute
+  '/services/travel': typeof ServicesTravelRoute
+  '/visit/exhibitor-profile': typeof VisitExhibitorProfileRoute
+  '/visit/visitor-registration': typeof VisitVisitorRegistrationRoute
+  '/visit/why-visit': typeof VisitWhyVisitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/exhibit' | '/services' | '/visit'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/exhibit'
+    | '/services'
+    | '/visit'
+    | '/about/market-overview'
+    | '/about/organizer'
+    | '/about/turnkey-show'
+    | '/about/venue'
+    | '/exhibit/book-your-space'
+    | '/exhibit/download-brochure'
+    | '/exhibit/visitor-profile'
+    | '/exhibit/why-exhibit'
+    | '/services/freight-forwarding'
+    | '/services/special-decoration'
+    | '/services/travel'
+    | '/visit/exhibitor-profile'
+    | '/visit/visitor-registration'
+    | '/visit/why-visit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/exhibit' | '/services' | '/visit'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/exhibit'
+    | '/services'
+    | '/visit'
+    | '/about/market-overview'
+    | '/about/organizer'
+    | '/about/turnkey-show'
+    | '/about/venue'
+    | '/exhibit/book-your-space'
+    | '/exhibit/download-brochure'
+    | '/exhibit/visitor-profile'
+    | '/exhibit/why-exhibit'
+    | '/services/freight-forwarding'
+    | '/services/special-decoration'
+    | '/services/travel'
+    | '/visit/exhibitor-profile'
+    | '/visit/visitor-registration'
+    | '/visit/why-visit'
   id:
     | '__root__'
     | '/'
@@ -85,15 +254,29 @@ export interface FileRouteTypes {
     | '/exhibit'
     | '/services'
     | '/visit'
+    | '/about/market-overview'
+    | '/about/organizer'
+    | '/about/turnkey-show'
+    | '/about/venue'
+    | '/exhibit/book-your-space'
+    | '/exhibit/download-brochure'
+    | '/exhibit/visitor-profile'
+    | '/exhibit/why-exhibit'
+    | '/services/freight-forwarding'
+    | '/services/special-decoration'
+    | '/services/travel'
+    | '/visit/exhibitor-profile'
+    | '/visit/visitor-registration'
+    | '/visit/why-visit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  AboutRoute: typeof AboutRouteWithChildren
   ContactRoute: typeof ContactRoute
-  ExhibitRoute: typeof ExhibitRoute
-  ServicesRoute: typeof ServicesRoute
-  VisitRoute: typeof VisitRoute
+  ExhibitRoute: typeof ExhibitRouteWithChildren
+  ServicesRoute: typeof ServicesRouteWithChildren
+  VisitRoute: typeof VisitRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -140,16 +323,177 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about/market-overview': {
+      id: '/about/market-overview'
+      path: '/market-overview'
+      fullPath: '/about/market-overview'
+      preLoaderRoute: typeof AboutMarketOverviewRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/organizer': {
+      id: '/about/organizer'
+      path: '/organizer'
+      fullPath: '/about/organizer'
+      preLoaderRoute: typeof AboutOrganizerRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/turnkey-show': {
+      id: '/about/turnkey-show'
+      path: '/turnkey-show'
+      fullPath: '/about/turnkey-show'
+      preLoaderRoute: typeof AboutTurnkeyShowRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/venue': {
+      id: '/about/venue'
+      path: '/venue'
+      fullPath: '/about/venue'
+      preLoaderRoute: typeof AboutVenueRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/exhibit/book-your-space': {
+      id: '/exhibit/book-your-space'
+      path: '/book-your-space'
+      fullPath: '/exhibit/book-your-space'
+      preLoaderRoute: typeof ExhibitBookYourSpaceRouteImport
+      parentRoute: typeof ExhibitRoute
+    }
+    '/exhibit/download-brochure': {
+      id: '/exhibit/download-brochure'
+      path: '/download-brochure'
+      fullPath: '/exhibit/download-brochure'
+      preLoaderRoute: typeof ExhibitDownloadBrochureRouteImport
+      parentRoute: typeof ExhibitRoute
+    }
+    '/exhibit/visitor-profile': {
+      id: '/exhibit/visitor-profile'
+      path: '/visitor-profile'
+      fullPath: '/exhibit/visitor-profile'
+      preLoaderRoute: typeof ExhibitVisitorProfileRouteImport
+      parentRoute: typeof ExhibitRoute
+    }
+    '/exhibit/why-exhibit': {
+      id: '/exhibit/why-exhibit'
+      path: '/why-exhibit'
+      fullPath: '/exhibit/why-exhibit'
+      preLoaderRoute: typeof ExhibitWhyExhibitRouteImport
+      parentRoute: typeof ExhibitRoute
+    }
+    '/services/freight-forwarding': {
+      id: '/services/freight-forwarding'
+      path: '/freight-forwarding'
+      fullPath: '/services/freight-forwarding'
+      preLoaderRoute: typeof ServicesFreightForwardingRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/special-decoration': {
+      id: '/services/special-decoration'
+      path: '/special-decoration'
+      fullPath: '/services/special-decoration'
+      preLoaderRoute: typeof ServicesSpecialDecorationRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/travel': {
+      id: '/services/travel'
+      path: '/travel'
+      fullPath: '/services/travel'
+      preLoaderRoute: typeof ServicesTravelRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/visit/exhibitor-profile': {
+      id: '/visit/exhibitor-profile'
+      path: '/exhibitor-profile'
+      fullPath: '/visit/exhibitor-profile'
+      preLoaderRoute: typeof VisitExhibitorProfileRouteImport
+      parentRoute: typeof VisitRoute
+    }
+    '/visit/visitor-registration': {
+      id: '/visit/visitor-registration'
+      path: '/visitor-registration'
+      fullPath: '/visit/visitor-registration'
+      preLoaderRoute: typeof VisitVisitorRegistrationRouteImport
+      parentRoute: typeof VisitRoute
+    }
+    '/visit/why-visit': {
+      id: '/visit/why-visit'
+      path: '/why-visit'
+      fullPath: '/visit/why-visit'
+      preLoaderRoute: typeof VisitWhyVisitRouteImport
+      parentRoute: typeof VisitRoute
+    }
   }
 }
 
+interface AboutRouteChildren {
+  AboutMarketOverviewRoute: typeof AboutMarketOverviewRoute
+  AboutOrganizerRoute: typeof AboutOrganizerRoute
+  AboutTurnkeyShowRoute: typeof AboutTurnkeyShowRoute
+  AboutVenueRoute: typeof AboutVenueRoute
+}
+
+const AboutRouteChildren: AboutRouteChildren = {
+  AboutMarketOverviewRoute: AboutMarketOverviewRoute,
+  AboutOrganizerRoute: AboutOrganizerRoute,
+  AboutTurnkeyShowRoute: AboutTurnkeyShowRoute,
+  AboutVenueRoute: AboutVenueRoute,
+}
+
+const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
+
+interface ExhibitRouteChildren {
+  ExhibitBookYourSpaceRoute: typeof ExhibitBookYourSpaceRoute
+  ExhibitDownloadBrochureRoute: typeof ExhibitDownloadBrochureRoute
+  ExhibitVisitorProfileRoute: typeof ExhibitVisitorProfileRoute
+  ExhibitWhyExhibitRoute: typeof ExhibitWhyExhibitRoute
+}
+
+const ExhibitRouteChildren: ExhibitRouteChildren = {
+  ExhibitBookYourSpaceRoute: ExhibitBookYourSpaceRoute,
+  ExhibitDownloadBrochureRoute: ExhibitDownloadBrochureRoute,
+  ExhibitVisitorProfileRoute: ExhibitVisitorProfileRoute,
+  ExhibitWhyExhibitRoute: ExhibitWhyExhibitRoute,
+}
+
+const ExhibitRouteWithChildren =
+  ExhibitRoute._addFileChildren(ExhibitRouteChildren)
+
+interface ServicesRouteChildren {
+  ServicesFreightForwardingRoute: typeof ServicesFreightForwardingRoute
+  ServicesSpecialDecorationRoute: typeof ServicesSpecialDecorationRoute
+  ServicesTravelRoute: typeof ServicesTravelRoute
+}
+
+const ServicesRouteChildren: ServicesRouteChildren = {
+  ServicesFreightForwardingRoute: ServicesFreightForwardingRoute,
+  ServicesSpecialDecorationRoute: ServicesSpecialDecorationRoute,
+  ServicesTravelRoute: ServicesTravelRoute,
+}
+
+const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
+  ServicesRouteChildren,
+)
+
+interface VisitRouteChildren {
+  VisitExhibitorProfileRoute: typeof VisitExhibitorProfileRoute
+  VisitVisitorRegistrationRoute: typeof VisitVisitorRegistrationRoute
+  VisitWhyVisitRoute: typeof VisitWhyVisitRoute
+}
+
+const VisitRouteChildren: VisitRouteChildren = {
+  VisitExhibitorProfileRoute: VisitExhibitorProfileRoute,
+  VisitVisitorRegistrationRoute: VisitVisitorRegistrationRoute,
+  VisitWhyVisitRoute: VisitWhyVisitRoute,
+}
+
+const VisitRouteWithChildren = VisitRoute._addFileChildren(VisitRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  AboutRoute: AboutRouteWithChildren,
   ContactRoute: ContactRoute,
-  ExhibitRoute: ExhibitRoute,
-  ServicesRoute: ServicesRoute,
-  VisitRoute: VisitRoute,
+  ExhibitRoute: ExhibitRouteWithChildren,
+  ServicesRoute: ServicesRouteWithChildren,
+  VisitRoute: VisitRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

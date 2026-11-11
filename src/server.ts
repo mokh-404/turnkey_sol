@@ -2,6 +2,8 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { handleFormSubmission, type FormSubmissionPayload } from "./server/forms-handler";
+import { handleBrochureDownload } from "./server/brochure-handler";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -47,6 +49,32 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const envRecord = (env && typeof env === "object" ? env : process.env) as Record<string, string | undefined>;
+
+      // 1. Intercept Form Submissions API
+      if (url.pathname === "/api/forms" && request.method === "POST") {
+        try {
+          const payload = (await request.json()) as FormSubmissionPayload;
+          const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
+          const result = await handleFormSubmission(payload, clientIp, envRecord);
+          return new Response(JSON.stringify(result), {
+            status: result.success ? 200 : 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        } catch (err: any) {
+          return new Response(JSON.stringify({ success: false, message: err?.message || "Invalid submission" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          });
+        }
+      }
+
+      // 2. Intercept Brochure Download API
+      if (url.pathname === "/api/brochure" && request.method === "GET") {
+        return handleBrochureDownload(request, envRecord);
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

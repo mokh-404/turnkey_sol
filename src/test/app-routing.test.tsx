@@ -14,4 +14,30 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  const routesToTest = [
+    "/about/turnkey-show",
+    "/about/market-overview",
+    "/about/venue",
+    "/about/organizer",
+    "/exhibit/why-exhibit",
+    "/exhibit/visitor-profile",
+    "/exhibit/book-your-space",
+    "/exhibit/download-brochure",
+    "/visit/why-visit",
+    "/visit/exhibitor-profile",
+    "/visit/visitor-registration",
+    "/services/special-decoration",
+    "/services/freight-forwarding",
+    "/services/travel",
+    "/contact",
+  ];
+
+  for (const path of routesToTest) {
+    it(`matches a valid route for ${path}`, () => {
+      const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+      const matches = router.matchRoutes(path);
+      expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    });
+  }
 });
