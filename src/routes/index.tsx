@@ -12,6 +12,7 @@ import villaShowcase from "@/assets/villa-showcase.webp";
 import oceanfrontTerrace from "@/assets/oceanfront-terrace.webp";
 import smartLiving from "@/assets/smart-living.webp";
 import venueImage from "@/assets/venue.webp";
+import apexLogo from "@/assets/logos/apex-logo.png";
 import { AnimatedCounter, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { MarqueeRibbon } from "@/components/MarqueeRibbon";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
@@ -120,20 +121,6 @@ function Index() {
             <p className="hero-subhead">
               {EVENT_CONFIG.dates} · {EVENT_CONFIG.venue}
             </p>
-            <div className="hero-btn-row">
-              <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
-                Book Your Space
-                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a href="/exhibit/download-brochure" className="hero-btn hero-btn-secondary">
-                Download Brochure
-                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-            </div>
           </div>
 
           {/* Anchored Info Strip */}
@@ -175,6 +162,20 @@ function Index() {
             <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "#333333", marginBottom: "1.5rem" }}>
               Turnkey Show connects property owners, investors, developers and hospitality professionals with leading brands and solution providers, offering everything needed to transform delivered properties into ready-to-live, ready-to-rent and investment-ready destinations.
             </p>
+            <div className="hero-btn-row">
+              <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
+                Book Your Space
+                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <a href="/exhibit/download-brochure" className="hero-btn subpage-btn-ghost">
+                Download Brochure
+                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            </div>
           </Reveal>
 
           <Reveal className="expo-intro-media">
@@ -386,6 +387,34 @@ function Index() {
                 <span className="spec-label">Technical Services</span>
               </div>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Supported By Section */}
+      <section className="supported-by-section" id="supported-by" aria-label="Supported By">
+        <div className="supported-by-banner">
+          <img
+            src={lobbyOcean}
+            alt="Supported By background"
+            className="supported-by-bg-img"
+            width={1600}
+            height={400}
+            loading="lazy"
+          />
+          <div className="supported-by-overlay" aria-hidden="true" />
+          <h2 className="supported-by-title">SUPPORTED BY</h2>
+        </div>
+        <div className="supported-by-logos page-width">
+          <Reveal className="supported-by-logo-item">
+            <img
+              src={apexLogo}
+              alt="Apex Conventions and Trade Fairs"
+              className="supported-by-apex-logo"
+              width={260}
+              height={80}
+              loading="lazy"
+            />
           </Reveal>
         </div>
       </section>

@@ -62,11 +62,15 @@ function DownloadBrochurePage() {
       const json = await res.json();
       if (json.success) {
         setStatus("success");
-        if (json.brochureUrl) {
-          setBrochureUrl(json.brochureUrl);
-          // Auto-trigger download
-          window.location.href = json.brochureUrl;
-        }
+        const downloadUrl = json.brochureUrl || "/Brochure Turnkey Show 2027.pdf";
+        setBrochureUrl(downloadUrl);
+        // Auto-trigger download without leaving the page
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.download = "Brochure Turnkey Show 2027.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       } else {
         setStatus("error");
         setErrorMsg(json.error ?? "Something went wrong. Please try again.");

@@ -373,9 +373,9 @@ function SiteFooter() {
               <Phone className="w-4 h-4" aria-hidden="true" />
               <span>WhatsApp: +20 10 1777 5757</span>
             </a>
-            <a href="tel:+201041538430" className="footer-contact-item">
+            <a href="tel:+201041555455" className="footer-contact-item">
               <Phone className="w-4 h-4" aria-hidden="true" />
-              <span>+20 10 4153 8430</span>
+              <span>+20 1041555455</span>
             </a>
           </div>
           <div className="footer-social-icons">
@@ -424,15 +424,13 @@ function SiteFooter() {
           <a href={`mailto:${EVENT_CONFIG.email}`} className="footer-link-flex">
             <Mail className="w-4 h-4" aria-hidden="true" /> {EVENT_CONFIG.email}
           </a>
-          <Link to="/exhibit/book-your-space" className="footer-link-flex" style={{ color: "var(--tk-red)", fontWeight: 700, marginTop: "0.5rem" }}>
-            Book Your Space <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-          </Link>
           <Link to="/exhibit/download-brochure" className="footer-link-flex">
             Download Brochure <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
           </Link>
-          <Link to="/visit/visitor-registration" className="footer-link-flex">
-            Visitor Registration <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-          </Link>
+          <div className="footer-event-info" style={{ marginTop: "0.25rem", fontSize: "1rem", lineHeight: 1.55, color: "#374151" }}>
+            <div style={{ fontWeight: 700, color: "#111111" }}>06 – 09 May 2027</div>
+            <div>New Alamein International Convention and Exhibition Center</div>
+          </div>
         </div>
 
         {/* Organized By Block (from docx last table, Section 7) */}

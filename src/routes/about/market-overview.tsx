@@ -55,7 +55,6 @@ function MarketOverviewPage() {
       <section className="two-markets-section page-width" id="two-markets">
         <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
           <div>
-            <p className="eyebrow">Market Overview</p>
             <div className="section-red-bar" aria-hidden="true" />
             <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
             <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>

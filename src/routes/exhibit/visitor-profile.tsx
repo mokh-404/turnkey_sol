@@ -38,7 +38,7 @@ function VisitorProfilePage() {
         description="Alamein Turnkey Show brings together a high-value audience actively involved in property ownership, investment, development, furnishing, hospitality, and project execution across New Alamein and the North Coast."
         image={villaShowcase}
         imageAlt="Coastal property audience"
-        primaryBtn={{ label: "Book your space", href: "/exhibit/book-your-space" }}
+        primaryBtn={{ label: "Book your space", href: "/visit/visitor-registration" }}
         secondaryBtn={{ label: "Download brochure", href: "/exhibit/download-brochure" }}
       />
 

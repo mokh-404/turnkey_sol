@@ -25,7 +25,7 @@ export const EVENT_CONFIG = {
   organizer: {
     name: "Apex Conventions and Trade Fairs L.L.C",
     phone: "02 389 77 258",
-    mobile: "+20 10 1777 5757 – +20 10 4153 8430",
+    mobile: "+20 10 1777 5757 – +20 1041555455",
     whatsapp: "+20 10 1777 5757",
     email: "info@apextradefairs.com",
   },

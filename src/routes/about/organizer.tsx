@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import turquoiseSkyline from "@/assets/turquoise-skyline.webp";
+import apexLogo from "@/assets/logos/apex-logo.png";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG } from "@/config/event";
 
@@ -37,10 +38,10 @@ function OrganizerPage() {
         <Reveal className="organizer-page-inner">
           <div className="organizer-logo-wrap">
             <img
-              src="/logos/apex-logo.png"
+              src={apexLogo}
               alt="Apex Conventions and Trade Fairs"
               className="organizer-apex-logo"
-              width={300}
+              width={280}
               height={90}
               loading="eager"
             />

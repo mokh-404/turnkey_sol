@@ -8,7 +8,7 @@ import apexLogo from "@/assets/logos/apex-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { validateContactFields } from "@/lib/formAlerts";
+import { showSiteAlert, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG } from "@/config/event";
 
@@ -60,7 +60,9 @@ function ContactPage() {
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       setStatus("error");
-      setErrorMsg("Please correct the highlighted fields above.");
+      const firstErr = Object.values(errors)[0] || "Please correct the highlighted fields above.";
+      setErrorMsg(firstErr);
+      showSiteAlert(firstErr);
       return;
     }
 
@@ -105,16 +107,128 @@ function ContactPage() {
         description="Whether you're interested in exhibiting, visiting, or exploring sponsorship packages for Turnkey Show 2027, our dedicated event management team is ready to assist."
         image={coastImage}
         imageAlt="Turquoise coastline of New Alamein"
-        primaryBtn={{ label: "Send a message", href: "#contact-form" }}
-        secondaryBtn={{ label: "View organizer details", href: "#organizer-info" }}
       />
 
-      {/* General Inquiry Form with Visual Showcase */}
-      <section className="contact-form-section page-width" id="contact-form" style={{ paddingTop: "clamp(3rem, 5vw, 4.5rem)", paddingBottom: "clamp(3rem, 5vw, 4.5rem)" }}>
-        <Reveal className="contact-form-section-intro" style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 2.5rem" }}>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
-            <img src={turnkeyLogo} alt="Turnkey Show" style={{ height: "80px", width: "auto" }} />
+      {/* Enlarged Site Logo + Top Action Buttons Below Logo */}
+      <section className="page-width" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)", paddingBottom: "1rem", textAlign: "center" }}>
+        <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
+          <img
+            src={turnkeyLogo}
+            alt="Turnkey Show"
+            style={{ height: "150px", width: "auto", objectFit: "contain" }}
+          />
+          <div className="subpage-intro-btn-row" style={{ justifyContent: "center", marginTop: "0.25rem" }}>
+            <a href="#contact-form" className="hero-btn hero-btn-primary">
+              Send a message
+              <svg
+                className="hero-btn-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 3.5L10.5 8L6 12.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+            <a href="#organizer-info" className="hero-btn subpage-btn-ghost">
+              View organizer details
+              <svg
+                className="hero-btn-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M6 3.5L10.5 8L6 12.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
           </div>
+        </Reveal>
+      </section>
+
+      {/* Organizer Contact Info (Two Cards) — Placed Above the Form */}
+      <section className="contact-info-section page-width" id="organizer-info" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)", paddingBottom: "clamp(2rem, 4vw, 3rem)", borderTop: "none" }}>
+        <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 2.5rem" }}>
+          <p className="eyebrow" style={{ justifyContent: "center" }}>Official Organizer &amp; Venue</p>
+          <div className="section-red-bar" style={{ margin: "0.5rem auto 1rem" }} aria-hidden="true" />
+          <h2>KEY <span className="headline-accent">CONTACTS</span></h2>
+        </div>
+
+        <Reveal className="contact-info-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2rem", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
+          <div className="organized-by-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.5rem 2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+              <img src={apexLogo} alt="Apex Conventions & Trade Fairs" style={{ height: "48px", width: "auto" }} />
+            </div>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", color: "#111111" }}>
+              Apex Conventions &amp; Trade Fairs L.L.C
+            </h3>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
+              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
+                <Phone className="w-4 h-4 text-red-600" aria-hidden="true" />
+                <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s/g, "")}`} style={{ fontWeight: 600 }}>
+                  Phone: {EVENT_CONFIG.organizer.phone}
+                </a>
+              </li>
+              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
+                <Phone className="w-4 h-4 text-red-600" aria-hidden="true" />
+                <a href={`tel:${EVENT_CONFIG.organizer.mobile.replace(/[\s–]/g, "")}`} style={{ fontWeight: 600 }}>
+                  Mobile: {EVENT_CONFIG.organizer.mobile}
+                </a>
+              </li>
+              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
+                <Mail className="w-4 h-4 text-red-600" aria-hidden="true" />
+                <a href={`mailto:${EVENT_CONFIG.organizer.email}`} style={{ fontWeight: 600, color: "var(--tk-red)" }}>
+                  {EVENT_CONFIG.organizer.email}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="organized-by-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.5rem 2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(233,41,36,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--tk-red)" }}>
+                <MapPin className="w-6 h-6" />
+              </div>
+            </div>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", color: "#111111" }}>
+              Exhibition Venue
+            </h3>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
+              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem", textAlign: "center" }}>
+                <MapPin className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                <span style={{ fontWeight: 600 }}>{EVENT_CONFIG.venue}</span>
+              </li>
+              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#666666", fontSize: "0.925rem" }}>
+                New Alamein City, Matrouh Governorate, Egypt
+              </li>
+              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
+                <Mail className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                <a href={`mailto:${EVENT_CONFIG.email}`} style={{ fontWeight: 600, color: "var(--tk-red)" }}>
+                  {EVENT_CONFIG.email}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* General Inquiry Form */}
+      <section className="contact-form-section page-width" id="contact-form" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)", paddingBottom: "clamp(3rem, 5vw, 4.5rem)", borderTop: "1px solid #eaeaea" }}>
+        <Reveal className="contact-form-section-intro" style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 2.5rem" }}>
           <p className="eyebrow" style={{ justifyContent: "center" }}>Direct Inquiries</p>
           <div className="section-red-bar" style={{ margin: "0.5rem auto 1rem" }} aria-hidden="true" />
           <h2>CONTACT <span className="headline-accent">US</span></h2>
@@ -183,72 +297,6 @@ function ContactPage() {
             )}
           </Reveal>
         </div>
-      </section>
-
-      {/* Organizer Contact Info — Centered per user instruction */}
-      <section className="contact-info-section page-width" id="organizer-info" style={{ paddingBottom: "clamp(3rem, 5vw, 5rem)" }}>
-        <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 2.5rem" }}>
-          <p className="eyebrow" style={{ justifyContent: "center" }}>Official Organizer &amp; Venue</p>
-          <div className="section-red-bar" style={{ margin: "0.5rem auto 1rem" }} aria-hidden="true" />
-          <h2>KEY <span className="headline-accent">CONTACTS</span></h2>
-        </div>
-
-        <Reveal className="contact-info-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2rem", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
-          <div className="organized-by-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.5rem 2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-              <img src={apexLogo} alt="Apex Conventions & Trade Fairs" style={{ height: "48px", width: "auto" }} />
-            </div>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", color: "#111111" }}>
-              Apex Conventions &amp; Trade Fairs L.L.C
-            </h3>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Phone className="w-4 h-4 text-red-600" aria-hidden="true" />
-                <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s/g, "")}`} style={{ fontWeight: 600 }}>
-                  Phone: {EVENT_CONFIG.organizer.phone}
-                </a>
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Phone className="w-4 h-4 text-red-600" aria-hidden="true" />
-                <a href={`tel:${EVENT_CONFIG.organizer.mobile.replace(/[\s–]/g, "")}`} style={{ fontWeight: 600 }}>
-                  Mobile: {EVENT_CONFIG.organizer.mobile}
-                </a>
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Mail className="w-4 h-4 text-red-600" aria-hidden="true" />
-                <a href={`mailto:${EVENT_CONFIG.organizer.email}`} style={{ fontWeight: 600, color: "var(--tk-red)" }}>
-                  {EVENT_CONFIG.organizer.email}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="organized-by-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.5rem 2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-              <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(233,41,36,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--tk-red)" }}>
-                <MapPin className="w-6 h-6" />
-              </div>
-            </div>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", color: "#111111" }}>
-              Exhibition Venue
-            </h3>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem", textAlign: "center" }}>
-                <MapPin className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
-                <span style={{ fontWeight: 600 }}>{EVENT_CONFIG.venue}</span>
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#666666", fontSize: "0.925rem" }}>
-                New Alamein City, Matrouh Governorate, Egypt
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Mail className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
-                <a href={`mailto:${EVENT_CONFIG.email}`} style={{ fontWeight: 600, color: "var(--tk-red)" }}>
-                  {EVENT_CONFIG.email}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </Reveal>
       </section>
     </SiteLayout>
   );

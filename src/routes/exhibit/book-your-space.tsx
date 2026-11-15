@@ -5,7 +5,7 @@ import venueImage from "@/assets/venue.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { validateContactFields } from "@/lib/formAlerts";
+import { showSiteAlert, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
@@ -105,7 +105,9 @@ function BookYourSpacePage() {
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       setStatus("error");
-      setErrorMsg("Please correct the highlighted fields above.");
+      const firstErr = Object.values(errors)[0] || "Please correct the highlighted fields above.";
+      setErrorMsg(firstErr);
+      showSiteAlert(firstErr);
       return;
     }
 
@@ -396,7 +398,6 @@ function BookYourSpacePage() {
                 size="lg"
                 className="show-button"
                 disabled={status === "sending"}
-                style={{ minWidth: "260px", padding: "14px 28px", fontSize: "1rem" }}
               >
                 {status === "sending" ? "SUBMITTING APPLICATION…" : "SUBMIT EXHIBITOR APPLICATION"}{" "}
                 <span className="btn-arrow">&gt;</span>

@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import chalet from "@/assets/chalet.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { validateContactFields } from "@/lib/formAlerts";
+import { showSiteAlert, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
@@ -75,7 +75,9 @@ function VisitorRegistrationPage() {
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       setStatus("error");
-      setErrorMsg("Please correct the highlighted fields above.");
+      const firstErr = Object.values(errors)[0] || "Please correct the highlighted fields above.";
+      setErrorMsg(firstErr);
+      showSiteAlert(firstErr);
       return;
     }
 
