@@ -24,8 +24,9 @@ export const EVENT_CONFIG = {
   // Organizer details from docx (D8, D11)
   organizer: {
     name: "Apex Conventions and Trade Fairs L.L.C",
-    phone: "02 36 971 091",
-    mobile: "010 41 555 455 – 010 10 16 58 64",
+    phone: "02 389 77 258",
+    mobile: "+20 10 1777 5757 – +20 10 4153 8430",
+    whatsapp: "+20 10 1777 5757",
     email: "info@apextradefairs.com",
   },
 
@@ -43,4 +44,18 @@ export const EVENT_CONFIG = {
   // D7: Placeholder for pages with no content
   contentComingSoon: "Content coming soon.",
 } as const;
+
+/**
+ * Official 8 Core Exhibition Sectors
+ */
+export const SHOW_SECTORS = [
+  "Furniture & Interior Furnishings",
+  "Kitchens & Equipment",
+  "Home Appliances",
+  "Outdoor Living",
+  "Smart Unit Automation",
+  "Modern Lighting Technology",
+  "Hospitality Fit-Out Solutions",
+  "Complete Integrated Solutions",
+] as const;
 

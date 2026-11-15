@@ -11,7 +11,6 @@ import {
   Instagram,
   Linkedin,
   Facebook,
-  Twitter,
 } from "lucide-react";
 
 import turnkeyLogo from "@/assets/logos/turnkey-show-logo.png";
@@ -144,14 +143,6 @@ export function SiteLayout({ children }: PropsWithChildren) {
                 <span>{EVENT_CONFIG.email}</span>
               </a>
               <div className="top-strip-social">
-                <a
-                  href={EVENT_CONFIG.socialLinks.twitter || "#"}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-3.5 h-3.5" />
-                </a>
                 <a
                   href={EVENT_CONFIG.socialLinks.facebook || "#"}
                   target="_blank"
@@ -373,22 +364,21 @@ function SiteFooter() {
           <Link to="/" className="footer-brand-link" aria-label="Turnkey Show home">
             <img src={turnkeyLogo} alt="TURNKEY SHOW" className="footer-logo-img" />
           </Link>
-          <p className="footer-tagline">
-            The coast’s complete<br />property solutions platform.
-          </p>
-          <p className="footer-dates-venue">
-            <strong>{EVENT_CONFIG.dates}</strong><br />
-            {EVENT_CONFIG.venue}
-          </p>
-          <div className="footer-social-icons">
-            <a
-              href={EVENT_CONFIG.socialLinks.twitter || "#"}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Twitter"
-            >
-              <Twitter className="w-4 h-4" />
+          <div className="footer-contact-info">
+            <a href="mailto:info@turnkeyshow.com" className="footer-contact-item">
+              <Mail className="w-4 h-4" aria-hidden="true" />
+              <span>{EVENT_CONFIG.email}</span>
             </a>
+            <a href="https://wa.me/201017775757" className="footer-contact-item" target="_blank" rel="noreferrer">
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              <span>WhatsApp: +20 10 1777 5757</span>
+            </a>
+            <a href="tel:+201041538430" className="footer-contact-item">
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              <span>+20 10 4153 8430</span>
+            </a>
+          </div>
+          <div className="footer-social-icons">
             <a
               href={EVENT_CONFIG.socialLinks.facebook || "#"}
               target="_blank"
@@ -416,39 +406,15 @@ function SiteFooter() {
           </div>
         </div>
 
-        {/* Navigation Column: Old classic structure with hover flyout for submenus */}
-        <div className="footer-column footer-nav-column">
-          <span className="footer-label">Navigation</span>
-          <div className="footer-nav-list">
-            {navigationMenu.map((item) => {
-              const hasSub = Boolean(item.children && item.children.length > 0);
-              const isTopActive =
-                item.to === "/"
-                  ? location.pathname === "/"
-                  : location.pathname.startsWith(item.to.split("/")[1] ? `/${item.to.split("/")[1]}` : item.to);
-
-              return (
-                <div key={item.label} className={`footer-nav-item ${hasSub ? "has-sub" : ""}`}>
-                  <Link to={item.to} className={`footer-nav-main-link ${isTopActive ? "is-active" : ""}`}>
-                    {item.label}
-                    {hasSub && <ChevronDown className="w-3 h-3 ml-1.5 opacity-60 inline" />}
-                  </Link>
-
-                  {hasSub && (
-                    <div className="footer-sub-flyout">
-                      {item.children?.map((sub) => {
-                        const isSubActive = location.pathname === sub.to;
-                        return (
-                          <Link key={sub.to} to={sub.to} className={`footer-sub-link ${isSubActive ? "is-active" : ""}`}>
-                            {sub.label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+        {/* Quick Links Column */}
+        <div className="footer-column">
+          <span className="footer-label">Quick Links</span>
+          <div className="footer-nav-list" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <Link to="/contact" className="footer-nav-main-link">Contact Us</Link>
+            <Link to="/visit/visitor-registration" className="footer-nav-main-link">Register to Visit</Link>
+            <Link to="/exhibit/book-your-space" className="footer-nav-main-link">Book Your Space</Link>
+            <Link to="/exhibit/download-brochure" className="footer-nav-main-link">Download Brochure</Link>
+            <Link to="/about/venue" className="footer-nav-main-link">Venue</Link>
           </div>
         </div>
 
@@ -476,7 +442,7 @@ function SiteFooter() {
           <div className="organizer-logo-card">
             <img src={apexLogo} alt="Apex Conventions and Trade Fairs" className="apex-footer-logo" />
           </div>
-          <strong className="organizer-company-name">{EVENT_CONFIG.organizer.name}</strong>
+          <strong className="organizer-company-name" style={{ color: "var(--tk-red)", fontFamily: "var(--font-headline)", fontWeight: 900, fontSize: "0.95rem", letterSpacing: "0.02em" }}>{EVENT_CONFIG.organizer.name}</strong>
           <div className="organizer-contact-lines">
             <p className="organizer-contact-item">
               <span>Phone no.:</span> <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s+/g, "")}`}>{EVENT_CONFIG.organizer.phone}</a>
@@ -493,8 +459,7 @@ function SiteFooter() {
       </div>
 
       <div className="page-width footer-bottom">
-        <span>Turnkey Show · {EVENT_CONFIG.venue}</span>
-        <span>{EVENT_CONFIG.dates} · {EVENT_CONFIG.website}</span>
+        <span>© 2027 Turnkey Show Alamein. All rights reserved.</span>
       </div>
     </footer>
   );
@@ -532,8 +497,10 @@ export function Reveal({
 }
 
 /**
- * Sub-Page Hero Component
- * Note: Numbering has been removed per Decision D2 & Section 4.5.
+ * Sub-Page Hero Banner & Intro Component
+ * Renders:
+ * 1. A small full-width banner with centered page name (Lift City Expo style)
+ * 2. An intro section right after with the title, description, and action buttons
  */
 export function PageHero({
   eyebrow,
@@ -543,92 +510,106 @@ export function PageHero({
   imageAlt,
   primaryBtn,
   secondaryBtn,
+  pageName,
 }: {
-  eyebrow: string;
-  title: string;
-  description: string;
+  eyebrow?: string;
+  title?: string;
+  description?: string;
   image?: string;
   imageAlt?: string;
   primaryBtn?: { label: string; href: string };
   secondaryBtn?: { label: string; href: string };
+  pageName?: string;
 }) {
-  return (
-    <section className="hero-section page-sub-hero" aria-label={eyebrow}>
-      <div className="hero-media">
-        <img
-          className="hero-bg-img hero-zoom"
-          src={image || heroCoast}
-          alt={imageAlt || ""}
-          width={2400}
-          height={1350}
-          fetchPriority="high"
-        />
-        <div className="hero-diagonal-overlay" aria-hidden="true" />
-        <div className="hero-gradient-directional" aria-hidden="true" />
-        <div className="hero-gradient-bottom" aria-hidden="true" />
-        <div className="hero-corner-chevron" aria-hidden="true">
-          <svg viewBox="0 0 100 120" fill="var(--tk-red)" width="100%" height="100%">
-            <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
-          </svg>
-        </div>
-      </div>
+  const bannerTitle = (pageName || eyebrow || "").trim();
+  const hasIntroContent = Boolean(
+    (title && title.trim()) ||
+    (description && description.trim()) ||
+    primaryBtn ||
+    secondaryBtn
+  );
 
-      <div className="page-width hero-container">
-        <div className="hero-stack">
-          <div className="hero-red-rule" aria-hidden="true" />
-          {/* Eyebrow WITHOUT numbering (Section 4.5) */}
-          <p className="eyebrow hero-eyebrow">{eyebrow}</p>
-          <h1 className="hero-headline page-hero-title">{title}</h1>
-          <p className="hero-subhead page-hero-subhead">{description}</p>
-          {(primaryBtn || secondaryBtn) && (
-            <div className="hero-btn-row">
-              {primaryBtn && (
-                <a href={primaryBtn.href} className="hero-btn hero-btn-primary">
-                  {primaryBtn.label}
-                  <svg
-                    className="hero-btn-icon"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 3.5L10.5 8L6 12.5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </a>
-              )}
-              {secondaryBtn && (
-                <a href={secondaryBtn.href} className="hero-btn hero-btn-secondary">
-                  {secondaryBtn.label}
-                  <svg
-                    className="hero-btn-icon"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 3.5L10.5 8L6 12.5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </a>
-              )}
-            </div>
-          )}
+  return (
+    <>
+      {/* 1. Small Full-Width Banner with Centered Page Name */}
+      <section className="subpage-banner" aria-label={bannerTitle}>
+        <div className="subpage-banner-media">
+          <img
+            className="subpage-banner-img"
+            src={image || heroCoast}
+            alt={imageAlt || bannerTitle}
+            width={2400}
+            height={600}
+            fetchPriority="high"
+          />
+          <div className="subpage-banner-overlay" aria-hidden="true" />
         </div>
-      </div>
-    </section>
+        <div className="subpage-banner-content">
+          <h1 className="subpage-banner-heading">{bannerTitle}</h1>
+        </div>
+      </section>
+
+      {/* 2. New Section Right After with Previous Hero Content */}
+      {hasIntroContent && (
+        <section className="subpage-intro-section page-width">
+          <Reveal className="subpage-intro-wrap">
+            {title && title.trim() && (
+              <h2 className="subpage-intro-title">{title}</h2>
+            )}
+            <div className="subpage-intro-red-rule" aria-hidden="true" />
+            {description && description.trim() && (
+              <p className="subpage-intro-desc">{description}</p>
+            )}
+            {(primaryBtn || secondaryBtn) && (
+              <div className="subpage-intro-btn-row">
+                {primaryBtn && (
+                  <a href={primaryBtn.href} className="hero-btn hero-btn-primary">
+                    {primaryBtn.label}
+                    <svg
+                      className="hero-btn-icon"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 3.5L10.5 8L6 12.5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                )}
+                {secondaryBtn && (
+                  <a href={secondaryBtn.href} className="hero-btn subpage-btn-ghost">
+                    {secondaryBtn.label}
+                    <svg
+                      className="hero-btn-icon"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 3.5L10.5 8L6 12.5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            )}
+          </Reveal>
+        </section>
+      )}
+    </>
   );
 }
 

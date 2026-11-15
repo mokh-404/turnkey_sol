@@ -5,7 +5,7 @@ import chalet from "@/assets/chalet.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
-import { EVENT_CONFIG } from "@/config/event";
+import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
 export const Route = createFileRoute("/visit/visitor-registration")({
   component: VisitorRegistrationPage,
@@ -36,19 +36,13 @@ const VISITOR_CATEGORIES = [
   "Other",
 ];
 
-const SECTORS_LIST = [
-  "Furniture",
-  "Appliances",
-  "Outdoor",
-  "Smart Home",
-  "Hospitality Fit-Out",
-  "Complete Solutions",
-];
+const SECTORS_LIST = SHOW_SECTORS;
 
 function VisitorRegistrationPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
 
   function toggleSector(sector: string) {
     setSelectedSectors((prev) =>
@@ -58,16 +52,30 @@ function VisitorRegistrationPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
     setErrorMsg("");
     const form = e.currentTarget;
 
-    const categorySelect = form.elements.namedItem("category") as HTMLSelectElement;
-    if (!categorySelect.value) {
+    const errors: Record<string, string> = {};
+    const nameEl = form.elements.namedItem("name") as HTMLInputElement;
+    const emailEl = form.elements.namedItem("email") as HTMLInputElement;
+    const mobileEl = form.elements.namedItem("mobile") as HTMLInputElement;
+    const categoryEl = form.elements.namedItem("category") as HTMLSelectElement;
+
+    if (!nameEl.value.trim()) errors["name"] = "Full Name is required.";
+    if (!emailEl.value.trim()) errors["email"] = "Email Address is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) errors["email"] = "Please enter a valid email address.";
+    if (!mobileEl.value.trim()) errors["mobile"] = "Mobile number is required.";
+    if (!categoryEl.value) errors["category"] = "Please select a visitor category.";
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
       setStatus("error");
-      setErrorMsg("Please select a visitor category.");
+      setErrorMsg("Please correct the highlighted fields above.");
       return;
     }
+
+    setFieldErrors({});
+    setStatus("sending");
 
     const data = {
       form_key: "visitor_registration",
@@ -76,7 +84,7 @@ function VisitorRegistrationPage() {
       mobile: (form.elements.namedItem("mobile") as HTMLInputElement).value,
       company: (form.elements.namedItem("company") as HTMLInputElement).value,
       jobTitle: (form.elements.namedItem("jobTitle") as HTMLInputElement).value,
-      visitorCategory: categorySelect.value,
+      visitorCategory: categoryEl.value,
       sectors: selectedSectors,
       website_hp: (form.elements.namedItem("website") as HTMLInputElement).value, // honeypot
     };
@@ -113,10 +121,6 @@ function VisitorRegistrationPage() {
       />
 
       <section className="contact-form-section contact-visitor-section section-band page-width" id="registration-form">
-        <Reveal className="contact-form-section-intro">
-          <h2>REGISTER TO VISIT</h2>
-          <p>Sign up now to receive your free entry badge, access the digital exhibitor directory, and get event updates.</p>
-        </Reveal>
         <Reveal>
           {status === "success" ? (
             <div className="form-success-message">
@@ -139,18 +143,21 @@ function VisitorRegistrationPage() {
               <div className="form-group">
                 <div className="form-field">
                   <label htmlFor="visitor-name">Full Name *</label>
-                  <Input id="visitor-name" name="name" placeholder="Your full name" required />
+                  <Input id="visitor-name" name="name" placeholder="Your full name" required className={fieldErrors["name"] ? "field-invalid" : ""} />
+                  {fieldErrors["name"] && <p className="field-error">{fieldErrors["name"]}</p>}
                 </div>
                 <div className="form-field">
                   <label htmlFor="visitor-email">Email Address *</label>
-                  <Input id="visitor-email" name="email" type="email" placeholder="you@example.com" required />
+                  <Input id="visitor-email" name="email" type="email" placeholder="you@example.com" required className={fieldErrors["email"] ? "field-invalid" : ""} />
+                  {fieldErrors["email"] && <p className="field-error">{fieldErrors["email"]}</p>}
                 </div>
               </div>
 
               <div className="form-group">
                 <div className="form-field">
                   <label htmlFor="visitor-mobile">Mobile *</label>
-                  <Input id="visitor-mobile" name="mobile" type="tel" placeholder="+20 xxx xxx xxxx" required />
+                  <Input id="visitor-mobile" name="mobile" type="tel" placeholder="+20 xxx xxx xxxx" required className={fieldErrors["mobile"] ? "field-invalid" : ""} />
+                  {fieldErrors["mobile"] && <p className="field-error">{fieldErrors["mobile"]}</p>}
                 </div>
                 <div className="form-field">
                   <label htmlFor="visitor-category">Visitor Category *</label>
@@ -162,10 +169,13 @@ function VisitorRegistrationPage() {
                       height: "44px",
                       width: "100%",
                       borderRadius: "4px",
-                      border: "1px solid #e5e7eb",
+                      border: fieldErrors["category"] ? "1px solid var(--tk-red)" : "1px solid #e5e7eb",
                       padding: "0 12px",
                       background: "#ffffff",
                       fontSize: "0.95rem",
+                      color: "#111111",
+                      appearance: "auto" as const,
+                      cursor: "pointer",
                     }}
                   >
                     <option value="">Select your visitor category...</option>
@@ -175,6 +185,7 @@ function VisitorRegistrationPage() {
                       </option>
                     ))}
                   </select>
+                  {fieldErrors["category"] && <p className="field-error">{fieldErrors["category"]}</p>}
                 </div>
               </div>
 

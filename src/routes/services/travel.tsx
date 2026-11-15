@@ -27,6 +27,7 @@ function TravelPage() {
     <SiteLayout>
       <PageHero
         eyebrow="Travel"
+        pageName="Travel & Accommodation"
         title={"TRAVEL &\nACCOMMODATION"}
         description="Special hotel rates, shuttle transfers, and VIP travel arrangements for Turnkey Show 2027 — coming soon."
         image={lobbyImage}

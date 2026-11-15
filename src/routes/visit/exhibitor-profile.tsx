@@ -3,7 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import livingRoom from "@/assets/living-room.webp";
 import terraceSunset from "@/assets/terrace-sunset.webp";
 import smartLiving from "@/assets/smart-living.webp";
+import smartHome from "@/assets/smart-home.webp";
 import kitchen from "@/assets/kitchen.webp";
+import warmKitchen from "@/assets/warm-kitchen.webp";
 import villaShowcase from "@/assets/villa-showcase.webp";
 import lobbyOcean from "@/assets/lobby-ocean.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
@@ -31,6 +33,11 @@ const exhibitorSectors = [
     image: livingRoom,
   },
   {
+    title: "KITCHENS & EQUIPMENT",
+    desc: "Custom kitchen cabinetry, built-in appliances and fixtures.",
+    image: warmKitchen,
+  },
+  {
     title: "HOME APPLIANCES",
     desc: "Essential, built-in and lifestyle appliances for ready-to-operate units.",
     image: kitchen,
@@ -41,8 +48,13 @@ const exhibitorSectors = [
     image: terraceSunset,
   },
   {
-    title: "SMART HOME",
+    title: "SMART UNIT AUTOMATION",
     desc: "Technology for comfort, security, energy efficiency and connected living.",
+    image: smartHome,
+  },
+  {
+    title: "MODERN LIGHTING TECHNOLOGY",
+    desc: "Architectural lighting, ambient systems and illumination solutions.",
     image: smartLiving,
   },
   {
@@ -79,7 +91,7 @@ function ExhibitorProfilePage() {
                 <div className="profile-card-image">
                   <img src={sector.image} alt={sector.title} width={800} height={500} loading="lazy" />
                 </div>
-                <div className="profile-card-body">
+                <div className="profile-card-body" style={{ textAlign: "center" }}>
                   <h3>{sector.title}</h3>
                   <p>{sector.desc}</p>
                 </div>

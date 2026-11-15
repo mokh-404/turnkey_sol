@@ -106,45 +106,6 @@ function WhyExhibitPage() {
         </Reveal>
       </section>
 
-      {/* Show Sectors — grayscale → color */}
-      <section className="exhibit-sectors section-band" id="show-sectors">
-        <div className="page-width">
-          <Reveal className="section-heading">
-            <div>
-              <p className="eyebrow">Exhibition Profile</p>
-              <div className="section-red-bar" aria-hidden="true" />
-              <h2>THE SHOW CONNECTS THE ENTIRE <span className="headline-accent">UNIT-FITTING</span> SECTORS</h2>
-            </div>
-            <p>Direct exposure to private buyers, commercial developers, and hospitality specifiers.</p>
-          </Reveal>
-          <div className="sector-grid">
-            {sectors.map((sector, index) => (
-              <Reveal key={sector.name} className={`sector-card sector-card-${index + 1}`}>
-                <img src={sector.img} alt={sector.name} width={1600} height={1024} loading="lazy" />
-                <div className="sector-card-copy">
-                  <h3>{sector.name}</h3>
-                  <p>{sector.desc}</p>
-                  <span className="card-arrow">&gt;</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* Call-to-action buttons under Why Exhibit (Section 8) */}
-          <Reveal className="exhibit-bottom-actions" style={{ marginTop: "3rem", display: "flex", gap: "1.25rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
-              Book your space
-              <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <a href="/exhibit/download-brochure" className="hero-btn hero-btn-secondary" style={{ background: "#ffffff", color: "#111111", borderColor: "#111111" }}>
-              Download brochure
-              <span className="btn-arrow" style={{ marginLeft: "6px" }}>&gt;</span>
-            </a>
-          </Reveal>
-        </div>
-      </section>
     </SiteLayout>
   );
 }

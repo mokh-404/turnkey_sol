@@ -6,6 +6,7 @@ import villaShowcase from "@/assets/villa-showcase.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
+import { EVENT_CONFIG } from "@/config/event";
 
 export const Route = createFileRoute("/exhibit/download-brochure")({
   component: DownloadBrochurePage,
@@ -87,13 +88,13 @@ function DownloadBrochurePage() {
         <div className="page-width brochure-download-inner">
           {/* Two-column layout on desktop: Event details card on one side (Section 8) */}
           <Reveal className="brochure-copy">
-            <p className="eyebrow">Event Details &amp; Overview</p>
+            <p className="eyebrow">Brochure Contents</p>
             <div className="section-red-bar" aria-hidden="true" />
             <h2>
-              Download the Exhibitor <span className="headline-accent">Sales Brochure</span> &amp; Rate Card
+              What&rsquo;s Inside the <span className="headline-accent">Brochure</span>
             </h2>
             <p>
-              Get complete insight into floor plans, booth categories, sponsorship packages, audience demographics, and
+              Complete event overview, floor plans, booth categories, sponsorship packages, audience demographics, and
               early-booking benefits for Turnkey Show 2027.
             </p>
 

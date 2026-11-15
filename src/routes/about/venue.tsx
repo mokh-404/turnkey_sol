@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import venueImage from "@/assets/venue.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG } from "@/config/event";
+import { Building2, Monitor, Users, Shield } from "lucide-react";
 
 export const Route = createFileRoute("/about/venue")({
   component: VenuePage,
@@ -21,22 +22,10 @@ export const Route = createFileRoute("/about/venue")({
 });
 
 const featureBlocks = [
-  {
-    title: "MODERN FACILITIES",
-    desc: "Conference halls & fully equipped meeting rooms.",
-  },
-  {
-    title: "ADVANCED TECHNOLOGY",
-    desc: "Audiovisual & interpretation systems.",
-  },
-  {
-    title: "INTEGRATED SERVICES",
-    desc: "Registration, accreditation, information, business & media facilities.",
-  },
-  {
-    title: "PROFESSIONAL EXPERIENCE",
-    desc: "A secure, efficient and comfortable environment supported by professional staff and integrated technical services.",
-  },
+  { icon: Building2, title: "MODERN FACILITIES", desc: "Conference halls & fully equipped meeting rooms." },
+  { icon: Monitor, title: "ADVANCED TECHNOLOGY", desc: "Audiovisual & interpretation systems." },
+  { icon: Users, title: "INTEGRATED SERVICES", desc: "Registration, accreditation, information, business & media facilities." },
+  { icon: Shield, title: "PROFESSIONAL EXPERIENCE", desc: "A secure, efficient and comfortable environment supported by professional staff and integrated technical services." },
 ];
 
 function VenuePage() {
@@ -55,7 +44,8 @@ function VenuePage() {
       {/* Venue description */}
       <section className="page-width editorial-section-grid" id="venue-info">
         <Reveal className="editorial-copy">
-          <h2>New Alamein International Convention and Exhibition Center</h2>
+          <p className="eyebrow">Venue Overview</p>
+          <div className="section-red-bar" aria-hidden="true" />
           <p>
             The Show will be hosted at the New Alamein International Convention and Exhibition Center — a purpose-built
             venue equipped to support high-level international events. The facility offers modern conference halls,
@@ -93,6 +83,9 @@ function VenuePage() {
           <div className="venue-features-grid">
             {featureBlocks.map((block) => (
               <Reveal key={block.title} className="venue-feature-card">
+                <div className="venue-feature-icon">
+                  <block.icon className="w-8 h-8" aria-hidden="true" />
+                </div>
                 <h3>{block.title}</h3>
                 <p>{block.desc}</p>
               </Reveal>

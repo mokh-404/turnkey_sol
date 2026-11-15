@@ -26,11 +26,9 @@ function MarketOverviewPage() {
       <PageHero
         eyebrow="Market Overview"
         title={"THE NORTH COAST IS ENTERING\nA NEW ERA"}
-        description="From seasonal destinations to a growing year-round investment, hospitality and lifestyle economy."
+        description=""
         image={lobbyOcean}
         imageAlt="Hospitality and resort architectural design"
-        primaryBtn={{ label: "Exhibit at the Show", href: "/exhibit/why-exhibit" }}
-        secondaryBtn={{ label: "Download Brochure", href: "/exhibit/download-brochure" }}
       />
 
       {/* Block M-1 */}
@@ -57,11 +55,11 @@ function MarketOverviewPage() {
         <Reveal className="two-market-heading">
           <p className="eyebrow">Market Dynamics</p>
           <div className="section-red-bar" aria-hidden="true" />
-          <h2>TWO MARKETS ONE <span className="headline-accent">OPPORTUNITY</span></h2>
+          <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
         </Reveal>
         <div className="market-columns">
           <Reveal className="market-column">
-            <span className="column-index">01 — NEW SUPPLY</span>
+            <span className="column-index">NEW SUPPLY</span>
             <p>New handovers create immediate demand. Existing properties create recurring demand.</p>
             <ul>
               <li>Furniture</li>
@@ -77,7 +75,7 @@ function MarketOverviewPage() {
             </p>
           </Reveal>
           <Reveal className="market-column market-column-second">
-            <span className="column-index">02 — EXISTING SUPPLY</span>
+            <span className="column-index">EXISTING SUPPLY</span>
             <p>EXISTING UNITS CREATE RECURRING DEMAND</p>
             <ul>
               <li>Renovation</li>
@@ -100,7 +98,7 @@ function MarketOverviewPage() {
         <div className="page-width">
           <Reveal className="section-heading">
             <div>
-              <p className="eyebrow" style={{ color: "var(--tk-red)" }}>Key Indicators</p>
+              <p className="eyebrow">Key Indicators</p>
               <div className="section-red-bar" aria-hidden="true" />
               <h2 style={{ color: "#ffffff" }}>THE MARKET AT A <span className="headline-accent">GLANCE</span></h2>
               <p style={{ color: "#d1d5db" }}>Three indicators reflect the scale and momentum of the market.</p>

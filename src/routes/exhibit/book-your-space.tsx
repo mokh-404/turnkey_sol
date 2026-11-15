@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
-import { EVENT_CONFIG } from "@/config/event";
+import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
 export const Route = createFileRoute("/exhibit/book-your-space")({
   component: BookYourSpacePage,
@@ -46,39 +46,66 @@ const COUNTRIES = [
   "Other",
 ];
 
-const SECTORS_LIST = [
-  "Furniture & Interiors",
-  "Home Appliances",
-  "Outdoor Living",
-  "Smart Home Technology",
-  "Hospitality Fit-Out",
-  "Complete Property Solutions",
-];
+const SECTORS_LIST = SHOW_SECTORS;
 
 function BookYourSpacePage() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
   const [country, setCountry] = useState("Egypt");
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
 
   function toggleSector(sector: string) {
     setSelectedSectors((prev) =>
       prev.includes(sector) ? prev.filter((s) => s !== sector) : [...prev, sector]
     );
+    if (selectedSectors.length === 0) {
+      setFieldErrors((prev) => ({ ...prev, sectors: "" }));
+    }
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
     setErrorMsg("");
 
     const form = e.currentTarget;
 
+    // Validate required fields
+    const required: Array<{ name: string; label: string }> = [
+      { name: "companyName", label: "Company Name" },
+      { name: "companyWebsite", label: "Company Website" },
+      { name: "city", label: "City" },
+      { name: "phone", label: "Phone Number" },
+      { name: "email", label: "Email" },
+      { name: "contactName", label: "Contact Person Name" },
+      { name: "jobTitle", label: "Job Title" },
+    ];
+
+    const errors: Record<string, string> = {};
+    for (const field of required) {
+      const el = form.elements.namedItem(field.name) as HTMLInputElement | null;
+      if (!el || !el.value.trim()) {
+        errors[field.name] = `${field.label} is required.`;
+      }
+    }
+    // Email format
+    const emailEl = form.elements.namedItem("email") as HTMLInputElement | null;
+    if (emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      errors["email"] = "Please enter a valid email address.";
+    }
     if (selectedSectors.length === 0) {
+      errors["sectors"] = "Please select at least one sector.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
       setStatus("error");
-      setErrorMsg("Please select at least one sector under Exhibitor Profile.");
+      setErrorMsg("Please correct the highlighted fields above.");
       return;
     }
+
+    setFieldErrors({});
+    setStatus("sending");
 
     const data = {
       form_key: "exhibitor_booking",
@@ -172,13 +199,15 @@ function BookYourSpacePage() {
                     <label htmlFor="companyName" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       Company Name *
                     </label>
-                    <Input id="companyName" name="companyName" placeholder="Your registered company name" required />
+                    <Input id="companyName" name="companyName" placeholder="Your registered company name" required className={fieldErrors["companyName"] ? "field-invalid" : ""} />
+                    {fieldErrors["companyName"] && <p className="field-error">{fieldErrors["companyName"]}</p>}
                   </div>
                   <div className="form-field">
                     <label htmlFor="companyWebsite" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       Company Website *
                     </label>
-                    <Input id="companyWebsite" name="companyWebsite" placeholder="e.g. https://www.company.com" required />
+                    <Input id="companyWebsite" name="companyWebsite" placeholder="e.g. https://www.company.com" required className={fieldErrors["companyWebsite"] ? "field-invalid" : ""} />
+                    {fieldErrors["companyWebsite"] && <p className="field-error">{fieldErrors["companyWebsite"]}</p>}
                   </div>
                 </div>
 
@@ -214,7 +243,8 @@ function BookYourSpacePage() {
                     <label htmlFor="city" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       City *
                     </label>
-                    <Input id="city" name="city" placeholder="e.g. Cairo, Dubai, Riyadh" required />
+                    <Input id="city" name="city" placeholder="e.g. Cairo, Dubai, Riyadh" required className={fieldErrors["city"] ? "field-invalid" : ""} />
+                    {fieldErrors["city"] && <p className="field-error">{fieldErrors["city"]}</p>}
                   </div>
                 </div>
 
@@ -223,13 +253,15 @@ function BookYourSpacePage() {
                     <label htmlFor="phone" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       Phone Number *
                     </label>
-                    <Input id="phone" name="phone" type="tel" placeholder="+20 xxx xxx xxxx" required />
+                    <Input id="phone" name="phone" type="tel" placeholder="+20 xxx xxx xxxx" required className={fieldErrors["phone"] ? "field-invalid" : ""} />
+                    {fieldErrors["phone"] && <p className="field-error">{fieldErrors["phone"]}</p>}
                   </div>
                   <div className="form-field">
                     <label htmlFor="email" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       Email *
                     </label>
-                    <Input id="email" name="email" type="email" placeholder="you@company.com" required />
+                    <Input id="email" name="email" type="email" placeholder="you@company.com" required className={fieldErrors["email"] ? "field-invalid" : ""} />
+                    {fieldErrors["email"] && <p className="field-error">{fieldErrors["email"]}</p>}
                   </div>
                 </div>
 
@@ -238,13 +270,15 @@ function BookYourSpacePage() {
                     <label htmlFor="contactName" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       Contact Person Name *
                     </label>
-                    <Input id="contactName" name="contactName" placeholder="Full name of representative" required />
+                    <Input id="contactName" name="contactName" placeholder="Full name of representative" required className={fieldErrors["contactName"] ? "field-invalid" : ""} />
+                    {fieldErrors["contactName"] && <p className="field-error">{fieldErrors["contactName"]}</p>}
                   </div>
                   <div className="form-field">
                     <label htmlFor="jobTitle" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
                       Job Title *
                     </label>
-                    <Input id="jobTitle" name="jobTitle" placeholder="e.g. Managing Director, Sales Head" required />
+                    <Input id="jobTitle" name="jobTitle" placeholder="e.g. Managing Director, Sales Head" required className={fieldErrors["jobTitle"] ? "field-invalid" : ""} />
+                    {fieldErrors["jobTitle"] && <p className="field-error">{fieldErrors["jobTitle"]}</p>}
                   </div>
                 </div>
 
@@ -299,6 +333,7 @@ function BookYourSpacePage() {
                       </label>
                     ))}
                   </div>
+                  {fieldErrors["sectors"] && <p className="field-error" style={{ marginTop: "0.5rem" }}>{fieldErrors["sectors"]}</p>}
                 </div>
 
                 <div className="form-two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>

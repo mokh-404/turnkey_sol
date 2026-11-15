@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 import coastImage from "@/assets/turquoise-skyline.webp";
-import venueImage from "@/assets/venue.webp";
+import turnkeyLogo from "@/assets/logos/turnkey-show-logo.png";
 import apexLogo from "@/assets/logos/apex-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +24,6 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact us | Turnkey Show Alamein 2027" },
       { property: "og:description", content: "Direct contact with organizers Apex Conventions & Trade Fairs L.L.C." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 });
@@ -34,19 +33,43 @@ type FormStatus = "idle" | "sending" | "success" | "error";
 function ContactPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
     setErrorMsg("");
     const form = e.currentTarget;
+
+    const errors: Record<string, string> = {};
+    const nameEl = form.elements.namedItem("full_name") as HTMLInputElement;
+    const emailEl = form.elements.namedItem("email") as HTMLInputElement;
+    const subjectEl = form.elements.namedItem("subject") as HTMLInputElement;
+    const messageEl = form.elements.namedItem("message") as HTMLTextAreaElement;
+
+    if (!nameEl.value.trim()) errors["full_name"] = "Full Name is required.";
+    if (!emailEl.value.trim()) errors["email"] = "Email Address is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) errors["email"] = "Please enter a valid email address.";
+    if (!subjectEl.value.trim()) errors["subject"] = "Subject is required.";
+    if (!messageEl.value.trim()) errors["message"] = "Message is required.";
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setStatus("error");
+      setErrorMsg("Please correct the highlighted fields above.");
+      return;
+    }
+
+    setFieldErrors({});
+    setStatus("sending");
+    setErrorMsg("");
+
     const data = {
       form_key: "general_inquiry",
-      full_name: (form.elements.namedItem("full_name") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      full_name: nameEl.value,
+      email: emailEl.value,
       mobile: (form.elements.namedItem("mobile") as HTMLInputElement).value,
-      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      subject: subjectEl.value,
+      message: messageEl.value,
       website: (form.elements.namedItem("website") as HTMLInputElement).value, // honeypot
     };
     try {
@@ -72,6 +95,7 @@ function ContactPage() {
     <SiteLayout>
       <PageHero
         eyebrow="Get in Touch"
+        pageName="Contact Us"
         title={"LET'S START A\nCONVERSATION."}
         description="Whether you're interested in exhibiting, visiting, or exploring sponsorship packages for Turnkey Show 2027, our dedicated event management team is ready to assist."
         image={coastImage}
@@ -83,13 +107,16 @@ function ContactPage() {
       {/* General Inquiry Form with Visual Showcase */}
       <section className="contact-form-section page-width" id="contact-form" style={{ padding: "clamp(3rem, 5vw, 4.5rem) 0" }}>
         <Reveal className="contact-form-section-intro" style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 2.5rem" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
+            <img src={turnkeyLogo} alt="Turnkey Show" style={{ height: "80px", width: "auto" }} />
+          </div>
           <p className="eyebrow" style={{ justifyContent: "center" }}>Direct Inquiries</p>
           <div className="section-red-bar" style={{ margin: "0.5rem auto 1rem" }} aria-hidden="true" />
           <h2>CONTACT <span className="headline-accent">US</span></h2>
           <p style={{ fontSize: "1.15rem", color: "#444444" }}>Fill in the form below and our team will get back to you.</p>
         </Reveal>
 
-        <div className="contact-main-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "2.5rem", alignItems: "start" }}>
+        <div className="contact-main-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "2.5rem", alignItems: "start" }}>
           {/* Form Card */}
           <Reveal className="contact-form-card" style={{ background: "#ffffff", padding: "clamp(1.75rem, 3.5vw, 2.75rem)", border: "1px solid #e5e7eb", boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}>
             {status === "success" ? (
@@ -111,11 +138,13 @@ function ContactPage() {
                 <div className="form-group" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}>
                   <div className="form-field">
                     <label htmlFor="full_name" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}>Full Name *</label>
-                    <Input id="full_name" name="full_name" placeholder="Your full name" required />
+                    <Input id="full_name" name="full_name" placeholder="Your full name" required className={fieldErrors["full_name"] ? "field-invalid" : ""} />
+                    {fieldErrors["full_name"] && <p className="field-error">{fieldErrors["full_name"]}</p>}
                   </div>
                   <div className="form-field">
                     <label htmlFor="email" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}>Email Address *</label>
-                    <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                    <Input id="email" name="email" type="email" placeholder="you@example.com" required className={fieldErrors["email"] ? "field-invalid" : ""} />
+                    {fieldErrors["email"] && <p className="field-error">{fieldErrors["email"]}</p>}
                   </div>
                 </div>
                 <div className="form-group" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}>
@@ -127,12 +156,14 @@ function ContactPage() {
                   </div>
                   <div className="form-field">
                     <label htmlFor="subject" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}>Subject *</label>
-                    <Input id="subject" name="subject" placeholder="How can we help?" required />
+                    <Input id="subject" name="subject" placeholder="How can we help?" required className={fieldErrors["subject"] ? "field-invalid" : ""} />
+                    {fieldErrors["subject"] && <p className="field-error">{fieldErrors["subject"]}</p>}
                   </div>
                 </div>
                 <div className="form-field" style={{ marginBottom: "1.75rem" }}>
                   <label htmlFor="message" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}>Message *</label>
-                  <Textarea id="message" name="message" placeholder="Your message..." rows={5} required />
+                  <Textarea id="message" name="message" placeholder="Your message..." rows={5} required className={fieldErrors["message"] ? "field-invalid" : ""} />
+                  {fieldErrors["message"] && <p className="field-error">{fieldErrors["message"]}</p>}
                 </div>
                 {status === "error" && (
                   <p className="form-error-msg" role="alert" style={{ marginBottom: "1.25rem" }}>
@@ -145,37 +176,6 @@ function ContactPage() {
                 </Button>
               </form>
             )}
-          </Reveal>
-
-          {/* Visual Showcase Card */}
-          <Reveal className="contact-visual-card">
-            <div style={{ position: "relative", overflow: "hidden", border: "1px solid #e5e7eb", boxShadow: "0 8px 30px rgba(0,0,0,0.06)", background: "#111111" }}>
-              <img
-                src={venueImage}
-                alt="New Alamein International Convention and Exhibition Center"
-                width={1600}
-                height={1024}
-                style={{ width: "100%", height: "280px", objectFit: "cover" }}
-                loading="lazy"
-              />
-              <div style={{ padding: "1.75rem 2rem", background: "#ffffff" }}>
-                <span style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--tk-red)", fontWeight: 800 }}>Event Venue</span>
-                <h3 style={{ fontSize: "1.35rem", fontWeight: 800, margin: "0.4rem 0 0.85rem", color: "#111111" }}>
-                  New Alamein International Convention &amp; Exhibition Center
-                </h3>
-                <p style={{ fontSize: "0.95rem", color: "#555555", lineHeight: 1.6, marginBottom: "1.25rem" }}>
-                  Egypt's premier Mediterranean venue hosting plenary conference halls, advanced audiovisual systems, and turnkey exhibition facilities.
-                </p>
-                <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                  <a href={`mailto:${EVENT_CONFIG.email}`} className="hero-btn hero-btn-primary" style={{ height: "44px", padding: "0 20px", fontSize: "0.9rem" }}>
-                    <Mail className="w-4 h-4 mr-1.5" /> Email Team
-                  </a>
-                  <a href="/about/venue" className="hero-btn hero-btn-editorial" style={{ height: "44px", padding: "0 20px", fontSize: "0.9rem", border: "1.5px solid #111", background: "#fff", color: "#111", fontWeight: 700, display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
-                    Explore Venue &gt;
-                  </a>
-                </div>
-              </div>
-            </div>
           </Reveal>
         </div>
       </section>
