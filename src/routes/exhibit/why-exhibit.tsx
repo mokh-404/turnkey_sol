@@ -47,7 +47,7 @@ function WhyExhibitPage() {
       />
 
       {/* Highlight Key Stat */}
-      <section className="page-width exhibit-key-stat" style={{ padding: "2.5rem 0" }}>
+      <section className="page-width exhibit-key-stat" style={{ paddingTop: "2.5rem", paddingBottom: "2.5rem" }}>
         <Reveal className="exhibit-stat-card" style={{ minHeight: "180px", padding: "2.5rem 3rem", boxSizing: "border-box" }}>
           <div className="stat-number" style={{ minWidth: "260px", width: "260px", flexShrink: 0, fontVariantNumeric: "tabular-nums" }}>
             <AnimatedCounter value="15,000+" />

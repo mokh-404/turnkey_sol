@@ -5,6 +5,7 @@ import venueImage from "@/assets/venue.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
@@ -69,6 +70,10 @@ function BookYourSpacePage() {
     setErrorMsg("");
 
     const form = e.currentTarget;
+    if (!validateContactFields(form)) {
+      setStatus("idle");
+      return;
+    }
 
     // Validate required fields
     const required: Array<{ name: string; label: string }> = [
@@ -156,11 +161,11 @@ function BookYourSpacePage() {
         secondaryBtn={{ label: "Download brochure", href: "/exhibit/download-brochure" }}
       />
 
-      <section className="page-width booking-page-wrap" id="booking-form-wrap" style={{ padding: "clamp(2.5rem, 5vw, 4.5rem) 0" }}>
+      <section className="page-width booking-page-wrap" id="booking-form-wrap" style={{ paddingTop: "clamp(2.5rem, 5vw, 4.5rem)", paddingBottom: "clamp(2.5rem, 5vw, 4.5rem)" }}>
         <Reveal>
           <div className="booking-intro-banner" style={{ marginBottom: "2rem", borderBottom: "1px solid #e5e7eb", paddingBottom: "1.5rem" }}>
             <p style={{ fontSize: "1.2rem", fontWeight: 700, color: "#111111", marginBottom: "0.5rem" }}>
-              This form is dedicated to companies interested in exhibiting at Turnkey Show Alamein Egypt.
+              This form is not a contract.
             </p>
             <p style={{ fontSize: "0.95rem", color: "#666666" }}>
               &ldquo;*&rdquo; indicates required fields

@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import lobbyOcean from "@/assets/lobby-ocean.webp";
 import { AnimatedCounter, PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
-import { DemandCycle } from "@/components/DemandCycle";
 
 export const Route = createFileRoute("/about/market-overview")({
   component: MarketOverviewPage,
@@ -26,9 +25,11 @@ function MarketOverviewPage() {
       <PageHero
         eyebrow="Market Overview"
         title={"THE NORTH COAST IS ENTERING\nA NEW ERA"}
-        description=""
+        description="From seasonal destinations to a growing year-round investment, hospitality and lifestyle economy."
         image={lobbyOcean}
         imageAlt="Hospitality and resort architectural design"
+        primaryBtn={{ label: "Exhibit at the Show", href: "/exhibit/why-exhibit" }}
+        secondaryBtn={{ label: "Download Brochure", href: "/exhibit/download-brochure" }}
       />
 
       {/* Block M-1 */}
@@ -50,45 +51,39 @@ function MarketOverviewPage() {
         </Reveal>
       </section>
 
-      {/* Block M-2 — Two Markets One Opportunity */}
-      <section className="two-market-section page-width" id="two-markets">
-        <Reveal className="two-market-heading">
-          <p className="eyebrow">Market Dynamics</p>
-          <div className="section-red-bar" aria-hidden="true" />
-          <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
+      {/* Two Markets, One Opportunity — above Core Sectors */}
+      <section className="two-markets-section page-width" id="two-markets">
+        <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
+          <div>
+            <p className="eyebrow">Market Overview</p>
+            <div className="section-red-bar" aria-hidden="true" />
+            <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
+            <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>
+              Every new property creates a new demand cycle — from development to handover, furnishing, equipping, and ongoing upgrades.
+            </p>
+          </div>
         </Reveal>
-        <div className="market-columns">
-          <Reveal className="market-column">
-            <span className="column-index">NEW SUPPLY</span>
-            <p>New handovers create immediate demand. Existing properties create recurring demand.</p>
-            <ul>
-              <li>Furniture</li>
-              <li>Home Appliances</li>
-              <li>Lighting &amp; Accessories</li>
+        <div className="two-markets-grid">
+          <Reveal className="market-col market-col-new">
+            <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
+            <ul className="market-list">
+              <li>For sale</li>
+              <li>Hotel facilities</li>
+              <li>Utilities &amp; Accessories</li>
               <li>Outdoor Furniture</li>
-              <li>Smart Home Solutions</li>
+              <li>Smart Technology</li>
               <li>Complete Fit-Out</li>
             </ul>
-            <p className="market-outcome">
-              <strong>The opportunity:</strong> Converting the unit from a &ldquo;delivered property&rdquo; to a
-              &ldquo;ready-to-live&rdquo; or &ldquo;ready-to-rent&rdquo; property.
-            </p>
           </Reveal>
-          <Reveal className="market-column market-column-second">
-            <span className="column-index">EXISTING SUPPLY</span>
-            <p>EXISTING UNITS CREATE RECURRING DEMAND</p>
-            <ul>
-              <li>Renovation</li>
-              <li>Furniture Replacement</li>
-              <li>Interior Upgrades</li>
+          <Reveal className="market-col market-col-existing">
+            <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
+            <ul className="market-list">
+              <li>Re-creation</li>
+              <li>Furniture Renewal</li>
+              <li>Home furnishings</li>
               <li>Smart Technology</li>
-              <li>Outdoor Upgrades</li>
-              <li>Rental Optimization</li>
+              <li>Fit-Out Optimization</li>
             </ul>
-            <p className="market-outcome">
-              <strong>The opportunity:</strong> Enhancing the unit&rsquo;s appeal, improving the user experience, and
-              revitalizing its operational and investment value.
-            </p>
           </Reveal>
         </div>
       </section>
@@ -128,37 +123,6 @@ function MarketOverviewPage() {
         </div>
       </section>
 
-      {/* Block M-4 — The Demand Cycle [BROCHURE] (Section 12.2.7) */}
-      <section className="demand-cycle-section page-width" id="demand-cycle">
-        <Reveal>
-          <p className="eyebrow">TRANSFORMATION CYCLE</p>
-          <div className="section-red-bar" aria-hidden="true" />
-          <h2>THE <span className="headline-accent">DEMAND</span> CYCLE</h2>
-          <p className="section-subtitle">FROM REAL ESTATE GROWTH TO FURNISHING DEMAND</p>
-          <p className="demand-cycle-lead">Every new property creates a new demand cycle.</p>
-        </Reveal>
-
-        {/* Sequential 7-step light-up flow with drawn SVG arrows */}
-        <Reveal>
-          <DemandCycle />
-        </Reveal>
-
-        <Reveal>
-          <p className="demand-cycle-closing">
-            Each stage creates new demand — from initial fit-out and furnishing to upgrades, renovation and rental
-            optimization.
-          </p>
-        </Reveal>
-      </section>
-
-      {/* Block M-5 — Market Sources [BROCHURE] */}
-      <section className="market-sources-section page-width" id="market-sources">
-        <p className="market-sources-text">
-          <strong>MARKET SOURCES</strong> — Selected market indicators based on reported 2025–2026 industry and
-          government sources, including Ahram Online, State Information Service (SIS), and AmCham Egypt Real Estate
-          Industry Insight.
-        </p>
-      </section>
     </SiteLayout>
   );
 }

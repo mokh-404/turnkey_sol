@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import chalet from "@/assets/chalet.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
@@ -54,6 +55,10 @@ function VisitorRegistrationPage() {
     e.preventDefault();
     setErrorMsg("");
     const form = e.currentTarget;
+    if (!validateContactFields(form)) {
+      setStatus("idle");
+      return;
+    }
 
     const errors: Record<string, string> = {};
     const nameEl = form.elements.namedItem("name") as HTMLInputElement;
@@ -131,6 +136,7 @@ function VisitorRegistrationPage() {
             </div>
           ) : (
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
+              <p style={{ fontWeight: 700, marginBottom: "1rem" }}>This form is not a contract.</p>
               {/* Honeypot */}
               <input
                 type="text"

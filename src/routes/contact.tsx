@@ -8,6 +8,7 @@ import apexLogo from "@/assets/logos/apex-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG } from "@/config/event";
 
@@ -39,6 +40,10 @@ function ContactPage() {
     e.preventDefault();
     setErrorMsg("");
     const form = e.currentTarget;
+    if (!validateContactFields(form)) {
+      setStatus("idle");
+      return;
+    }
 
     const errors: Record<string, string> = {};
     const nameEl = form.elements.namedItem("full_name") as HTMLInputElement;
@@ -105,7 +110,7 @@ function ContactPage() {
       />
 
       {/* General Inquiry Form with Visual Showcase */}
-      <section className="contact-form-section page-width" id="contact-form" style={{ padding: "clamp(3rem, 5vw, 4.5rem) 0" }}>
+      <section className="contact-form-section page-width" id="contact-form" style={{ paddingTop: "clamp(3rem, 5vw, 4.5rem)", paddingBottom: "clamp(3rem, 5vw, 4.5rem)" }}>
         <Reveal className="contact-form-section-intro" style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 2.5rem" }}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
             <img src={turnkeyLogo} alt="Turnkey Show" style={{ height: "80px", width: "auto" }} />

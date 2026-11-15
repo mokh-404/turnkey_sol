@@ -118,17 +118,17 @@ function Index() {
             </h1>
             <div className="hero-red-bar" aria-hidden="true" />
             <p className="hero-subhead">
-              The coast's complete property solutions platform.
+              {EVENT_CONFIG.dates} · {EVENT_CONFIG.venue}
             </p>
             <div className="hero-btn-row">
-              <a href="/visit/visitor-registration" className="hero-btn hero-btn-primary">
-                Register to visit
+              <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
+                Book Your Space
                 <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <a href="/exhibit/book-your-space" className="hero-btn hero-btn-secondary">
-                Book your space
+              <a href="/exhibit/download-brochure" className="hero-btn hero-btn-secondary">
+                Download Brochure
                 <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -198,43 +198,6 @@ function Index() {
       {/* Marquee Ribbon: Seamless infinite sector loop (Section 12.2.8) */}
       <MarqueeRibbon />
 
-      {/* Two Markets, One Opportunity — above Core Sectors */}
-      <section className="two-markets-section page-width" id="two-markets">
-        <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
-          <div>
-            <p className="eyebrow">Market Overview</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
-            <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>
-              Every new property creates a new demand cycle — from development to handover, furnishing, equipping, and ongoing upgrades.
-            </p>
-          </div>
-        </Reveal>
-        <div className="two-markets-grid">
-          <Reveal className="market-col market-col-new">
-            <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
-            <ul className="market-list">
-              <li>For sale</li>
-              <li>Hotel facilities</li>
-              <li>Utilities &amp; Accessories</li>
-              <li>Outdoor Furniture</li>
-              <li>Smart Technology</li>
-              <li>Complete Fit-Out</li>
-            </ul>
-          </Reveal>
-          <Reveal className="market-col market-col-existing">
-            <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
-            <ul className="market-list">
-              <li>Re-creation</li>
-              <li>Furniture Renewal</li>
-              <li>Home furnishings</li>
-              <li>Smart Technology</li>
-              <li>Fit-Out Optimization</li>
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
       {/* 2. Second Section: Industry Section with 'Learn more' button -> /about/market-overview (Decision D10) */}
       <section className="intro-section page-width" id="market-overview" style={{ paddingTop: "calc(var(--section-gap) + 10px)" }}>
         <div className="intro-main-row">
@@ -268,6 +231,42 @@ function Index() {
             </div>
           </Reveal>
         </div>
+
+      {/* Two Markets, One Opportunity — above Core Sectors */}
+      <div className="two-markets-section" id="two-markets">
+        <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
+          <div>
+            <div className="section-red-bar" aria-hidden="true" />
+            <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
+            <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>
+              Every new property creates a new demand cycle — from development to handover, furnishing, equipping, and ongoing upgrades.
+            </p>
+          </div>
+        </Reveal>
+        <div className="two-markets-grid">
+          <Reveal className="market-col market-col-new">
+            <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
+            <ul className="market-list">
+              <li>For sale</li>
+              <li>Hotel facilities</li>
+              <li>Utilities &amp; Accessories</li>
+              <li>Outdoor Furniture</li>
+              <li>Smart Technology</li>
+              <li>Complete Fit-Out</li>
+            </ul>
+          </Reveal>
+          <Reveal className="market-col market-col-existing">
+            <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
+            <ul className="market-list">
+              <li>Re-creation</li>
+              <li>Furniture Renewal</li>
+              <li>Home furnishings</li>
+              <li>Smart Technology</li>
+              <li>Fit-Out Optimization</li>
+            </ul>
+          </Reveal>
+        </div>
+      </div>
 
         {/* Full-width numbers banner spanning across the entire section width with counting animation */}
         <Reveal className="home-stats-banner">
@@ -388,42 +387,6 @@ function Index() {
               </div>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* CTA Band */}
-      <section className="cta-band" aria-label="Call to Action">
-        <div className="cta-band-media">
-          <img
-            src={heroImage}
-            alt="New Alamein Mediterranean coast"
-            width={2400}
-            height={900}
-            loading="lazy"
-          />
-          <div className="cta-band-shade" aria-hidden="true" />
-        </div>
-        <div className="page-width cta-band-content">
-          <div className="cta-band-text">
-            <p className="eyebrow">READY TO JOIN TURNKEY SHOW?</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2 style={{ color: "#ffffff", fontWeight: 900, marginBottom: "1rem" }}>
-              Connect with the coast's complete property <span className="headline-accent">ecosystem.</span>
-            </h2>
-            <p style={{ color: "#f3f4f6", fontSize: "1.25rem", lineHeight: 1.6, maxWidth: "680px", marginBottom: "1.5rem" }}>
-              Position your brand where 15,000+ delivered units enter the finishing, furnishing, and smart living cycle.
-            </p>
-          </div>
-          <div className="cta-band-actions">
-            <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
-              Book your space
-              <ArrowUpRight className="hero-btn-icon" width="16" height="16" />
-            </a>
-            <a href="/visit/visitor-registration" className="hero-btn hero-btn-secondary">
-              REGISTER AS VISITOR
-              <ArrowRight className="hero-btn-icon" width="16" height="16" />
-            </a>
-          </div>
         </div>
       </section>
     </SiteLayout>

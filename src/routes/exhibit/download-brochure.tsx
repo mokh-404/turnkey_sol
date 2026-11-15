@@ -5,6 +5,7 @@ import { CheckCircle2, Download } from "lucide-react";
 import villaShowcase from "@/assets/villa-showcase.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG } from "@/config/event";
 
@@ -37,6 +38,10 @@ function DownloadBrochurePage() {
     setStatus("sending");
     setErrorMsg("");
     const form = e.currentTarget;
+    if (!validateContactFields(form, { checkRequired: true })) {
+      setStatus("idle");
+      return;
+    }
     const nameVal = (form.elements.namedItem("name") as HTMLInputElement).value;
     const data = {
       form_key: "exhibitor_brochure",

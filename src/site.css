@@ -314,7 +314,8 @@ div.eyebrow,
 .section-band {
   background-color: var(--tk-black-surface);
   color: var(--tk-white);
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   border-top: 1px solid var(--tk-gray-border);
   border-bottom: 1px solid var(--tk-gray-border);
 }
@@ -2011,7 +2012,8 @@ div.eyebrow,
    Editorial & About Page Components
    ========================================================================== */
 .editorial-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   display: grid;
   grid-template-columns: 42% 58%;
   gap: clamp(2rem, 5vw, 4.5rem);
@@ -2024,7 +2026,8 @@ div.eyebrow,
   grid-template-columns: 1fr 1fr;
   gap: clamp(2.5rem, 5vw, 4.5rem);
   align-items: stretch;
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   border-bottom: 1px solid #eaeaea;
   background: var(--tk-white);
 }
@@ -2133,7 +2136,8 @@ div.eyebrow,
 }
 
 .why-now-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .market-signals {
@@ -2200,7 +2204,8 @@ div.eyebrow,
 
 /* Two Market Columns */
 .two-market-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   background: var(--tk-white);
   color: var(--tk-black) !important;
 }
@@ -2326,7 +2331,8 @@ div.eyebrow,
   position: relative;
   background-color: var(--tk-black);
   color: var(--tk-white);
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   overflow: hidden;
   border-top: 1px solid var(--tk-gray-border);
 }
@@ -2400,7 +2406,8 @@ div.eyebrow,
 
 /* Rich Editorial "Discover How to Exhibit" Section */
 .about-next-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   background: var(--tk-white);
 }
 
@@ -2535,7 +2542,8 @@ div.eyebrow,
 }
 
 .exhibit-statement {
-  padding: 3rem 0 clamp(3.5rem, 6vw, 5.5rem);
+  padding-top: 3rem;
+  padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
   display: grid;
   grid-template-columns: 62% 38%;
   gap: clamp(2rem, 5vw, 4rem);
@@ -2608,7 +2616,8 @@ div.eyebrow,
 
 /* Visitor Profile Grid */
 .visitor-profile {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   background: var(--tk-white);
 }
 
@@ -2844,7 +2853,8 @@ div.eyebrow,
 }
 
 .visit-value {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   display: grid;
   grid-template-columns: 55% 45%;
   gap: clamp(2.5rem, 5vw, 5rem);
@@ -2919,7 +2929,8 @@ div.eyebrow,
 
 /* Exhibitor Profile Grid (Visit Page) */
 .exhibitor-profile-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .exhibitor-profile-grid {
@@ -3198,7 +3209,8 @@ div.eyebrow,
 
 /* Venue Detail Section (Visit Page) */
 .venue-detail {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   display: grid;
   grid-template-columns: 50% 50%;
   gap: clamp(2rem, 5vw, 4.5rem);
@@ -3249,7 +3261,8 @@ div.eyebrow,
 .visit-register-band {
   background: var(--tk-black);
   color: var(--tk-white);
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   text-align: center;
   border-top: 1px solid var(--tk-gray-border);
 }
@@ -3274,7 +3287,8 @@ div.eyebrow,
    Services Page Components
    ========================================================================== */
 .services-grid-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   background: var(--tk-white);
 }
 
@@ -3437,7 +3451,8 @@ div.eyebrow,
    Contact Page Components
    ========================================================================== */
 .contact-form-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   background: var(--tk-white);
 }
 
@@ -3559,7 +3574,8 @@ textarea::placeholder {
 
 /* Contact Info Section */
 .contact-info-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
   border-top: 1px solid #eaeaea;
   background: var(--tk-white);
 }
@@ -5715,7 +5731,8 @@ textarea.field-invalid {
 
 /* 4. Fixed Padding for Stat Counter Card (Prevents stretch & shrink jitter) */
 .exhibit-key-stat {
-  padding: 2.5rem 0 !important;
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem !important;
 }
 
 .exhibit-stat-card {
@@ -5920,7 +5937,8 @@ textarea.field-invalid {
 
 /* Two Markets, One Opportunity Section */
 .two-markets-section {
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .two-markets-grid {
@@ -6364,3 +6382,19 @@ textarea.field-invalid {
   }
 }
 
+
+/* Uniform button typography site-wide */
+.hero-btn,
+.hero-btn-primary,
+.hero-btn-secondary,
+.hero-btn-editorial,
+.subpage-btn-ghost,
+.show-button,
+.header-cta-btn {
+  font-family: var(--font-headline) !important;
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+}

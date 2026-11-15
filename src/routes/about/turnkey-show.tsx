@@ -47,7 +47,7 @@ function TurnkeyShowPage() {
       <PageHero
         eyebrow="About the Show"
         title={"TURNKEY SHOW…THE COAST'S COMPLETE PROPERTY SOLUTIONS PLATFORM"}
-        description=""
+        description="A premium show dedicated to furniture, fit-out, appliances, outdoor living and smart technology for coastal and hospitality properties."
         image={livingRoom}
         imageAlt="Luxury coastal interior living room"
         primaryBtn={{ label: "Explore Exhibiting", href: "/exhibit/why-exhibit" }}
