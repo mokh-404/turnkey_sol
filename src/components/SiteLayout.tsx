@@ -213,9 +213,8 @@ export function SiteLayout({ children }: PropsWithChildren) {
                   return (
                     <li
                       key={item.label}
-                      className={`nav-item ${hasDropdown ? "has-dropdown" : ""} ${
-                        openDropdown === item.label ? "dropdown-open" : ""
-                      }`}
+                      className={`nav-item ${hasDropdown ? "has-dropdown" : ""} ${openDropdown === item.label ? "dropdown-open" : ""
+                        }`}
                       onMouseEnter={() => hasDropdown && setOpenDropdown(item.label)}
                       onMouseLeave={() => hasDropdown && setOpenDropdown(null)}
                     >

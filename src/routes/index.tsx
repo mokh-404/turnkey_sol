@@ -233,41 +233,41 @@ function Index() {
           </Reveal>
         </div>
 
-      {/* Two Markets, One Opportunity — above Core Sectors */}
-      <div className="two-markets-section" id="two-markets">
-        <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
-          <div>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
-            <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>
-              Every new property creates a new demand cycle — from development to handover, furnishing, equipping, and ongoing upgrades.
-            </p>
+        {/* Two Markets, One Opportunity — above Core Sectors */}
+        <div className="two-markets-section" id="two-markets">
+          <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
+            <div>
+              <div className="section-red-bar" aria-hidden="true" />
+              <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
+              <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>
+                Every new property creates a new demand cycle — from development to handover, furnishing, equipping, and ongoing upgrades.
+              </p>
+            </div>
+          </Reveal>
+          <div className="two-markets-grid">
+            <Reveal className="market-col market-col-new">
+              <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
+              <ul className="market-list">
+                <li>For sale</li>
+                <li>Hotel facilities</li>
+                <li>Utilities &amp; Accessories</li>
+                <li>Outdoor Furniture</li>
+                <li>Smart Technology</li>
+                <li>Complete Fit-Out</li>
+              </ul>
+            </Reveal>
+            <Reveal className="market-col market-col-existing">
+              <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
+              <ul className="market-list">
+                <li>Re-creation</li>
+                <li>Furniture Renewal</li>
+                <li>Home furnishings</li>
+                <li>Smart Technology</li>
+                <li>Fit-Out Optimization</li>
+              </ul>
+            </Reveal>
           </div>
-        </Reveal>
-        <div className="two-markets-grid">
-          <Reveal className="market-col market-col-new">
-            <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
-            <ul className="market-list">
-              <li>For sale</li>
-              <li>Hotel facilities</li>
-              <li>Utilities &amp; Accessories</li>
-              <li>Outdoor Furniture</li>
-              <li>Smart Technology</li>
-              <li>Complete Fit-Out</li>
-            </ul>
-          </Reveal>
-          <Reveal className="market-col market-col-existing">
-            <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
-            <ul className="market-list">
-              <li>Re-creation</li>
-              <li>Furniture Renewal</li>
-              <li>Home furnishings</li>
-              <li>Smart Technology</li>
-              <li>Fit-Out Optimization</li>
-            </ul>
-          </Reveal>
         </div>
-      </div>
 
         {/* Full-width numbers banner spanning across the entire section width with counting animation */}
         <Reveal className="home-stats-banner">
