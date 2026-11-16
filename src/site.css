@@ -34,7 +34,8 @@
 
   /* Spacing & Motion Tokens (from Section 06 of Guideline) */
   --space-unit: 8px;
-  --section-gap: 24px; /* Tight section spacing */
+  --section-gap: 24px;
+  /* Tight section spacing */
   --motion-fast: 200ms;
   --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --container-max-width: 1320px;
@@ -55,7 +56,8 @@ body {
   padding: 0;
   overflow-x: clip;
   font-family: var(--font-body);
-  font-size: 20px; /* Increased base font size */
+  font-size: 20px;
+  /* Increased base font size */
   line-height: 1.65;
   color: #1a1a1a;
 }
@@ -100,7 +102,8 @@ h3 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
-  font-size: 1.2rem; /* Increased body font size */
+  font-size: 1.2rem;
+  /* Increased body font size */
   line-height: 1.68;
   color: #333333;
 }
@@ -3862,6 +3865,16 @@ textarea::placeholder {
    Responsive Breakpoints
    ========================================================================== */
 
+/* ---------- Small Desktop (≤1200px) ---------- */
+@media (max-width: 1200px) {
+
+  .sector-grid,
+  .exhibitor-profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
 /* ---------- Tablet Landscape (≤1024px) ---------- */
 @media (max-width: 1024px) {
 
@@ -3873,14 +3886,6 @@ textarea::placeholder {
   .venue-detail,
   .visit-value,
   .brochure-download-inner,
-@media (max-width: 1200px) {
-  .sector-grid,
-  .exhibitor-profile-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-}
-
   .page-hero-inner,
   .venue-highlight-inner {
     grid-template-columns: 1fr;
@@ -5052,6 +5057,7 @@ textarea.field-invalid {
     opacity: 0;
     transform: translateX(-40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -5068,6 +5074,7 @@ textarea.field-invalid {
   from {
     transform: scale(1.0);
   }
+
   to {
     transform: scale(1.08);
   }
@@ -5131,6 +5138,7 @@ textarea.field-invalid {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -5238,8 +5246,10 @@ textarea.field-invalid {
 /* ── Track (grey line + red fill) ── */
 .dc-track-wrap {
   position: absolute;
-  top: 28px; /* aligns with node centre */
-  left: calc(100% / 14); /* half a column */
+  top: 28px;
+  /* aligns with node centre */
+  left: calc(100% / 14);
+  /* half a column */
   right: calc(100% / 14);
   height: 2px;
   pointer-events: none;
@@ -5365,8 +5375,15 @@ textarea.field-invalid {
 
 /* ── Pulse on last node after animation completes ── */
 @keyframes dc-pulse {
-  0%, 100% { box-shadow: 0 4px 18px rgba(233, 41, 36, 0.4); }
-  50%       { box-shadow: 0 4px 32px rgba(233, 41, 36, 0.75), 0 0 0 8px rgba(233, 41, 36, 0.12); }
+
+  0%,
+  100% {
+    box-shadow: 0 4px 18px rgba(233, 41, 36, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 4px 32px rgba(233, 41, 36, 0.75), 0 0 0 8px rgba(233, 41, 36, 0.12);
+  }
 }
 
 .dc-step--pulse .dc-node {
@@ -5413,7 +5430,8 @@ textarea.field-invalid {
     width: 44px;
     height: 44px;
     flex-shrink: 0;
-    margin-left: -50px; /* pull onto the left line */
+    margin-left: -50px;
+    /* pull onto the left line */
   }
 
   .dc-label {
@@ -5460,11 +5478,26 @@ textarea.field-invalid {
 }
 
 /* ── Old demand cycle CSS kept inert ── */
-.demand-cycle-container { margin: 2rem 0; width: 100%; }
-.demand-cycle-stepper { display: none; }
-.demand-step-card { display: none; }
-.demand-arrow-slot { display: none; }
-.demand-arrow-svg { display: none; }
+.demand-cycle-container {
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.demand-cycle-stepper {
+  display: none;
+}
+
+.demand-step-card {
+  display: none;
+}
+
+.demand-arrow-slot {
+  display: none;
+}
+
+.demand-arrow-svg {
+  display: none;
+}
 
 /* demand-cycle-closing text */
 .demand-cycle-closing {
@@ -5509,6 +5542,7 @@ textarea.field-invalid {
 
 /* 12.3 Accessibility: prefers-reduced-motion: reduce */
 @media (prefers-reduced-motion: reduce) {
+
   .hero-zoom,
   .hero-diagonal-overlay,
   .hero-red-bar {
@@ -5921,6 +5955,7 @@ textarea.field-invalid {
 
 /* 7. Comprehensive Responsive Breakpoints (Tablet & Mobile Perfection) */
 @media (max-width: 1024px) {
+
   .expo-intro-grid,
   .intro-main-row,
   .brochure-download-inner,
@@ -6023,7 +6058,8 @@ textarea.field-invalid {
     padding-right: 18px !important;
   }
 
-  h1, .hero-headline {
+  h1,
+  .hero-headline {
     font-size: clamp(2.35rem, 8.5vw, 3.4rem) !important;
     line-height: 1.08 !important;
   }
@@ -6235,6 +6271,7 @@ textarea.field-invalid {
   gap: 0.6rem;
   margin-bottom: 1.25rem;
 }
+
 .footer-contact-item {
   display: inline-flex;
   align-items: center;
@@ -6244,6 +6281,7 @@ textarea.field-invalid {
   font-weight: 600;
   transition: color 0.2s ease;
 }
+
 .footer-contact-item:hover {
   color: var(--tk-red);
 }
@@ -6479,12 +6517,10 @@ textarea.field-invalid {
 .supported-by-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(8, 28, 32, 0.82) 0%,
-    rgba(10, 34, 38, 0.72) 50%,
-    rgba(8, 28, 32, 0.82) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(8, 28, 32, 0.82) 0%,
+      rgba(10, 34, 38, 0.72) 50%,
+      rgba(8, 28, 32, 0.82) 100%);
 }
 
 .supported-by-title {
@@ -6598,6 +6634,7 @@ textarea.field-invalid {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -6608,9 +6645,728 @@ textarea.field-invalid {
     opacity: 0;
     transform: translateY(10px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
 
+
+/* ==========================================================================
+   Editorial grid — "fit copy" variant (Market Overview intro)
+   The copy column flows naturally (no forced space-between gap) and the
+   image is taken out of flow so the row height is set by the text; the
+   image then stretches to match, keeping its top & bottom edges aligned
+   with the first and last lines of copy.
+   ========================================================================== */
+.editorial-section-grid--fit-copy {
+  align-items: stretch;
+}
+
+.editorial-section-grid--fit-copy .editorial-copy {
+  justify-content: flex-start;
+  height: auto;
+}
+
+.editorial-section-grid--fit-copy .editorial-copy> :last-child {
+  margin-bottom: 0;
+}
+
+.editorial-section-grid--fit-copy .editorial-copy h2 {
+  margin-bottom: 1rem;
+}
+
+.editorial-section-grid--fit-copy .editorial-media {
+  height: auto;
+  min-height: 0;
+}
+
+.editorial-section-grid--fit-copy .editorial-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 768px) {
+  .editorial-section-grid--fit-copy .editorial-media {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* Venue feature icons (traced from brochure p.15) */
+.venue-feature-svg {
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+/* ==========================================================================
+   Turnkey Show Concept — sticky stacking story cards
+   ========================================================================== */
+.stack-cards-section {
+  background: var(--tk-gray-light);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  border-bottom: 1px solid #eaeaea;
+}
+
+.stack-cards {
+  --stack-top: 140px;
+  --stack-offset: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stack-card {
+  --stack-progress: 0;
+  position: relative;
+  height: var(--stack-card-height, auto);
+  background: var(--tk-white);
+  border: 1px solid #e5e7eb;
+  border-top: 4px solid var(--tk-red);
+  border-radius: 6px;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.06), 0 24px 50px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.stack-cards[data-sticky="on"] {
+  gap: 14vh;
+}
+
+.stack-cards[data-sticky="on"] .stack-card {
+  position: sticky;
+  top: calc(var(--stack-top) + var(--stack-index) * var(--stack-offset));
+  transform: scale(calc(1 - var(--stack-progress) * 0.06));
+  transform-origin: 50% 0;
+  will-change: transform;
+}
+
+/* Dim a card as the next one slides over it */
+.stack-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #080808;
+  opacity: calc(var(--stack-progress) * 0.35);
+  pointer-events: none;
+}
+
+.stack-cards-spacer {
+  display: none;
+}
+
+.stack-cards[data-sticky="on"] .stack-cards-spacer {
+  display: block;
+  height: 8vh;
+  margin-top: -14vh;
+  /* cancel the flex gap above the spacer */
+}
+
+.stack-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  height: 100%;
+  padding: clamp(1.5rem, 3vw, 2.75rem);
+  box-sizing: border-box;
+}
+
+.stack-card-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stack-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-card-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stack-card-meta .eyebrow {
+  margin: 0 0 0.5rem !important;
+}
+
+.stack-card-count {
+  font-family: var(--font-headline);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: var(--tk-red);
+  white-space: nowrap;
+}
+
+.stack-card-count span {
+  color: #9ca3af;
+  font-weight: 700;
+}
+
+.stack-card-copy h2 {
+  margin-bottom: 1rem;
+}
+
+.stack-card-copy p:not(.eyebrow) {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #333333;
+}
+
+.stack-card-copy .stack-card-content p:last-child {
+  margin-bottom: 0;
+}
+
+.stack-card-copy .expo-pillar-chips {
+  margin-top: 1.5rem;
+}
+
+.stack-card-media {
+  position: relative;
+  min-height: 280px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #111111;
+}
+
+.stack-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--transition-smooth);
+}
+
+.stack-card:hover .stack-card-media img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 768px) {
+  .stack-card-inner {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .stack-card-media {
+    order: -1;
+    min-height: 0;
+    height: 190px;
+  }
+
+  .stack-cards[data-sticky="on"] {
+    gap: 10vh;
+  }
+
+  .stack-cards[data-sticky="on"] .stack-cards-spacer {
+    margin-top: -10vh;
+  }
+
+  .stack-card-copy p:not(.eyebrow) {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-cards[data-sticky="on"] .stack-card {
+    transform: none;
+  }
+
+  .stack-card::after {
+    opacity: 0;
+  }
+
+  .stack-card-media img {
+    transition: none;
+  }
+}
+
+
+/* ==========================================================================
+   Site-Wide Modern UI & Animation Polish System
+   ========================================================================== */
+
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 1. Route Page Transitions */
+@keyframes pageFadeRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-transition-enter {
+  animation: pageFadeRise 0.48s var(--ease-out-quart) both;
+}
+
+/* 2. Staggered Scroll-Reveal Choreography & Media Unveil */
+.reveal {
+  --reveal-delay: 0ms;
+}
+
+.reveal[data-reveal-ready="true"] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0) scale(0.985);
+  filter: blur(4px);
+  transition:
+    opacity 0.72s var(--ease-out-quart) var(--reveal-delay, 0ms),
+    transform 0.72s var(--ease-out-quart) var(--reveal-delay, 0ms),
+    filter 0.6s var(--ease-out-quart) var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.reveal[data-reveal-ready="true"] .section-red-bar {
+  transform: scaleX(0);
+  transition: transform 0.75s var(--ease-out-quart) calc(var(--reveal-delay, 0ms) + 140ms);
+}
+
+.reveal[data-revealed="true"] .section-red-bar {
+  transform: scaleX(1);
+}
+
+/* Subtle photo zoom-out when media blocks enter the viewport */
+.editorial-media.reveal[data-reveal-ready="true"] img,
+.expo-intro-media.reveal[data-reveal-ready="true"] img,
+.intro-image-wrap.reveal[data-reveal-ready="true"] img,
+.opportunity-visual.reveal[data-reveal-ready="true"] img {
+  transform: scale(1.07);
+}
+
+.editorial-media.reveal[data-revealed="true"] img,
+.expo-intro-media.reveal[data-revealed="true"] img,
+.intro-image-wrap.reveal[data-revealed="true"] img,
+.opportunity-visual.reveal[data-revealed="true"] img {
+  transform: scale(1);
+  transition: transform 1.15s var(--ease-out-expo);
+}
+
+.editorial-media.reveal[data-revealed="true"]:hover img,
+.expo-intro-media.reveal[data-revealed="true"] .expo-media-frame:hover img,
+.intro-image-wrap.reveal[data-revealed="true"]:hover img,
+.opportunity-visual.reveal[data-revealed="true"]:hover img {
+  transform: scale(1.045);
+}
+
+/* 3. Smart Sticky Header, Dropdown Popover & Smooth Mobile Drawer */
+.site-header.header-solid-white {
+  transition:
+    box-shadow 0.35s var(--ease-out-quart),
+    background-color 0.35s var(--ease-out-quart),
+    border-color 0.35s var(--ease-out-quart);
+}
+
+.header-inner {
+  transition: height 0.35s var(--ease-out-quart);
+}
+
+.brand-logo-img {
+  transition:
+    height 0.35s var(--ease-out-quart),
+    transform 0.3s var(--ease-out-quart);
+}
+
+@media (min-width: 769px) {
+  .site-header.is-scrolled {
+    background-color: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 32px rgba(8, 8, 8, 0.08) !important;
+  }
+
+  .site-header.is-scrolled .header-main-bar {
+    background-color: transparent;
+  }
+
+  .site-header.is-scrolled .header-inner {
+    height: 86px;
+  }
+
+  .site-header.is-scrolled .brand-logo-img {
+    height: 66px;
+  }
+}
+
+.dropdown-menu {
+  border-radius: 6px;
+  border-top: 3px solid var(--tk-red);
+  box-shadow:
+    0 20px 45px rgba(8, 8, 8, 0.14),
+    0 4px 12px rgba(8, 8, 8, 0.05);
+  transform: translateY(10px) scale(0.97);
+  transform-origin: top left;
+  transition:
+    opacity 0.24s var(--ease-out-quart),
+    transform 0.24s var(--ease-out-quart),
+    visibility 0.24s var(--ease-out-quart);
+}
+
+.nav-item:hover .dropdown-menu,
+.nav-item:focus-within .dropdown-menu,
+.nav-item.dropdown-open .dropdown-menu {
+  transform: translateY(0) scale(1);
+}
+
+.dropdown-link {
+  position: relative;
+  transition:
+    background-color 0.2s var(--ease-out-quart),
+    color 0.2s var(--ease-out-quart),
+    padding-left 0.22s var(--ease-out-quart);
+}
+
+.dropdown-link::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--tk-red);
+  opacity: 0;
+  transform: translateY(-50%) scale(0.4);
+  transition: opacity 0.2s ease, transform 0.22s var(--ease-spring);
+}
+
+.dropdown-link:hover::before,
+.dropdown-link.is-active::before {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+/* Smooth Mobile Drawer & Accordion */
+.mobile-drawer {
+  display: block !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition:
+    opacity 0.28s var(--ease-out-quart),
+    visibility 0.28s var(--ease-out-quart);
+}
+
+.mobile-drawer.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-drawer-inner {
+  transform: translateY(-12px);
+  transition: transform 0.32s var(--ease-out-quart);
+}
+
+.mobile-drawer.is-open .mobile-drawer-inner {
+  transform: translateY(0);
+}
+
+/* 4. Homepage Hero & Subpage Banner Choreography */
+@keyframes subpageBannerZoom {
+  from {
+    transform: scale(1.08);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes subpageTitleReveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    letter-spacing: 0.12em;
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    letter-spacing: 0.05em;
+  }
+}
+
+.subpage-banner-img {
+  animation: subpageBannerZoom 9s var(--ease-out-expo) forwards;
+  will-change: transform;
+}
+
+.subpage-banner-heading {
+  animation: subpageTitleReveal 0.7s var(--ease-out-quart) 0.06s both;
+}
+
+.subpage-intro-red-rule {
+  transform-origin: left;
+  animation: heroDrawBar 0.75s var(--ease-out-quart) 0.18s both;
+}
+
+.info-strip-col {
+  transition:
+    background-color 0.3s var(--ease-out-quart),
+    transform 0.3s var(--ease-out-quart);
+}
+
+.info-strip-col:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
+}
+
+/* 5. Buttons, Links & CTA Sheen Micro-Interactions */
+.header-cta-btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color 0.25s var(--ease-out-quart),
+    transform 0.25s var(--ease-out-quart),
+    box-shadow 0.25s var(--ease-out-quart) !important;
+}
+
+.header-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(233, 41, 36, 0.32);
+}
+
+.header-cta-btn svg {
+  transition: transform 0.25s var(--ease-out-quart);
+}
+
+.header-cta-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.subpage-btn-ghost {
+  position: relative;
+  overflow: hidden;
+}
+
+.subpage-btn-ghost .hero-btn-icon {
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.subpage-btn-ghost:hover .hero-btn-icon {
+  transform: translateX(5px);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  transition: color 0.25s ease, gap 0.25s var(--ease-out-quart);
+}
+
+.text-link:hover {
+  gap: 10px;
+}
+
+.text-link svg {
+  transition: transform 0.25s var(--ease-out-quart);
+}
+
+.text-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+/* 6. Interactive Cards & Surface Elevation Across Pages */
+
+/* Venue Feature Cards (with brochure p.15 vector icons) */
+.venue-feature-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.38s var(--ease-out-quart),
+    box-shadow 0.38s var(--ease-out-quart),
+    border-color 0.38s var(--ease-out-quart);
+}
+
+.venue-feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(233, 41, 36, 0.06), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.38s ease;
+  pointer-events: none;
+}
+
+.venue-feature-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(233, 41, 36, 0.45);
+  border-left-color: var(--tk-red);
+  box-shadow: 0 20px 42px rgba(8, 8, 8, 0.09), 0 4px 14px rgba(233, 41, 36, 0.08);
+}
+
+.venue-feature-card:hover::after {
+  opacity: 1;
+}
+
+.venue-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 12px;
+  background: rgba(233, 41, 36, 0.05);
+  border: 1px solid rgba(233, 41, 36, 0.14);
+  transition:
+    transform 0.38s var(--ease-spring),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.venue-feature-card:hover .venue-feature-icon {
+  transform: translateY(-3px) scale(1.06);
+  background: rgba(233, 41, 36, 0.1);
+  border-color: rgba(233, 41, 36, 0.32);
+  box-shadow: 0 10px 24px rgba(233, 41, 36, 0.14);
+}
+
+/* Two Markets Columns */
+.market-col {
+  transition:
+    transform 0.35s var(--ease-out-quart),
+    box-shadow 0.35s var(--ease-out-quart),
+    background-color 0.35s ease;
+}
+
+.market-col:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  box-shadow: 0 18px 38px rgba(8, 8, 8, 0.07);
+}
+
+.market-list li {
+  transition: transform 0.25s var(--ease-out-quart), color 0.25s ease;
+}
+
+.market-col:hover .market-list li:hover {
+  transform: translateX(5px);
+  color: var(--tk-red);
+}
+
+/* Home & Market Glance Stat Cards */
+.home-stat-box,
+.market-stat,
+.venue-spec-item {
+  transition:
+    transform 0.35s var(--ease-out-quart),
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.home-stat-box:hover {
+  background-color: rgba(233, 41, 36, 0.06);
+}
+
+.market-stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(233, 41, 36, 0.55);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 0 24px rgba(233, 41, 36, 0.14);
+}
+
+/* Visitor Profile Audience Cards & Contact Cards */
+.audience-item,
+.organized-by-card,
+.exhibit-stat-card {
+  transition:
+    transform 0.35s var(--ease-out-quart),
+    box-shadow 0.35s var(--ease-out-quart),
+    border-color 0.35s ease;
+}
+
+.audience-item:hover,
+.organized-by-card:hover,
+.exhibit-stat-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(233, 41, 36, 0.45) !important;
+  box-shadow: 0 18px 40px rgba(8, 8, 8, 0.09) !important;
+}
+
+/* Exhibitor Profile Cards */
+.exhibitor-profile-card {
+  position: relative;
+  transition:
+    transform 0.4s var(--ease-out-quart),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.exhibitor-profile-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--tk-red);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.42), 0 0 24px rgba(233, 41, 36, 0.2);
+}
+
+/* Sticky Story Cards (Turnkey Show Concept) — extra depth & polish */
+.stack-card {
+  transition:
+    box-shadow 0.35s var(--ease-out-quart),
+    border-color 0.35s ease;
+}
+
+.stack-card:hover {
+  border-color: rgba(233, 41, 36, 0.38);
+  border-top-color: var(--tk-red);
+}
+
+.stack-card-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(233, 41, 36, 0.07);
+  border: 1px solid rgba(233, 41, 36, 0.18);
+  font-size: 0.875rem;
+}
+
+/* 7. Reduced Motion Safeguards */
+@media (prefers-reduced-motion: reduce) {
+
+  .page-transition-enter,
+  .subpage-banner-img,
+  .subpage-banner-heading,
+  .subpage-intro-red-rule {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .reveal[data-reveal-ready="true"],
+  .reveal[data-revealed="true"] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

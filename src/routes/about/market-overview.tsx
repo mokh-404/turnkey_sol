@@ -32,15 +32,19 @@ function MarketOverviewPage() {
         secondaryBtn={{ label: "Download Brochure", href: "/exhibit/download-brochure" }}
       />
 
-      {/* Block M-1 */}
-      <section className="page-width editorial-section-grid" id="market-intro">
+      {/* Block M-1 — copy flows naturally (no forced gap); the image is sized
+          to the copy column so its top and bottom edges align with the text. */}
+      <section className="page-width editorial-section-grid editorial-section-grid--fit-copy" id="market-intro">
         <Reveal className="editorial-copy">
+          <p className="eyebrow">Market Context</p>
+          <div className="section-red-bar" aria-hidden="true" />
+          <h2>A NEW PHASE OF <span className="headline-accent">GROWTH</span></h2>
           <p>
             The North Coast and the city of New Alamein are experiencing a new phase of growth, driven by real estate
             expansion, increased hotel and residential capacity, and a surge in tourism activity, alongside a growing
             trend to transform the region into a year-round destination.
           </p>
-          <p>
+          <p className="editorial-copy-statement">
             This growth is generating not only new real estate units but also a burgeoning market for properties ready
             for occupancy, rental, operation, and investment—as well as the associated Furniture, Home Appliances,
             Lighting &amp; Accessories, fixtures, outdoor living solutions, Smart Home Solutions, Complete Fit-Out.
