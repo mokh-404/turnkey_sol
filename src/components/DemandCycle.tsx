@@ -21,6 +21,8 @@ export function DemandCycle() {
       : false
   );
 
+  const startedRef = useRef(false);
+
   useEffect(() => {
     // With reduced motion or JS off: show finished state immediately
     if (reducedMotion.current) {
@@ -30,33 +32,51 @@ export function DemandCycle() {
     }
 
     const node = containerRef.current;
-    if (!node) return;
+    if (!node || startedRef.current) return;
+
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    const startCycle = () => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      setAnimState("running");
+
+      let idx = 0;
+      setActiveIndex(0);
+      timer = setInterval(() => {
+        idx += 1;
+        if (idx < DEMAND_STEPS.length) {
+          setActiveIndex(idx);
+        } else {
+          clearInterval(timer);
+          setAnimState("done");
+        }
+      }, 150);
+    };
+
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 60 && rect.bottom > 0) {
+      startCycle();
+      return () => {
+        if (timer) clearInterval(timer);
+      };
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry?.isIntersecting || animState !== "idle") return;
-        setAnimState("running");
+        if (!entry?.isIntersecting) return;
         observer.disconnect();
-
-        // Stagger: track draws first (CSS handles that), then nodes light up
-        let idx = 0;
-        setActiveIndex(0);
-        const timer = setInterval(() => {
-          idx += 1;
-          if (idx < DEMAND_STEPS.length) {
-            setActiveIndex(idx);
-          } else {
-            clearInterval(timer);
-            setAnimState("done");
-          }
-        }, 180);
+        startCycle();
       },
-      { threshold: 0.15 }
+      { threshold: 0.05, rootMargin: "0px 0px 80px 0px" }
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
-  }, [animState]);
+    return () => {
+      observer.disconnect();
+      if (timer) clearInterval(timer);
+    };
+  }, []);
 
   const isLast = (idx: number) => idx === DEMAND_STEPS.length - 1;
   const isActive = (idx: number) => idx <= activeIndex;

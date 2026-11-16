@@ -143,7 +143,7 @@ function VenuePage() {
             alt="Al Alamein International Conference and Exhibition Center"
             width={1600}
             height={1024}
-            loading="lazy"
+            decoding="async"
           />
         </Reveal>
       </section>

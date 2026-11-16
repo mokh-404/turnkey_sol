@@ -6,14 +6,14 @@ interface AnimatedCounterProps {
   duration?: number;
 }
 
-export function AnimatedCounter({ value, className = "", duration = 1800 }: AnimatedCounterProps) {
+export function AnimatedCounter({ value, className = "", duration = 900 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [displayValue, setDisplayValue] = useState<string>("0");
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const [displayValue, setDisplayValue] = useState<string>(value);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || hasAnimatedRef.current) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDisplayValue(value);
@@ -35,45 +35,64 @@ export function AnimatedCounter({ value, className = "", duration = 1800 }: Anim
     const isFloat = numStr.includes(".");
     const decimalPlaces = isFloat ? (numStr.split(".")[1]?.length || 1) : 0;
 
+    let rafId = 0;
+
+    const runAnimation = () => {
+      if (hasAnimatedRef.current) return;
+      hasAnimatedRef.current = true;
+
+      const startTime = performance.now();
+
+      const step = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic: 1 - (1 - p)^3
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = targetNum * easeOut;
+
+        const formattedNum = isFloat
+          ? current.toFixed(decimalPlaces)
+          : Math.floor(current).toLocaleString("en-US");
+
+        setDisplayValue(`${prefix}${formattedNum}${suffix}`);
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setDisplayValue(value);
+        }
+      };
+
+      rafId = requestAnimationFrame(step);
+    };
+
+    // If already in (or above) the viewport on load/refresh, start immediately without waiting
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 80 && rect.bottom > 0) {
+      runAnimation();
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+      };
+    }
+
+    // Otherwise set initial 0 state while off-screen and trigger as soon as it nears the viewport
+    setDisplayValue(`${prefix}0${suffix}`);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry?.isIntersecting || hasAnimated) return;
-        setHasAnimated(true);
+        if (!entry?.isIntersecting) return;
         observer.disconnect();
-
-        const startTime = performance.now();
-
-        const step = (currentTime: number) => {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          // Ease out cubic: 1 - (1 - p)^3
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          const current = targetNum * easeOut;
-
-          let formattedNum = "";
-          if (isFloat) {
-            formattedNum = current.toFixed(decimalPlaces);
-          } else {
-            formattedNum = Math.floor(current).toLocaleString("en-US");
-          }
-
-          setDisplayValue(`${prefix}${formattedNum}${suffix}`);
-
-          if (progress < 1) {
-            requestAnimationFrame(step);
-          } else {
-            setDisplayValue(value);
-          }
-        };
-
-        requestAnimationFrame(step);
+        runAnimation();
       },
-      { threshold: 0.2 }
+      { threshold: 0.01, rootMargin: "0px 0px 120px 0px" }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, [value, duration, hasAnimated]);
+    return () => {
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [value, duration]);
 
   return (
     <span ref={ref} className={className}>
@@ -81,4 +100,3 @@ export function AnimatedCounter({ value, className = "", duration = 1800 }: Anim
     </span>
   );
 }
-

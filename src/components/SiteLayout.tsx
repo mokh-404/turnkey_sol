@@ -75,6 +75,7 @@ export function SiteLayout({ children }: PropsWithChildren) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const prevPathnameRef = useRef(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,11 +95,17 @@ export function SiteLayout({ children }: PropsWithChildren) {
     return () => document.body.classList.remove("menu-open");
   }, [mobileMenuOpen]);
 
-  // Close menus on route change
+  // Close menus and scroll to top ONLY on actual route navigation (never on initial load/refresh)
   useEffect(() => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-  }, [location.pathname]);
+    if (prevPathnameRef.current !== location.pathname) {
+      prevPathnameRef.current = location.pathname;
+      if (!location.hash) {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" as ScrollBehavior });
+      }
+    }
+  }, [location.pathname, location.hash]);
 
   // Handle escape key to close dropdowns
   useEffect(() => {
@@ -474,6 +481,13 @@ export function Reveal({
     const node = nodeRef.current;
     if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // If element is already in or above the viewport on load/refresh, reveal immediately
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 40) {
+      node.dataset["revealed"] = "true";
+      return;
+    }
+
     node.dataset["revealReady"] = "true";
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -481,7 +495,7 @@ export function Reveal({
         node.dataset["revealed"] = "true";
         observer.disconnect();
       },
-      { threshold: 0.12 }
+      { threshold: 0.01, rootMargin: "0px 0px 80px 0px" }
     );
     observer.observe(node);
     return () => observer.disconnect();

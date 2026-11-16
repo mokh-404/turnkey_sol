@@ -84,7 +84,7 @@ function TurnkeyShowPage() {
         </Reveal>
         <Reveal className="editorial-media">
           <div className="expo-media-frame">
-            <img src={terraceSunset} alt="Mediterranean coastal living and luxury interiors" width={1600} height={1024} loading="lazy" />
+            <img src={terraceSunset} alt="Mediterranean coastal living and luxury interiors" width={1600} height={1024} decoding="async" />
             <div className="expo-media-badge liquid-glass-dark">
               <span className="badge-title">06 – 09 May 2027</span>
               <span className="badge-subtitle">New Alamein International Convention Center</span>
@@ -108,7 +108,7 @@ function TurnkeyShowPage() {
           </p>
         </Reveal>
         <Reveal className="editorial-media">
-          <img src={livingRoom} alt="Complete furnishing for coastal property" width={1600} height={1024} loading="lazy" />
+          <img src={livingRoom} alt="Complete furnishing for coastal property" width={1600} height={1024} decoding="async" />
         </Reveal>
       </section>
 
@@ -130,7 +130,7 @@ function TurnkeyShowPage() {
           </p>
         </Reveal>
         <Reveal className="editorial-media">
-          <img src={kitchen} alt="Smart appliances and fixtures" width={1600} height={1024} loading="lazy" />
+          <img src={kitchen} alt="Smart appliances and fixtures" width={1600} height={1024} decoding="async" />
         </Reveal>
       </section>
 
@@ -152,7 +152,7 @@ function TurnkeyShowPage() {
           </div>
         </Reveal>
         <Reveal className="editorial-media">
-          <img src={smartHome} alt="Connected smart living solutions" width={1600} height={1024} loading="lazy" />
+          <img src={smartHome} alt="Connected smart living solutions" width={1600} height={1024} decoding="async" />
         </Reveal>
       </section>
 
@@ -174,7 +174,7 @@ function TurnkeyShowPage() {
           </div>
         </Reveal>
         <Reveal className="editorial-media">
-          <img src={livingRoom} alt="Coastal property opportunity" width={1600} height={1024} loading="lazy" />
+          <img src={livingRoom} alt="Coastal property opportunity" width={1600} height={1024} decoding="async" />
         </Reveal>
       </section>
 
@@ -192,7 +192,7 @@ function TurnkeyShowPage() {
             {sectors.map((sector) => (
               <Reveal key={sector.name}>
                 <a href="/exhibit/why-exhibit" className="sector-card" aria-label={sector.name}>
-                  <img src={sector.img} alt={sector.name} width={1600} height={1024} loading="lazy" />
+                  <img src={sector.img} alt={sector.name} width={1600} height={1024} decoding="async" />
                   <div className="sector-card-copy">
                     <h3>{sector.name}</h3>
                   </div>

@@ -89,7 +89,7 @@ function ExhibitorProfilePage() {
             {exhibitorSectors.map((sector) => (
               <Reveal key={sector.title} className="exhibitor-profile-card">
                 <div className="profile-card-image">
-                  <img src={sector.image} alt={sector.title} width={800} height={500} loading="lazy" />
+                  <img src={sector.image} alt={sector.title} width={800} height={500} decoding="async" />
                 </div>
                 <div className="profile-card-body" style={{ textAlign: "center" }}>
                   <h3>{sector.title}</h3>

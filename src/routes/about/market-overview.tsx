@@ -51,7 +51,7 @@ function MarketOverviewPage() {
           </p>
         </Reveal>
         <Reveal className="editorial-media">
-          <img src={lobbyOcean} alt="North Coast growth" width={1600} height={1024} loading="lazy" />
+          <img src={lobbyOcean} alt="North Coast growth" width={1600} height={1024} decoding="async" />
         </Reveal>
       </section>
 

@@ -128,19 +128,19 @@ function Index() {
             <div className="info-strip-col">
               <span className="info-strip-label">Exhibition space</span>
               <span className="info-strip-value">
-                <AnimatedCounter value="13000 sqm" duration={2000} />
+                <AnimatedCounter value="13000 sqm" />
               </span>
             </div>
             <div className="info-strip-col">
               <span className="info-strip-label">Exhibitors / Brands</span>
               <span className="info-strip-value">
-                <AnimatedCounter value="120" duration={1600} />
+                <AnimatedCounter value="120" />
               </span>
             </div>
             <div className="info-strip-col info-strip-focus">
               <span className="info-strip-label">Visitors</span>
               <span className="info-strip-value">
-                <AnimatedCounter value="8000+" duration={1800} />
+                <AnimatedCounter value="8000+" />
               </span>
             </div>
           </div>
@@ -185,7 +185,7 @@ function Index() {
                 alt="Turnkey Show contemporary coastal furnishing and design"
                 width={1600}
                 height={1024}
-                loading="lazy"
+                decoding="async"
               />
               <div className="expo-media-badge liquid-glass-dark">
                 <span className="badge-title">From Handover to Value</span>
@@ -208,7 +208,7 @@ function Index() {
               alt="Luxury oceanfront terrace overlooking the Mediterranean coast"
               width={1600}
               height={1024}
-              loading="lazy"
+              decoding="async"
             />
             <span className="image-index liquid-glass-dark">From Handover to Ready-to-Live</span>
           </Reveal>
@@ -301,7 +301,7 @@ function Index() {
             {sectors.map((sector) => (
               <Reveal key={sector.title}>
                 <a href="/exhibit/why-exhibit" className="sector-card" aria-label={sector.title}>
-                  <img src={sector.image} alt={sector.title} width={1600} height={1024} loading="lazy" />
+                  <img src={sector.image} alt={sector.title} width={1600} height={1024} decoding="async" />
                   <div className="sector-card-copy">
                     <h3>{sector.title}</h3>
                     <p>{sector.detail}</p>
@@ -341,7 +341,7 @@ function Index() {
             alt="Smart coastal living space with modern furnishings"
             width={1600}
             height={1024}
-            loading="lazy"
+            decoding="async"
           />
           <div className="opportunity-stamp liquid-glass-dark">
             <span>ONE DESTINATION</span>
@@ -359,7 +359,7 @@ function Index() {
             alt="New Alamein International Convention and Exhibition Center"
             width={1600}
             height={1024}
-            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="page-width venue-content-wrap">
@@ -400,7 +400,7 @@ function Index() {
             className="supported-by-bg-img"
             width={1600}
             height={400}
-            loading="lazy"
+            decoding="async"
           />
           <div className="supported-by-overlay" aria-hidden="true" />
           <h2 className="supported-by-title">SUPPORTED BY</h2>
@@ -413,7 +413,7 @@ function Index() {
               className="supported-by-apex-logo"
               width={260}
               height={80}
-              loading="lazy"
+              decoding="async"
             />
           </Reveal>
         </div>
