@@ -55,11 +55,16 @@ export function AnimatedCounter({ value, className = "", duration = 900 }: Anima
       if (hasAnimatedRef.current) return;
       hasAnimatedRef.current = true;
 
+      if (duration <= 0) {
+        setDisplayValue(value);
+        return;
+      }
+
       const startTime = performance.now();
 
       const step = (currentTime: number) => {
         const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+        const progress = duration <= 0 ? 1 : Math.min(Math.max(elapsed / duration, 0), 1);
         // Ease out cubic: 1 - (1 - p)^3
         const easeOut = 1 - Math.pow(1 - progress, 3);
         const current = targetNum * easeOut;

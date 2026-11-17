@@ -82,47 +82,74 @@ describe("i18n helpers", () => {
   });
 
   it("updates AnimatedCounter text cleanly when switching between EN and AR", async () => {
-    function CounterProbe() {
-      const { isAr } = useLocale();
-      return (
-        <div data-testid="counter">
-          <AnimatedCounter value={isAr ? "13000 م²" : "13000 SQM"} />
-        </div>
-      );
+    const originalObserver = globalThis.IntersectionObserver;
+    let observerCallback: IntersectionObserverCallback | undefined;
+    globalThis.IntersectionObserver = class {
+      constructor(cb: IntersectionObserverCallback) {
+        observerCallback = cb;
+      }
+      observe() {
+        observerCallback?.([{ isIntersecting: true } as IntersectionObserverEntry], this as unknown as IntersectionObserver);
+      }
+      disconnect() {}
+      unobserve() {}
+      takeRecords() {
+        return [];
+      }
+      root = null;
+      rootMargin = "";
+      thresholds = [];
+    };
+
+    try {
+      function CounterProbe() {
+        const { isAr } = useLocale();
+        return (
+          <div data-testid="counter">
+            <AnimatedCounter value={isAr ? "13000 م²" : "13000 SQM"} duration={0} />
+          </div>
+        );
+      }
+
+      const root = createRootRoute({ component: () => <Outlet /> });
+      const localeRoute = createRoute({
+        getParentRoute: () => root,
+        path: "/{-$locale}",
+        component: CounterProbe,
+      });
+      const history = createMemoryHistory({ initialEntries: ["/"] });
+      const router = createRouter({
+        routeTree: root.addChildren([localeRoute]),
+        history,
+      });
+
+      await act(async () => {
+        render(<RouterProvider router={router} />);
+      });
+
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 20));
+      });
+
+      expect(screen.getByTestId("counter")).toHaveTextContent("13000 SQM");
+
+      await act(async () => {
+        await router.navigate({ to: "/{-$locale}", params: { locale: "ar" } });
+      });
+
+      const arText = screen.getByTestId("counter").textContent ?? "";
+      expect(arText).toBe("١٣٠٠٠ م²");
+      expect(arText).not.toMatch(/[A-Za-z0-9]/);
+
+      await act(async () => {
+        await router.navigate({ to: "/{-$locale}", params: { locale: undefined } });
+      });
+
+      const enText = screen.getByTestId("counter").textContent ?? "";
+      expect(enText).toBe("13000 SQM");
+      expect(enText).not.toMatch(/[\u0600-\u06FF]/);
+    } finally {
+      globalThis.IntersectionObserver = originalObserver;
     }
-
-    const root = createRootRoute({ component: () => <Outlet /> });
-    const localeRoute = createRoute({
-      getParentRoute: () => root,
-      path: "/{-$locale}",
-      component: CounterProbe,
-    });
-    const history = createMemoryHistory({ initialEntries: ["/"] });
-    const router = createRouter({
-      routeTree: root.addChildren([localeRoute]),
-      history,
-    });
-
-    await act(async () => {
-      render(<RouterProvider router={router} />);
-    });
-
-    expect(screen.getByTestId("counter")).toHaveTextContent("13000 SQM");
-
-    await act(async () => {
-      await router.navigate({ to: "/{-$locale}", params: { locale: "ar" } });
-    });
-
-    const arText = screen.getByTestId("counter").textContent ?? "";
-    expect(arText).toBe("١٣٠٠٠ م²");
-    expect(arText).not.toMatch(/[A-Za-z0-9]/);
-
-    await act(async () => {
-      await router.navigate({ to: "/{-$locale}", params: { locale: undefined } });
-    });
-
-    const enText = screen.getByTestId("counter").textContent ?? "";
-    expect(enText).toBe("13000 SQM");
-    expect(enText).not.toMatch(/[\u0600-\u06FF]/);
   });
 });
