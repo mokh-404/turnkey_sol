@@ -262,7 +262,7 @@ function Index() {
             <div className="info-strip-col">
               <span className="info-strip-label">{isAr ? "مساحة العرض" : "Exhibition space"}</span>
               <span className="info-strip-value">
-                <AnimatedCounter value={isAr ? "13000 م²" : "13000 sqm"} />
+                <AnimatedCounter value={isAr ? "13000 م²" : "13000 SQM"} />
               </span>
             </div>
             <div className="info-strip-col">

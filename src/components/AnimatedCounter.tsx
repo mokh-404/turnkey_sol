@@ -9,14 +9,25 @@ interface AnimatedCounterProps {
 
 export function AnimatedCounter({ value, className = "", duration = 900 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
+  const [prevValue, setPrevValue] = useState<string>(value);
   const [displayValue, setDisplayValue] = useState<string>(value);
   const hasAnimatedRef = useRef(false);
   // Western digits drive the animation; Arabic pages display Arabic-Indic digits.
   const { locale } = useLocale();
 
+  if (value !== prevValue) {
+    setPrevValue(value);
+    setDisplayValue(value);
+  }
+
   useEffect(() => {
     const el = ref.current;
-    if (!el || hasAnimatedRef.current) return;
+    if (!el) return;
+
+    if (hasAnimatedRef.current) {
+      setDisplayValue(value);
+      return;
+    }
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setDisplayValue(value);

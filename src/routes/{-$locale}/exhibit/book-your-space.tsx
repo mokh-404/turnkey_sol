@@ -498,12 +498,12 @@ function BookYourSpacePage() {
                   </div>
                   <div className="form-field">
                     <label htmlFor="standSize" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
-                      {isAr ? "المساحة التقديرية المطلوبة (متر مربع)" : "Estimated Booth Space (SQM)"}
+                      {isAr ? "المساحة التقديرية المطلوبة (م²)" : "Estimated Booth Space (SQM)"}
                     </label>
                     <Input
                       id="standSize"
                       name="standSize"
-                      placeholder={isAr ? "مثال: ١٨ م²، ٣٦ م²، +٥٤ م²" : "e.g. 18 sqm, 36 sqm, 54+ sqm"}
+                      placeholder={isAr ? "مثال: ١٨ م²، ٣٦ م²، +٥٤ م²" : "e.g. 18 SQM, 36 SQM, 54+ SQM"}
                     />
                   </div>
                 </div>

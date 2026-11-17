@@ -142,7 +142,11 @@ export function SiteLayout({ children }: PropsWithChildren) {
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", mobileMenuOpen);
-    return () => document.body.classList.remove("menu-open");
+    document.documentElement.classList.toggle("menu-open", mobileMenuOpen);
+    return () => {
+      document.body.classList.remove("menu-open");
+      document.documentElement.classList.remove("menu-open");
+    };
   }, [mobileMenuOpen]);
 
   // Close menus and scroll to top ONLY on actual route navigation (never on initial load/refresh)
@@ -355,7 +359,11 @@ export function SiteLayout({ children }: PropsWithChildren) {
                 aria-expanded={mobileMenuOpen}
                 onClick={() => setMobileMenuOpen((o) => !o)}
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6" aria-hidden="true" />
+                ) : (
+                  <Menu className="w-6 h-6" aria-hidden="true" />
+                )}
               </button>
             </div>
           </div>
