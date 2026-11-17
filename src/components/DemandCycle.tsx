@@ -1,16 +1,30 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n";
 
-const DEMAND_STEPS = [
-  "DEVELOPMENT",
-  "UNIT HANDOVER",
-  "FURNISHING & FIT-OUT",
-  "EQUIPPING & SMART TECHNOLOGY",
-  "RENTAL / HOSPITALITY OPERATION",
-  "UPGRADE & RENOVATION",
-  "RECURRING DEMAND",
-];
+const DEMAND_STEPS_BY_LOCALE = {
+  en: [
+    "DEVELOPMENT",
+    "UNIT HANDOVER",
+    "FURNISHING & FIT-OUT",
+    "EQUIPPING & SMART TECHNOLOGY",
+    "RENTAL / HOSPITALITY OPERATION",
+    "UPGRADE & RENOVATION",
+    "RECURRING DEMAND",
+  ],
+  ar: [
+    "التطوير العقاري",
+    "استلام الوحدة",
+    "التأثيث والتجهيز",
+    "الأجهزة والتكنولوجيا الذكية",
+    "التشغيل التأجيري والضيافة",
+    "التطوير والتجديد",
+    "الطلب المتجدد",
+  ],
+} as const;
 
 export function DemandCycle() {
+  const { locale, isAr } = useLocale();
+  const steps = DEMAND_STEPS_BY_LOCALE[locale];
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [animState, setAnimState] = useState<"idle" | "running" | "done">("idle");
@@ -26,7 +40,7 @@ export function DemandCycle() {
   useEffect(() => {
     // With reduced motion or JS off: show finished state immediately
     if (reducedMotion.current) {
-      setActiveIndex(DEMAND_STEPS.length - 1);
+      setActiveIndex(steps.length - 1);
       setAnimState("done");
       return;
     }
@@ -45,7 +59,7 @@ export function DemandCycle() {
       setActiveIndex(0);
       timer = setInterval(() => {
         idx += 1;
-        if (idx < DEMAND_STEPS.length) {
+        if (idx < steps.length) {
           setActiveIndex(idx);
         } else {
           clearInterval(timer);
@@ -76,9 +90,9 @@ export function DemandCycle() {
       observer.disconnect();
       if (timer) clearInterval(timer);
     };
-  }, []);
+  }, [steps.length]);
 
-  const isLast = (idx: number) => idx === DEMAND_STEPS.length - 1;
+  const isLast = (idx: number) => idx === steps.length - 1;
   const isActive = (idx: number) => idx <= activeIndex;
 
   return (
@@ -93,8 +107,11 @@ export function DemandCycle() {
       </div>
 
       {/* Steps as ordered list (semantic) */}
-      <ol className="dc-steps" aria-label="Seven stages of property demand cycle">
-        {DEMAND_STEPS.map((step, idx) => (
+      <ol
+        className="dc-steps"
+        aria-label={isAr ? "مراحل دورة الطلب العقاري السبع" : "Seven stages of property demand cycle"}
+      >
+        {steps.map((step, idx) => (
           <li
             key={step}
             className={`dc-step ${isActive(idx) ? "dc-step--active" : ""} ${isLast(idx) ? "dc-step--last" : ""} ${animState === "done" && isLast(idx) ? "dc-step--pulse" : ""}`}

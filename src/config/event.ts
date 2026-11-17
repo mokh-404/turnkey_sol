@@ -59,3 +59,46 @@ export const SHOW_SECTORS = [
   "Complete Integrated Solutions",
 ] as const;
 
+/**
+ * Locale-specific display strings for the event.
+ * Arabic wording follows the official Arabic brochure (docs/arabic-voice-guide.md).
+ * Contact details (emails, phones, URLs) are language-neutral and stay in EVENT_CONFIG.
+ */
+export const EVENT_TEXT = {
+  en: {
+    name: EVENT_CONFIG.name,
+    fullName: EVENT_CONFIG.fullName,
+    edition: EVENT_CONFIG.edition,
+    dates: EVENT_CONFIG.dates,
+    venue: EVENT_CONFIG.venue,
+    venueShort: EVENT_CONFIG.venueShort,
+    tagline: "The Alamein Trade Show for Furniture, Smart Furnishing Technologies & Complete Fit-Out Solutions for Coastal Units",
+    organizerName: EVENT_CONFIG.organizer.name,
+    contentComingSoon: EVENT_CONFIG.contentComingSoon,
+  },
+  ar: {
+    name: "تيرن كي شو",
+    fullName: "معرض العلمين تيرن كي شو",
+    edition: "٢٠٢٧",
+    dates: "٦ - ٩ مايو ٢٠٢٧",
+    venue: "مركز العلمين الدولي للمؤتمرات والمعارض",
+    venueShort: "مركز العلمين الدولي للمؤتمرات",
+    tagline: "معرض العلمين التجاري للأثاث وتكنولوجيا التجهيز الذكي للوحدات الفندقية والساحلية",
+    // Legal company name — kept in Latin script, as on the Arabic brochure back cover.
+    organizerName: EVENT_CONFIG.organizer.name,
+    contentComingSoon: "المحتوى قيد الإعداد.",
+  },
+} as const;
+
+/** Arabic names of the 8 core sectors (same order as SHOW_SECTORS). */
+export const SHOW_SECTORS_AR = [
+  "الأثاث والتصميم الداخلي",
+  "المطابخ وتجهيزاتها",
+  "الأجهزة المنزلية",
+  "المساحات الخارجية",
+  "المنازل الذكية",
+  "تقنيات الإضاءة الحديثة",
+  "تجهيزات الضيافة",
+  "الحلول المتكاملة",
+] as const;
+

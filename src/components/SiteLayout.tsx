@@ -17,7 +17,8 @@ import turnkeyLogo from "@/assets/logos/turnkey-show-logo.png";
 import apexLogo from "@/assets/logos/apex-logo.png";
 import heroCoast from "@/assets/hero-coast.webp";
 import { Button } from "@/components/ui/button";
-import { EVENT_CONFIG } from "@/config/event";
+import { EVENT_CONFIG, EVENT_TEXT } from "@/config/event";
+import { LocaleLink, stripLocale, useLocale, type Locale } from "@/lib/i18n";
 
 export interface NavItem {
   label: string;
@@ -25,47 +26,92 @@ export interface NavItem {
   children?: Array<{ label: string; to: string }>;
 }
 
-export const navigationMenu: NavItem[] = [
-  { label: "Home", to: "/" },
-  {
-    label: "About",
-    to: "/about/turnkey-show",
-    children: [
-      { label: "Turnkey Show", to: "/about/turnkey-show" },
-      { label: "Market Overview", to: "/about/market-overview" },
-      { label: "Venue", to: "/about/venue" },
-      { label: "Organizer", to: "/about/organizer" },
-    ],
-  },
-  {
-    label: "Exhibit",
-    to: "/exhibit/why-exhibit",
-    children: [
-      { label: "Why Exhibit", to: "/exhibit/why-exhibit" },
-      { label: "Visitor Profile", to: "/exhibit/visitor-profile" },
-      { label: "Book your space", to: "/exhibit/book-your-space" },
-      { label: "Download brochure", to: "/exhibit/download-brochure" },
-    ],
-  },
-  {
-    label: "Visit",
-    to: "/visit/exhibitor-profile",
-    children: [
-      { label: "Exhibitor Profile", to: "/visit/exhibitor-profile" },
-      { label: "Visitor Registration", to: "/visit/visitor-registration" },
-    ],
-  },
-  {
-    label: "Services",
-    to: "/services/special-decoration",
-    children: [
-      { label: "Special Decoration", to: "/services/special-decoration" },
-      { label: "Freight Forwarding", to: "/services/freight-forwarding" },
-      { label: "Travel", to: "/services/travel" },
-    ],
-  },
-  { label: "Contact us", to: "/contact" },
-];
+export const navigationMenus: Record<Locale, NavItem[]> = {
+  en: [
+    { label: "Home", to: "/" },
+    {
+      label: "About",
+      to: "/about/turnkey-show",
+      children: [
+        { label: "Turnkey Show", to: "/about/turnkey-show" },
+        { label: "Market Overview", to: "/about/market-overview" },
+        { label: "Venue", to: "/about/venue" },
+        { label: "Organizer", to: "/about/organizer" },
+      ],
+    },
+    {
+      label: "Exhibit",
+      to: "/exhibit/why-exhibit",
+      children: [
+        { label: "Why Exhibit", to: "/exhibit/why-exhibit" },
+        { label: "Visitor Profile", to: "/exhibit/visitor-profile" },
+        { label: "Book your space", to: "/exhibit/book-your-space" },
+        { label: "Download brochure", to: "/exhibit/download-brochure" },
+      ],
+    },
+    {
+      label: "Visit",
+      to: "/visit/exhibitor-profile",
+      children: [
+        { label: "Exhibitor Profile", to: "/visit/exhibitor-profile" },
+        { label: "Visitor Registration", to: "/visit/visitor-registration" },
+      ],
+    },
+    {
+      label: "Services",
+      to: "/services/special-decoration",
+      children: [
+        { label: "Special Decoration", to: "/services/special-decoration" },
+        { label: "Freight Forwarding", to: "/services/freight-forwarding" },
+        { label: "Travel", to: "/services/travel" },
+      ],
+    },
+    { label: "Contact us", to: "/contact" },
+  ],
+  ar: [
+    { label: "الرئيسية", to: "/" },
+    {
+      label: "عن المعرض",
+      to: "/about/turnkey-show",
+      children: [
+        { label: "معرض تيرن كي", to: "/about/turnkey-show" },
+        { label: "نظرة على السوق", to: "/about/market-overview" },
+        { label: "مكان إقامة المعرض", to: "/about/venue" },
+        { label: "المنظم", to: "/about/organizer" },
+      ],
+    },
+    {
+      label: "للعارضين",
+      to: "/exhibit/why-exhibit",
+      children: [
+        { label: "لماذا تشارك كعارض", to: "/exhibit/why-exhibit" },
+        { label: "الفئات المستهدفة من الزوار", to: "/exhibit/visitor-profile" },
+        { label: "احجز مساحتك", to: "/exhibit/book-your-space" },
+        { label: "حمّل البروشور", to: "/exhibit/download-brochure" },
+      ],
+    },
+    {
+      label: "للزوار",
+      to: "/visit/exhibitor-profile",
+      children: [
+        { label: "قطاعات العارضين", to: "/visit/exhibitor-profile" },
+        { label: "سجّل زيارتك", to: "/visit/visitor-registration" },
+      ],
+    },
+    {
+      label: "الخدمات",
+      to: "/services/special-decoration",
+      children: [
+        { label: "التجهيزات والديكورات الخاصة", to: "/services/special-decoration" },
+        { label: "الشحن والتخليص الجمركي", to: "/services/freight-forwarding" },
+        { label: "السفر والإقامة", to: "/services/travel" },
+      ],
+    },
+    { label: "تواصل معنا", to: "/contact" },
+  ],
+};
+
+export const navigationMenu: NavItem[] = navigationMenus.en;
 
 export function SiteLayout({ children }: PropsWithChildren) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -75,6 +121,11 @@ export function SiteLayout({ children }: PropsWithChildren) {
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const prevPathnameRef = useRef(location.pathname);
+
+  const { locale, isAr, alternatePath } = useLocale();
+  const eventText = EVENT_TEXT[locale];
+  const navItems = navigationMenus[locale];
+  const currentNeutralPath = stripLocale(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,12 +169,15 @@ export function SiteLayout({ children }: PropsWithChildren) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const toggleMobileAccordion = (label: string) => {
+  const toggleMobileAccordion = (to: string) => {
     setMobileExpanded((prev) => ({
       ...prev,
-      [label]: !prev[label],
+      [to]: !prev[to],
     }));
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const AnyLink = Link as any;
 
   return (
     <div className="site-shell">
@@ -139,14 +193,14 @@ export function SiteLayout({ children }: PropsWithChildren) {
         <div className="header-top-strip">
           <div className="page-width top-strip-inner">
             <div className="top-strip-left">
-              <span className="top-strip-dates">{EVENT_CONFIG.dates}</span>
+              <span className="top-strip-dates">{eventText.dates}</span>
               <span className="top-strip-sep">·</span>
-              <span className="top-strip-venue">{EVENT_CONFIG.venue}</span>
+              <span className="top-strip-venue">{eventText.venue}</span>
             </div>
             <div className="top-strip-right">
               <a href={`mailto:${EVENT_CONFIG.email}`} className="top-strip-email">
                 <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-                <span>{EVENT_CONFIG.email}</span>
+                <span className="ltr-inline">{EVENT_CONFIG.email}</span>
               </a>
               <div className="top-strip-social">
                 <a
@@ -174,6 +228,15 @@ export function SiteLayout({ children }: PropsWithChildren) {
                   <Instagram className="w-3.5 h-3.5" />
                 </a>
               </div>
+              <AnyLink
+                to={alternatePath}
+                className="top-strip-lang"
+                lang={isAr ? "en" : "ar"}
+                hrefLang={isAr ? "en" : "ar"}
+                aria-label={isAr ? "Switch to English" : "التبديل إلى العربية"}
+              >
+                {isAr ? "EN" : "العربية"}
+              </AnyLink>
             </div>
           </div>
         </div>
@@ -183,7 +246,11 @@ export function SiteLayout({ children }: PropsWithChildren) {
           <div className="page-width header-inner">
             {/* Logo + Compact Event Meta Block */}
             <div className="header-brand-group">
-              <Link to="/" className="brand-logo-link" aria-label="Turnkey Show home">
+              <LocaleLink
+                to="/"
+                className="brand-logo-link"
+                aria-label={isAr ? "الرئيسية - معرض تيرن كي" : "Turnkey Show home"}
+              >
                 <img
                   src={turnkeyLogo}
                   alt="TURNKEY SHOW"
@@ -191,55 +258,60 @@ export function SiteLayout({ children }: PropsWithChildren) {
                   width={140}
                   height={132}
                 />
-              </Link>
+              </LocaleLink>
               <div className="header-event-meta">
-                <strong className="header-meta-title">{EVENT_CONFIG.name}</strong>
-                <span className="header-meta-dates">{EVENT_CONFIG.dates}</span>
-                <span className="header-meta-venue">{EVENT_CONFIG.venueShort}</span>
+                <strong className="header-meta-title">{eventText.name}</strong>
+                <span className="header-meta-dates">{eventText.dates}</span>
+                <span className="header-meta-venue">{eventText.venueShort}</span>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="desktop-navigation" aria-label="Main navigation">
+            <nav
+              className="desktop-navigation"
+              aria-label={isAr ? "القائمة الرئيسية" : "Main navigation"}
+            >
               <ul className="nav-list">
-                {navigationMenu.map((item) => {
+                {navItems.map((item) => {
                   const hasDropdown = Boolean(item.children && item.children.length > 0);
                   const isTopActive =
                     item.to === "/"
-                      ? location.pathname === "/"
-                      : location.pathname.startsWith(item.to.split("/")[1] ? `/${item.to.split("/")[1]}` : item.to);
+                      ? currentNeutralPath === "/"
+                      : currentNeutralPath.startsWith(
+                        item.to.split("/")[1] ? `/${item.to.split("/")[1]}` : item.to,
+                      );
 
                   return (
                     <li
-                      key={item.label}
-                      className={`nav-item ${hasDropdown ? "has-dropdown" : ""} ${openDropdown === item.label ? "dropdown-open" : ""
+                      key={item.to}
+                      className={`nav-item ${hasDropdown ? "has-dropdown" : ""} ${openDropdown === item.to ? "dropdown-open" : ""
                         }`}
-                      onMouseEnter={() => hasDropdown && setOpenDropdown(item.label)}
+                      onMouseEnter={() => hasDropdown && setOpenDropdown(item.to)}
                       onMouseLeave={() => hasDropdown && setOpenDropdown(null)}
                     >
-                      <Link
+                      <LocaleLink
                         to={item.to}
                         className={`navigation-link ${isTopActive ? "is-active" : ""}`}
-                        onFocus={() => hasDropdown && setOpenDropdown(item.label)}
+                        onFocus={() => hasDropdown && setOpenDropdown(item.to)}
                       >
                         {item.label}
-                        {hasDropdown && <ChevronDown className="w-3.5 h-3.5 ml-1 dropdown-chevron" />}
-                      </Link>
+                        {hasDropdown && <ChevronDown className="w-3.5 h-3.5 ms-1 dropdown-chevron" />}
+                      </LocaleLink>
 
                       {hasDropdown && (
                         <ul className="dropdown-menu" role="menu">
                           {item.children?.map((sub) => {
-                            const isSubActive = location.pathname === sub.to;
+                            const isSubActive = currentNeutralPath === sub.to;
                             return (
                               <li key={sub.to} role="none">
-                                <Link
+                                <LocaleLink
                                   to={sub.to}
                                   role="menuitem"
                                   className={`dropdown-link ${isSubActive ? "is-active" : ""}`}
                                   onClick={() => setOpenDropdown(null)}
                                 >
                                   {sub.label}
-                                </Link>
+                                </LocaleLink>
                               </li>
                             );
                           })}
@@ -253,15 +325,33 @@ export function SiteLayout({ children }: PropsWithChildren) {
 
             {/* Header Right Action & Mobile Toggle */}
             <div className="header-actions">
+              <AnyLink
+                to={alternatePath}
+                className="lang-switch-btn"
+                lang={isAr ? "en" : "ar"}
+                hrefLang={isAr ? "en" : "ar"}
+                aria-label={isAr ? "Switch to English" : "التبديل إلى العربية"}
+              >
+                {isAr ? "EN" : "عربي"}
+              </AnyLink>
               <Button asChild size="sm" className="header-cta-btn">
-                <Link to="/exhibit/book-your-space">
-                  Book Space <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
-                </Link>
+                <LocaleLink to="/exhibit/book-your-space">
+                  {isAr ? "احجز مساحتك" : "Book Space"}{" "}
+                  <ArrowUpRight className="w-3.5 h-3.5 ms-1 rtl-flip-icon" />
+                </LocaleLink>
               </Button>
               <button
                 type="button"
                 className="mobile-menu-toggle"
-                aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+                aria-label={
+                  mobileMenuOpen
+                    ? isAr
+                      ? "إغلاق القائمة"
+                      : "Close navigation"
+                    : isAr
+                      ? "فتح القائمة"
+                      : "Open navigation"
+                }
                 aria-expanded={mobileMenuOpen}
                 onClick={() => setMobileMenuOpen((o) => !o)}
               >
@@ -276,35 +366,44 @@ export function SiteLayout({ children }: PropsWithChildren) {
           <div className="mobile-drawer-inner">
             <div className="mobile-drawer-header">
               <div className="mobile-meta">
-                <strong>{EVENT_CONFIG.name}</strong>
-                <span>{EVENT_CONFIG.dates}</span>
+                <strong>{eventText.name}</strong>
+                <span>{eventText.dates}</span>
               </div>
+              <AnyLink
+                to={alternatePath}
+                className="lang-switch-btn"
+                lang={isAr ? "en" : "ar"}
+                hrefLang={isAr ? "en" : "ar"}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {isAr ? "English" : "العربية"}
+              </AnyLink>
             </div>
 
-            <nav className="mobile-nav" aria-label="Mobile navigation">
-              {navigationMenu.map((item) => {
+            <nav className="mobile-nav" aria-label={isAr ? "قائمة الجوال" : "Mobile navigation"}>
+              {navItems.map((item) => {
                 const hasChildren = Boolean(item.children && item.children.length > 0);
-                const isExpanded = mobileExpanded[item.label] ?? false;
+                const isExpanded = mobileExpanded[item.to] ?? false;
 
                 if (!hasChildren) {
                   return (
-                    <Link
-                      key={item.label}
+                    <LocaleLink
+                      key={item.to}
                       to={item.to}
                       className="mobile-nav-link"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.label}
-                    </Link>
+                    </LocaleLink>
                   );
                 }
 
                 return (
-                  <div key={item.label} className="mobile-accordion-item">
+                  <div key={item.to} className="mobile-accordion-item">
                     <button
                       type="button"
                       className="mobile-accordion-btn"
-                      onClick={() => toggleMobileAccordion(item.label)}
+                      onClick={() => toggleMobileAccordion(item.to)}
                       aria-expanded={isExpanded}
                     >
                       <span>{item.label}</span>
@@ -315,14 +414,14 @@ export function SiteLayout({ children }: PropsWithChildren) {
                     {isExpanded && (
                       <div className="mobile-accordion-body">
                         {item.children?.map((sub) => (
-                          <Link
+                          <LocaleLink
                             key={sub.to}
                             to={sub.to}
                             className="mobile-subnav-link"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             {sub.label}
-                          </Link>
+                          </LocaleLink>
                         ))}
                       </div>
                     )}
@@ -333,17 +432,21 @@ export function SiteLayout({ children }: PropsWithChildren) {
 
             <div className="mobile-drawer-footer">
               <Button asChild className="w-full mb-3" size="sm">
-                <Link to="/visit/visitor-registration" onClick={() => setMobileMenuOpen(false)}>
-                  Register to Visit <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
+                <LocaleLink to="/visit/visitor-registration" onClick={() => setMobileMenuOpen(false)}>
+                  {isAr ? "سجّل زيارتك" : "Register to Visit"}{" "}
+                  <ArrowRight className="w-4 h-4 ms-1 rtl-flip-icon" />
+                </LocaleLink>
               </Button>
               <Button asChild variant="outline" className="w-full" size="sm">
-                <Link to="/exhibit/download-brochure" onClick={() => setMobileMenuOpen(false)}>
-                  Download Brochure <ArrowUpRight className="w-4 h-4 ml-1" />
-                </Link>
+                <LocaleLink to="/exhibit/download-brochure" onClick={() => setMobileMenuOpen(false)}>
+                  {isAr ? "حمّل البروشور" : "Download Brochure"}{" "}
+                  <ArrowUpRight className="w-4 h-4 ms-1 rtl-flip-icon" />
+                </LocaleLink>
               </Button>
               <div className="mobile-contacts-strip">
-                <a href={`mailto:${EVENT_CONFIG.email}`}>{EVENT_CONFIG.email}</a>
+                <a href={`mailto:${EVENT_CONFIG.email}`} className="ltr-inline">
+                  {EVENT_CONFIG.email}
+                </a>
               </div>
             </div>
           </div>
@@ -360,15 +463,18 @@ export function SiteLayout({ children }: PropsWithChildren) {
 }
 
 function SiteFooter({ pathname }: { pathname: string }) {
-  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+  const { locale, isAr } = useLocale();
+  const eventText = EVENT_TEXT[locale];
+  const normalizedPath = stripLocale(pathname).replace(/\/+$/, "") || "/";
+
   const secondaryAction =
     normalizedPath === "/exhibit/download-brochure"
-      ? { label: "Contact Us", to: "/contact" }
-      : { label: "Download Brochure", to: "/exhibit/download-brochure" };
+      ? { label: isAr ? "تواصل معنا" : "Contact Us", to: "/contact" }
+      : { label: isAr ? "حمّل البروشور" : "Download Brochure", to: "/exhibit/download-brochure" };
   const primaryAction =
     normalizedPath === "/exhibit/book-your-space"
-      ? { label: "Contact Us", to: "/contact" }
-      : { label: "Book Your Space", to: "/exhibit/book-your-space" };
+      ? { label: isAr ? "تواصل معنا" : "Contact Us", to: "/contact" }
+      : { label: isAr ? "احجز مساحتك" : "Book Your Space", to: "/exhibit/book-your-space" };
 
   return (
     <footer className="site-footer">
@@ -385,18 +491,26 @@ function SiteFooter({ pathname }: { pathname: string }) {
               </svg>
             </span>
             <span className="footer-crown-tagline">
-              THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
+              {isAr ? (
+                <>
+                  المنصة المتكاملة لحلول تجهيز <span className="headline-accent">الوحدات الساحلية</span>
+                </>
+              ) : (
+                <>
+                  THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
+                </>
+              )}
             </span>
           </div>
           <div className="footer-crown-actions">
-            <Link to={secondaryAction.to} className="footer-crown-cta footer-crown-cta-secondary">
+            <LocaleLink to={secondaryAction.to} className="footer-crown-cta footer-crown-cta-secondary">
               {secondaryAction.label}
-              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
-            <Link to={primaryAction.to} className="footer-crown-cta">
+              <ArrowUpRight className="w-4 h-4 rtl-flip-icon" aria-hidden="true" />
+            </LocaleLink>
+            <LocaleLink to={primaryAction.to} className="footer-crown-cta">
               {primaryAction.label}
-              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+              <ArrowUpRight className="w-4 h-4 rtl-flip-icon" aria-hidden="true" />
+            </LocaleLink>
           </div>
         </div>
       </div>
@@ -404,12 +518,16 @@ function SiteFooter({ pathname }: { pathname: string }) {
       <div className="page-width footer-main">
         {/* Brand & Show Meta */}
         <div className="footer-brand-block">
-          <Link to="/" className="footer-brand-link" aria-label="Turnkey Show home">
+          <LocaleLink
+            to="/"
+            className="footer-brand-link"
+            aria-label={isAr ? "الرئيسية - معرض تيرن كي" : "Turnkey Show home"}
+          >
             <img src={turnkeyLogo} alt="TURNKEY SHOW" className="footer-logo-img" />
-          </Link>
+          </LocaleLink>
           <div className="footer-event-info" style={{ marginBottom: "1.25rem", marginTop: 0 }}>
-            <div className="footer-event-date">{EVENT_CONFIG.dates}</div>
-            <div className="footer-event-venue">{EVENT_CONFIG.venue}</div>
+            <div className="footer-event-date">{eventText.dates}</div>
+            <div className="footer-event-venue">{eventText.venue}</div>
           </div>
           <div className="footer-social-icons">
             <a
@@ -441,52 +559,70 @@ function SiteFooter({ pathname }: { pathname: string }) {
 
         {/* Quick Links Column */}
         <div className="footer-column">
-          <span className="footer-label">Quick Links</span>
+          <span className="footer-label">{isAr ? "روابط سريعة" : "Quick Links"}</span>
           <div className="footer-nav-list">
-            <Link to="/contact" className="footer-nav-main-link">Contact Us</Link>
-            <Link to="/visit/visitor-registration" className="footer-nav-main-link">Register to Visit</Link>
-            <Link to="/exhibit/book-your-space" className="footer-nav-main-link">Book Your Space</Link>
-            <Link to="/exhibit/download-brochure" className="footer-nav-main-link">Download Brochure</Link>
-            <Link to="/about/venue" className="footer-nav-main-link">Venue</Link>
+            <LocaleLink to="/contact" className="footer-nav-main-link">
+              {isAr ? "تواصل معنا" : "Contact Us"}
+            </LocaleLink>
+            <LocaleLink to="/visit/visitor-registration" className="footer-nav-main-link">
+              {isAr ? "سجّل زيارتك" : "Register to Visit"}
+            </LocaleLink>
+            <LocaleLink to="/exhibit/book-your-space" className="footer-nav-main-link">
+              {isAr ? "احجز مساحتك" : "Book Your Space"}
+            </LocaleLink>
+            <LocaleLink to="/exhibit/download-brochure" className="footer-nav-main-link">
+              {isAr ? "حمّل البروشور" : "Download Brochure"}
+            </LocaleLink>
+            <LocaleLink to="/about/venue" className="footer-nav-main-link">
+              {isAr ? "مكان إقامة المعرض" : "Venue"}
+            </LocaleLink>
           </div>
         </div>
 
         {/* Contact & Inquiries Column */}
         <div className="footer-column footer-contact-column">
-          <span className="footer-label">Contact &amp; Inquiries</span>
+          <span className="footer-label">{isAr ? "للتواصل والاستفسارات" : "Contact & Inquiries"}</span>
           <div className="footer-contact-info" style={{ marginBottom: 0 }}>
             <a href={`mailto:${EVENT_CONFIG.email}`} className="footer-contact-item">
               <span className="footer-contact-icon" aria-hidden="true">
                 <Mail className="w-4 h-4" />
               </span>
-              <span>{EVENT_CONFIG.email}</span>
+              <span className="ltr-inline">{EVENT_CONFIG.email}</span>
             </a>
             <a href="https://wa.me/201017575757" className="footer-contact-item" target="_blank" rel="noreferrer">
               <span className="footer-contact-icon" aria-hidden="true">
                 <Phone className="w-4 h-4" />
               </span>
-              <span>WhatsApp: +2 010 17 57 57 57</span>
+              <span>
+                {isAr ? "واتساب: " : "WhatsApp: "}
+                <span className="ltr-inline">+2 010 17 57 57 57</span>
+              </span>
             </a>
             <a href="tel:+2 010 41 55 54 55" className="footer-contact-item">
               <span className="footer-contact-icon" aria-hidden="true">
                 <Phone className="w-4 h-4" />
               </span>
-              <span>mobile: +2 010 41 55 54 55</span>
+              <span>
+                {isAr ? "موبايل: " : "mobile: "}
+                <span className="ltr-inline">+2 010 41 55 54 55</span>
+              </span>
             </a>
           </div>
         </div>
 
         {/* Organized By Block (from docx last table, Section 7) */}
         <div className="footer-organizer-block">
-          <span className="footer-label">Organized By:</span>
+          <span className="footer-label">{isAr ? "تنظيم:" : "Organized By:"}</span>
           <div className="organizer-logo-card">
             <img src={apexLogo} alt="Apex Conventions and Trade Fairs" className="apex-footer-logo" />
           </div>
-          <strong className="organizer-company-name">{EVENT_CONFIG.organizer.name}</strong>
+          <strong className="organizer-company-name">{eventText.organizerName}</strong>
           <div className="organizer-contact-lines">
             <p className="organizer-contact-item">
-              <span>E-mail:</span>{" "}
-              <a href={`mailto:${EVENT_CONFIG.organizer.email}`}>{EVENT_CONFIG.organizer.email}</a>
+              <span>{isAr ? "البريد الإلكتروني:" : "E-mail:"}</span>{" "}
+              <a href={`mailto:${EVENT_CONFIG.organizer.email}`} className="ltr-inline">
+                {EVENT_CONFIG.organizer.email}
+              </a>
             </p>
           </div>
         </div>
@@ -494,7 +630,11 @@ function SiteFooter({ pathname }: { pathname: string }) {
 
       <div className="footer-bottom-bar">
         <div className="page-width footer-bottom">
-          <span>© 2027 Turnkey Show Alamein. All rights reserved.</span>
+          <span>
+            {isAr
+              ? "© ٢٠٢٧ معرض العلمين تيرن كي شو. جميع الحقوق محفوظة."
+              : "© 2027 Turnkey Show Alamein. All rights reserved."}
+          </span>
         </div>
       </div>
     </footer>
@@ -606,7 +746,7 @@ export function PageHero({
             {(primaryBtn || secondaryBtn) && (
               <div className="subpage-intro-btn-row">
                 {primaryBtn && (
-                  <a href={primaryBtn.href} className="hero-btn hero-btn-primary">
+                  <LocaleLink to={primaryBtn.href} className="hero-btn hero-btn-primary">
                     {primaryBtn.label}
                     <svg
                       className="hero-btn-icon"
@@ -624,10 +764,10 @@ export function PageHero({
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </a>
+                  </LocaleLink>
                 )}
                 {secondaryBtn && (
-                  <a href={secondaryBtn.href} className="hero-btn subpage-btn-ghost">
+                  <LocaleLink to={secondaryBtn.href} className="hero-btn subpage-btn-ghost">
                     {secondaryBtn.label}
                     <svg
                       className="hero-btn-icon"
@@ -645,7 +785,7 @@ export function PageHero({
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </a>
+                  </LocaleLink>
                 )}
               </div>
             )}
@@ -657,4 +797,3 @@ export function PageHero({
 }
 
 export { AnimatedCounter } from "./AnimatedCounter";
-

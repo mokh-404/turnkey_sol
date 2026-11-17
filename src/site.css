@@ -664,6 +664,10 @@ div.eyebrow,
 }
 
 .mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding-bottom: 16px;
   margin-bottom: 16px;
   border-bottom: 1px solid #eeeeee;
@@ -1976,6 +1980,42 @@ div.eyebrow,
   color: var(--tk-white);
   padding: 0.35rem 0.85rem;
   border-radius: 2px;
+}
+
+.venue-specs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.venue-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-inline-start: 3px solid var(--tk-red);
+}
+
+.spec-val {
+  font-family: var(--font-headline);
+  font-size: 0.95rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tk-red);
+  line-height: 1.2;
+}
+
+.spec-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  line-height: 1.35;
 }
 
 /* ==========================================================================
@@ -4345,45 +4385,6 @@ textarea::placeholder {
   }
 
   /* --- Navigation --- */
-  .site-header nav,
-  .main-navigation {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    background: #ffffff;
-    padding: 2.25rem 2rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.25rem;
-    border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    transform: translateY(-120%);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.35s ease, opacity 0.35s ease;
-    z-index: 999;
-  }
-
-  .site-header nav.is-open,
-  .main-navigation.is-open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .main-navigation .navigation-link {
-    color: #1a1a1a !important;
-    font-size: 1.15rem;
-    width: 100%;
-    padding: 0.35rem 0;
-  }
-
-  .main-navigation .navigation-link:hover,
-  .main-navigation .navigation-link.is-active {
-    color: var(--tk-red) !important;
-  }
-
   body.menu-open .site-header {
     background-color: #ffffff !important;
     border-bottom: 1px solid #e5e7eb !important;
@@ -4529,7 +4530,8 @@ textarea::placeholder {
   .editorial-section-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-    padding: clamp(2rem, 4vw, 3rem) 0;
+    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
   }
 
   .editorial-media img {
@@ -6199,12 +6201,12 @@ textarea.field-invalid {
 
 /* 3. Full-Width Bleed Sections (Fixes boxed black banners) */
 .full-width-section {
-  width: 100vw !important;
+  width: 100% !important;
   position: relative !important;
-  left: 50% !important;
-  right: 50% !important;
-  margin-left: -50vw !important;
-  margin-right: -50vw !important;
+  left: auto !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   box-sizing: border-box !important;
 }
 
@@ -6934,6 +6936,7 @@ textarea.field-invalid {
   max-width: var(--page-max, 1280px);
   margin: 0 auto;
   padding: 0 var(--page-pad, 24px);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7428,6 +7431,14 @@ textarea.field-invalid {
   align-items: center;
 }
 
+.contact-form-card .contact-form {
+  background: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .contact-apex-contact-list {
   list-style: none;
   padding: 0;
@@ -7814,6 +7825,895 @@ textarea.field-invalid {
   transform: translateY(-7px);
   border-color: var(--tk-red);
   box-shadow: 0 22px 48px rgba(0, 0, 0, 0.42), 0 0 24px rgba(233, 41, 36, 0.2);
+}
+
+/* ==========================================================================
+   8. Unified Mobile Responsive System (<= 768px, <= 480px, <= 375px)
+   Authoritative mobile layout, spacing, padding, and overflow safeguards.
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Container & Base Typography */
+  .page-width {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  body {
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  h2 {
+    font-size: clamp(1.45rem, 5.2vw, 1.95rem) !important;
+    line-height: 1.18 !important;
+    margin-bottom: 0.85rem;
+  }
+
+  h3 {
+    font-size: clamp(1.1rem, 3.8vw, 1.35rem) !important;
+  }
+
+  /* Uniform Mobile Buttons (allow wrapping on narrow screens) */
+  .hero-btn,
+  .hero-btn-primary,
+  .hero-btn-secondary,
+  .hero-btn-editorial,
+  .subpage-btn-ghost,
+  .show-button {
+    height: auto !important;
+    min-height: 48px !important;
+    padding: 13px 22px !important;
+    font-size: 0.84rem !important;
+    white-space: normal !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Mobile Header & Drawer */
+  .header-top-strip {
+    display: none !important;
+  }
+
+  .header-main-bar,
+  .header-inner {
+    height: 72px !important;
+  }
+
+  .header-inner {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    gap: 8px;
+  }
+
+  .header-brand-group {
+    gap: 8px !important;
+    min-width: 0;
+  }
+
+  .brand-logo-img {
+    height: 48px !important;
+    width: auto !important;
+  }
+
+  .header-event-meta,
+  .desktop-navigation {
+    display: none !important;
+  }
+
+  .header-actions {
+    gap: 8px !important;
+    flex-shrink: 0;
+  }
+
+  .lang-switch-btn {
+    height: 36px !important;
+    padding: 0 10px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .header-cta-btn {
+    display: inline-flex !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 12px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
+  }
+
+  .mobile-menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 6px !important;
+    color: #111111 !important;
+  }
+
+  .mobile-drawer {
+    top: 72px !important;
+  }
+
+  .mobile-drawer-inner {
+    max-height: calc(100vh - 72px) !important;
+    max-height: calc(100dvh - 72px) !important;
+    padding: 20px 18px 28px !important;
+  }
+
+  .mobile-drawer-footer a,
+  .mobile-drawer-footer button {
+    min-height: 44px;
+    border-radius: 0;
+  }
+
+  /* Homepage Hero */
+  .hero-section,
+  .hero-section.page-sub-hero {
+    min-height: calc(100vh - 72px) !important;
+    min-height: calc(100dvh - 72px) !important;
+    height: auto !important;
+  }
+
+  .hero-container {
+    min-height: calc(100vh - 72px) !important;
+    min-height: calc(100dvh - 72px) !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .hero-stack {
+    padding-top: 0 !important;
+    padding-bottom: 16px !important;
+  }
+
+  .hero-corner-chevron {
+    top: 18px !important;
+    right: 16px !important;
+    width: 40px !important;
+    height: 50px !important;
+    opacity: 0.8 !important;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.35rem, 10vw, 3.35rem) !important;
+    line-height: 0.96 !important;
+  }
+
+  .hero-red-bar {
+    margin: 0.75rem 0 !important;
+  }
+
+  .hero-subhead,
+  .hero-definition-right {
+    white-space: normal !important;
+    font-size: clamp(0.95rem, 3.6vw, 1.15rem) !important;
+    line-height: 1.4 !important;
+    max-width: 100% !important;
+  }
+
+  .hero-date-venue-right {
+    border-left-width: 3px !important;
+    padding-left: 12px !important;
+  }
+
+  .hero-date-only-red {
+    font-size: clamp(1.35rem, 5.5vw, 1.8rem) !important;
+  }
+
+  .hero-venue-line1 {
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 0.3em !important;
+    font-size: clamp(0.92rem, 3.8vw, 1.08rem) !important;
+  }
+
+  .hero-venue-line2 {
+    font-size: clamp(0.86rem, 3.4vw, 1rem) !important;
+  }
+
+  .hero-sectors-text {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.55rem 0.85rem !important;
+    justify-items: start !important;
+    margin: 1.15rem 0 1.25rem !important;
+    padding: 0.9rem 0 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 0.85rem !important;
+  }
+
+  .hero-sector-pipe {
+    display: none !important;
+  }
+
+  .hero-sector-label {
+    white-space: normal !important;
+    text-align: start !important;
+    justify-self: start !important;
+    line-height: 1.3 !important;
+  }
+
+  .hero-info-strip {
+    grid-template-columns: 1fr !important;
+    background: rgba(8, 8, 8, 0.76) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    padding: 14px 16px !important;
+    gap: 12px !important;
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
+  }
+
+  .info-strip-col {
+    padding: 4px 0 !important;
+  }
+
+  .info-strip-col + .info-strip-col {
+    border-left: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
+    padding-left: 0 !important;
+    padding-top: 12px !important;
+  }
+
+  .info-strip-label {
+    font-size: 0.78rem !important;
+  }
+
+  .info-strip-value {
+    font-size: 1.65rem !important;
+  }
+
+  /* Homepage Sections */
+  .expo-intro-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .expo-intro-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .expo-media-frame img {
+    min-height: 0 !important;
+    height: 240px !important;
+  }
+
+  .expo-media-badge {
+    bottom: 0.85rem !important;
+    left: 0.85rem !important;
+    right: 0.85rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .marquee-ribbon-container {
+    padding: 12px 0 !important;
+  }
+
+  .marquee-label {
+    font-size: 0.9rem !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .intro-section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .intro-main-row,
+  .intro-main-row.intro-markets-row {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .intro-image-wrap img {
+    min-height: 0 !important;
+    height: 240px !important;
+  }
+
+  .image-index {
+    bottom: 0.85rem !important;
+    left: 0.85rem !important;
+    padding: 0.35rem 0.75rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .two-markets-section {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .two-markets-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .two-markets-subtitle,
+  .market-col-lead,
+  .market-col-title {
+    white-space: normal !important;
+  }
+
+  .market-col {
+    padding: 1.25rem 1.15rem !important;
+  }
+
+  .home-stats-banner {
+    grid-template-columns: 1fr !important;
+    margin-top: 1.25rem !important;
+  }
+
+  .home-stat-box {
+    padding: 1.25rem 1rem !important;
+  }
+
+  .section-band {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .section-heading {
+    margin-bottom: 1.75rem !important;
+    gap: 1rem !important;
+  }
+
+  .sector-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .sector-card {
+    height: 270px !important;
+  }
+
+  .sector-card-copy {
+    height: auto !important;
+    min-height: 112px !important;
+    padding: 1rem 1.15rem !important;
+  }
+
+  .sector-card-copy h3 {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .sector-card-copy p {
+    font-size: 0.88rem !important;
+  }
+
+  .exhibit-sectors .sector-card {
+    height: 230px !important;
+  }
+
+  .exhibit-sectors .sector-card-copy {
+    min-height: 68px !important;
+  }
+
+  .venue-section {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .venue-image {
+    min-height: 0 !important;
+    height: 240px !important;
+  }
+
+  .venue-copy {
+    padding: 1.75rem 0 2.25rem !important;
+  }
+
+  .venue-specs {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+    margin-top: 1.25rem !important;
+    padding-top: 1.25rem !important;
+  }
+
+  /* Subpage Banner & Intro */
+  .subpage-banner {
+    height: auto !important;
+    min-height: 150px !important;
+    padding: 2rem 0 !important;
+  }
+
+  .subpage-banner-content {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .subpage-banner-heading {
+    font-size: clamp(1.65rem, 6.5vw, 2.35rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  .subpage-intro-section {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  .subpage-intro-title {
+    font-size: clamp(1.35rem, 5.2vw, 1.85rem) !important;
+    line-height: 1.22 !important;
+  }
+
+  .subpage-intro-desc {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .subpage-intro-btn-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    margin-top: 1.25rem !important;
+  }
+
+  .subpage-intro-btn-row .hero-btn {
+    width: 100% !important;
+  }
+
+  /* About Pages */
+  .editorial-section-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding-top: 1.75rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .editorial-media {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .editorial-media img {
+    min-height: 0 !important;
+    height: 230px !important;
+  }
+
+  .editorial-section-grid--fit-copy .editorial-media {
+    aspect-ratio: 16 / 10 !important;
+    height: auto !important;
+  }
+
+  .editorial-section-grid--fit-copy .editorial-media img {
+    height: 100% !important;
+  }
+
+  .turnkey-pillars-section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .turnkey-pillars-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .turnkey-pillar-card {
+    padding: 1.35rem 1.25rem !important;
+  }
+
+  .market-glance-section.full-width-section {
+    padding: 2.25rem 0 !important;
+  }
+
+  .market-stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    margin: 1.5rem 0 1rem !important;
+  }
+
+  .market-stat {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .venue-features-section {
+    padding: 2.25rem 0 !important;
+  }
+
+  .venue-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .venue-feature-card {
+    padding: 1.35rem 1.25rem !important;
+  }
+
+  .venue-feature-icon {
+    width: 54px !important;
+    height: 54px !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .venue-feature-svg {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .organizer-page-section {
+    padding: 2rem 0 2.5rem !important;
+  }
+
+  .organizer-page-inner {
+    gap: 1.5rem !important;
+  }
+
+  .organizer-apex-logo {
+    max-width: 210px !important;
+  }
+
+  .organizer-page-copy p {
+    font-size: 1rem !important;
+  }
+
+  /* Exhibit, Visit, Services & Contact Pages */
+  .exhibit-stat-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.5rem 1.25rem !important;
+    gap: 0.85rem !important;
+    min-height: auto !important;
+  }
+
+  .exhibit-stat-card .stat-number {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: clamp(2.5rem, 11vw, 3.25rem) !important;
+  }
+
+  .exhibit-stat-card .stat-text h3 {
+    font-size: 1.2rem !important;
+  }
+
+  .exhibit-stat-card .stat-text p {
+    font-size: 0.98rem !important;
+  }
+
+  .visitor-profile-page {
+    padding-top: 0.75rem !important;
+    padding-bottom: 2.25rem !important;
+  }
+
+  .visitor-profile-page .audience-list {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+    margin: 1.25rem 0 !important;
+  }
+
+  .visitor-profile-page .audience-item {
+    padding: 1.2rem 1.15rem !important;
+  }
+
+  .profile-closing-statement {
+    margin-top: 1.75rem !important;
+    font-size: clamp(1.05rem, 4.4vw, 1.3rem) !important;
+    padding-left: 1rem !important;
+  }
+
+  .coming-soon-text {
+    padding: 2.5rem 0 !important;
+    font-size: 1.1rem !important;
+  }
+
+  .brochure-download-section.full-width-section {
+    padding: 2rem 0 2.5rem !important;
+  }
+
+  .brochure-form-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .brochure-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .booking-page-wrap {
+    padding-top: 1.25rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .booking-intro-banner {
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  .booking-intro-cols {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+
+  .booking-intro-item p {
+    font-size: 0.96rem !important;
+  }
+
+  .book-space-custom-form .form-section-block {
+    margin-bottom: 1.75rem !important;
+  }
+
+  .form-two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .form-sectors-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+    padding: 1rem !important;
+  }
+
+  .contact-form-section {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .contact-form-section-intro {
+    margin-bottom: 1.75rem !important;
+  }
+
+  .contact-form {
+    padding: 1.35rem 1.15rem !important;
+    gap: 1rem !important;
+  }
+
+  .contact-form-card {
+    padding: 1.35rem 1.15rem !important;
+  }
+
+  .contact-form-card .contact-form {
+    padding: 0 !important;
+  }
+
+  .contact-form .form-group {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .contact-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .contact-apex-side-card {
+    padding: 1.5rem 1.15rem !important;
+  }
+
+  .contact-apex-contact-item {
+    flex-wrap: wrap !important;
+    text-align: center !important;
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    font-size: 1rem !important;
+  }
+
+  .services-grid-section {
+    padding-bottom: 2.5rem !important;
+  }
+
+  .service-card {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .service-contact-row div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .expotech-logo {
+    max-width: 210px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Footer & Alert Modal */
+  .footer-crown-bar {
+    padding: 1rem 0 !important;
+  }
+
+  .footer-crown-actions {
+    width: min(100%, 280px) !important;
+  }
+
+  .footer-main {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2rem !important;
+    gap: 1.75rem !important;
+  }
+
+  .footer-column,
+  .footer-organizer-block {
+    padding-top: 1.5rem !important;
+  }
+
+  .footer-logo-img {
+    height: 84px !important;
+  }
+
+  .footer-contact-item {
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .site-alert-modal {
+    padding: 1.35rem 1.25rem !important;
+  }
+
+  .site-alert-actions {
+    justify-content: stretch !important;
+  }
+
+  .site-alert-btn {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-width {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .subpage-banner-content {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .header-main-bar,
+  .header-inner {
+    height: 66px !important;
+  }
+
+  .header-inner {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .brand-logo-img {
+    height: 42px !important;
+  }
+
+  .header-actions {
+    gap: 6px !important;
+  }
+
+  .lang-switch-btn {
+    height: 34px !important;
+    padding: 0 8px !important;
+    font-size: 0.74rem !important;
+  }
+
+  .header-cta-btn {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.03em !important;
+  }
+
+  .mobile-drawer {
+    top: 66px !important;
+  }
+
+  .mobile-drawer-inner {
+    max-height: calc(100vh - 66px) !important;
+    max-height: calc(100dvh - 66px) !important;
+    padding: 18px 16px 24px !important;
+  }
+
+  .hero-section,
+  .hero-section.page-sub-hero {
+    min-height: calc(100vh - 66px) !important;
+    min-height: calc(100dvh - 66px) !important;
+  }
+
+  .hero-container {
+    min-height: calc(100vh - 66px) !important;
+    min-height: calc(100dvh - 66px) !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .hero-corner-chevron {
+    top: 14px !important;
+    right: 14px !important;
+    width: 32px !important;
+    height: 40px !important;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.1rem, 9.8vw, 2.75rem) !important;
+  }
+
+  .hero-definition-right br {
+    display: none;
+  }
+
+  .hero-sectors-text {
+    font-size: 0.8rem !important;
+    gap: 0.45rem 0.65rem !important;
+  }
+
+  .info-strip-value {
+    font-size: 1.45rem !important;
+  }
+
+  .expo-media-frame img,
+  .intro-image-wrap img,
+  .venue-image {
+    height: 215px !important;
+  }
+
+  .editorial-media img {
+    height: 205px !important;
+  }
+
+  .brochure-download-inner.brochure-download-inner--full {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .brochure-form-card,
+  .contact-form,
+  .contact-form-card {
+    padding: 1.25rem 1.05rem !important;
+  }
+
+  .contact-form-card .contact-form {
+    padding: 0 !important;
+  }
+
+  .book-space-custom-form .show-button,
+  .brochure-form .show-button,
+  .contact-form .show-button {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    font-size: 0.82rem !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .page-width {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .subpage-banner-content {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .brochure-download-inner.brochure-download-inner--full {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-cta-btn svg {
+    display: none;
+  }
+
+  .header-cta-btn {
+    padding: 0 8px !important;
+    font-size: 0.68rem !important;
+  }
 }
 
 /* 7. Reduced Motion Safeguards */

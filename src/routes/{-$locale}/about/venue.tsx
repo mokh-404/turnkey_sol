@@ -2,30 +2,39 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import venueImage from "@/assets/venue.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
-import { EVENT_CONFIG } from "@/config/event";
+import { resolveLocale, useLocale } from "@/lib/i18n";
 import type { ReactNode, SVGProps } from "react";
 
-export const Route = createFileRoute("/about/venue")({
+export const Route = createFileRoute("/{-$locale}/about/venue")({
   component: VenuePage,
-  head: () => ({
-    meta: [
-      { title: "Venue | About | Turnkey Show Alamein 2027" },
-      {
-        name: "description",
-        content:
-          "Turnkey Show is hosted at the New Alamein International Convention & Exhibition Center — a purpose-built venue for high-level international events.",
-      },
-      { property: "og:title", content: "Venue | About" },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: ({ params }) => {
+    const isAr = resolveLocale((params as { locale?: string }).locale) === "ar";
+    return {
+      meta: [
+        {
+          title: isAr
+            ? "مكان إقامة المعرض | عن المعرض | معرض العلمين تيرن كي شو ٢٠٢٧"
+            : "Venue | About | Turnkey Show Alamein 2027",
+        },
+        {
+          name: "description",
+          content: isAr
+            ? "يُقام المعرض في مركز العلمين الدولي للمؤتمرات والمعارض، وهو وجهة مجهزة خصيصًا لاستضافة الفعاليات الدولية رفيعة المستوى."
+            : "Turnkey Show is hosted at the New Alamein International Convention & Exhibition Center — a purpose-built venue for high-level international events.",
+        },
+        {
+          property: "og:title",
+          content: isAr ? "مكان إقامة المعرض | عن المعرض" : "Venue | About",
+        },
+        { property: "og:type", content: "website" },
+      ],
+    };
+  },
 });
 
 /**
  * Venue feature icons traced 1:1 from the vector artwork on page 15 of the
- * Turnkey Show 2027 brochure. Paths keep the brochure's PDF coordinates
- * (y-up), flipped with scale(1,-1); each viewBox is a 50×50 window centred on
- * its icon so the four icons keep the same relative scale as in the brochure.
+ * Turnkey Show 2027 brochure.
  */
 function BrochureIcon({ viewBox, children, ...props }: SVGProps<SVGSVGElement> & { children: ReactNode }) {
   return (
@@ -92,50 +101,132 @@ function ProfessionalExperienceIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-const featureBlocks = [
-  { icon: ModernFacilitiesIcon, title: "MODERN FACILITIES", desc: "Conference halls & fully equipped meeting rooms." },
-  { icon: AdvancedTechnologyIcon, title: "ADVANCED TECHNOLOGY", desc: "Audiovisual & interpretation systems." },
-  { icon: IntegratedServicesIcon, title: "INTEGRATED SERVICES", desc: "Registration, accreditation, information, business & media facilities." },
-  { icon: ProfessionalExperienceIcon, title: "PROFESSIONAL EXPERIENCE", desc: "A secure, efficient and comfortable environment Powered By professional staff and integrated technical services." },
-];
+const FEATURES_BY_LOCALE = {
+  en: [
+    {
+      icon: ModernFacilitiesIcon,
+      title: "MODERN FACILITIES",
+      desc: "Conference halls & fully equipped meeting rooms.",
+    },
+    {
+      icon: AdvancedTechnologyIcon,
+      title: "ADVANCED TECHNOLOGY",
+      desc: "Audiovisual & interpretation systems.",
+    },
+    {
+      icon: IntegratedServicesIcon,
+      title: "INTEGRATED SERVICES",
+      desc: "Registration, accreditation, information, business & media facilities.",
+    },
+    {
+      icon: ProfessionalExperienceIcon,
+      title: "PROFESSIONAL EXPERIENCE",
+      desc: "A secure, efficient and comfortable environment Powered By professional staff and integrated technical services.",
+    },
+  ],
+  ar: [
+    {
+      icon: ModernFacilitiesIcon,
+      title: "مرافق حديثة",
+      desc: "قاعات مؤتمرات وغرف اجتماعات مجهزة بالكامل.",
+    },
+    {
+      icon: AdvancedTechnologyIcon,
+      title: "تكنولوجيا متطورة",
+      desc: "أنظمة متقدمة للصوت والصورة والترجمة الفورية.",
+    },
+    {
+      icon: IntegratedServicesIcon,
+      title: "خدمات متكاملة",
+      desc: "خدمات التسجيل والاعتماد والاستعلامات، ومرافق الأعمال والإعلام.",
+    },
+    {
+      icon: ProfessionalExperienceIcon,
+      title: "تجربة احترافية",
+      desc: "بيئة آمنة وفعّالة ومريحة، يدعمها فريق عمل متخصص وخدمات تقنية متكاملة.",
+    },
+  ],
+} as const;
 
 function VenuePage() {
+  const { locale, isAr } = useLocale();
+  const featureBlocks = FEATURES_BY_LOCALE[locale];
+
   return (
     <SiteLayout>
       <PageHero
-        eyebrow="The Venue"
-        title={"New Alamein International Convention\nand Exhibition Center"}
+        eyebrow={isAr ? "مكان إقامة المعرض" : "The Venue"}
+        title={
+          isAr
+            ? "مركز العلمين الدولي\nللمؤتمرات والمعارض"
+            : "New Alamein International Convention\nand Exhibition Center"
+        }
         image={venueImage}
-        imageAlt="Al Alamein International Conference & Exhibition Center"
+        imageAlt={
+          isAr
+            ? "مركز العلمين الدولي للمؤتمرات والمعارض"
+            : "Al Alamein International Conference & Exhibition Center"
+        }
       />
 
       {/* Venue description */}
       <section className="page-width editorial-section-grid" id="venue-info" style={{ paddingTop: "0.5rem" }}>
         <Reveal className="editorial-copy">
-          <p>
-            The Show will be hosted at the New Alamein International Convention & Exhibition Center — a purpose-built
-            venue equipped to support high-level international events. The facility offers modern conference halls,
-            fully equipped meeting rooms, and advanced audiovisual and interpretation systems to accommodate plenary
-            sessions and parallel meetings.
-          </p>
-          <p>
-            On-site services include registration and accreditation areas, information desks, business and media
-            facilities, and dedicated spaces for bilateral engagements. The venue is designed to ensure a secure,
-            efficient, and comfortable environment, Powered By professional staff and integrated technical services.
-          </p>
-          <a
-            className="text-link"
-            href="https://www.google.com/maps/search/?api=1&query=New+Alamein+International+Convention+and+Exhibition+Center"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore Location on Google Maps →
-          </a>
+          {isAr ? (
+            <>
+              <p>
+                يُقام المعرض في مركز العلمين الدولي للمؤتمرات والمعارض، وهو وجهة مجهزة خصيصًا لاستضافة الفعاليات الدولية رفيعة المستوى.
+              </p>
+              <p>
+                يضم المركز قاعات مؤتمرات حديثة، وغرف اجتماعات مجهزة بالكامل، وأنظمة متطورة للصوت والصورة والترجمة الفورية، بما يتيح استضافة الجلسات العامة والاجتماعات المتوازية بكفاءة.
+              </p>
+              <p>
+                وتشمل الخدمات المتاحة داخل المركز مناطق التسجيل واعتماد المشاركين، ومكاتب الاستعلامات، ومرافق الأعمال والإعلام، ومساحات مخصصة للاجتماعات الثنائية. وقد صُمم المركز لتوفير بيئة آمنة وفعّالة ومريحة لجميع المشاركين.
+              </p>
+              <a
+                className="text-link"
+                href="https://www.google.com/maps/search/?api=1&query=New+Alamein+International+Convention+and+Exhibition+Center"
+                target="_blank"
+                rel="noreferrer"
+              >
+                عرض الموقع على خرائط جوجل{" "}
+                <span className="link-arrow" aria-hidden="true">
+                  ←
+                </span>
+              </a>
+            </>
+          ) : (
+            <>
+              <p>
+                The Show will be hosted at the New Alamein International Convention &amp; Exhibition Center — a purpose-built
+                venue equipped to support high-level international events. The facility offers modern conference halls,
+                fully equipped meeting rooms, and advanced audiovisual and interpretation systems to accommodate plenary
+                sessions and parallel meetings.
+              </p>
+              <p>
+                On-site services include registration and accreditation areas, information desks, business and media
+                facilities, and dedicated spaces for bilateral engagements. The venue is designed to ensure a secure,
+                efficient, and comfortable environment, Powered By professional staff and integrated technical services.
+              </p>
+              <a
+                className="text-link"
+                href="https://www.google.com/maps/search/?api=1&query=New+Alamein+International+Convention+and+Exhibition+Center"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Explore Location on Google Maps →
+              </a>
+            </>
+          )}
         </Reveal>
         <Reveal className="editorial-media">
           <img
             src={venueImage}
-            alt="Al Alamein International Conference and Exhibition Center"
+            alt={
+              isAr
+                ? "مركز العلمين الدولي للمؤتمرات والمعارض"
+                : "Al Alamein International Conference and Exhibition Center"
+            }
             width={1600}
             height={1024}
             decoding="async"
@@ -143,7 +234,7 @@ function VenuePage() {
         </Reveal>
       </section>
 
-      {/* Feature Blocks [BROCHURE] */}
+      {/* Feature Blocks */}
       <section className="venue-features-section section-band full-width-section" id="venue-features">
         <div className="page-width">
           <div className="venue-features-grid">
@@ -162,4 +253,3 @@ function VenuePage() {
     </SiteLayout>
   );
 }
-

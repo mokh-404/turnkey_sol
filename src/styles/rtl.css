@@ -1,0 +1,621 @@
+/* ==========================================================================
+   Language Switcher & Arabic (RTL + Noto Kufi Arabic) Typography & Mirroring
+   ========================================================================== */
+
+/* Language Switcher Button (Header + Mobile Drawer) */
+.lang-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 12px;
+  border: 1.5px solid #d1d5db;
+  background: #ffffff;
+  color: #111111 !important;
+  font-family: "Noto Kufi Arabic", "League Spartan", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.lang-switch-btn:hover {
+  border-color: var(--tk-red);
+  color: var(--tk-red) !important;
+  background: rgba(233, 41, 36, 0.04);
+}
+
+.top-strip-lang {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Noto Kufi Arabic", "League Spartan", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #111111 !important;
+  padding: 2px 8px;
+  border: 1px solid #d1d5db;
+  line-height: 1.3;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.top-strip-lang:hover {
+  border-color: var(--tk-red);
+  color: var(--tk-red) !important;
+}
+
+@media (max-width: 768px) {
+  .lang-switch-btn {
+    height: 38px;
+    padding: 0 10px;
+    font-size: 0.78rem;
+  }
+}
+
+/* ==========================================================================
+   Arabic Typography: Noto Kufi Arabic across the entire site
+   ========================================================================== */
+
+html[lang="ar"] {
+  --font-headline: "Noto Kufi Arabic", "League Spartan", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Noto Kufi Arabic", "League Spartan", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* Arabic letters must never be letter-spaced or forced uppercase */
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6,
+html[lang="ar"] .eyebrow,
+html[lang="ar"] .section-eyebrow,
+html[lang="ar"] .hero-headline,
+html[lang="ar"] .hero-subhead,
+html[lang="ar"] .hero-eyebrow,
+html[lang="ar"] .hero-date-only-red,
+html[lang="ar"] .hero-sectors-text,
+html[lang="ar"] .navigation-link,
+html[lang="ar"] .dropdown-link,
+html[lang="ar"] .header-meta-title,
+html[lang="ar"] .header-cta-btn,
+html[lang="ar"] .show-button,
+html[lang="ar"] .hero-btn,
+html[lang="ar"] .hero-btn-editorial,
+html[lang="ar"] .hero-secondary-btn,
+html[lang="ar"] .subpage-btn-ghost,
+html[lang="ar"] .text-link,
+html[lang="ar"] .info-strip-label,
+html[lang="ar"] .info-strip-value,
+html[lang="ar"] .marquee-label,
+html[lang="ar"] .dc-label,
+html[lang="ar"] .image-index,
+html[lang="ar"] .image-caption-tag,
+html[lang="ar"] .expo-media-badge .badge-title,
+html[lang="ar"] .about-next-badge span,
+html[lang="ar"] .home-stat-box .stat-label,
+html[lang="ar"] .two-markets-subtitle,
+html[lang="ar"] .market-col-title,
+html[lang="ar"] .column-index,
+html[lang="ar"] .statement-punchline,
+html[lang="ar"] .audience-num,
+html[lang="ar"] .strip-item strong,
+html[lang="ar"] .meeting-point-header h2,
+html[lang="ar"] .footer-crown-tagline,
+html[lang="ar"] .footer-crown-cta,
+html[lang="ar"] .footer-label,
+html[lang="ar"] .footer-event-date,
+html[lang="ar"] .organizer-company-name,
+html[lang="ar"] .organizer-details strong,
+html[lang="ar"] .subpage-banner-heading,
+html[lang="ar"] .subpage-intro-title,
+html[lang="ar"] .page-hero-title,
+html[lang="ar"] .page-hero-subhead,
+html[lang="ar"] .site-alert-title,
+html[lang="ar"] .brochure-form-card .form-field label,
+html[lang="ar"] .social-links a {
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-family: var(--font-headline);
+}
+
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+  line-height: 1.32;
+}
+
+html[lang="ar"] .hero-headline {
+  font-size: clamp(2.65rem, 5vw, 4.5rem);
+  line-height: 1.22;
+}
+
+html[lang="ar"] .hero-top-split {
+  gap: clamp(1.25rem, 2.4vw, 2.5rem);
+}
+
+html[lang="ar"] .hero-definition-right {
+  white-space: nowrap;
+  font-size: clamp(1.18rem, 1.5vw, 1.5rem);
+  line-height: 1.38;
+  max-width: none;
+}
+
+@media (max-width: 900px) {
+  html[lang="ar"] .hero-definition-right {
+    white-space: normal;
+  }
+}
+
+html[lang="ar"] .hero-date-only-red {
+  font-size: clamp(1.65rem, 2.3vw, 2.25rem);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+html[lang="ar"] .hero-venue-line1 {
+  justify-content: flex-start;
+  gap: 0.35em;
+  font-size: clamp(1rem, 1.38vw, 1.32rem);
+  line-height: 1.45;
+}
+
+html[lang="ar"] .hero-venue-line2 {
+  font-size: clamp(0.95rem, 1.18vw, 1.14rem);
+  line-height: 1.45;
+}
+
+html[lang="ar"] .hero-sectors-text {
+  font-size: clamp(0.92rem, 1.12vw, 1.12rem);
+  line-height: 1.35;
+}
+
+html[lang="ar"] .subpage-banner-heading {
+  font-size: clamp(1.9rem, 4.2vw, 3.5rem) !important;
+  line-height: 1.28 !important;
+  animation-name: subpageTitleRevealAr;
+}
+
+@keyframes subpageTitleRevealAr {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+html[lang="ar"] .subpage-intro-title {
+  line-height: 1.38 !important;
+}
+
+html[lang="ar"] .market-col-lead {
+  white-space: normal;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+html[lang="ar"] .market-col-title {
+  white-space: normal;
+  font-size: clamp(1.02rem, 1.25vw, 1.2rem);
+}
+
+html[lang="ar"] .two-markets-subtitle {
+  white-space: normal;
+}
+
+html[lang="ar"] .coming-soon-text {
+  font-style: normal;
+}
+
+/* Keep Latin numbers/emails/phones strictly LTR inside RTL prose */
+html[dir="rtl"] .ltr-inline {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
+
+html[dir="rtl"] input[type="email"],
+html[dir="rtl"] input[type="tel"],
+html[dir="rtl"] input[name="companyWebsite"] {
+  direction: ltr;
+  text-align: right;
+}
+
+/* ==========================================================================
+   RTL Layout & Directional Mirroring
+   ========================================================================== */
+
+/* Header & Navigation */
+html[dir="rtl"] .header-event-meta {
+  border-left: none;
+  border-right: 2px solid #e5e7eb;
+  padding-left: 0;
+  padding-right: 14px;
+}
+
+html[dir="rtl"] .header-scroll-progress,
+html[dir="rtl"] .navigation-link::after,
+html[dir="rtl"] .sector-card::before,
+html[dir="rtl"] .hero-red-bar,
+html[dir="rtl"] .subpage-intro-red-rule {
+  transform-origin: right;
+}
+
+html[dir="rtl"] .dropdown-menu {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+html[dir="rtl"] .dropdown-link {
+  transition:
+    background-color 0.2s var(--ease-out-quart),
+    color 0.2s var(--ease-out-quart),
+    padding-right 0.22s var(--ease-out-quart);
+}
+
+html[dir="rtl"] .dropdown-link::before {
+  left: auto;
+  right: 10px;
+}
+
+html[dir="rtl"] .dropdown-link:hover,
+html[dir="rtl"] .dropdown-link.is-active {
+  padding-left: 20px;
+  padding-right: 24px;
+}
+
+html[dir="rtl"] .mobile-accordion-btn {
+  text-align: right;
+}
+
+html[dir="rtl"] .mobile-accordion-body {
+  padding: 6px 14px 10px 0;
+}
+
+/* Hero Section */
+html[dir="rtl"] .hero-corner-chevron {
+  right: auto;
+  left: clamp(20px, 3vw, 44px);
+}
+
+html[dir="rtl"] .hero-corner-chevron svg,
+html[dir="rtl"] .tk-chevron-icon,
+html[dir="rtl"] .booking-intro-chevron,
+html[dir="rtl"] .footer-crown-chevrons svg,
+html[dir="rtl"] .hero-btn-icon,
+html[dir="rtl"] .dc-chevron,
+html[dir="rtl"] .rtl-flip-icon {
+  transform: scaleX(-1);
+}
+
+html[dir="rtl"] .hero-meta-right,
+html[dir="rtl"] .hero-definition-right {
+  text-align: right;
+}
+
+html[dir="rtl"] .hero-date-venue-right {
+  text-align: right;
+  border-left: none;
+  border-right: 4px solid var(--tk-red);
+  padding-left: 0;
+  padding-right: 16px;
+}
+
+html[dir="rtl"] .hero-eyebrow span,
+html[dir="rtl"] .hero-section .eyebrow span,
+html[dir="rtl"] .page-sub-hero .eyebrow span {
+  margin-right: 0 !important;
+  margin-left: 6px !important;
+}
+
+html[dir="rtl"] .info-strip-col + .info-strip-col {
+  border-left: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+html[dir="rtl"] .home-stat-box:not(:first-child) {
+  border-left: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Intro & Badges */
+html[dir="rtl"] .intro-copy {
+  padding-left: 0;
+  padding-right: clamp(0rem, 2vw, 2rem);
+}
+
+html[dir="rtl"] .image-index,
+html[dir="rtl"] .about-next-badge {
+  left: auto;
+  right: 1.25rem;
+  border-left: none;
+  border-right: 3px solid var(--tk-red);
+}
+
+html[dir="rtl"] .expo-media-badge {
+  border-left: none;
+  border-right: 4px solid var(--tk-red);
+}
+
+html[dir="rtl"] .image-caption-tag {
+  border-left: none;
+  border-right: 3px solid var(--tk-red);
+}
+
+html[dir="rtl"] .profile-index {
+  left: auto;
+  right: 1rem;
+}
+
+/* Two Markets & Editorial Cards */
+html[dir="rtl"] .market-col {
+  border-left: none;
+  border-right: 3px solid var(--tk-red);
+}
+
+html[dir="rtl"] .market-col-existing {
+  border-right-color: #cccccc;
+}
+
+html[dir="rtl"] .market-list li {
+  padding-left: 0;
+  padding-right: 1.25rem;
+}
+
+html[dir="rtl"] .market-list li::before {
+  left: auto;
+  right: 0;
+}
+
+html[dir="rtl"] .market-col:hover .market-list li:hover {
+  transform: translateX(-5px);
+}
+
+html[dir="rtl"] .market-column li {
+  padding-left: 0;
+  padding-right: 1.4rem;
+}
+
+html[dir="rtl"] .market-column li::before {
+  left: auto;
+  right: 0;
+  content: "<";
+}
+
+html[dir="rtl"] .about-next-item {
+  padding-left: 0;
+  padding-right: 1rem;
+  border-left: none;
+  border-right: 3px solid var(--tk-red);
+}
+
+html[dir="rtl"] .exhibit-stat-card {
+  border-left: 1px solid #e5e7eb !important;
+  border-right: 6px solid var(--tk-red) !important;
+}
+
+html[dir="rtl"] .venue-feature-card {
+  border-left: 1px solid #e5e7eb;
+  border-right: 4px solid var(--tk-red);
+}
+
+html[dir="rtl"] .venue-feature-card:hover {
+  border-left-color: rgba(233, 41, 36, 0.45);
+  border-right-color: var(--tk-red);
+}
+
+html[dir="rtl"] .visitor-profile-page .audience-item {
+  border-left: 1px solid #e5e7eb;
+  border-right: 4px solid var(--tk-red);
+}
+
+html[dir="rtl"] .profile-closing-statement {
+  padding-left: 0;
+  padding-right: 1.5rem;
+  border-left: none;
+  border-right: 4px solid var(--tk-red);
+}
+
+/* Buttons & Hover Translations */
+html[dir="rtl"] .show-button:hover .btn-arrow,
+html[dir="rtl"] .text-link:hover .link-arrow,
+html[dir="rtl"] .hero-btn-editorial:hover .btn-arrow {
+  transform: translateX(-5px);
+}
+
+html[dir="rtl"] .show-button:hover svg {
+  transform: translateX(-4px);
+}
+
+html[dir="rtl"] .hero-btn:hover .hero-btn-icon,
+html[dir="rtl"] .hero-btn-primary:hover .hero-btn-icon,
+html[dir="rtl"] .hero-btn-secondary:hover .hero-btn-icon,
+html[dir="rtl"] .subpage-btn-ghost:hover .hero-btn-icon {
+  transform: scaleX(-1) translateX(5px);
+}
+
+html[dir="rtl"] .header-cta-btn:hover svg {
+  transform: translate(-2px, -2px);
+}
+
+/* Marquee Ribbon RTL */
+html[dir="rtl"] .marquee-ribbon-track {
+  animation-name: marqueeScrollRtl;
+}
+
+@keyframes marqueeScrollRtl {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+/* Demand Cycle RTL */
+html[dir="rtl"] .dc-track-fill {
+  left: auto;
+  right: 0;
+}
+
+@media (max-width: 699px) {
+  html[dir="rtl"] .dc-steps {
+    padding-left: 0;
+    padding-right: 28px;
+    border-left: none;
+    border-right: 2px solid var(--tk-red);
+  }
+
+  html[dir="rtl"] .dc-node {
+    margin-left: 0;
+    margin-right: -50px;
+  }
+
+  html[dir="rtl"] .dc-label {
+    text-align: right;
+  }
+}
+
+/* Footer RTL */
+html[dir="rtl"] .footer-column,
+html[dir="rtl"] .footer-organizer-block {
+  border-left: none;
+  border-right: 1px solid #eceef2;
+  padding-left: 0;
+  padding-right: clamp(1rem, 1.8vw, 1.65rem);
+}
+
+html[dir="rtl"] .footer-contact-column {
+  padding-left: 0;
+  padding-right: clamp(0.85rem, 1.4vw, 1.25rem);
+}
+
+html[dir="rtl"] .footer-event-info {
+  border-left: 1px solid #eceef2;
+  border-right: 3px solid var(--tk-red);
+}
+
+html[dir="rtl"] .footer-column a:hover,
+html[dir="rtl"] .footer-nav-main-link:hover,
+html[dir="rtl"] .footer-link-flex:hover {
+  transform: translateX(-4px);
+}
+
+html[dir="rtl"] .footer-sub-flyout {
+  left: auto;
+  right: calc(100% + 10px);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 3px solid var(--tk-red);
+  transform: translateX(4px);
+}
+
+html[dir="rtl"] .footer-sub-flyout::before {
+  left: auto;
+  right: -14px;
+}
+
+html[dir="rtl"] .footer-sub-link:hover {
+  padding-left: 6px;
+  padding-right: 10px;
+}
+
+/* Responsive RTL Overrides */
+@media (max-width: 1024px) {
+  html[dir="rtl"] .footer-sub-flyout {
+    padding: 6px 14px 6px 0;
+    border-left: none;
+    border-right: 2px solid rgba(233, 41, 36, 0.4);
+  }
+}
+
+@media (max-width: 900px) {
+  html[dir="rtl"] .hero-meta-right,
+  html[dir="rtl"] .hero-date-venue-right {
+    text-align: right;
+    margin-right: 0;
+    border-left: none;
+    border-right: 4px solid var(--tk-red);
+    padding-left: 0;
+    padding-right: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  html[lang="ar"] .hero-headline {
+    font-size: clamp(2.15rem, 9.2vw, 3.1rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  html[lang="ar"] .subpage-banner-heading {
+    font-size: clamp(1.5rem, 5.8vw, 2.25rem) !important;
+    line-height: 1.25 !important;
+  }
+
+  html[lang="ar"] .hero-venue-line1 {
+    flex-wrap: wrap !important;
+  }
+
+  html[dir="rtl"] .home-stat-box:not(:first-child) {
+    border-right: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+
+  html[dir="rtl"] .info-strip-col + .info-strip-col {
+    border-right: none !important;
+    border-left: none !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.14) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 12px !important;
+  }
+
+  html[dir="rtl"] .hero-corner-chevron {
+    right: auto !important;
+    left: 16px !important;
+  }
+
+  html[dir="rtl"] .image-index {
+    left: auto !important;
+    right: 0.85rem !important;
+  }
+
+  html[dir="rtl"] .profile-closing-statement {
+    padding-left: 0 !important;
+    padding-right: 1rem !important;
+  }
+
+  html[dir="rtl"] .footer-brand-block,
+  html[dir="rtl"] .footer-column,
+  html[dir="rtl"] .footer-organizer-block {
+    border-right: none !important;
+    padding-right: 0 !important;
+  }
+
+  html[dir="rtl"] .hero-date-venue-right {
+    border-left: none !important;
+    border-right: 3px solid var(--tk-red) !important;
+    padding-left: 0 !important;
+    padding-right: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  html[dir="rtl"] .hero-corner-chevron {
+    right: auto !important;
+    left: 14px !important;
+  }
+}

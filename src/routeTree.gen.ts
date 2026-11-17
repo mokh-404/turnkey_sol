@@ -9,491 +9,568 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as ExhibitRouteImport } from './routes/exhibit'
-import { Route as ServicesRouteImport } from './routes/services'
-import { Route as VisitRouteImport } from './routes/visit'
-import { Route as AboutMarketOverviewRouteImport } from './routes/about/market-overview'
-import { Route as AboutOrganizerRouteImport } from './routes/about/organizer'
-import { Route as AboutTurnkeyShowRouteImport } from './routes/about/turnkey-show'
-import { Route as AboutVenueRouteImport } from './routes/about/venue'
-import { Route as ExhibitBookYourSpaceRouteImport } from './routes/exhibit/book-your-space'
-import { Route as ExhibitDownloadBrochureRouteImport } from './routes/exhibit/download-brochure'
-import { Route as ExhibitVisitorProfileRouteImport } from './routes/exhibit/visitor-profile'
-import { Route as ExhibitWhyExhibitRouteImport } from './routes/exhibit/why-exhibit'
-import { Route as ServicesFreightForwardingRouteImport } from './routes/services/freight-forwarding'
-import { Route as ServicesSpecialDecorationRouteImport } from './routes/services/special-decoration'
-import { Route as ServicesTravelRouteImport } from './routes/services/travel'
-import { Route as VisitExhibitorProfileRouteImport } from './routes/visit/exhibitor-profile'
-import { Route as VisitVisitorRegistrationRouteImport } from './routes/visit/visitor-registration'
-import { Route as VisitWhyVisitRouteImport } from './routes/visit/why-visit'
+import { Route as Char123LocaleChar125RouteRouteImport } from './routes/{-$locale}/route'
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125AboutRouteImport } from './routes/{-$locale}/about'
+import { Route as Char123LocaleChar125ContactRouteImport } from './routes/{-$locale}/contact'
+import { Route as Char123LocaleChar125ExhibitRouteImport } from './routes/{-$locale}/exhibit'
+import { Route as Char123LocaleChar125ServicesRouteImport } from './routes/{-$locale}/services'
+import { Route as Char123LocaleChar125VisitRouteImport } from './routes/{-$locale}/visit'
+import { Route as Char123LocaleChar125AboutMarketOverviewRouteImport } from './routes/{-$locale}/about/market-overview'
+import { Route as Char123LocaleChar125AboutOrganizerRouteImport } from './routes/{-$locale}/about/organizer'
+import { Route as Char123LocaleChar125AboutTurnkeyShowRouteImport } from './routes/{-$locale}/about/turnkey-show'
+import { Route as Char123LocaleChar125AboutVenueRouteImport } from './routes/{-$locale}/about/venue'
+import { Route as Char123LocaleChar125ExhibitBookYourSpaceRouteImport } from './routes/{-$locale}/exhibit/book-your-space'
+import { Route as Char123LocaleChar125ExhibitDownloadBrochureRouteImport } from './routes/{-$locale}/exhibit/download-brochure'
+import { Route as Char123LocaleChar125ExhibitVisitorProfileRouteImport } from './routes/{-$locale}/exhibit/visitor-profile'
+import { Route as Char123LocaleChar125ExhibitWhyExhibitRouteImport } from './routes/{-$locale}/exhibit/why-exhibit'
+import { Route as Char123LocaleChar125ServicesFreightForwardingRouteImport } from './routes/{-$locale}/services/freight-forwarding'
+import { Route as Char123LocaleChar125ServicesSpecialDecorationRouteImport } from './routes/{-$locale}/services/special-decoration'
+import { Route as Char123LocaleChar125ServicesTravelRouteImport } from './routes/{-$locale}/services/travel'
+import { Route as Char123LocaleChar125VisitExhibitorProfileRouteImport } from './routes/{-$locale}/visit/exhibitor-profile'
+import { Route as Char123LocaleChar125VisitVisitorRegistrationRouteImport } from './routes/{-$locale}/visit/visitor-registration'
+import { Route as Char123LocaleChar125VisitWhyVisitRouteImport } from './routes/{-$locale}/visit/why-visit'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExhibitRoute = ExhibitRouteImport.update({
-  id: '/exhibit',
-  path: '/exhibit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VisitRoute = VisitRouteImport.update({
-  id: '/visit',
-  path: '/visit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutMarketOverviewRoute = AboutMarketOverviewRouteImport.update({
-  id: '/market-overview',
-  path: '/market-overview',
-  getParentRoute: () => AboutRoute,
-} as any)
-const AboutOrganizerRoute = AboutOrganizerRouteImport.update({
-  id: '/organizer',
-  path: '/organizer',
-  getParentRoute: () => AboutRoute,
-} as any)
-const AboutTurnkeyShowRoute = AboutTurnkeyShowRouteImport.update({
-  id: '/turnkey-show',
-  path: '/turnkey-show',
-  getParentRoute: () => AboutRoute,
-} as any)
-const AboutVenueRoute = AboutVenueRouteImport.update({
-  id: '/venue',
-  path: '/venue',
-  getParentRoute: () => AboutRoute,
-} as any)
-const ExhibitBookYourSpaceRoute = ExhibitBookYourSpaceRouteImport.update({
-  id: '/book-your-space',
-  path: '/book-your-space',
-  getParentRoute: () => ExhibitRoute,
-} as any)
-const ExhibitDownloadBrochureRoute = ExhibitDownloadBrochureRouteImport.update({
-  id: '/download-brochure',
-  path: '/download-brochure',
-  getParentRoute: () => ExhibitRoute,
-} as any)
-const ExhibitVisitorProfileRoute = ExhibitVisitorProfileRouteImport.update({
-  id: '/visitor-profile',
-  path: '/visitor-profile',
-  getParentRoute: () => ExhibitRoute,
-} as any)
-const ExhibitWhyExhibitRoute = ExhibitWhyExhibitRouteImport.update({
-  id: '/why-exhibit',
-  path: '/why-exhibit',
-  getParentRoute: () => ExhibitRoute,
-} as any)
-const ServicesFreightForwardingRoute =
-  ServicesFreightForwardingRouteImport.update({
+const Char123LocaleChar125RouteRoute =
+  Char123LocaleChar125RouteRouteImport.update({
+    id: '/{-$locale}',
+    path: '/{-$locale}',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char123LocaleChar125IndexRoute =
+  Char123LocaleChar125IndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AboutRoute =
+  Char123LocaleChar125AboutRouteImport.update({
+    id: '/about',
+    path: '/about',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125ContactRoute =
+  Char123LocaleChar125ContactRouteImport.update({
+    id: '/contact',
+    path: '/contact',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125ExhibitRoute =
+  Char123LocaleChar125ExhibitRouteImport.update({
+    id: '/exhibit',
+    path: '/exhibit',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125ServicesRoute =
+  Char123LocaleChar125ServicesRouteImport.update({
+    id: '/services',
+    path: '/services',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125VisitRoute =
+  Char123LocaleChar125VisitRouteImport.update({
+    id: '/visit',
+    path: '/visit',
+    getParentRoute: () => Char123LocaleChar125RouteRoute,
+  } as any)
+const Char123LocaleChar125AboutMarketOverviewRoute =
+  Char123LocaleChar125AboutMarketOverviewRouteImport.update({
+    id: '/market-overview',
+    path: '/market-overview',
+    getParentRoute: () => Char123LocaleChar125AboutRoute,
+  } as any)
+const Char123LocaleChar125AboutOrganizerRoute =
+  Char123LocaleChar125AboutOrganizerRouteImport.update({
+    id: '/organizer',
+    path: '/organizer',
+    getParentRoute: () => Char123LocaleChar125AboutRoute,
+  } as any)
+const Char123LocaleChar125AboutTurnkeyShowRoute =
+  Char123LocaleChar125AboutTurnkeyShowRouteImport.update({
+    id: '/turnkey-show',
+    path: '/turnkey-show',
+    getParentRoute: () => Char123LocaleChar125AboutRoute,
+  } as any)
+const Char123LocaleChar125AboutVenueRoute =
+  Char123LocaleChar125AboutVenueRouteImport.update({
+    id: '/venue',
+    path: '/venue',
+    getParentRoute: () => Char123LocaleChar125AboutRoute,
+  } as any)
+const Char123LocaleChar125ExhibitBookYourSpaceRoute =
+  Char123LocaleChar125ExhibitBookYourSpaceRouteImport.update({
+    id: '/book-your-space',
+    path: '/book-your-space',
+    getParentRoute: () => Char123LocaleChar125ExhibitRoute,
+  } as any)
+const Char123LocaleChar125ExhibitDownloadBrochureRoute =
+  Char123LocaleChar125ExhibitDownloadBrochureRouteImport.update({
+    id: '/download-brochure',
+    path: '/download-brochure',
+    getParentRoute: () => Char123LocaleChar125ExhibitRoute,
+  } as any)
+const Char123LocaleChar125ExhibitVisitorProfileRoute =
+  Char123LocaleChar125ExhibitVisitorProfileRouteImport.update({
+    id: '/visitor-profile',
+    path: '/visitor-profile',
+    getParentRoute: () => Char123LocaleChar125ExhibitRoute,
+  } as any)
+const Char123LocaleChar125ExhibitWhyExhibitRoute =
+  Char123LocaleChar125ExhibitWhyExhibitRouteImport.update({
+    id: '/why-exhibit',
+    path: '/why-exhibit',
+    getParentRoute: () => Char123LocaleChar125ExhibitRoute,
+  } as any)
+const Char123LocaleChar125ServicesFreightForwardingRoute =
+  Char123LocaleChar125ServicesFreightForwardingRouteImport.update({
     id: '/freight-forwarding',
     path: '/freight-forwarding',
-    getParentRoute: () => ServicesRoute,
+    getParentRoute: () => Char123LocaleChar125ServicesRoute,
   } as any)
-const ServicesSpecialDecorationRoute =
-  ServicesSpecialDecorationRouteImport.update({
+const Char123LocaleChar125ServicesSpecialDecorationRoute =
+  Char123LocaleChar125ServicesSpecialDecorationRouteImport.update({
     id: '/special-decoration',
     path: '/special-decoration',
-    getParentRoute: () => ServicesRoute,
+    getParentRoute: () => Char123LocaleChar125ServicesRoute,
   } as any)
-const ServicesTravelRoute = ServicesTravelRouteImport.update({
-  id: '/travel',
-  path: '/travel',
-  getParentRoute: () => ServicesRoute,
-} as any)
-const VisitExhibitorProfileRoute = VisitExhibitorProfileRouteImport.update({
-  id: '/exhibitor-profile',
-  path: '/exhibitor-profile',
-  getParentRoute: () => VisitRoute,
-} as any)
-const VisitVisitorRegistrationRoute =
-  VisitVisitorRegistrationRouteImport.update({
+const Char123LocaleChar125ServicesTravelRoute =
+  Char123LocaleChar125ServicesTravelRouteImport.update({
+    id: '/travel',
+    path: '/travel',
+    getParentRoute: () => Char123LocaleChar125ServicesRoute,
+  } as any)
+const Char123LocaleChar125VisitExhibitorProfileRoute =
+  Char123LocaleChar125VisitExhibitorProfileRouteImport.update({
+    id: '/exhibitor-profile',
+    path: '/exhibitor-profile',
+    getParentRoute: () => Char123LocaleChar125VisitRoute,
+  } as any)
+const Char123LocaleChar125VisitVisitorRegistrationRoute =
+  Char123LocaleChar125VisitVisitorRegistrationRouteImport.update({
     id: '/visitor-registration',
     path: '/visitor-registration',
-    getParentRoute: () => VisitRoute,
+    getParentRoute: () => Char123LocaleChar125VisitRoute,
   } as any)
-const VisitWhyVisitRoute = VisitWhyVisitRouteImport.update({
-  id: '/why-visit',
-  path: '/why-visit',
-  getParentRoute: () => VisitRoute,
-} as any)
+const Char123LocaleChar125VisitWhyVisitRoute =
+  Char123LocaleChar125VisitWhyVisitRouteImport.update({
+    id: '/why-visit',
+    path: '/why-visit',
+    getParentRoute: () => Char123LocaleChar125VisitRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRouteWithChildren
-  '/contact': typeof ContactRoute
-  '/exhibit': typeof ExhibitRouteWithChildren
-  '/services': typeof ServicesRouteWithChildren
-  '/visit': typeof VisitRouteWithChildren
-  '/about/market-overview': typeof AboutMarketOverviewRoute
-  '/about/organizer': typeof AboutOrganizerRoute
-  '/about/turnkey-show': typeof AboutTurnkeyShowRoute
-  '/about/venue': typeof AboutVenueRoute
-  '/exhibit/book-your-space': typeof ExhibitBookYourSpaceRoute
-  '/exhibit/download-brochure': typeof ExhibitDownloadBrochureRoute
-  '/exhibit/visitor-profile': typeof ExhibitVisitorProfileRoute
-  '/exhibit/why-exhibit': typeof ExhibitWhyExhibitRoute
-  '/services/freight-forwarding': typeof ServicesFreightForwardingRoute
-  '/services/special-decoration': typeof ServicesSpecialDecorationRoute
-  '/services/travel': typeof ServicesTravelRoute
-  '/visit/exhibitor-profile': typeof VisitExhibitorProfileRoute
-  '/visit/visitor-registration': typeof VisitVisitorRegistrationRoute
-  '/visit/why-visit': typeof VisitWhyVisitRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRouteWithChildren
+  '/{-$locale}/contact': typeof Char123LocaleChar125ContactRoute
+  '/{-$locale}/exhibit': typeof Char123LocaleChar125ExhibitRouteWithChildren
+  '/{-$locale}/services': typeof Char123LocaleChar125ServicesRouteWithChildren
+  '/{-$locale}/visit': typeof Char123LocaleChar125VisitRouteWithChildren
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/about/market-overview': typeof Char123LocaleChar125AboutMarketOverviewRoute
+  '/{-$locale}/about/organizer': typeof Char123LocaleChar125AboutOrganizerRoute
+  '/{-$locale}/about/turnkey-show': typeof Char123LocaleChar125AboutTurnkeyShowRoute
+  '/{-$locale}/about/venue': typeof Char123LocaleChar125AboutVenueRoute
+  '/{-$locale}/exhibit/book-your-space': typeof Char123LocaleChar125ExhibitBookYourSpaceRoute
+  '/{-$locale}/exhibit/download-brochure': typeof Char123LocaleChar125ExhibitDownloadBrochureRoute
+  '/{-$locale}/exhibit/visitor-profile': typeof Char123LocaleChar125ExhibitVisitorProfileRoute
+  '/{-$locale}/exhibit/why-exhibit': typeof Char123LocaleChar125ExhibitWhyExhibitRoute
+  '/{-$locale}/services/freight-forwarding': typeof Char123LocaleChar125ServicesFreightForwardingRoute
+  '/{-$locale}/services/special-decoration': typeof Char123LocaleChar125ServicesSpecialDecorationRoute
+  '/{-$locale}/services/travel': typeof Char123LocaleChar125ServicesTravelRoute
+  '/{-$locale}/visit/exhibitor-profile': typeof Char123LocaleChar125VisitExhibitorProfileRoute
+  '/{-$locale}/visit/visitor-registration': typeof Char123LocaleChar125VisitVisitorRegistrationRoute
+  '/{-$locale}/visit/why-visit': typeof Char123LocaleChar125VisitWhyVisitRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRouteWithChildren
-  '/contact': typeof ContactRoute
-  '/exhibit': typeof ExhibitRouteWithChildren
-  '/services': typeof ServicesRouteWithChildren
-  '/visit': typeof VisitRouteWithChildren
-  '/about/market-overview': typeof AboutMarketOverviewRoute
-  '/about/organizer': typeof AboutOrganizerRoute
-  '/about/turnkey-show': typeof AboutTurnkeyShowRoute
-  '/about/venue': typeof AboutVenueRoute
-  '/exhibit/book-your-space': typeof ExhibitBookYourSpaceRoute
-  '/exhibit/download-brochure': typeof ExhibitDownloadBrochureRoute
-  '/exhibit/visitor-profile': typeof ExhibitVisitorProfileRoute
-  '/exhibit/why-exhibit': typeof ExhibitWhyExhibitRoute
-  '/services/freight-forwarding': typeof ServicesFreightForwardingRoute
-  '/services/special-decoration': typeof ServicesSpecialDecorationRoute
-  '/services/travel': typeof ServicesTravelRoute
-  '/visit/exhibitor-profile': typeof VisitExhibitorProfileRoute
-  '/visit/visitor-registration': typeof VisitVisitorRegistrationRoute
-  '/visit/why-visit': typeof VisitWhyVisitRoute
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRouteWithChildren
+  '/{-$locale}/contact': typeof Char123LocaleChar125ContactRoute
+  '/{-$locale}/exhibit': typeof Char123LocaleChar125ExhibitRouteWithChildren
+  '/{-$locale}/services': typeof Char123LocaleChar125ServicesRouteWithChildren
+  '/{-$locale}/visit': typeof Char123LocaleChar125VisitRouteWithChildren
+  '/{-$locale}': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/about/market-overview': typeof Char123LocaleChar125AboutMarketOverviewRoute
+  '/{-$locale}/about/organizer': typeof Char123LocaleChar125AboutOrganizerRoute
+  '/{-$locale}/about/turnkey-show': typeof Char123LocaleChar125AboutTurnkeyShowRoute
+  '/{-$locale}/about/venue': typeof Char123LocaleChar125AboutVenueRoute
+  '/{-$locale}/exhibit/book-your-space': typeof Char123LocaleChar125ExhibitBookYourSpaceRoute
+  '/{-$locale}/exhibit/download-brochure': typeof Char123LocaleChar125ExhibitDownloadBrochureRoute
+  '/{-$locale}/exhibit/visitor-profile': typeof Char123LocaleChar125ExhibitVisitorProfileRoute
+  '/{-$locale}/exhibit/why-exhibit': typeof Char123LocaleChar125ExhibitWhyExhibitRoute
+  '/{-$locale}/services/freight-forwarding': typeof Char123LocaleChar125ServicesFreightForwardingRoute
+  '/{-$locale}/services/special-decoration': typeof Char123LocaleChar125ServicesSpecialDecorationRoute
+  '/{-$locale}/services/travel': typeof Char123LocaleChar125ServicesTravelRoute
+  '/{-$locale}/visit/exhibitor-profile': typeof Char123LocaleChar125VisitExhibitorProfileRoute
+  '/{-$locale}/visit/visitor-registration': typeof Char123LocaleChar125VisitVisitorRegistrationRoute
+  '/{-$locale}/visit/why-visit': typeof Char123LocaleChar125VisitWhyVisitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRouteWithChildren
-  '/contact': typeof ContactRoute
-  '/exhibit': typeof ExhibitRouteWithChildren
-  '/services': typeof ServicesRouteWithChildren
-  '/visit': typeof VisitRouteWithChildren
-  '/about/market-overview': typeof AboutMarketOverviewRoute
-  '/about/organizer': typeof AboutOrganizerRoute
-  '/about/turnkey-show': typeof AboutTurnkeyShowRoute
-  '/about/venue': typeof AboutVenueRoute
-  '/exhibit/book-your-space': typeof ExhibitBookYourSpaceRoute
-  '/exhibit/download-brochure': typeof ExhibitDownloadBrochureRoute
-  '/exhibit/visitor-profile': typeof ExhibitVisitorProfileRoute
-  '/exhibit/why-exhibit': typeof ExhibitWhyExhibitRoute
-  '/services/freight-forwarding': typeof ServicesFreightForwardingRoute
-  '/services/special-decoration': typeof ServicesSpecialDecorationRoute
-  '/services/travel': typeof ServicesTravelRoute
-  '/visit/exhibitor-profile': typeof VisitExhibitorProfileRoute
-  '/visit/visitor-registration': typeof VisitVisitorRegistrationRoute
-  '/visit/why-visit': typeof VisitWhyVisitRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteRouteWithChildren
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRouteWithChildren
+  '/{-$locale}/contact': typeof Char123LocaleChar125ContactRoute
+  '/{-$locale}/exhibit': typeof Char123LocaleChar125ExhibitRouteWithChildren
+  '/{-$locale}/services': typeof Char123LocaleChar125ServicesRouteWithChildren
+  '/{-$locale}/visit': typeof Char123LocaleChar125VisitRouteWithChildren
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
+  '/{-$locale}/about/market-overview': typeof Char123LocaleChar125AboutMarketOverviewRoute
+  '/{-$locale}/about/organizer': typeof Char123LocaleChar125AboutOrganizerRoute
+  '/{-$locale}/about/turnkey-show': typeof Char123LocaleChar125AboutTurnkeyShowRoute
+  '/{-$locale}/about/venue': typeof Char123LocaleChar125AboutVenueRoute
+  '/{-$locale}/exhibit/book-your-space': typeof Char123LocaleChar125ExhibitBookYourSpaceRoute
+  '/{-$locale}/exhibit/download-brochure': typeof Char123LocaleChar125ExhibitDownloadBrochureRoute
+  '/{-$locale}/exhibit/visitor-profile': typeof Char123LocaleChar125ExhibitVisitorProfileRoute
+  '/{-$locale}/exhibit/why-exhibit': typeof Char123LocaleChar125ExhibitWhyExhibitRoute
+  '/{-$locale}/services/freight-forwarding': typeof Char123LocaleChar125ServicesFreightForwardingRoute
+  '/{-$locale}/services/special-decoration': typeof Char123LocaleChar125ServicesSpecialDecorationRoute
+  '/{-$locale}/services/travel': typeof Char123LocaleChar125ServicesTravelRoute
+  '/{-$locale}/visit/exhibitor-profile': typeof Char123LocaleChar125VisitExhibitorProfileRoute
+  '/{-$locale}/visit/visitor-registration': typeof Char123LocaleChar125VisitVisitorRegistrationRoute
+  '/{-$locale}/visit/why-visit': typeof Char123LocaleChar125VisitWhyVisitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/about'
-    | '/contact'
-    | '/exhibit'
-    | '/services'
-    | '/visit'
-    | '/about/market-overview'
-    | '/about/organizer'
-    | '/about/turnkey-show'
-    | '/about/venue'
-    | '/exhibit/book-your-space'
-    | '/exhibit/download-brochure'
-    | '/exhibit/visitor-profile'
-    | '/exhibit/why-exhibit'
-    | '/services/freight-forwarding'
-    | '/services/special-decoration'
-    | '/services/travel'
-    | '/visit/exhibitor-profile'
-    | '/visit/visitor-registration'
-    | '/visit/why-visit'
+    | '/{-$locale}'
+    | '/{-$locale}/about'
+    | '/{-$locale}/contact'
+    | '/{-$locale}/exhibit'
+    | '/{-$locale}/services'
+    | '/{-$locale}/visit'
+    | '/{-$locale}/'
+    | '/{-$locale}/about/market-overview'
+    | '/{-$locale}/about/organizer'
+    | '/{-$locale}/about/turnkey-show'
+    | '/{-$locale}/about/venue'
+    | '/{-$locale}/exhibit/book-your-space'
+    | '/{-$locale}/exhibit/download-brochure'
+    | '/{-$locale}/exhibit/visitor-profile'
+    | '/{-$locale}/exhibit/why-exhibit'
+    | '/{-$locale}/services/freight-forwarding'
+    | '/{-$locale}/services/special-decoration'
+    | '/{-$locale}/services/travel'
+    | '/{-$locale}/visit/exhibitor-profile'
+    | '/{-$locale}/visit/visitor-registration'
+    | '/{-$locale}/visit/why-visit'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/about'
-    | '/contact'
-    | '/exhibit'
-    | '/services'
-    | '/visit'
-    | '/about/market-overview'
-    | '/about/organizer'
-    | '/about/turnkey-show'
-    | '/about/venue'
-    | '/exhibit/book-your-space'
-    | '/exhibit/download-brochure'
-    | '/exhibit/visitor-profile'
-    | '/exhibit/why-exhibit'
-    | '/services/freight-forwarding'
-    | '/services/special-decoration'
-    | '/services/travel'
-    | '/visit/exhibitor-profile'
-    | '/visit/visitor-registration'
-    | '/visit/why-visit'
+    | '/{-$locale}/about'
+    | '/{-$locale}/contact'
+    | '/{-$locale}/exhibit'
+    | '/{-$locale}/services'
+    | '/{-$locale}/visit'
+    | '/{-$locale}'
+    | '/{-$locale}/about/market-overview'
+    | '/{-$locale}/about/organizer'
+    | '/{-$locale}/about/turnkey-show'
+    | '/{-$locale}/about/venue'
+    | '/{-$locale}/exhibit/book-your-space'
+    | '/{-$locale}/exhibit/download-brochure'
+    | '/{-$locale}/exhibit/visitor-profile'
+    | '/{-$locale}/exhibit/why-exhibit'
+    | '/{-$locale}/services/freight-forwarding'
+    | '/{-$locale}/services/special-decoration'
+    | '/{-$locale}/services/travel'
+    | '/{-$locale}/visit/exhibitor-profile'
+    | '/{-$locale}/visit/visitor-registration'
+    | '/{-$locale}/visit/why-visit'
   id:
     | '__root__'
-    | '/'
-    | '/about'
-    | '/contact'
-    | '/exhibit'
-    | '/services'
-    | '/visit'
-    | '/about/market-overview'
-    | '/about/organizer'
-    | '/about/turnkey-show'
-    | '/about/venue'
-    | '/exhibit/book-your-space'
-    | '/exhibit/download-brochure'
-    | '/exhibit/visitor-profile'
-    | '/exhibit/why-exhibit'
-    | '/services/freight-forwarding'
-    | '/services/special-decoration'
-    | '/services/travel'
-    | '/visit/exhibitor-profile'
-    | '/visit/visitor-registration'
-    | '/visit/why-visit'
+    | '/{-$locale}'
+    | '/{-$locale}/about'
+    | '/{-$locale}/contact'
+    | '/{-$locale}/exhibit'
+    | '/{-$locale}/services'
+    | '/{-$locale}/visit'
+    | '/{-$locale}/'
+    | '/{-$locale}/about/market-overview'
+    | '/{-$locale}/about/organizer'
+    | '/{-$locale}/about/turnkey-show'
+    | '/{-$locale}/about/venue'
+    | '/{-$locale}/exhibit/book-your-space'
+    | '/{-$locale}/exhibit/download-brochure'
+    | '/{-$locale}/exhibit/visitor-profile'
+    | '/{-$locale}/exhibit/why-exhibit'
+    | '/{-$locale}/services/freight-forwarding'
+    | '/{-$locale}/services/special-decoration'
+    | '/{-$locale}/services/travel'
+    | '/{-$locale}/visit/exhibitor-profile'
+    | '/{-$locale}/visit/visitor-registration'
+    | '/{-$locale}/visit/why-visit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRouteWithChildren
-  ContactRoute: typeof ContactRoute
-  ExhibitRoute: typeof ExhibitRouteWithChildren
-  ServicesRoute: typeof ServicesRouteWithChildren
-  VisitRoute: typeof VisitRouteWithChildren
+  Char123LocaleChar125RouteRoute: typeof Char123LocaleChar125RouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/{-$locale}': {
+      id: '/{-$locale}'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125RouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/{-$locale}/': {
+      id: '/{-$locale}/'
       path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/'
+      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/about': {
-      id: '/about'
+    '/{-$locale}/about': {
+      id: '/{-$locale}/about'
       path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/about'
+      preLoaderRoute: typeof Char123LocaleChar125AboutRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/contact': {
-      id: '/contact'
+    '/{-$locale}/contact': {
+      id: '/{-$locale}/contact'
       path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/contact'
+      preLoaderRoute: typeof Char123LocaleChar125ContactRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/exhibit': {
-      id: '/exhibit'
+    '/{-$locale}/exhibit': {
+      id: '/{-$locale}/exhibit'
       path: '/exhibit'
-      fullPath: '/exhibit'
-      preLoaderRoute: typeof ExhibitRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/exhibit'
+      preLoaderRoute: typeof Char123LocaleChar125ExhibitRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/services': {
-      id: '/services'
+    '/{-$locale}/services': {
+      id: '/{-$locale}/services'
       path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/services'
+      preLoaderRoute: typeof Char123LocaleChar125ServicesRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/visit': {
-      id: '/visit'
+    '/{-$locale}/visit': {
+      id: '/{-$locale}/visit'
       path: '/visit'
-      fullPath: '/visit'
-      preLoaderRoute: typeof VisitRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/visit'
+      preLoaderRoute: typeof Char123LocaleChar125VisitRouteImport
+      parentRoute: typeof Char123LocaleChar125RouteRoute
     }
-    '/about/market-overview': {
-      id: '/about/market-overview'
+    '/{-$locale}/about/market-overview': {
+      id: '/{-$locale}/about/market-overview'
       path: '/market-overview'
-      fullPath: '/about/market-overview'
-      preLoaderRoute: typeof AboutMarketOverviewRouteImport
-      parentRoute: typeof AboutRoute
+      fullPath: '/{-$locale}/about/market-overview'
+      preLoaderRoute: typeof Char123LocaleChar125AboutMarketOverviewRouteImport
+      parentRoute: typeof Char123LocaleChar125AboutRoute
     }
-    '/about/organizer': {
-      id: '/about/organizer'
+    '/{-$locale}/about/organizer': {
+      id: '/{-$locale}/about/organizer'
       path: '/organizer'
-      fullPath: '/about/organizer'
-      preLoaderRoute: typeof AboutOrganizerRouteImport
-      parentRoute: typeof AboutRoute
+      fullPath: '/{-$locale}/about/organizer'
+      preLoaderRoute: typeof Char123LocaleChar125AboutOrganizerRouteImport
+      parentRoute: typeof Char123LocaleChar125AboutRoute
     }
-    '/about/turnkey-show': {
-      id: '/about/turnkey-show'
+    '/{-$locale}/about/turnkey-show': {
+      id: '/{-$locale}/about/turnkey-show'
       path: '/turnkey-show'
-      fullPath: '/about/turnkey-show'
-      preLoaderRoute: typeof AboutTurnkeyShowRouteImport
-      parentRoute: typeof AboutRoute
+      fullPath: '/{-$locale}/about/turnkey-show'
+      preLoaderRoute: typeof Char123LocaleChar125AboutTurnkeyShowRouteImport
+      parentRoute: typeof Char123LocaleChar125AboutRoute
     }
-    '/about/venue': {
-      id: '/about/venue'
+    '/{-$locale}/about/venue': {
+      id: '/{-$locale}/about/venue'
       path: '/venue'
-      fullPath: '/about/venue'
-      preLoaderRoute: typeof AboutVenueRouteImport
-      parentRoute: typeof AboutRoute
+      fullPath: '/{-$locale}/about/venue'
+      preLoaderRoute: typeof Char123LocaleChar125AboutVenueRouteImport
+      parentRoute: typeof Char123LocaleChar125AboutRoute
     }
-    '/exhibit/book-your-space': {
-      id: '/exhibit/book-your-space'
+    '/{-$locale}/exhibit/book-your-space': {
+      id: '/{-$locale}/exhibit/book-your-space'
       path: '/book-your-space'
-      fullPath: '/exhibit/book-your-space'
-      preLoaderRoute: typeof ExhibitBookYourSpaceRouteImport
-      parentRoute: typeof ExhibitRoute
+      fullPath: '/{-$locale}/exhibit/book-your-space'
+      preLoaderRoute: typeof Char123LocaleChar125ExhibitBookYourSpaceRouteImport
+      parentRoute: typeof Char123LocaleChar125ExhibitRoute
     }
-    '/exhibit/download-brochure': {
-      id: '/exhibit/download-brochure'
+    '/{-$locale}/exhibit/download-brochure': {
+      id: '/{-$locale}/exhibit/download-brochure'
       path: '/download-brochure'
-      fullPath: '/exhibit/download-brochure'
-      preLoaderRoute: typeof ExhibitDownloadBrochureRouteImport
-      parentRoute: typeof ExhibitRoute
+      fullPath: '/{-$locale}/exhibit/download-brochure'
+      preLoaderRoute: typeof Char123LocaleChar125ExhibitDownloadBrochureRouteImport
+      parentRoute: typeof Char123LocaleChar125ExhibitRoute
     }
-    '/exhibit/visitor-profile': {
-      id: '/exhibit/visitor-profile'
+    '/{-$locale}/exhibit/visitor-profile': {
+      id: '/{-$locale}/exhibit/visitor-profile'
       path: '/visitor-profile'
-      fullPath: '/exhibit/visitor-profile'
-      preLoaderRoute: typeof ExhibitVisitorProfileRouteImport
-      parentRoute: typeof ExhibitRoute
+      fullPath: '/{-$locale}/exhibit/visitor-profile'
+      preLoaderRoute: typeof Char123LocaleChar125ExhibitVisitorProfileRouteImport
+      parentRoute: typeof Char123LocaleChar125ExhibitRoute
     }
-    '/exhibit/why-exhibit': {
-      id: '/exhibit/why-exhibit'
+    '/{-$locale}/exhibit/why-exhibit': {
+      id: '/{-$locale}/exhibit/why-exhibit'
       path: '/why-exhibit'
-      fullPath: '/exhibit/why-exhibit'
-      preLoaderRoute: typeof ExhibitWhyExhibitRouteImport
-      parentRoute: typeof ExhibitRoute
+      fullPath: '/{-$locale}/exhibit/why-exhibit'
+      preLoaderRoute: typeof Char123LocaleChar125ExhibitWhyExhibitRouteImport
+      parentRoute: typeof Char123LocaleChar125ExhibitRoute
     }
-    '/services/freight-forwarding': {
-      id: '/services/freight-forwarding'
+    '/{-$locale}/services/freight-forwarding': {
+      id: '/{-$locale}/services/freight-forwarding'
       path: '/freight-forwarding'
-      fullPath: '/services/freight-forwarding'
-      preLoaderRoute: typeof ServicesFreightForwardingRouteImport
-      parentRoute: typeof ServicesRoute
+      fullPath: '/{-$locale}/services/freight-forwarding'
+      preLoaderRoute: typeof Char123LocaleChar125ServicesFreightForwardingRouteImport
+      parentRoute: typeof Char123LocaleChar125ServicesRoute
     }
-    '/services/special-decoration': {
-      id: '/services/special-decoration'
+    '/{-$locale}/services/special-decoration': {
+      id: '/{-$locale}/services/special-decoration'
       path: '/special-decoration'
-      fullPath: '/services/special-decoration'
-      preLoaderRoute: typeof ServicesSpecialDecorationRouteImport
-      parentRoute: typeof ServicesRoute
+      fullPath: '/{-$locale}/services/special-decoration'
+      preLoaderRoute: typeof Char123LocaleChar125ServicesSpecialDecorationRouteImport
+      parentRoute: typeof Char123LocaleChar125ServicesRoute
     }
-    '/services/travel': {
-      id: '/services/travel'
+    '/{-$locale}/services/travel': {
+      id: '/{-$locale}/services/travel'
       path: '/travel'
-      fullPath: '/services/travel'
-      preLoaderRoute: typeof ServicesTravelRouteImport
-      parentRoute: typeof ServicesRoute
+      fullPath: '/{-$locale}/services/travel'
+      preLoaderRoute: typeof Char123LocaleChar125ServicesTravelRouteImport
+      parentRoute: typeof Char123LocaleChar125ServicesRoute
     }
-    '/visit/exhibitor-profile': {
-      id: '/visit/exhibitor-profile'
+    '/{-$locale}/visit/exhibitor-profile': {
+      id: '/{-$locale}/visit/exhibitor-profile'
       path: '/exhibitor-profile'
-      fullPath: '/visit/exhibitor-profile'
-      preLoaderRoute: typeof VisitExhibitorProfileRouteImport
-      parentRoute: typeof VisitRoute
+      fullPath: '/{-$locale}/visit/exhibitor-profile'
+      preLoaderRoute: typeof Char123LocaleChar125VisitExhibitorProfileRouteImport
+      parentRoute: typeof Char123LocaleChar125VisitRoute
     }
-    '/visit/visitor-registration': {
-      id: '/visit/visitor-registration'
+    '/{-$locale}/visit/visitor-registration': {
+      id: '/{-$locale}/visit/visitor-registration'
       path: '/visitor-registration'
-      fullPath: '/visit/visitor-registration'
-      preLoaderRoute: typeof VisitVisitorRegistrationRouteImport
-      parentRoute: typeof VisitRoute
+      fullPath: '/{-$locale}/visit/visitor-registration'
+      preLoaderRoute: typeof Char123LocaleChar125VisitVisitorRegistrationRouteImport
+      parentRoute: typeof Char123LocaleChar125VisitRoute
     }
-    '/visit/why-visit': {
-      id: '/visit/why-visit'
+    '/{-$locale}/visit/why-visit': {
+      id: '/{-$locale}/visit/why-visit'
       path: '/why-visit'
-      fullPath: '/visit/why-visit'
-      preLoaderRoute: typeof VisitWhyVisitRouteImport
-      parentRoute: typeof VisitRoute
+      fullPath: '/{-$locale}/visit/why-visit'
+      preLoaderRoute: typeof Char123LocaleChar125VisitWhyVisitRouteImport
+      parentRoute: typeof Char123LocaleChar125VisitRoute
     }
   }
 }
 
-interface AboutRouteChildren {
-  AboutMarketOverviewRoute: typeof AboutMarketOverviewRoute
-  AboutOrganizerRoute: typeof AboutOrganizerRoute
-  AboutTurnkeyShowRoute: typeof AboutTurnkeyShowRoute
-  AboutVenueRoute: typeof AboutVenueRoute
+interface Char123LocaleChar125AboutRouteChildren {
+  Char123LocaleChar125AboutMarketOverviewRoute: typeof Char123LocaleChar125AboutMarketOverviewRoute
+  Char123LocaleChar125AboutOrganizerRoute: typeof Char123LocaleChar125AboutOrganizerRoute
+  Char123LocaleChar125AboutTurnkeyShowRoute: typeof Char123LocaleChar125AboutTurnkeyShowRoute
+  Char123LocaleChar125AboutVenueRoute: typeof Char123LocaleChar125AboutVenueRoute
 }
 
-const AboutRouteChildren: AboutRouteChildren = {
-  AboutMarketOverviewRoute: AboutMarketOverviewRoute,
-  AboutOrganizerRoute: AboutOrganizerRoute,
-  AboutTurnkeyShowRoute: AboutTurnkeyShowRoute,
-  AboutVenueRoute: AboutVenueRoute,
+const Char123LocaleChar125AboutRouteChildren: Char123LocaleChar125AboutRouteChildren =
+  {
+    Char123LocaleChar125AboutMarketOverviewRoute:
+      Char123LocaleChar125AboutMarketOverviewRoute,
+    Char123LocaleChar125AboutOrganizerRoute:
+      Char123LocaleChar125AboutOrganizerRoute,
+    Char123LocaleChar125AboutTurnkeyShowRoute:
+      Char123LocaleChar125AboutTurnkeyShowRoute,
+    Char123LocaleChar125AboutVenueRoute: Char123LocaleChar125AboutVenueRoute,
+  }
+
+const Char123LocaleChar125AboutRouteWithChildren =
+  Char123LocaleChar125AboutRoute._addFileChildren(
+    Char123LocaleChar125AboutRouteChildren,
+  )
+
+interface Char123LocaleChar125ExhibitRouteChildren {
+  Char123LocaleChar125ExhibitBookYourSpaceRoute: typeof Char123LocaleChar125ExhibitBookYourSpaceRoute
+  Char123LocaleChar125ExhibitDownloadBrochureRoute: typeof Char123LocaleChar125ExhibitDownloadBrochureRoute
+  Char123LocaleChar125ExhibitVisitorProfileRoute: typeof Char123LocaleChar125ExhibitVisitorProfileRoute
+  Char123LocaleChar125ExhibitWhyExhibitRoute: typeof Char123LocaleChar125ExhibitWhyExhibitRoute
 }
 
-const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
+const Char123LocaleChar125ExhibitRouteChildren: Char123LocaleChar125ExhibitRouteChildren =
+  {
+    Char123LocaleChar125ExhibitBookYourSpaceRoute:
+      Char123LocaleChar125ExhibitBookYourSpaceRoute,
+    Char123LocaleChar125ExhibitDownloadBrochureRoute:
+      Char123LocaleChar125ExhibitDownloadBrochureRoute,
+    Char123LocaleChar125ExhibitVisitorProfileRoute:
+      Char123LocaleChar125ExhibitVisitorProfileRoute,
+    Char123LocaleChar125ExhibitWhyExhibitRoute:
+      Char123LocaleChar125ExhibitWhyExhibitRoute,
+  }
 
-interface ExhibitRouteChildren {
-  ExhibitBookYourSpaceRoute: typeof ExhibitBookYourSpaceRoute
-  ExhibitDownloadBrochureRoute: typeof ExhibitDownloadBrochureRoute
-  ExhibitVisitorProfileRoute: typeof ExhibitVisitorProfileRoute
-  ExhibitWhyExhibitRoute: typeof ExhibitWhyExhibitRoute
+const Char123LocaleChar125ExhibitRouteWithChildren =
+  Char123LocaleChar125ExhibitRoute._addFileChildren(
+    Char123LocaleChar125ExhibitRouteChildren,
+  )
+
+interface Char123LocaleChar125ServicesRouteChildren {
+  Char123LocaleChar125ServicesFreightForwardingRoute: typeof Char123LocaleChar125ServicesFreightForwardingRoute
+  Char123LocaleChar125ServicesSpecialDecorationRoute: typeof Char123LocaleChar125ServicesSpecialDecorationRoute
+  Char123LocaleChar125ServicesTravelRoute: typeof Char123LocaleChar125ServicesTravelRoute
 }
 
-const ExhibitRouteChildren: ExhibitRouteChildren = {
-  ExhibitBookYourSpaceRoute: ExhibitBookYourSpaceRoute,
-  ExhibitDownloadBrochureRoute: ExhibitDownloadBrochureRoute,
-  ExhibitVisitorProfileRoute: ExhibitVisitorProfileRoute,
-  ExhibitWhyExhibitRoute: ExhibitWhyExhibitRoute,
+const Char123LocaleChar125ServicesRouteChildren: Char123LocaleChar125ServicesRouteChildren =
+  {
+    Char123LocaleChar125ServicesFreightForwardingRoute:
+      Char123LocaleChar125ServicesFreightForwardingRoute,
+    Char123LocaleChar125ServicesSpecialDecorationRoute:
+      Char123LocaleChar125ServicesSpecialDecorationRoute,
+    Char123LocaleChar125ServicesTravelRoute:
+      Char123LocaleChar125ServicesTravelRoute,
+  }
+
+const Char123LocaleChar125ServicesRouteWithChildren =
+  Char123LocaleChar125ServicesRoute._addFileChildren(
+    Char123LocaleChar125ServicesRouteChildren,
+  )
+
+interface Char123LocaleChar125VisitRouteChildren {
+  Char123LocaleChar125VisitExhibitorProfileRoute: typeof Char123LocaleChar125VisitExhibitorProfileRoute
+  Char123LocaleChar125VisitVisitorRegistrationRoute: typeof Char123LocaleChar125VisitVisitorRegistrationRoute
+  Char123LocaleChar125VisitWhyVisitRoute: typeof Char123LocaleChar125VisitWhyVisitRoute
 }
 
-const ExhibitRouteWithChildren =
-  ExhibitRoute._addFileChildren(ExhibitRouteChildren)
+const Char123LocaleChar125VisitRouteChildren: Char123LocaleChar125VisitRouteChildren =
+  {
+    Char123LocaleChar125VisitExhibitorProfileRoute:
+      Char123LocaleChar125VisitExhibitorProfileRoute,
+    Char123LocaleChar125VisitVisitorRegistrationRoute:
+      Char123LocaleChar125VisitVisitorRegistrationRoute,
+    Char123LocaleChar125VisitWhyVisitRoute:
+      Char123LocaleChar125VisitWhyVisitRoute,
+  }
 
-interface ServicesRouteChildren {
-  ServicesFreightForwardingRoute: typeof ServicesFreightForwardingRoute
-  ServicesSpecialDecorationRoute: typeof ServicesSpecialDecorationRoute
-  ServicesTravelRoute: typeof ServicesTravelRoute
+const Char123LocaleChar125VisitRouteWithChildren =
+  Char123LocaleChar125VisitRoute._addFileChildren(
+    Char123LocaleChar125VisitRouteChildren,
+  )
+
+interface Char123LocaleChar125RouteRouteChildren {
+  Char123LocaleChar125AboutRoute: typeof Char123LocaleChar125AboutRouteWithChildren
+  Char123LocaleChar125ContactRoute: typeof Char123LocaleChar125ContactRoute
+  Char123LocaleChar125ExhibitRoute: typeof Char123LocaleChar125ExhibitRouteWithChildren
+  Char123LocaleChar125ServicesRoute: typeof Char123LocaleChar125ServicesRouteWithChildren
+  Char123LocaleChar125VisitRoute: typeof Char123LocaleChar125VisitRouteWithChildren
+  Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
 }
 
-const ServicesRouteChildren: ServicesRouteChildren = {
-  ServicesFreightForwardingRoute: ServicesFreightForwardingRoute,
-  ServicesSpecialDecorationRoute: ServicesSpecialDecorationRoute,
-  ServicesTravelRoute: ServicesTravelRoute,
-}
+const Char123LocaleChar125RouteRouteChildren: Char123LocaleChar125RouteRouteChildren =
+  {
+    Char123LocaleChar125AboutRoute: Char123LocaleChar125AboutRouteWithChildren,
+    Char123LocaleChar125ContactRoute: Char123LocaleChar125ContactRoute,
+    Char123LocaleChar125ExhibitRoute:
+      Char123LocaleChar125ExhibitRouteWithChildren,
+    Char123LocaleChar125ServicesRoute:
+      Char123LocaleChar125ServicesRouteWithChildren,
+    Char123LocaleChar125VisitRoute: Char123LocaleChar125VisitRouteWithChildren,
+    Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
+  }
 
-const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
-  ServicesRouteChildren,
-)
-
-interface VisitRouteChildren {
-  VisitExhibitorProfileRoute: typeof VisitExhibitorProfileRoute
-  VisitVisitorRegistrationRoute: typeof VisitVisitorRegistrationRoute
-  VisitWhyVisitRoute: typeof VisitWhyVisitRoute
-}
-
-const VisitRouteChildren: VisitRouteChildren = {
-  VisitExhibitorProfileRoute: VisitExhibitorProfileRoute,
-  VisitVisitorRegistrationRoute: VisitVisitorRegistrationRoute,
-  VisitWhyVisitRoute: VisitWhyVisitRoute,
-}
-
-const VisitRouteWithChildren = VisitRoute._addFileChildren(VisitRouteChildren)
+const Char123LocaleChar125RouteRouteWithChildren =
+  Char123LocaleChar125RouteRoute._addFileChildren(
+    Char123LocaleChar125RouteRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRouteWithChildren,
-  ContactRoute: ContactRoute,
-  ExhibitRoute: ExhibitRouteWithChildren,
-  ServicesRoute: ServicesRouteWithChildren,
-  VisitRoute: VisitRouteWithChildren,
+  Char123LocaleChar125RouteRoute: Char123LocaleChar125RouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

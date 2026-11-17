@@ -6,40 +6,54 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { showSiteAlert, useScrollOnSuccess, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
-import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
+import { EVENT_TEXT, SHOW_SECTORS, SHOW_SECTORS_AR } from "@/config/event";
+import { resolveLocale, useLocale } from "@/lib/i18n";
 
-export const Route = createFileRoute("/visit/visitor-registration")({
+export const Route = createFileRoute("/{-$locale}/visit/visitor-registration")({
   component: VisitorRegistrationPage,
-  head: () => ({
-    meta: [
-      { title: "Visitor Registration | Visit | Turnkey Show Alamein 2027" },
-      {
-        name: "description",
-        content:
-          "Register to visit Turnkey Show 2027. Free entry badge, access to the digital exhibitor directory, and event updates.",
-      },
-      { property: "og:title", content: "Visitor Registration | Visit" },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: ({ params }) => {
+    const isAr = resolveLocale((params as { locale?: string }).locale) === "ar";
+    return {
+      meta: [
+        {
+          title: isAr
+            ? "سجّل زيارتك | للزوار | معرض العلمين تيرن كي شو ٢٠٢٧"
+            : "Visitor Registration | Visit | Turnkey Show Alamein 2027",
+        },
+        {
+          name: "description",
+          content: isAr
+            ? "سجّل حضورك الآن في معرض العلمين تيرن كي شو ٢٠٢٧ للحصول على بطاقة الدخول المجانية والوصول إلى دليل العارضين الرقمي."
+            : "Register to visit Turnkey Show 2027. Free entry badge, access to the digital exhibitor directory, and event updates.",
+        },
+        {
+          property: "og:title",
+          content: isAr ? "سجّل زيارتك | للزوار" : "Visitor Registration | Visit",
+        },
+        { property: "og:type", content: "website" },
+      ],
+    };
+  },
 });
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
-const VISITOR_CATEGORIES = [
-  "Property Owner",
-  "Investor",
-  "Developer",
-  "Hospitality Operator",
-  "Architect & Interior Designer",
-  "Contractor & Procurement Team",
-  "Corporate & Commercial Buyer",
-  "Other",
+const VISITOR_CATEGORIES: Array<{ value: string; ar: string }> = [
+  { value: "Property Owner", ar: "مالك عقار" },
+  { value: "Investor", ar: "مستثمر" },
+  { value: "Developer", ar: "مطور عقاري" },
+  { value: "Hospitality Operator", ar: "مشغّل منشآت فندقية وضيافة" },
+  { value: "Architect & Interior Designer", ar: "مهندس معماري / مصمم ديكور داخلي" },
+  { value: "Contractor & Procurement Team", ar: "مقاول / فريق مشتريات" },
+  { value: "Corporate & Commercial Buyer", ar: "ممثل شركة / مشترٍ تجاري" },
+  { value: "Other", ar: "فئة أخرى" },
 ];
 
 const SECTORS_LIST = SHOW_SECTORS;
 
 function VisitorRegistrationPage() {
+  const { locale, isAr } = useLocale();
+  const eventText = EVENT_TEXT[locale];
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
@@ -48,7 +62,7 @@ function VisitorRegistrationPage() {
 
   function toggleSector(sector: string) {
     setSelectedSectors((prev) =>
-      prev.includes(sector) ? prev.filter((s) => s !== sector) : [...prev, sector]
+      prev.includes(sector) ? prev.filter((s) => s !== sector) : [...prev, sector],
     );
   }
 
@@ -67,16 +81,27 @@ function VisitorRegistrationPage() {
     const mobileEl = form.elements.namedItem("mobile") as HTMLInputElement;
     const categoryEl = form.elements.namedItem("category") as HTMLSelectElement;
 
-    if (!nameEl.value.trim()) errors["name"] = "Full Name is required.";
-    if (!emailEl.value.trim()) errors["email"] = "Email Address is required.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) errors["email"] = "Please enter a valid email address.";
-    if (!mobileEl.value.trim()) errors["mobile"] = "Mobile number is required.";
-    if (!categoryEl.value) errors["category"] = "Please select a visitor category.";
+    if (!nameEl.value.trim()) {
+      errors["name"] = isAr ? "يرجى إدخال الاسم الكامل." : "Full Name is required.";
+    }
+    if (!emailEl.value.trim()) {
+      errors["email"] = isAr ? "يرجى إدخال البريد الإلكتروني." : "Email Address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      errors["email"] = isAr ? "يرجى إدخال بريد إلكتروني صحيح." : "Please enter a valid email address.";
+    }
+    if (!mobileEl.value.trim()) {
+      errors["mobile"] = isAr ? "يرجى إدخال رقم الموبايل." : "Mobile number is required.";
+    }
+    if (!categoryEl.value) {
+      errors["category"] = isAr ? "يرجى اختيار فئة الزائر." : "Please select a visitor category.";
+    }
 
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       setStatus("error");
-      const firstErr = Object.values(errors)[0] || "Please correct the highlighted fields above.";
+      const firstErr =
+        Object.values(errors)[0] ||
+        (isAr ? "يرجى مراجعة الحقول الموضحة أعلاه." : "Please correct the highlighted fields above.");
       setErrorMsg(firstErr);
       showSiteAlert(firstErr);
       return;
@@ -94,7 +119,7 @@ function VisitorRegistrationPage() {
       jobTitle: (form.elements.namedItem("jobTitle") as HTMLInputElement).value,
       visitorCategory: categoryEl.value,
       sectors: selectedSectors,
-      website_hp: (form.elements.namedItem("website") as HTMLInputElement).value, // honeypot
+      website_hp: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
 
     try {
@@ -108,22 +133,29 @@ function VisitorRegistrationPage() {
         setStatus("success");
       } else {
         setStatus("error");
-        setErrorMsg(json.message ?? "Something went wrong. Please try again.");
+        setErrorMsg(
+          json.message ??
+            (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
+        );
       }
     } catch {
       setStatus("error");
-      setErrorMsg("Network error. Please try again.");
+      setErrorMsg(isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.");
     }
   }
 
   return (
     <SiteLayout>
       <PageHero
-        eyebrow="Visitor Registration"
-        title={"REGISTER TO VISIT\nTURNKEY SHOW 2027"}
-        description={`Sign up now to receive your free entry badge, access the digital exhibitor directory, and get event updates. ${EVENT_CONFIG.dates} · ${EVENT_CONFIG.venue}`}
+        eyebrow={isAr ? "سجّل زيارتك" : "Visitor Registration"}
+        title={isAr ? "التسجيل المسبق لزيارة\nمعرض العلمين تيرن كي شو ٢٠٢٧" : "REGISTER TO VISIT\nTURNKEY SHOW 2027"}
+        description={
+          isAr
+            ? `سجّل حضورك الآن للحصول على بطاقة الدخول المجانية والوصول إلى دليل العارضين الرقمي ومستجدات المعرض. ${eventText.dates} · ${eventText.venue}`
+            : `Sign up now to receive your free entry badge, access the digital exhibitor directory, and get event updates. ${eventText.dates} · ${eventText.venue}`
+        }
         image={chalet}
-        imageAlt="Coastal living experience at Turnkey Show"
+        imageAlt={isAr ? "تجربة المعيشة الساحلية في معرض تيرن كي" : "Coastal living experience at Turnkey Show"}
       />
 
       <section
@@ -133,9 +165,19 @@ function VisitorRegistrationPage() {
       >
         <Reveal>
           <div className="booking-intro-banner">
-            <h3 className="booking-intro-heading">Online Visitor Pre-Registration</h3>
+            <h3 className="booking-intro-heading">
+              {isAr ? "التسجيل الإلكتروني المسبق للزوار" : "Online Visitor Pre-Registration"}
+            </h3>
             <p className="booking-intro-lead">
-              To pre-register for <strong>TURNKEY SHOW ALAMEIN 2027</strong>, please:
+              {isAr ? (
+                <>
+                  للتسجيل المسبق لحضور <strong>معرض العلمين تيرن كي شو ٢٠٢٧</strong>، يرجى اتباع الخطوات التالية:
+                </>
+              ) : (
+                <>
+                  To pre-register for <strong>TURNKEY SHOW ALAMEIN 2027</strong>, please:
+                </>
+              )}
             </p>
             <div className="booking-intro-cols">
               <div className="booking-intro-col">
@@ -143,13 +185,21 @@ function VisitorRegistrationPage() {
                   <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
-                  <p>Complete the following details answering all questions.</p>
+                  <p>
+                    {isAr
+                      ? "استيفاء البيانات المطلوبة أدناه بدقة."
+                      : "Complete the following details answering all questions."}
+                  </p>
                 </div>
                 <div className="booking-intro-item">
                   <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
-                  <p>Click on the submit button, your entry badge will be mailed to you prior to the show.</p>
+                  <p>
+                    {isAr
+                      ? "تأكيد إرسال التسجيل ليتم إرسال بطاقة الدخول الخاصة بك عبر البريد الإلكتروني قبل انطلاق المعرض."
+                      : "Click on the submit button, your entry badge will be mailed to you prior to the show."}
+                  </p>
                 </div>
               </div>
 
@@ -158,14 +208,26 @@ function VisitorRegistrationPage() {
                   <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
-                  <p>Don&rsquo;t forget to register for each person separately if you intend a group visit.</p>
+                  <p>
+                    {isAr
+                      ? "في حال الحضور ضمن وفد أو مجموعة، يُرجى تسجيل كل زائر بشكل مستقل."
+                      : "Don’t forget to register for each person separately if you intend a group visit."}
+                  </p>
                 </div>
                 <div className="booking-intro-item">
                   <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
-                    Please provide the following contact information: <strong>(*required field).</strong>
+                    {isAr ? (
+                      <>
+                        يرجى تزويدنا ببيانات التواصل التالية: <strong>(* حقول إلزامية).</strong>
+                      </>
+                    ) : (
+                      <>
+                        Please provide the following contact information: <strong>(*required field).</strong>
+                      </>
+                    )}
                   </p>
                 </div>
               </div>
@@ -176,9 +238,11 @@ function VisitorRegistrationPage() {
         <Reveal>
           {status === "success" ? (
             <div ref={successRef} className="form-success-message">
-              <h3>Registration Received</h3>
+              <h3>{isAr ? "تم تأكيد استلام تسجيلك" : "Registration Received"}</h3>
               <p>
-                Thank you for registering! We&rsquo;ll send your visitor pass and event details to your email address.
+                {isAr
+                  ? "شكراً لتسجيلك! سيتم إرسال بطاقة الدخول الخاصة بك وتفاصيل المعرض إلى بريدك الإلكتروني."
+                  : "Thank you for registering! We’ll send your visitor pass and event details to your email address."}
               </p>
             </div>
           ) : (
@@ -194,25 +258,45 @@ function VisitorRegistrationPage() {
               />
               <div className="form-group">
                 <div className="form-field">
-                  <label htmlFor="visitor-name">Full Name *</label>
-                  <Input id="visitor-name" name="name" placeholder="Your full name" required className={fieldErrors["name"] ? "field-invalid" : ""} />
+                  <label htmlFor="visitor-name">{isAr ? "الاسم الكامل *" : "Full Name *"}</label>
+                  <Input
+                    id="visitor-name"
+                    name="name"
+                    placeholder={isAr ? "الاسم بالكامل" : "Your full name"}
+                    required
+                    className={fieldErrors["name"] ? "field-invalid" : ""}
+                  />
                   {fieldErrors["name"] && <p className="field-error">{fieldErrors["name"]}</p>}
                 </div>
                 <div className="form-field">
-                  <label htmlFor="visitor-email">Email Address *</label>
-                  <Input id="visitor-email" name="email" type="email" placeholder="you@example.com" required className={fieldErrors["email"] ? "field-invalid" : ""} />
+                  <label htmlFor="visitor-email">{isAr ? "البريد الإلكتروني *" : "Email Address *"}</label>
+                  <Input
+                    id="visitor-email"
+                    name="email"
+                    type="email"
+                    placeholder="name@company.com"
+                    required
+                    className={fieldErrors["email"] ? "field-invalid" : ""}
+                  />
                   {fieldErrors["email"] && <p className="field-error">{fieldErrors["email"]}</p>}
                 </div>
               </div>
 
               <div className="form-group">
                 <div className="form-field">
-                  <label htmlFor="visitor-mobile">Mobile *</label>
-                  <Input id="visitor-mobile" name="mobile" type="tel" placeholder="+20 xxx xxx xxxx" required className={fieldErrors["mobile"] ? "field-invalid" : ""} />
+                  <label htmlFor="visitor-mobile">{isAr ? "رقم الموبايل *" : "Mobile *"}</label>
+                  <Input
+                    id="visitor-mobile"
+                    name="mobile"
+                    type="tel"
+                    placeholder="+20 xxx xxx xxxx"
+                    required
+                    className={fieldErrors["mobile"] ? "field-invalid" : ""}
+                  />
                   {fieldErrors["mobile"] && <p className="field-error">{fieldErrors["mobile"]}</p>}
                 </div>
                 <div className="form-field">
-                  <label htmlFor="visitor-category">Visitor Category *</label>
+                  <label htmlFor="visitor-category">{isAr ? "فئة الزائر *" : "Visitor Category *"}</label>
                   <select
                     id="visitor-category"
                     name="category"
@@ -230,10 +314,12 @@ function VisitorRegistrationPage() {
                       cursor: "pointer",
                     }}
                   >
-                    <option value="">Select your visitor category...</option>
+                    <option value="">
+                      {isAr ? "اختر فئة الزائر..." : "Select your visitor category..."}
+                    </option>
                     {VISITOR_CATEGORIES.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
+                      <option key={cat.value} value={cat.value}>
+                        {isAr ? cat.ar : cat.value}
                       </option>
                     ))}
                   </select>
@@ -244,34 +330,46 @@ function VisitorRegistrationPage() {
               <div className="form-group">
                 <div className="form-field">
                   <label htmlFor="visitor-company">
-                    Company / Organization <span className="optional">(optional)</span>
+                    {isAr ? "الشركة / المؤسسة " : "Company / Organization "}
+                    <span className="optional">{isAr ? "(اختياري)" : "(optional)"}</span>
                   </label>
-                  <Input id="visitor-company" name="company" placeholder="Company or studio" />
+                  <Input
+                    id="visitor-company"
+                    name="company"
+                    placeholder={isAr ? "اسم الشركة أو المكتب" : "Company or studio"}
+                  />
                 </div>
                 <div className="form-field">
                   <label htmlFor="visitor-title">
-                    Job Title <span className="optional">(optional)</span>
+                    {isAr ? "المسمى الوظيفي " : "Job Title "}
+                    <span className="optional">{isAr ? "(اختياري)" : "(optional)"}</span>
                   </label>
-                  <Input id="visitor-title" name="jobTitle" placeholder="e.g. Interior Designer, Project Manager" />
+                  <Input
+                    id="visitor-title"
+                    name="jobTitle"
+                    placeholder={isAr ? "مثال: مصمم داخلي، مدير مشروعات" : "e.g. Interior Designer, Project Manager"}
+                  />
                 </div>
               </div>
 
-              {/* Sectors of interest (optional multi-select) */}
+              {/* Sectors of interest */}
               <div className="form-field" style={{ marginTop: "1rem" }}>
                 <label style={{ fontWeight: 700, marginBottom: "0.5rem", display: "block" }}>
-                  Sectors of Interest <span className="optional">(optional)</span>
+                  {isAr ? "القطاعات محل الاهتمام " : "Sectors of Interest "}
+                  <span className="optional">{isAr ? "(اختياري)" : "(optional)"}</span>
                 </label>
                 <div
+                  className="form-sectors-grid"
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
                     gap: "0.5rem",
                     background: "#f9f9f9",
                     padding: "1rem",
                     border: "1px solid #e5e5e5",
                   }}
                 >
-                  {SECTORS_LIST.map((sector) => (
+                  {SECTORS_LIST.map((sector, idx) => (
                     <label
                       key={sector}
                       style={{
@@ -288,7 +386,7 @@ function VisitorRegistrationPage() {
                         onChange={() => toggleSector(sector)}
                         style={{ accentColor: "var(--tk-red)", width: "16px", height: "16px" }}
                       />
-                      <span>{sector}</span>
+                      <span>{isAr ? SHOW_SECTORS_AR[idx] : sector}</span>
                     </label>
                   ))}
                 </div>
@@ -306,8 +404,14 @@ function VisitorRegistrationPage() {
                 disabled={status === "sending"}
                 style={{ marginTop: "1rem" }}
               >
-                {status === "sending" ? "SENDING…" : "CONFIRM VISITOR REGISTRATION"}{" "}
-                <span className="btn-arrow">&gt;</span>
+                {status === "sending"
+                  ? isAr
+                    ? "جارٍ الإرسال…"
+                    : "SENDING…"
+                  : isAr
+                    ? "تأكيد تسجيل الزيارة"
+                    : "CONFIRM VISITOR REGISTRATION"}{" "}
+                <span className="btn-arrow">{isAr ? "<" : ">"}</span>
               </Button>
             </form>
           )}

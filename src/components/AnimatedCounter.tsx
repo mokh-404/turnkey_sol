@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { formatNumberForLocale, useLocale } from "@/lib/i18n";
 
 interface AnimatedCounterProps {
   value: string;
@@ -10,6 +11,8 @@ export function AnimatedCounter({ value, className = "", duration = 900 }: Anima
   const ref = useRef<HTMLSpanElement>(null);
   const [displayValue, setDisplayValue] = useState<string>(value);
   const hasAnimatedRef = useRef(false);
+  // Western digits drive the animation; Arabic pages display Arabic-Indic digits.
+  const { locale } = useLocale();
 
   useEffect(() => {
     const el = ref.current;
@@ -96,7 +99,7 @@ export function AnimatedCounter({ value, className = "", duration = 900 }: Anima
 
   return (
     <span ref={ref} className={className}>
-      {displayValue}
+      {formatNumberForLocale(displayValue, locale)}
     </span>
   );
 }

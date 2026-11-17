@@ -142,4 +142,28 @@ describe("Brochure Download Endpoint", () => {
     const html = await response.text();
     expect(html).toContain("Brochure Link Expired");
   });
+
+  it("returns Arabic 403 HTML page when lang=ar and token is invalid", async () => {
+    const req = new Request("http://localhost:8081/api/brochure?token=invalid&email=test@example.com&exp=123&lang=ar");
+    const response = handleBrochureDownload(req, { BROCHURE_TOKEN_SECRET: "secret" });
+
+    expect(response.status).toBe(403);
+    const html = await response.text();
+    expect(html).toContain('lang="ar" dir="rtl"');
+    expect(html).toContain("انتهت صلاحية رابط التحميل");
+  });
+
+  it("serves the Arabic brochure PDF when lang=ar and token is valid", () => {
+    const email = "buyer@example.com";
+    const secret = "test-secret-key-12345";
+    const { token, exp } = generateBrochureToken(email, secret, Date.now() + 60_000);
+    const req = new Request(
+      `http://localhost:8081/api/brochure?token=${token}&email=${encodeURIComponent(email)}&exp=${exp}&lang=ar`,
+    );
+    const response = handleBrochureDownload(req, { BROCHURE_TOKEN_SECRET: secret });
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("application/pdf");
+    expect(response.headers.get("Content-Disposition")).toContain("Brochure Turnkey Show Arabic 2027.pdf");
+  });
 });

@@ -8,19 +8,28 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
   const email = url.searchParams.get("email") || "";
   const expStr = url.searchParams.get("exp") || "0";
   const exp = parseInt(expStr, 10);
+  const isAr = url.searchParams.get("lang") === "ar";
 
   const secret = env["BROCHURE_TOKEN_SECRET"] || DEFAULT_BROCHURE_SECRET;
 
   // Check token validity
   const isValid = verifyBrochureToken(email, exp, token, secret);
   if (!isValid) {
+    const expiredTitle = isAr ? "انتهت صلاحية رابط التحميل | معرض تيرن كي" : "Download Link Expired | Turnkey Show";
+    const expiredHeading = isAr ? "انتهت صلاحية رابط التحميل" : "Brochure Link Expired";
+    const expiredBody = isAr
+      ? "انتهت صلاحية هذا الرابط أو أنه غير صالح. يرجى طلب نسخة جديدة عبر نموذج تحميل البروشور."
+      : "This download link has expired or is invalid. Please request a new copy using the brochure download form.";
+    const expiredCta = isAr ? "طلب البروشور" : "Request Brochure";
+    const retryPath = isAr ? "/ar/exhibit/download-brochure" : "/exhibit/download-brochure";
+
     return new Response(
       `<!DOCTYPE html>
-      <html>
+      <html lang="${isAr ? "ar" : "en"}" dir="${isAr ? "rtl" : "ltr"}">
       <head>
-        <title>Download Link Expired | Turnkey Show</title>
+        <title>${expiredTitle}</title>
         <style>
-          body { font-family: sans-serif; background: #080808; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+          body { font-family: ${isAr ? "'Noto Kufi Arabic', sans-serif" : "sans-serif"}; background: #080808; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
           .card { background: #161616; border: 1px solid #333; padding: 40px; max-width: 480px; text-align: center; }
           h2 { color: #E92824; margin-top: 0; }
           p { color: #aaa; line-height: 1.6; }
@@ -29,9 +38,9 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
       </head>
       <body>
         <div class="card">
-          <h2>Brochure Link Expired</h2>
-          <p>This download link has expired or is invalid. Please request a new copy using the brochure download form.</p>
-          <a href="/exhibit/download-brochure">Request Brochure</a>
+          <h2>${expiredHeading}</h2>
+          <p>${expiredBody}</p>
+          <a href="${retryPath}">${expiredCta}</a>
         </div>
       </body>
       </html>`,
@@ -43,21 +52,35 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
   }
 
   // Find brochure file
-  const candidatePaths = [
-    env["BROCHURE_FILE_PATH"],
-    path.resolve(process.cwd(), "public", "Brochure Turnkey Show 2027.pdf"),
-    path.resolve(process.cwd(), "Brochure Turnkey Show 2027.pdf"),
-    path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027_compressed.pdf"),
-    path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027.pdf"),
-    "z:\\molla\\Turnkey_Developer_Handoff\\red-thread-visitor-guide\\public\\Brochure Turnkey Show 2027.pdf",
-    "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027_compressed.pdf",
-    "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027.pdf",
-  ].filter(Boolean) as string[];
+  const candidatePaths = isAr
+    ? [
+        env["ARABIC_BROCHURE_FILE_PATH"],
+        path.resolve(process.cwd(), "public", "Brochure Turnkey Show Arabic 2027.pdf"),
+        path.resolve(process.cwd(), "Brochure Turnkey Show Arabic 2027.pdf"),
+        path.resolve(process.cwd(), "..", "Brochure Turnkey Show Arabic 2027_compressed.pdf"),
+        path.resolve(process.cwd(), "..", "Brochure Turnkey Show Arabic 2027.pdf"),
+        "z:\\molla\\Turnkey_Developer_Handoff\\red-thread-visitor-guide\\public\\Brochure Turnkey Show Arabic 2027.pdf",
+        "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show Arabic 2027_compressed.pdf",
+      ].filter(Boolean) as string[]
+    : [
+        env["BROCHURE_FILE_PATH"],
+        path.resolve(process.cwd(), "public", "Brochure Turnkey Show 2027.pdf"),
+        path.resolve(process.cwd(), "Brochure Turnkey Show 2027.pdf"),
+        path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027_compressed.pdf"),
+        path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027.pdf"),
+        "z:\\molla\\Turnkey_Developer_Handoff\\red-thread-visitor-guide\\public\\Brochure Turnkey Show 2027.pdf",
+        "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027_compressed.pdf",
+        "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027.pdf",
+      ].filter(Boolean) as string[];
+
+  const downloadFilename = isAr
+    ? "Brochure Turnkey Show Arabic 2027.pdf"
+    : "Brochure Turnkey Show 2027.pdf";
 
   let filePath = candidatePaths.find((p) => fs.existsSync(p));
 
   if (!filePath) {
-    console.error("[Brochure] Could not locate Brochure Turnkey Show 2027.pdf on disk.");
+    console.error(`[Brochure] Could not locate ${downloadFilename} on disk.`);
     return new Response("Brochure file is temporarily unavailable.", { status: 404 });
   }
 
@@ -80,7 +103,7 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
     status: 200,
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'attachment; filename="Brochure Turnkey Show 2027.pdf"',
+      "Content-Disposition": `attachment; filename="${downloadFilename}"`,
       "Content-Length": stat.size.toString(),
       "Cache-Control": "private, max-age=3600",
     },

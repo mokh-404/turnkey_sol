@@ -26,6 +26,7 @@ export function showSiteAlert(
   options: { title?: string; onClose?: () => void } = {},
 ): void {
   if (typeof document === "undefined") return;
+  const isAr = document.documentElement.lang === "ar";
 
   // Remove any existing alert modal first
   const existing = document.getElementById("tk-site-alert-overlay");
@@ -54,7 +55,7 @@ export function showSiteAlert(
   const titleEl = document.createElement("h4");
   titleEl.id = "tk-site-alert-title";
   titleEl.className = "site-alert-title";
-  titleEl.textContent = options.title || "Attention Required";
+  titleEl.textContent = options.title || (isAr ? "تنبيه" : "Attention Required");
 
   header.appendChild(iconWrap);
   header.appendChild(titleEl);
@@ -70,7 +71,7 @@ export function showSiteAlert(
   const okBtn = document.createElement("button");
   okBtn.type = "button";
   okBtn.className = "hero-btn hero-btn-primary site-alert-btn";
-  okBtn.textContent = "OK";
+  okBtn.textContent = isAr ? "حسناً" : "OK";
 
   const close = () => {
     window.removeEventListener("keydown", onKeyDown);
@@ -109,13 +110,15 @@ export function validateContactFields(
   form: HTMLFormElement,
   options: { checkRequired?: boolean } = {},
 ): boolean {
+  const isAr = typeof document !== "undefined" && document.documentElement.lang === "ar";
+
   if (options.checkRequired !== false) {
     const fields = Array.from(form.elements) as Array<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >;
     for (const el of fields) {
       if (el.required && !el.value.trim()) {
-        showSiteAlert("Please fill in all required fields.", {
+        showSiteAlert(isAr ? "يرجى استيفاء جميع الحقول المطلوبة." : "Please fill in all required fields.", {
           onClose: () => el.focus(),
         });
         return false;
@@ -127,18 +130,28 @@ export function validateContactFields(
     const el = form.elements.namedItem(name) as HTMLInputElement | null;
     if (!el || !el.value.trim()) continue;
     if (!/\p{L}/u.test(el.value)) {
-      showSiteAlert("Full Name must contain letters (numbers alone are not allowed).", {
-        onClose: () => el.focus(),
-      });
+      showSiteAlert(
+        isAr
+          ? "يجب أن يتضمن الاسم الكامل حروفاً (لا يُقبل إدخال أرقام فقط)."
+          : "Full Name must contain letters (numbers alone are not allowed).",
+        {
+          onClose: () => el.focus(),
+        },
+      );
       return false;
     }
   }
 
   const email = form.elements.namedItem("email") as HTMLInputElement | null;
   if (email && email.value.trim() && !EMAIL_RE.test(email.value.trim())) {
-    showSiteAlert("Please enter a valid email address (e.g. name@company.com).", {
-      onClose: () => email.focus(),
-    });
+    showSiteAlert(
+      isAr
+        ? "يرجى إدخال بريد إلكتروني صحيح (مثال: name@company.com)."
+        : "Please enter a valid email address (e.g. name@company.com).",
+      {
+        onClose: () => email.focus(),
+      },
+    );
     return false;
   }
 
@@ -147,9 +160,14 @@ export function validateContactFields(
     if (!el || !el.value.trim()) continue;
     const digits = el.value.replace(/\D/g, "");
     if (!PHONE_RE.test(el.value.trim()) || digits.length < 7 || digits.length > 15) {
-      showSiteAlert("Please enter a valid phone number (digits only, optional + prefix).", {
-        onClose: () => el.focus(),
-      });
+      showSiteAlert(
+        isAr
+          ? "يرجى إدخال رقم هاتف صحيح (أرقام فقط مع إمكانية إضافة رمز +)."
+          : "Please enter a valid phone number (digits only, optional + prefix).",
+        {
+          onClose: () => el.focus(),
+        },
+      );
       return false;
     }
   }
