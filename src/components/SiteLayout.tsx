@@ -49,9 +49,8 @@ export const navigationMenu: NavItem[] = [
   },
   {
     label: "Visit",
-    to: "/visit/why-visit",
+    to: "/visit/exhibitor-profile",
     children: [
-      { label: "Why Visit", to: "/visit/why-visit" },
       { label: "Exhibitor Profile", to: "/visit/exhibitor-profile" },
       { label: "Visitor Registration", to: "/visit/visitor-registration" },
     ],
@@ -83,7 +82,7 @@ export function SiteLayout({ children }: PropsWithChildren) {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = docHeight > 0 ? Math.min(Math.max(scrollTop / docHeight, 0), 1) : 0;
       setScrollProgress(progress);
-      setIsScrolled(scrollTop > 20);
+      setIsScrolled((prev) => (prev ? scrollTop > 8 : scrollTop > 36));
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -355,34 +354,62 @@ export function SiteLayout({ children }: PropsWithChildren) {
       <main className="main-content">{children}</main>
 
       {/* 7. Footer: "Organized By" block on every page (D8) */}
-      <SiteFooter />
+      <SiteFooter pathname={location.pathname} />
     </div>
   );
 }
 
-function SiteFooter() {
-  const location = useLocation();
+function SiteFooter({ pathname }: { pathname: string }) {
+  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+  const secondaryAction =
+    normalizedPath === "/exhibit/download-brochure"
+      ? { label: "Contact Us", to: "/contact" }
+      : { label: "Download Brochure", to: "/exhibit/download-brochure" };
+  const primaryAction =
+    normalizedPath === "/exhibit/book-your-space"
+      ? { label: "Contact Us", to: "/contact" }
+      : { label: "Book Your Space", to: "/exhibit/book-your-space" };
+
   return (
     <footer className="site-footer">
+      {/* Majestic Architectural Crown Separator */}
+      <div className="footer-crown-bar">
+        <div className="page-width footer-crown-inner">
+          <div className="footer-crown-brand">
+            <span className="footer-crown-chevrons" aria-hidden="true">
+              <svg viewBox="0 0 100 120" fill="var(--tk-red)">
+                <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+              </svg>
+              <svg viewBox="0 0 100 120" fill="var(--tk-red)">
+                <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+              </svg>
+            </span>
+            <span className="footer-crown-tagline">
+              THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
+            </span>
+          </div>
+          <div className="footer-crown-actions">
+            <Link to={secondaryAction.to} className="footer-crown-cta footer-crown-cta-secondary">
+              {secondaryAction.label}
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+            <Link to={primaryAction.to} className="footer-crown-cta">
+              {primaryAction.label}
+              <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className="page-width footer-main">
         {/* Brand & Show Meta */}
         <div className="footer-brand-block">
           <Link to="/" className="footer-brand-link" aria-label="Turnkey Show home">
             <img src={turnkeyLogo} alt="TURNKEY SHOW" className="footer-logo-img" />
           </Link>
-          <div className="footer-contact-info">
-            <a href="mailto:info@turnkeyshow.com" className="footer-contact-item">
-              <Mail className="w-4 h-4" aria-hidden="true" />
-              <span>{EVENT_CONFIG.email}</span>
-            </a>
-            <a href="https://wa.me/201017775757" className="footer-contact-item" target="_blank" rel="noreferrer">
-              <Phone className="w-4 h-4" aria-hidden="true" />
-              <span>WhatsApp: +20 10 1777 5757</span>
-            </a>
-            <a href="tel:+201041555455" className="footer-contact-item">
-              <Phone className="w-4 h-4" aria-hidden="true" />
-              <span>+20 1041555455</span>
-            </a>
+          <div className="footer-event-info" style={{ marginBottom: "1.25rem", marginTop: 0 }}>
+            <div className="footer-event-date">{EVENT_CONFIG.dates}</div>
+            <div className="footer-event-venue">{EVENT_CONFIG.venue}</div>
           </div>
           <div className="footer-social-icons">
             <a
@@ -415,7 +442,7 @@ function SiteFooter() {
         {/* Quick Links Column */}
         <div className="footer-column">
           <span className="footer-label">Quick Links</span>
-          <div className="footer-nav-list" style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+          <div className="footer-nav-list">
             <Link to="/contact" className="footer-nav-main-link">Contact Us</Link>
             <Link to="/visit/visitor-registration" className="footer-nav-main-link">Register to Visit</Link>
             <Link to="/exhibit/book-your-space" className="footer-nav-main-link">Book Your Space</Link>
@@ -425,35 +452,38 @@ function SiteFooter() {
         </div>
 
         {/* Contact & Inquiries Column */}
-        <div className="footer-column">
+        <div className="footer-column footer-contact-column">
           <span className="footer-label">Contact &amp; Inquiries</span>
-          <a href={`mailto:${EVENT_CONFIG.email}`} className="footer-link-flex">
-            <Mail className="w-4 h-4" aria-hidden="true" /> {EVENT_CONFIG.email}
-          </a>
-          <Link to="/exhibit/download-brochure" className="footer-link-flex">
-            Download Brochure <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-          </Link>
-          <div className="footer-event-info" style={{ marginTop: "0.25rem", fontSize: "1rem", lineHeight: 1.55, color: "#374151" }}>
-            <div style={{ fontWeight: 700, color: "#111111" }}>06 – 09 May 2027</div>
-            <div>New Alamein International Convention and Exhibition Center</div>
+          <div className="footer-contact-info" style={{ marginBottom: 0 }}>
+            <a href={`mailto:${EVENT_CONFIG.email}`} className="footer-contact-item">
+              <span className="footer-contact-icon" aria-hidden="true">
+                <Mail className="w-4 h-4" />
+              </span>
+              <span>{EVENT_CONFIG.email}</span>
+            </a>
+            <a href="https://wa.me/201017575757" className="footer-contact-item" target="_blank" rel="noreferrer">
+              <span className="footer-contact-icon" aria-hidden="true">
+                <Phone className="w-4 h-4" />
+              </span>
+              <span>WhatsApp: +2 010 17 57 57 57</span>
+            </a>
+            <a href="tel:+2 010 41 55 54 55" className="footer-contact-item">
+              <span className="footer-contact-icon" aria-hidden="true">
+                <Phone className="w-4 h-4" />
+              </span>
+              <span>mobile: +2 010 41 55 54 55</span>
+            </a>
           </div>
         </div>
 
         {/* Organized By Block (from docx last table, Section 7) */}
         <div className="footer-organizer-block">
           <span className="footer-label">Organized By:</span>
-          {/* White panel container to preserve black text and green chevron */}
           <div className="organizer-logo-card">
             <img src={apexLogo} alt="Apex Conventions and Trade Fairs" className="apex-footer-logo" />
           </div>
-          <strong className="organizer-company-name" style={{ color: "var(--tk-red)", fontFamily: "var(--font-headline)", fontWeight: 900, fontSize: "0.95rem", letterSpacing: "0.02em" }}>{EVENT_CONFIG.organizer.name}</strong>
+          <strong className="organizer-company-name">{EVENT_CONFIG.organizer.name}</strong>
           <div className="organizer-contact-lines">
-            <p className="organizer-contact-item">
-              <span>Phone no.:</span> <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s+/g, "")}`}>{EVENT_CONFIG.organizer.phone}</a>
-            </p>
-            <p className="organizer-contact-item">
-              <span>Mobile:</span> {EVENT_CONFIG.organizer.mobile}
-            </p>
             <p className="organizer-contact-item">
               <span>E-mail:</span>{" "}
               <a href={`mailto:${EVENT_CONFIG.organizer.email}`}>{EVENT_CONFIG.organizer.email}</a>
@@ -462,8 +492,10 @@ function SiteFooter() {
         </div>
       </div>
 
-      <div className="page-width footer-bottom">
-        <span>© 2027 Turnkey Show Alamein. All rights reserved.</span>
+      <div className="footer-bottom-bar">
+        <div className="page-width footer-bottom">
+          <span>© 2027 Turnkey Show Alamein. All rights reserved.</span>
+        </div>
       </div>
     </footer>
   );

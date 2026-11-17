@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 import lobbyImage from "@/assets/lobby-ocean.webp";
-import { Button } from "@/components/ui/button";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 
 export const Route = createFileRoute("/services/special-decoration")({
@@ -26,12 +25,9 @@ function SpecialDecorationPage() {
     <SiteLayout>
       <PageHero
         eyebrow="Special Decoration"
-        title={"EXPO TECH\nOFFICIAL STAND DESIGN & FIT-OUT CONTRACTOR"}
-        description="Contact EXPO TECH for bespoke stand design, custom shell enhancements, graphic production, audiovisual rentals, and full on-site project execution."
+        title="Official Contractor"
         image={lobbyImage}
         imageAlt="Exhibition stand and decoration services"
-        primaryBtn={{ label: "Contact the contractor", href: "#contractor-contact" }}
-        secondaryBtn={{ label: "Book your space", href: "/exhibit/book-your-space" }}
       />
 
       <section className="services-grid-section page-width" id="contractor-contact">
@@ -76,12 +72,6 @@ function SpecialDecorationPage() {
               <span>Address: 60 Al Tayaran St., Nasr City, Cairo, Egypt.</span>
             </div>
           </div>
-
-          <Button asChild size="lg" className="show-button">
-            <a href="mailto:yasser@expotech-eg.com">
-              CONTACT CONTRACTOR <span className="btn-arrow">&gt;</span>
-            </a>
-          </Button>
         </Reveal>
       </section>
     </SiteLayout>

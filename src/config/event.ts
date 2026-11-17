@@ -8,25 +8,25 @@ export const EVENT_CONFIG = {
   fullName: "Turnkey Show Alamein",
   edition: "2027",
   dates: "06 – 09 May 2027", // D1: Single source of truth for dates across header, pages, and emails
-  venue: "New Alamein International Convention and Exhibition Center",
+  venue: "New Alamein International Convention & Exhibition Center",
   venueShort: "New Alamein Convention Center",
   email: "info@turnkeyshow.com",
   website: "www.turnkeyshow.com",
-  
-  // D9: Social links configuration (empty until client supplies profile URLs)
+
+  // D9: Social links configuration
   socialLinks: {
     twitter: "",
-    facebook: "",
-    linkedin: "",
-    instagram: "",
+    facebook: "https://www.facebook.com/profile.php?id=61596095223202",
+    linkedin: "https://www.linkedin.com/company/alamein-turnkey-show/",
+    instagram: "https://www.instagram.com/alameinturnkeyshow/",
   },
 
   // Organizer details from docx (D8, D11)
   organizer: {
     name: "Apex Conventions and Trade Fairs L.L.C",
     phone: "02 389 77 258",
-    mobile: "+20 10 1777 5757 – +20 1041555455",
-    whatsapp: "+20 10 1777 5757",
+    mobile: "+2 010 17 57 57 57 +2 010 41 55 54 55",
+    whatsapp: "+2 010 17 57 57 57",
     email: "info@apextradefairs.com",
   },
 

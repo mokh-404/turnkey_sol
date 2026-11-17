@@ -6,7 +6,7 @@ import livingRoom from "@/assets/living-room.webp";
 import terraceSunset from "@/assets/terrace-sunset.webp";
 import lobbyOcean from "@/assets/lobby-ocean.webp";
 import smartHome from "@/assets/smart-home.webp";
-import kitchen from "@/assets/kitchen.webp";
+import smokedOakApplianceWall from "@/assets/smoked-oak-appliance-wall.webp";
 import warmKitchen from "@/assets/warm-kitchen.webp";
 import villaShowcase from "@/assets/villa-showcase.webp";
 import oceanfrontTerrace from "@/assets/oceanfront-terrace.webp";
@@ -51,7 +51,7 @@ const sectors = [
   },
   {
     title: "Home Appliances",
-    image: kitchen,
+    image: smokedOakApplianceWall,
     detail: "Essential, built-in and lifestyle appliances for ready-to-operate units.",
   },
   {
@@ -113,14 +113,40 @@ function Index() {
 
         <div className="page-width hero-container">
           <div className="hero-stack">
-            <div className="hero-red-rule" aria-hidden="true" />
-            <h1 className="hero-headline">
-              Turnkey Show<br />Alamein
-            </h1>
-            <div className="hero-red-bar" aria-hidden="true" />
-            <p className="hero-subhead">
-              {EVENT_CONFIG.dates} · {EVENT_CONFIG.venue}
-            </p>
+            <div className="hero-top-split">
+              <div className="hero-title-col">
+                <h1 className="hero-headline">
+                  Alamein<br />Turnkey<br />Show
+                </h1>
+                <div className="hero-red-bar" aria-hidden="true" />
+              </div>
+              <div className="hero-meta-right">
+                <p className="hero-subhead hero-definition-right">
+                  The Alamein Trade Show for Furniture,<br />
+                  Smart Furnishing Technologies &amp; Complete<br />
+                  Fit-Out Solutions for Coastal Units
+                </p>
+                <p className="hero-subhead hero-date-venue-right">
+                  <span className="hero-date-only-red">{EVENT_CONFIG.dates}</span>
+                  <span className="hero-venue-line1">
+                    <span>New</span> <span>Alamein</span> <span>International</span>
+                  </span>
+                  <span className="hero-venue-line2">Convention and Exhibition Center</span>
+                </p>
+              </div>
+            </div>
+
+            {/* 8 Sectors in a 2×7 grid: all sector labels centered in their columns */}
+            <div className="hero-sectors-text" aria-label="Exhibition Sectors">
+              {[sectors.slice(0, 4), sectors.slice(4, 8)].map((row) =>
+                row.map((sector, idx) => (
+                  <span key={sector.title} className="hero-sector-group">
+                    {idx > 0 && <span className="hero-sector-pipe" aria-hidden="true" />}
+                    <span className="hero-sector-label">{sector.title}</span>
+                  </span>
+                ))
+              )}
+            </div>
           </div>
 
           {/* Anchored Info Strip */}
@@ -156,26 +182,15 @@ function Index() {
             <h2>
               TURNKEY SHOW…THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
             </h2>
-            <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "#222222", marginBottom: "1rem" }}>
-              A premium show dedicated to furniture, fit-out, appliances, outdoor living and smart technology for coastal and hospitality properties.
+            <p style={{ fontSize: "1.08rem", lineHeight: 1.68, color: "#222222", marginBottom: "1rem" }}>
+              The first-of-its-kind trade exhibition in the heart of New Alamein City, this pioneering event serves as an integrated strategic platform connecting leading investors, owners of coastal and hospitality properties, and top real estate developers with premier companies specializing in furniture, interior furnishing, and smart property solutions.
             </p>
-            <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "#333333", marginBottom: "1.5rem" }}>
-              Turnkey Show connects property owners, investors, developers and hospitality professionals with leading brands and solution providers, offering everything needed to transform delivered properties into ready-to-live, ready-to-rent and investment-ready destinations.
+            <p style={{ fontSize: "1.08rem", lineHeight: 1.68, color: "#333333", marginBottom: "1rem" }}>
+              Designed to redefine the property furnishing experience, the exhibition offers an exclusive, all-in-one destination that eliminates the need for lengthy searches and multiple suppliers. From luxury furniture and contemporary décor to smart home management systems and sustainable energy solutions, visitors and investors can discover everything they need under one roof.
             </p>
-            <div className="hero-btn-row">
-              <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
-                Book Your Space
-                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a href="/exhibit/download-brochure" className="hero-btn subpage-btn-ghost">
-                Download Brochure
-                <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-            </div>
+            <p style={{ fontSize: "1.08rem", lineHeight: 1.68, color: "#333333", marginBottom: 0 }}>
+              More than just an exhibition, this event is a dynamic hub for business connections and investment opportunities, empowering exhibitors to maximize their sales potential and connect directly with a highly targeted audience of serious buyers with immediate purchasing intent.
+            </p>
           </Reveal>
 
           <Reveal className="expo-intro-media">
@@ -199,9 +214,9 @@ function Index() {
       {/* Marquee Ribbon: Seamless infinite sector loop (Section 12.2.8) */}
       <MarqueeRibbon />
 
-      {/* 2. Second Section: Industry Section with 'Learn more' button -> /about/market-overview (Decision D10) */}
-      <section className="intro-section page-width" id="market-overview" style={{ paddingTop: "calc(var(--section-gap) + 10px)" }}>
-        <div className="intro-main-row">
+      {/* 2. Second Section: Two Markets, One Opportunity next to the image */}
+      <section className="intro-section page-width" id="market-overview">
+        <div className="intro-main-row intro-markets-row">
           <Reveal className="intro-image-wrap">
             <img
               src={oceanfrontTerrace}
@@ -212,60 +227,55 @@ function Index() {
             />
             <span className="image-index liquid-glass-dark">From Handover to Ready-to-Live</span>
           </Reveal>
-          <Reveal className="intro-copy">
-            <p className="eyebrow">Market Overview</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>
-              THE NORTH COAST IS ENTERING A NEW <span className="headline-accent">ERA</span>
-            </h2>
-            <p style={{ fontWeight: 600, color: "var(--tk-red)", marginBottom: "0.75rem", fontSize: "0.975rem" }}>
-              From seasonal destinations to a growing year-round investment, hospitality and lifestyle economy.
-            </p>
-            <p style={{ fontSize: "0.975rem", lineHeight: 1.65, color: "#333333" }}>
-              The North Coast and the city of New Alamein are experiencing a new phase of growth, driven by real estate expansion, increased hotel and residential capacity, and a surge in tourism activity, alongside a growing trend to transform the region into a year-round destination.
-            </p>
-            <div style={{ marginTop: "1.75rem" }}>
-              <a className="hero-btn hero-btn-primary" href="/about/market-overview" style={{ display: "inline-flex" }}>
-                Learn more
-                <ArrowUpRight className="hero-btn-icon" width="16" height="16" />
-              </a>
-            </div>
-          </Reveal>
-        </div>
 
-        {/* Two Markets, One Opportunity — above Core Sectors */}
-        <div className="two-markets-section" id="two-markets">
-          <Reveal className="section-heading" style={{ marginBottom: "2rem" }}>
-            <div>
-              <div className="section-red-bar" aria-hidden="true" />
-              <h2>TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span></h2>
-              <p style={{ maxWidth: "60ch", fontSize: "1.1rem", color: "#444" }}>
-                Every new property creates a new demand cycle — from development to handover, furnishing, equipping, and ongoing upgrades.
-              </p>
+          <div className="two-markets-section two-markets-side" id="two-markets">
+            <Reveal className="section-heading two-markets-heading">
+              <div>
+                <div className="section-red-bar" aria-hidden="true" />
+                <h2>
+                  THE NORTH COAST IS ENTERING A NEW <span className="headline-accent">ERA</span>
+                </h2>
+                <p className="two-markets-subtitle">
+                  TWO MARKETS… <span className="headline-accent">ONE OPPORTUNITY</span>
+                </p>
+              </div>
+            </Reveal>
+            <div className="two-markets-grid">
+              <Reveal className="market-col market-col-new">
+                <h3 className="market-col-title">
+                  <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <span>NEW SUPPLY</span>
+                </h3>
+                <p className="market-col-lead">New handovers create immediate demand.</p>
+                <ul className="market-list">
+                  <li>Furniture</li>
+                  <li>Home Appliances</li>
+                  <li>Lighting &amp; Accessories</li>
+                  <li>Outdoor Furniture</li>
+                  <li>Smart Home Solutions</li>
+                  <li>Complete Fit-Out</li>
+                </ul>
+              </Reveal>
+              <Reveal className="market-col market-col-existing">
+                <h3 className="market-col-title">
+                  <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <span>EXISTING SUPPLY</span>
+                </h3>
+                <p className="market-col-lead">Existing properties create recurring demand.</p>
+                <ul className="market-list">
+                  <li>Renovation</li>
+                  <li>Furniture Replacement</li>
+                  <li>Interior Upgrades</li>
+                  <li>Smart Technology</li>
+                  <li>Outdoor Upgrades</li>
+                  <li>Rental Optimization</li>
+                </ul>
+              </Reveal>
             </div>
-          </Reveal>
-          <div className="two-markets-grid">
-            <Reveal className="market-col market-col-new">
-              <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
-              <ul className="market-list">
-                <li>For sale</li>
-                <li>Hotel facilities</li>
-                <li>Utilities &amp; Accessories</li>
-                <li>Outdoor Furniture</li>
-                <li>Smart Technology</li>
-                <li>Complete Fit-Out</li>
-              </ul>
-            </Reveal>
-            <Reveal className="market-col market-col-existing">
-              <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
-              <ul className="market-list">
-                <li>Re-creation</li>
-                <li>Furniture Renewal</li>
-                <li>Home furnishings</li>
-                <li>Smart Technology</li>
-                <li>Fit-Out Optimization</li>
-              </ul>
-            </Reveal>
           </div>
         </div>
 
@@ -293,9 +303,6 @@ function Index() {
               <h2>All Needs Under One <span className="headline-accent">Roof</span></h2>
               <p>Complete fitting-out sectors required to transform a property into a fully furnished, finished space.</p>
             </div>
-            <a className="text-link" href="/exhibit/why-exhibit">
-              Exhibitor Opportunities <ArrowUpRight className="w-4 h-4 ml-1 inline" aria-hidden="true" />
-            </a>
           </Reveal>
           <div className="sector-grid">
             {sectors.map((sector) => (
@@ -313,50 +320,12 @@ function Index() {
         </div>
       </section>
 
-      {/* 4. Ecosystem / Opportunity Section */}
-      <section className="opportunity-section page-width">
-        <Reveal className="opportunity-copy">
-          <p className="eyebrow">The Concept</p>
-          <div className="section-red-bar" aria-hidden="true" />
-          <h2>
-            From Property Delivery<br />
-            to Property <span className="headline-accent">Value.</span>
-          </h2>
-          <p>
-            A property's journey doesn't end at handover. It needs to be furnished, equipped, connected, and continuously upgraded.
-            Turnkey Show connects the entire ecosystem — manufacturers, suppliers, developers, operators, and property buyers — under one roof.
-          </p>
-          <div className="expo-pillar-chips">
-            {SHOW_SECTORS.map((sector) => (
-              <div key={sector} className="pillar-chip">
-                <span className="pillar-dot" aria-hidden="true" />
-                <span>{sector}</span>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-        <Reveal className="opportunity-visual">
-          <img
-            src={smartLiving}
-            alt="Smart coastal living space with modern furnishings"
-            width={1600}
-            height={1024}
-            decoding="async"
-          />
-          <div className="opportunity-stamp liquid-glass-dark">
-            <span>ONE DESTINATION</span>
-            <span>EVERY SOLUTION</span>
-            <span className="stamp-sub">COMPLETE PURCHASE JOURNEY</span>
-          </div>
-        </Reveal>
-      </section>
-
       {/* Venue Section */}
       <section className="venue-section" id="venue">
         <div className="venue-image">
           <img
             src={venueImage}
-            alt="New Alamein International Convention and Exhibition Center"
+            alt="New Alamein International Convention & Exhibition Center"
             width={1600}
             height={1024}
             decoding="async"
@@ -391,19 +360,20 @@ function Index() {
         </div>
       </section>
 
-      {/* Supported By Section */}
-      <section className="supported-by-section" id="supported-by" aria-label="Supported By">
+      {/* Powered By Section */}
+      {/*
+      <section className="supported-by-section" id="supported-by" aria-label="Powered By">
         <div className="supported-by-banner">
           <img
             src={lobbyOcean}
-            alt="Supported By background"
+            alt="Powered By background"
             className="supported-by-bg-img"
             width={1600}
             height={400}
             decoding="async"
           />
           <div className="supported-by-overlay" aria-hidden="true" />
-          <h2 className="supported-by-title">SUPPORTED BY</h2>
+          <h2 className="supported-by-title">Powered By</h2>
         </div>
         <div className="supported-by-logos page-width">
           <Reveal className="supported-by-logo-item">
@@ -418,6 +388,7 @@ function Index() {
           </Reveal>
         </div>
       </section>
+      */}
     </SiteLayout>
   );
 }

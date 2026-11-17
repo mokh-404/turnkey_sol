@@ -7,7 +7,7 @@ export const Route = createFileRoute("/visit")({
 function VisitLayout() {
   const location = useLocation();
   if (location.pathname === "/visit" || location.pathname === "/visit/") {
-    return <Navigate to="/visit/why-visit" replace />;
+    return <Navigate to="/visit/exhibitor-profile" replace />;
   }
   return <Outlet />;
 }

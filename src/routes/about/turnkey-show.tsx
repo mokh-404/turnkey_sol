@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import heroImage from "@/assets/hero-coast.webp";
 import livingRoom from "@/assets/living-room.webp";
 import kitchen from "@/assets/kitchen.webp";
+import smokedOakApplianceWall from "@/assets/smoked-oak-appliance-wall.webp";
 import warmKitchen from "@/assets/warm-kitchen.webp";
 import smartHome from "@/assets/smart-home.webp";
 import smartLiving from "@/assets/smart-living.webp";
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/about/turnkey-show")({
 const sectors = [
   { name: "Furniture & Interiors", img: livingRoom },
   { name: "Kitchens & Equipment", img: warmKitchen },
-  { name: "Home Appliances", img: kitchen },
+  { name: "Home Appliances", img: smokedOakApplianceWall },
   { name: "Outdoor Living", img: terraceSunset },
   { name: "Smart Unit Automation", img: smartHome },
   { name: "Modern Lighting Technology", img: smartLiving },
@@ -46,40 +47,32 @@ function TurnkeyShowPage() {
       {/* Block A-1 */}
       <PageHero
         eyebrow="About the Show"
-        title={"TURNKEY SHOW…THE COAST'S COMPLETE PROPERTY SOLUTIONS PLATFORM"}
-        description="A premium show dedicated to furniture, fit-out, appliances, outdoor living and smart technology for coastal and hospitality properties."
         image={livingRoom}
         imageAlt="Luxury coastal interior living room"
-        primaryBtn={{ label: "Explore Exhibiting", href: "/exhibit/why-exhibit" }}
-        secondaryBtn={{ label: "Plan Your Visit", href: "/visit/why-visit" }}
       />
 
       {/* Block A-1 continued (Enriched with image & key highlights) */}
       <section className="page-width editorial-section-grid" id="intro">
         <Reveal className="editorial-copy">
           <div className="editorial-copy-content">
-            <p className="eyebrow">The Platform</p>
-            <div className="section-red-bar" aria-hidden="true" />
             <h2>CONNECTING THE COAST'S COMPLETE PROPERTY <span className="headline-accent">ECOSYSTEM</span></h2>
-            <p style={{ fontSize: "1.15rem", lineHeight: 1.7, color: "#222222", marginBottom: "1.25rem" }}>
-              Turnkey Show connects property owners, investors, developers and hospitality professionals with leading
-              brands and solution providers, offering everything needed to transform delivered properties into
-              ready-to-live, ready-to-rent and investment-ready destinations.
+            <p>
+              The first-of-its-kind trade exhibition in the heart of New Alamein City, this pioneering event serves as
+              an integrated strategic platform connecting leading investors, owners of coastal and hospitality
+              properties, and top real estate developers with premier companies specializing in furniture, interior
+              furnishing, and smart property solutions.
             </p>
-          </div>
-          <div className="expo-pillar-chips" style={{ marginTop: "1rem" }}>
-            <div className="pillar-chip">
-              <span className="pillar-dot" aria-hidden="true" />
-              <span>15,000+ Delivered Units</span>
-            </div>
-            <div className="pillar-chip">
-              <span className="pillar-dot" aria-hidden="true" />
-              <span>New Alamein &amp; North Coast</span>
-            </div>
-            <div className="pillar-chip">
-              <span className="pillar-dot" aria-hidden="true" />
-              <span>Full Fit-Out &amp; Smart Living</span>
-            </div>
+            <p>
+              Designed to redefine the property furnishing experience, the exhibition offers an exclusive, all-in-one
+              destination that eliminates the need for lengthy searches and multiple suppliers. From luxury furniture
+              and contemporary décor to smart home management systems and sustainable energy solutions, visitors and
+              investors can discover everything they need under one roof.
+            </p>
+            <p style={{ marginBottom: 0 }}>
+              More than just an exhibition, this event is a dynamic hub for business connections and investment
+              opportunities, empowering exhibitors to maximize their sales potential and connect directly with a highly
+              targeted audience of serious buyers with immediate purchasing intent.
+            </p>
           </div>
         </Reveal>
         <Reveal className="editorial-media">
@@ -93,89 +86,68 @@ function TurnkeyShowPage() {
         </Reveal>
       </section>
 
-      {/* Block A-2 — The Concept */}
-      <section className="page-width editorial-section-grid" id="concept">
-        <Reveal className="editorial-copy">
-          <div className="editorial-copy-content">
-            <p className="eyebrow">THE CONCEPT</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>FROM PROPERTY DELIVERY TO PROPERTY VALUE</h2>
-            <p>A property's journey doesn't end at handover. It needs to be furnished, equipped, connected and continuously upgraded.</p>
-          </div>
-          <p className="editorial-copy-statement">
-            Turnkey Show brings these complete sectors together — connecting the growing coastal property market with
-            the brands and solutions that shape its next stage.
-          </p>
-        </Reveal>
-        <Reveal className="editorial-media">
-          <img src={livingRoom} alt="Complete furnishing for coastal property" width={1600} height={1024} decoding="async" />
-        </Reveal>
-      </section>
+      {/* Blocks A-2 to A-5 — 2-Row Editorial Pillars (no images) */}
+      <section className="page-width turnkey-pillars-section" id="pillars">
+        <div className="turnkey-pillars-grid">
+          <Reveal className="turnkey-pillar-card">
+            <div id="concept">
+              <h2>THE CONCEPT</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>From property delivery to property value.</strong> A property&apos;s journey doesn&apos;t end at
+                handover. It needs to be furnished, equipped, connected and continuously upgraded.
+              </p>
+              <p>
+                Turnkey Show brings these complete sectors together — connecting the growing coastal property market
+                with the brands and solutions that shape its next stage.
+              </p>
+            </div>
+          </Reveal>
 
-      {/* Block A-3 — The Show Promise */}
-      <section className="page-width editorial-section-grid" id="promise">
-        <Reveal className="editorial-copy">
-          <div className="editorial-copy-content">
-            <p className="eyebrow">THE SHOW PROMISE</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>ONE DESTINATION. THE COMPLETE PROPERTY FIT-OUT.</h2>
-            <p>
-              From the first furniture piece to the latest smart-home solution, the show is designed to showcase
-              everything required to create a complete, functional and attractive coastal property.
-            </p>
-          </div>
-          <p className="editorial-copy-statement">
-            It connects <strong>Furniture &amp; Interiors, Home Appliances, Outdoor Living, Smart Home Technology,
-            Lighting &amp; Accessories, Hospitality Fit-Out, Property Solutions</strong> under one roof.
-          </p>
-        </Reveal>
-        <Reveal className="editorial-media">
-          <img src={kitchen} alt="Smart appliances and fixtures" width={1600} height={1024} decoding="async" />
-        </Reveal>
-      </section>
+          <Reveal className="turnkey-pillar-card">
+            <div id="promise">
+              <h2>THE SHOW PROMISE</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>One destination. The complete property fit-out.</strong> From the first furniture piece to the
+                latest smart-home solution, the show is designed to showcase everything required to create a complete,
+                functional and attractive coastal property.
+              </p>
+              <p>
+                It connects{" "}
+                <strong>
+                  Furniture &amp; Interiors, Home Appliances, Outdoor Living, Smart Home Technology, Lighting &amp;
+                  Accessories, Hospitality Fit-Out, Property Solutions
+                </strong>{" "}
+                under one roof.
+              </p>
+            </div>
+          </Reveal>
 
-      {/* Block A-4 — The Vision */}
-      <section className="page-width editorial-section-grid" id="vision">
-        <Reveal className="editorial-copy">
-          <div className="editorial-copy-content">
-            <p className="eyebrow">THE VISION</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>THE DESTINATION FOR COASTAL PROPERTY SOLUTIONS</h2>
-            <p>
-              To create the leading platform connecting real estate, design, technology and hospitality — transforming
-              coastal properties into furnished, connected, functional and investment-ready experiences.
-            </p>
-          </div>
-          <div className="editorial-stat-tag">
-            <span className="editorial-tag-dot" aria-hidden="true" />
-            <span>CONNECTING REAL ESTATE, DESIGN &amp; HOSPITALITY</span>
-          </div>
-        </Reveal>
-        <Reveal className="editorial-media">
-          <img src={smartHome} alt="Connected smart living solutions" width={1600} height={1024} decoding="async" />
-        </Reveal>
-      </section>
+          <Reveal className="turnkey-pillar-card">
+            <div id="vision">
+              <h2>THE VISION</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>The destination for coastal property solutions.</strong> To create the leading platform
+                connecting real estate, design, technology and hospitality — transforming coastal properties into
+                furnished, connected, functional and investment-ready experiences.
+              </p>
+            </div>
+          </Reveal>
 
-      {/* Block A-5 — The Opportunity */}
-      <section className="page-width editorial-section-grid" id="opportunity">
-        <Reveal className="editorial-copy">
-          <div className="editorial-copy-content">
-            <p className="eyebrow">THE OPPORTUNITY</p>
-            <div className="section-red-bar" aria-hidden="true" />
-            <h2>FROM PROPERTY DELIVERY... TO PROPERTY VALUE</h2>
-            <p>
-              The growth of North Coast &amp; New Alamein is creating more than real estate supply. It is creating a
-              growing ecosystem of Furnished, Equipped, Connected, Operated and Investment-ready properties.
-            </p>
-          </div>
-          <div className="editorial-stat-tag">
-            <span className="editorial-tag-dot" aria-hidden="true" />
-            <span>FURNISHED • EQUIPPED • CONNECTED • OPERATED</span>
-          </div>
-        </Reveal>
-        <Reveal className="editorial-media">
-          <img src={livingRoom} alt="Coastal property opportunity" width={1600} height={1024} decoding="async" />
-        </Reveal>
+          <Reveal className="turnkey-pillar-card">
+            <div id="opportunity">
+              <h2>THE OPPORTUNITY</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>From property delivery... to property value.</strong> The growth of North Coast &amp; New
+                Alamein is creating more than real estate supply. It is creating a growing ecosystem of Furnished,
+                Equipped, Connected, Operated and Investment-ready properties.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
       {/* Block A-6 — Sector Cards */}
@@ -202,36 +174,6 @@ function TurnkeyShowPage() {
           </div>
         </div>
       </section>
-
-      {/* Block A-7 — Why Now */}
-      <section className="why-now-section section-band" id="why-now">
-        <div className="page-width">
-          <Reveal className="section-heading">
-            <div>
-              <p className="eyebrow">WHY NOW?</p>
-              <div className="section-red-bar" aria-hidden="true" />
-              <h2>A market moving from property delivery to property value creation.</h2>
-            </div>
-          </Reveal>
-          <div className="market-signals">
-            {[
-              ["MORE DEVELOPMENT", "More properties entering the market."],
-              ["MORE HANDOVERS", "More units entering the furnishing and fit-out cycle."],
-              ["MORE TOURISM", "Growing seasonal and hospitality activity."],
-              ["MORE RENTAL ACTIVITY", "Greater demand for attractive, ready-to-operate properties."],
-              ["MORE UPGRADES", "Continuous demand for renovation, technology and property enhancement."],
-            ].map(([title, text]) => (
-              <Reveal key={title} className="signal">
-                <div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
     </SiteLayout>
   );
 }

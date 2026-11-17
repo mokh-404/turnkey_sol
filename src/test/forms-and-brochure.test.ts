@@ -92,6 +92,7 @@ describe("Forms Submission Handler", () => {
         form_key: "general_inquiry",
         fullName: "Ahmed Ali",
         email: "ahmed@example.com",
+        mobile: "+201012345678",
         subject: "Booth space pricing",
         message: "Hello, I would like to inquire about 36sqm booth options.",
       },
@@ -100,6 +101,35 @@ describe("Forms Submission Handler", () => {
     );
 
     expect(result.success).toBe(true);
+  });
+
+  it("rejects general_inquiry when mobile number is missing or invalid", async () => {
+    const missing = await handleFormSubmission(
+      {
+        form_key: "general_inquiry",
+        fullName: "Ahmed Ali",
+        email: "ahmed@example.com",
+        subject: "Booth space pricing",
+        message: "Hello, I would like to inquire about 36sqm booth options.",
+      },
+      "127.0.0.1",
+      mockEnv
+    );
+    expect(missing.success).toBe(false);
+
+    const invalid = await handleFormSubmission(
+      {
+        form_key: "general_inquiry",
+        fullName: "Ahmed Ali",
+        email: "ahmed@example.com",
+        mobile: "123",
+        subject: "Booth space pricing",
+        message: "Hello, I would like to inquire about 36sqm booth options.",
+      },
+      "127.0.0.1",
+      mockEnv
+    );
+    expect(invalid.success).toBe(false);
   });
 });
 

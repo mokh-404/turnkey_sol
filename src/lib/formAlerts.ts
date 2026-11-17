@@ -1,5 +1,22 @@
+import { useEffect, useRef } from "react";
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^\+?[0-9\s\-().]{7,20}$/;
+
+/**
+ * Keeps the user focused on the confirmation message instead of falling to the footer
+ * when a tall form is replaced by a shorter success banner.
+ */
+export function useScrollOnSuccess<T extends HTMLElement = HTMLDivElement>(isSuccess: boolean) {
+  const ref = useRef<T | null>(null);
+
+  useEffect(() => {
+    if (!isSuccess || !ref.current) return;
+    ref.current.scrollIntoView?.({ behavior: "instant" as ScrollBehavior, block: "center" });
+  }, [isSuccess]);
+
+  return ref;
+}
 
 /**
  * Displays a custom branded website popup alert instead of the native browser alert().
@@ -81,7 +98,7 @@ export function showSiteAlert(
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
-  okBtn.focus();
+  okBtn.focus({ preventScroll: true });
 }
 
 /**

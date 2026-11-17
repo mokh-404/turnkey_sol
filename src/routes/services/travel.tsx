@@ -29,11 +29,8 @@ function TravelPage() {
         eyebrow="Travel"
         pageName="Travel & Accommodation"
         title={"TRAVEL &\nACCOMMODATION"}
-        description="Special hotel rates, shuttle transfers, and VIP travel arrangements for Turnkey Show 2027 — coming soon."
         image={lobbyImage}
         imageAlt="Travel and accommodation services"
-        primaryBtn={{ label: "Contact us", href: "/contact" }}
-        secondaryBtn={{ label: "Special decoration", href: "/services/special-decoration" }}
       />
       <section className="services-grid-section page-width" id="travel-info">
         <Reveal className="service-card service-card-pending">

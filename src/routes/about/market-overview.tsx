@@ -24,12 +24,8 @@ function MarketOverviewPage() {
     <SiteLayout>
       <PageHero
         eyebrow="Market Overview"
-        title={"THE NORTH COAST IS ENTERING\nA NEW ERA"}
-        description="From seasonal destinations to a growing year-round investment, hospitality and lifestyle economy."
         image={lobbyOcean}
         imageAlt="Hospitality and resort architectural design"
-        primaryBtn={{ label: "Exhibit at the Show", href: "/exhibit/why-exhibit" }}
-        secondaryBtn={{ label: "Download Brochure", href: "/exhibit/download-brochure" }}
       />
 
       {/* Block M-1 — copy flows naturally (no forced gap); the image is sized
@@ -68,24 +64,37 @@ function MarketOverviewPage() {
         </Reveal>
         <div className="two-markets-grid">
           <Reveal className="market-col market-col-new">
-            <h3 style={{ color: "var(--tk-red)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ New Supply</h3>
+            <h3 className="market-col-title">
+              <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+              </svg>
+              <span>NEW SUPPLY</span>
+            </h3>
+            <p className="market-col-lead">New handovers create immediate demand.</p>
             <ul className="market-list">
-              <li>For sale</li>
-              <li>Hotel facilities</li>
-              <li>Utilities &amp; Accessories</li>
+              <li>Furniture</li>
+              <li>Home Appliances</li>
+              <li>Lighting &amp; Accessories</li>
               <li>Outdoor Furniture</li>
-              <li>Smart Technology</li>
+              <li>Smart Home Solutions</li>
               <li>Complete Fit-Out</li>
             </ul>
           </Reveal>
           <Reveal className="market-col market-col-existing">
-            <h3 style={{ color: "var(--tk-black)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>→ Existing Supply</h3>
+            <h3 className="market-col-title">
+              <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+              </svg>
+              <span>EXISTING SUPPLY</span>
+            </h3>
+            <p className="market-col-lead">Existing properties create recurring demand.</p>
             <ul className="market-list">
-              <li>Re-creation</li>
-              <li>Furniture Renewal</li>
-              <li>Home furnishings</li>
+              <li>Renovation</li>
+              <li>Furniture Replacement</li>
+              <li>Interior Upgrades</li>
               <li>Smart Technology</li>
-              <li>Fit-Out Optimization</li>
+              <li>Outdoor Upgrades</li>
+              <li>Rental Optimization</li>
             </ul>
           </Reveal>
         </div>

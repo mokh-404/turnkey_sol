@@ -13,7 +13,7 @@ export const Route = createFileRoute("/about/venue")({
       {
         name: "description",
         content:
-          "Turnkey Show is hosted at the New Alamein International Convention and Exhibition Center — a purpose-built venue for high-level international events.",
+          "Turnkey Show is hosted at the New Alamein International Convention & Exhibition Center — a purpose-built venue for high-level international events.",
       },
       { property: "og:title", content: "Venue | About" },
       { property: "og:type", content: "website" },
@@ -96,7 +96,7 @@ const featureBlocks = [
   { icon: ModernFacilitiesIcon, title: "MODERN FACILITIES", desc: "Conference halls & fully equipped meeting rooms." },
   { icon: AdvancedTechnologyIcon, title: "ADVANCED TECHNOLOGY", desc: "Audiovisual & interpretation systems." },
   { icon: IntegratedServicesIcon, title: "INTEGRATED SERVICES", desc: "Registration, accreditation, information, business & media facilities." },
-  { icon: ProfessionalExperienceIcon, title: "PROFESSIONAL EXPERIENCE", desc: "A secure, efficient and comfortable environment supported by professional staff and integrated technical services." },
+  { icon: ProfessionalExperienceIcon, title: "PROFESSIONAL EXPERIENCE", desc: "A secure, efficient and comfortable environment Powered By professional staff and integrated technical services." },
 ];
 
 function VenuePage() {
@@ -105,20 +105,15 @@ function VenuePage() {
       <PageHero
         eyebrow="The Venue"
         title={"New Alamein International Convention\nand Exhibition Center"}
-        description={`${EVENT_CONFIG.dates} · ${EVENT_CONFIG.venue}`}
         image={venueImage}
         imageAlt="Al Alamein International Conference & Exhibition Center"
-        primaryBtn={{ label: "Register to Visit", href: "/visit/visitor-registration" }}
-        secondaryBtn={{ label: "Plan Your Route", href: "#venue-info" }}
       />
 
       {/* Venue description */}
-      <section className="page-width editorial-section-grid" id="venue-info">
+      <section className="page-width editorial-section-grid" id="venue-info" style={{ paddingTop: "0.5rem" }}>
         <Reveal className="editorial-copy">
-          <p className="eyebrow">Venue Overview</p>
-          <div className="section-red-bar" aria-hidden="true" />
           <p>
-            The Show will be hosted at the New Alamein International Convention and Exhibition Center — a purpose-built
+            The Show will be hosted at the New Alamein International Convention & Exhibition Center — a purpose-built
             venue equipped to support high-level international events. The facility offers modern conference halls,
             fully equipped meeting rooms, and advanced audiovisual and interpretation systems to accommodate plenary
             sessions and parallel meetings.
@@ -126,7 +121,7 @@ function VenuePage() {
           <p>
             On-site services include registration and accreditation areas, information desks, business and media
             facilities, and dedicated spaces for bilateral engagements. The venue is designed to ensure a secure,
-            efficient, and comfortable environment, supported by professional staff and integrated technical services.
+            efficient, and comfortable environment, Powered By professional staff and integrated technical services.
           </p>
           <a
             className="text-link"

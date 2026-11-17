@@ -8,7 +8,7 @@ import apexLogo from "@/assets/logos/apex-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { showSiteAlert, validateContactFields } from "@/lib/formAlerts";
+import { showSiteAlert, useScrollOnSuccess, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG } from "@/config/event";
 
@@ -35,6 +35,7 @@ function ContactPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+  const successRef = useScrollOnSuccess(status === "success");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,12 +49,20 @@ function ContactPage() {
     const errors: Record<string, string> = {};
     const nameEl = form.elements.namedItem("full_name") as HTMLInputElement;
     const emailEl = form.elements.namedItem("email") as HTMLInputElement;
+    const mobileEl = form.elements.namedItem("mobile") as HTMLInputElement;
     const subjectEl = form.elements.namedItem("subject") as HTMLInputElement;
     const messageEl = form.elements.namedItem("message") as HTMLTextAreaElement;
+
+    const mobileVal = mobileEl.value.trim();
+    const mobileDigits = mobileVal.replace(/\D/g, "");
 
     if (!nameEl.value.trim()) errors["full_name"] = "Full Name is required.";
     if (!emailEl.value.trim()) errors["email"] = "Email Address is required.";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) errors["email"] = "Please enter a valid email address.";
+    if (!mobileVal) errors["mobile"] = "Mobile number is required.";
+    else if (!/^\+?[0-9\s\-().]{7,20}$/.test(mobileVal) || mobileDigits.length < 7 || mobileDigits.length > 15) {
+      errors["mobile"] = "Please enter a valid phone number (7–15 digits, optional + prefix).";
+    }
     if (!subjectEl.value.trim()) errors["subject"] = "Subject is required.";
     if (!messageEl.value.trim()) errors["message"] = "Message is required.";
 
@@ -103,130 +112,13 @@ function ContactPage() {
       <PageHero
         eyebrow="Get in Touch"
         pageName="Contact Us"
-        title={"LET'S START A\nCONVERSATION."}
-        description="Whether you're interested in exhibiting, visiting, or exploring sponsorship packages for Turnkey Show 2027, our dedicated event management team is ready to assist."
+        title={"LET'S START A CONVERSATION."}
+        description={"Whether you're interested in exhibiting, visiting, or exploring sponsorship\npackages for Turnkey Show 2027, our dedicated event management team is ready to assist."}
         image={coastImage}
         imageAlt="Turquoise coastline of New Alamein"
       />
 
-      {/* Enlarged Site Logo + Top Action Buttons Below Logo */}
-      <section className="page-width" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)", paddingBottom: "1rem", textAlign: "center" }}>
-        <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.5rem" }}>
-          <img
-            src={turnkeyLogo}
-            alt="Turnkey Show"
-            style={{ height: "150px", width: "auto", objectFit: "contain" }}
-          />
-          <div className="subpage-intro-btn-row" style={{ justifyContent: "center", marginTop: "0.25rem" }}>
-            <a href="#contact-form" className="hero-btn hero-btn-primary">
-              Send a message
-              <svg
-                className="hero-btn-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M6 3.5L10.5 8L6 12.5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-            <a href="#organizer-info" className="hero-btn subpage-btn-ghost">
-              View organizer details
-              <svg
-                className="hero-btn-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M6 3.5L10.5 8L6 12.5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* Organizer Contact Info (Two Cards) — Placed Above the Form */}
-      <section className="contact-info-section page-width" id="organizer-info" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)", paddingBottom: "clamp(2rem, 4vw, 3rem)", borderTop: "none" }}>
-        <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 2.5rem" }}>
-          <p className="eyebrow" style={{ justifyContent: "center" }}>Official Organizer &amp; Venue</p>
-          <div className="section-red-bar" style={{ margin: "0.5rem auto 1rem" }} aria-hidden="true" />
-          <h2>KEY <span className="headline-accent">CONTACTS</span></h2>
-        </div>
-
-        <Reveal className="contact-info-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2rem", maxWidth: "900px", margin: "0 auto", textAlign: "center" }}>
-          <div className="organized-by-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.5rem 2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-              <img src={apexLogo} alt="Apex Conventions & Trade Fairs" style={{ height: "48px", width: "auto" }} />
-            </div>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", color: "#111111" }}>
-              Apex Conventions &amp; Trade Fairs L.L.C
-            </h3>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Phone className="w-4 h-4 text-red-600" aria-hidden="true" />
-                <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s/g, "")}`} style={{ fontWeight: 600 }}>
-                  Phone: {EVENT_CONFIG.organizer.phone}
-                </a>
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Phone className="w-4 h-4 text-red-600" aria-hidden="true" />
-                <a href={`tel:${EVENT_CONFIG.organizer.mobile.replace(/[\s–]/g, "")}`} style={{ fontWeight: 600 }}>
-                  Mobile: {EVENT_CONFIG.organizer.mobile}
-                </a>
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Mail className="w-4 h-4 text-red-600" aria-hidden="true" />
-                <a href={`mailto:${EVENT_CONFIG.organizer.email}`} style={{ fontWeight: 600, color: "var(--tk-red)" }}>
-                  {EVENT_CONFIG.organizer.email}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="organized-by-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.5rem 2rem", boxShadow: "0 4px 20px rgba(0,0,0,0.04)" }}>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-              <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "rgba(233,41,36,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--tk-red)" }}>
-                <MapPin className="w-6 h-6" />
-              </div>
-            </div>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.25rem", color: "#111111" }}>
-              Exhibition Venue
-            </h3>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center" }}>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem", textAlign: "center" }}>
-                <MapPin className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
-                <span style={{ fontWeight: 600 }}>{EVENT_CONFIG.venue}</span>
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#666666", fontSize: "0.925rem" }}>
-                New Alamein City, Matrouh Governorate, Egypt
-              </li>
-              <li style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "#333333", fontSize: "1rem" }}>
-                <Mail className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
-                <a href={`mailto:${EVENT_CONFIG.email}`} style={{ fontWeight: 600, color: "var(--tk-red)" }}>
-                  {EVENT_CONFIG.email}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </Reveal>
-      </section>
-
-      {/* General Inquiry Form */}
+      {/* General Inquiry Form + Organizer Card Side-by-Side */}
       <section className="contact-form-section page-width" id="contact-form" style={{ paddingTop: "clamp(2rem, 4vw, 3rem)", paddingBottom: "clamp(3rem, 5vw, 4.5rem)", borderTop: "1px solid #eaeaea" }}>
         <Reveal className="contact-form-section-intro" style={{ textAlign: "center", maxWidth: "720px", margin: "0 auto 2.5rem" }}>
           <p className="eyebrow" style={{ justifyContent: "center" }}>Direct Inquiries</p>
@@ -235,11 +127,47 @@ function ContactPage() {
           <p style={{ fontSize: "1.15rem", color: "#444444" }}>Fill in the form below and our team will get back to you.</p>
         </Reveal>
 
-        <div className="contact-main-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "2.5rem", alignItems: "start" }}>
+        <div className="contact-main-grid" id="organizer-info">
+          {/* Apex Organizer Card */}
+          <Reveal className="organized-by-card contact-apex-side-card" style={{ background: "#ffffff", border: "1px solid #e5e7eb", borderTop: "4px solid var(--tk-red)", padding: "2.25rem 1.5rem", boxShadow: "0 8px 30px rgba(0,0,0,0.06)", textAlign: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.25rem" }}>
+              <img src={apexLogo} alt="Apex Conventions & Trade Fairs" style={{ height: "54px", width: "auto" }} />
+            </div>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.5rem", color: "#111111" }}>
+              Apex Conventions &amp; Trade Fairs L.L.C
+            </h3>
+            <ul className="contact-apex-contact-list">
+              <li className="contact-apex-contact-item">
+                <Phone className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s/g, "")}`} style={{ fontWeight: 600, whiteSpace: "nowrap" }}>
+                  Phone: {EVENT_CONFIG.organizer.phone}
+                </a>
+              </li>
+              <li className="contact-apex-contact-item">
+                <Phone className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                <span className="contact-apex-mobile-numbers">
+                  Mobile:{" "}
+                  <a href="tel:+201017575757" style={{ fontWeight: 600, whiteSpace: "nowrap" }}>
+                    +2 010 17 57 57 57
+                  </a>{" "}
+                  <a href="tel:+201041555455" style={{ fontWeight: 600, whiteSpace: "nowrap" }}>
+                    +2 010 41 55 54 55
+                  </a>
+                </span>
+              </li>
+              <li className="contact-apex-contact-item">
+                <Mail className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                <a href={`mailto:${EVENT_CONFIG.organizer.email}`} style={{ fontWeight: 600, color: "var(--tk-red)", whiteSpace: "nowrap" }}>
+                  {EVENT_CONFIG.organizer.email}
+                </a>
+              </li>
+            </ul>
+          </Reveal>
+
           {/* Form Card */}
           <Reveal className="contact-form-card" style={{ background: "#ffffff", padding: "clamp(1.75rem, 3.5vw, 2.75rem)", border: "1px solid #e5e7eb", boxShadow: "0 8px 30px rgba(0,0,0,0.06)" }}>
             {status === "success" ? (
-              <div className="form-success-message">
+              <div ref={successRef} className="form-success-message">
                 <h3>Message Sent</h3>
                 <p>Thank you for reaching out. We'll get back to you shortly.</p>
               </div>
@@ -269,9 +197,10 @@ function ContactPage() {
                 <div className="form-group" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}>
                   <div className="form-field">
                     <label htmlFor="mobile" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}>
-                      Mobile <span className="optional" style={{ color: "#888888", fontWeight: 400 }}>(optional)</span>
+                      Mobile *
                     </label>
-                    <Input id="mobile" name="mobile" type="tel" placeholder="+20 xxx xxx xxxx" />
+                    <Input id="mobile" name="mobile" type="tel" placeholder="+20 xxx xxx xxxx" required className={fieldErrors["mobile"] ? "field-invalid" : ""} />
+                    {fieldErrors["mobile"] && <p className="field-error">{fieldErrors["mobile"]}</p>}
                   </div>
                   <div className="form-field">
                     <label htmlFor="subject" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}>Subject *</label>

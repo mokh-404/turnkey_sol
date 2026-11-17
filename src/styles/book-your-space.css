@@ -1,0 +1,181 @@
+.subpage-intro-desc {
+  white-space: pre-line;
+}
+
+/* Footer Crown CTAs — Match button dimensions equally */
+.footer-crown-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0.85rem;
+}
+
+.footer-crown-cta {
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .footer-crown-actions {
+    grid-template-columns: 1fr !important;
+    justify-items: stretch !important;
+    width: min(100%, 240px) !important;
+    gap: 0.65rem !important;
+  }
+}
+
+/* Services Pages — Tighter gap between PageHero title and card section */
+.subpage-intro-section:has(+ .services-grid-section) {
+  padding-bottom: 0.75rem;
+}
+
+.services-grid-section,
+.subpage-intro-section + .services-grid-section {
+  padding-top: 0.25rem;
+}
+
+/* Contact Us Page — Organizer Card Single-Line Numbers & Icon Alignment */
+.contact-main-grid {
+  grid-template-columns: minmax(400px, 460px) 1fr;
+}
+
+@media (max-width: 1024px) {
+  .contact-main-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.contact-apex-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: center;
+  width: 100%;
+}
+
+.contact-apex-contact-item {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  color: #333333;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.contact-apex-contact-item svg {
+  margin-top: 2px;
+}
+
+@media (min-width: 480px) {
+  .contact-apex-mobile-numbers {
+    white-space: nowrap;
+  }
+}
+
+/* Book Your Space — Reservation Notice Banner & Form Polish */
+.booking-intro-banner {
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.booking-intro-heading {
+  font-family: var(--font-headline);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 800;
+  color: var(--tk-red) !important;
+  margin: 0 0 1.25rem 0;
+  text-transform: none;
+}
+
+.booking-intro-lead {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: #111111 !important;
+  margin: -0.5rem 0 1.25rem 0;
+}
+
+.booking-intro-cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 3rem;
+}
+
+.booking-intro-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.booking-intro-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.booking-intro-chevron {
+  width: 11px;
+  height: 14px;
+  color: var(--tk-red);
+  flex-shrink: 0;
+  margin-top: 0.38rem;
+}
+
+.booking-intro-item p {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #222222 !important;
+}
+
+.booking-intro-email {
+  color: var(--tk-red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.booking-intro-email:hover {
+  text-decoration: underline;
+}
+
+.book-space-custom-form .form-field input:not([type="checkbox"]) {
+  height: 46px;
+  padding: 0 14px;
+  border-radius: 0;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.book-space-custom-form .form-field textarea {
+  border-radius: 0;
+  border: 1px solid #d1d5db;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+}
+
+.book-space-custom-form .form-field input[type="checkbox"] {
+  padding: 0;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.book-space-custom-form .form-field label:has(input[type="checkbox"]) {
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .booking-intro-cols {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

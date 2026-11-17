@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import turquoiseSkyline from "@/assets/turquoise-skyline.webp";
 import apexLogo from "@/assets/logos/apex-logo.png";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
-import { EVENT_CONFIG } from "@/config/event";
 
 export const Route = createFileRoute("/about/organizer")({
   component: OrganizerPage,
@@ -26,12 +25,8 @@ function OrganizerPage() {
     <SiteLayout>
       <PageHero
         eyebrow="Organizer"
-        title={"BUILT ON A DEEP UNDERSTANDING\nOF MARKETS."}
-        description="Apex Conventions and Trade Fairs L.L.C — trade-fair organizer with more than 15 years of experience."
         image={turquoiseSkyline}
         imageAlt="Turnkey Show organizer"
-        primaryBtn={{ label: "Contact Us", href: "/contact" }}
-        secondaryBtn={{ label: "Book Your Space", href: "/exhibit/book-your-space" }}
       />
 
       <section className="page-width organizer-page-section" id="organizer-profile">
@@ -50,23 +45,10 @@ function OrganizerPage() {
             <h2>Apex Conventions and Trade Fairs L.L.C</h2>
             <p>Apex is a trade-fair organizer with more than 15 years of experience in developing and delivering specialized exhibitions.</p>
             <p>Our work is built around a simple principle: a successful trade fair starts with understanding the market.</p>
-            <p>
+            <p style={{ marginBottom: 0 }}>
               We identify the industry, understand its business environment, define the right audience, and develop an
               exhibition platform that brings the relevant companies and professionals together.
             </p>
-            <div className="organizer-contact-block">
-              <p>
-                <strong>Phone:</strong>{" "}
-                <a href={`tel:${EVENT_CONFIG.organizer.phone.replace(/\s/g, "")}`}>{EVENT_CONFIG.organizer.phone}</a>
-              </p>
-              <p>
-                <strong>Mobile:</strong> {EVENT_CONFIG.organizer.mobile}
-              </p>
-              <p>
-                <strong>E-mail:</strong>{" "}
-                <a href={`mailto:${EVENT_CONFIG.organizer.email}`}>{EVENT_CONFIG.organizer.email}</a>
-              </p>
-            </div>
           </div>
         </Reveal>
       </section>

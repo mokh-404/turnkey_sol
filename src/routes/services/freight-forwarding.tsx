@@ -28,11 +28,8 @@ function FreightForwardingPage() {
       <PageHero
         eyebrow="Freight Forwarding"
         title={"FREIGHT FORWARDING\n& CUSTOMS CLEARANCE"}
-        description="Official logistics partner details for Turnkey Show 2027 — coming soon."
         image={lobbyImage}
         imageAlt="Freight and logistics services"
-        primaryBtn={{ label: "Contact us", href: "/contact" }}
-        secondaryBtn={{ label: "Special decoration", href: "/services/special-decoration" }}
       />
       <section className="services-grid-section page-width" id="freight-info">
         <Reveal className="service-card service-card-pending">

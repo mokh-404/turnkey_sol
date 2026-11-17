@@ -2,7 +2,7 @@
 
 **The Coast's Complete Property Solutions Platform**  
 **Dates:** 06 – 09 May 2027  
-**Venue:** New Alamein International Convention and Exhibition Center  
+**Venue:** New Alamein International Convention & Exhibition Center  
 **Organizer:** Apex Conventions and Trade Fairs L.L.C (`+20 10 1777 5757 – +20 1041555455` | `02 389 77 258` | `info@apextradefairs.com`)
 
 Turnkey Show Alamein connects property owners, investors, developers, and hospitality operators with leading brands and solution providers across furniture, fit-out, kitchens, home appliances, outdoor living, modern lighting, and smart unit automation.
@@ -25,10 +25,10 @@ All public routes live in `src/routes/` and share the global header, mobile acco
 
 | Route | File | Description |
 | :--- | :--- | :--- |
-| `/` | `src/routes/index.tsx` | **Homepage:** Full-bleed coastal hero with animated counters (`13,000 sqm`, `120` brands, `8,000+` visitors), *About the Expo* with primary CTA buttons, infinite *Marquee Ribbon*, *Market Overview* (*The North Coast Is Entering a New Era*), bottom-aligned *Two Markets… One Opportunity* cards, *Core Sectors* showcase, *The Concept* ecosystem overview, *Venue* highlight, and the *Supported By* banner featuring the transparent Apex logo. |
+| `/` | `src/routes/index.tsx` | **Homepage:** Full-bleed coastal hero with animated counters (`13,000 sqm`, `120` brands, `8,000+` visitors), *About the Expo* with primary CTA buttons, infinite *Marquee Ribbon*, *Market Overview* (*The North Coast Is Entering a New Era*), bottom-aligned *Two Markets… One Opportunity* cards, *Core Sectors* showcase, *The Concept* ecosystem overview, *Venue* highlight, and the *Powered By* banner featuring the transparent Apex logo. |
 | `/about/turnkey-show` | `src/routes/about/turnkey-show.tsx` | **About the Show:** Platform overview, concept, show promise, vision, opportunity, 8 core sectors, and *Why Now* market signals. |
 | `/about/market-overview` | `src/routes/about/market-overview.tsx` | **Market Overview:** North Coast & New Alamein growth analysis, bottom-aligned *Two Markets… One Opportunity* supply cards, and *The Market at a Glance* animated indicators (`EGP 1.2T`, `EGP 185B`, `46,189+` units). |
-| `/about/venue` | `src/routes/about/venue.tsx` | **Venue:** New Alamein International Convention and Exhibition Center overview, Google Maps link, and 4 key facility feature blocks. |
+| `/about/venue` | `src/routes/about/venue.tsx` | **Venue:** New Alamein International Convention & Exhibition Center overview, Google Maps link, and 4 key facility feature blocks. |
 | `/about/organizer` | `src/routes/about/organizer.tsx` | **Organizer:** Centered profile for **Apex Conventions and Trade Fairs L.L.C** with the transparent Apex logo (`apex-logo-no-bg.png`) positioned above the centered company bio and contact details. |
 | `/exhibit/why-exhibit` | `src/routes/exhibit/why-exhibit.tsx` | **Why Exhibit:** `15,000+` unit delivery pipeline highlight, exhibitor value proposition, and standardized action buttons. |
 | `/exhibit/visitor-profile` | `src/routes/exhibit/visitor-profile.tsx` | **Visitor Profile:** Target buyer & decision-maker categories, with the primary CTA redirecting to `/visit/visitor-registration`. |
@@ -48,13 +48,13 @@ All public routes live in `src/routes/` and share the global header, mobile acco
 
 1. **Header & Footer Architecture (`src/components/SiteLayout.tsx`):**
    - Solid white header with top utility strip, scroll progress indicator, desktop dropdowns, and mobile accordion navigation.
-   - Footer *Contact & Inquiries* column updated to display `info@turnkeyshow.com`, `Download Brochure`, and the event dates/venue (`06 – 09 May 2027` / `New Alamein International Convention and Exhibition Center`).
+   - Footer *Contact & Inquiries* column updated to display `info@turnkeyshow.com`, `Download Brochure`, and the event dates/venue (`06 – 09 May 2027` / `New Alamein International Convention & Exhibition Center`).
    - Replaced all instances of the Apex logo across the site and emails with the transparent-background `apex-logo-no-bg.png` and updated the second Apex mobile number to `+20 1041555455` everywhere (`src/config/event.ts`).
 2. **Homepage Layout & Sections (`src/routes/index.tsx`):**
    - Moved hero CTA buttons (*Book Your Space* and *Download Brochure*) into the *About the Expo* section directly below the hero.
    - Removed the duplicate *Market Overview* eyebrow heading and placed *Two Markets… One Opportunity* directly under the main *Market Overview* section.
    - Aligned both *New Supply* and *Existing Supply* cards at the top and bottom on both the Homepage and Market Overview page.
-   - Added the *Supported By* section at the bottom of the homepage with an architectural background image banner and the centered Apex logo underneath.
+   - Added the *Powered By* section at the bottom of the homepage with an architectural background image banner and the centered Apex logo underneath.
 3. **Uniform Site-Wide Button System (`src/site.css`):**
    - Standardized all button variants (`.hero-btn`, `.hero-btn-primary`, `.hero-btn-secondary`, `.hero-btn-editorial`, `.subpage-btn-ghost`, `.show-button`) to identical height (`52px`), padding (`0 30px`), border width (`1.5px`), and typography (`League Spartan`, `0.875rem`, `800` weight, `0.08em` tracking, uppercase), differing only in color.
 4. **In-Website Form Validation Popup Modal (`src/lib/formAlerts.ts`):**

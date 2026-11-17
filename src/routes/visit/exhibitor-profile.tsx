@@ -4,7 +4,7 @@ import livingRoom from "@/assets/living-room.webp";
 import terraceSunset from "@/assets/terrace-sunset.webp";
 import smartLiving from "@/assets/smart-living.webp";
 import smartHome from "@/assets/smart-home.webp";
-import kitchen from "@/assets/kitchen.webp";
+import smokedOakApplianceWall from "@/assets/smoked-oak-appliance-wall.webp";
 import warmKitchen from "@/assets/warm-kitchen.webp";
 import villaShowcase from "@/assets/villa-showcase.webp";
 import lobbyOcean from "@/assets/lobby-ocean.webp";
@@ -26,46 +26,46 @@ export const Route = createFileRoute("/visit/exhibitor-profile")({
   }),
 });
 
-const exhibitorSectors = [
+const sectors = [
   {
-    title: "FURNITURE & INTERIORS",
-    desc: "Furnishing solutions for new handovers and existing properties.",
+    title: "Furniture & Interiors",
     image: livingRoom,
+    detail: "Furnishing solutions for new handovers and existing coastal properties.",
   },
   {
-    title: "KITCHENS & EQUIPMENT",
-    desc: "Custom kitchen cabinetry, built-in appliances and fixtures.",
+    title: "Kitchens & Equipment",
     image: warmKitchen,
+    detail: "Custom kitchen cabinetry, built-in appliances, fixtures and premium kitchen fit-outs.",
   },
   {
-    title: "HOME APPLIANCES",
-    desc: "Essential, built-in and lifestyle appliances for ready-to-operate units.",
-    image: kitchen,
+    title: "Home Appliances",
+    image: smokedOakApplianceWall,
+    detail: "Essential, built-in and lifestyle appliances for ready-to-operate units.",
   },
   {
-    title: "OUTDOOR LIVING",
-    desc: "Outdoor furniture and solutions designed for the coastal lifestyle.",
+    title: "Outdoor Living",
     image: terraceSunset,
+    detail: "Outdoor furniture and solutions designed for the Mediterranean coastal lifestyle.",
   },
   {
-    title: "SMART UNIT AUTOMATION",
-    desc: "Technology for comfort, security, energy efficiency and connected living.",
+    title: "Smart Unit Automation",
     image: smartHome,
+    detail: "Smart home automation, climate control, energy efficiency and connected living.",
   },
   {
-    title: "MODERN LIGHTING TECHNOLOGY",
-    desc: "Architectural lighting, ambient systems and illumination solutions.",
+    title: "Modern Lighting Technology",
     image: smartLiving,
+    detail: "Architectural lighting, ambient systems, modern illumination and decorative fixtures.",
   },
   {
-    title: "HOSPITALITY FIT-OUT",
-    desc: "Solutions for hotels, serviced apartments and rental properties.",
+    title: "Hospitality Fit-Out",
     image: lobbyOcean,
+    detail: "High-spec commercial solutions for hotels, serviced apartments and rental properties.",
   },
   {
-    title: "COMPLETE PROPERTY SOLUTIONS",
-    desc: "Integrated solutions that take a property from handover to investment ready.",
+    title: "Complete Solutions",
     image: villaShowcase,
+    detail: "Integrated turnkey solutions taking properties from handover to investment-ready.",
   },
 ];
 
@@ -79,22 +79,29 @@ function ExhibitorProfilePage() {
         image={livingRoom}
         imageAlt="Coastal property interiors"
         primaryBtn={{ label: "Register to visit", href: "/visit/visitor-registration" }}
-        secondaryBtn={{ label: "Why visit", href: "/visit/why-visit" }}
       />
 
-      {/* Six image cards — grayscale → colour on hover */}
-      <section className="exhibitor-profile-section section-band" id="exhibitor-sectors">
+      {/* Core Sectors — identical to Home page (grayscale default, color on hover) */}
+      <section className="sectors-section section-band" id="exhibitor-sectors">
         <div className="page-width">
-          <div className="exhibitor-profile-grid">
-            {exhibitorSectors.map((sector) => (
-              <Reveal key={sector.title} className="exhibitor-profile-card">
-                <div className="profile-card-image">
-                  <img src={sector.image} alt={sector.title} width={800} height={500} decoding="async" />
-                </div>
-                <div className="profile-card-body" style={{ textAlign: "center" }}>
-                  <h3>{sector.title}</h3>
-                  <p>{sector.desc}</p>
-                </div>
+          <Reveal className="section-heading">
+            <div>
+              <p className="eyebrow">Core Sectors</p>
+              <div className="section-red-bar" aria-hidden="true" />
+              <h2>All Needs Under One <span className="headline-accent">Roof</span></h2>
+              <p>Complete fitting-out sectors required to transform a property into a fully furnished, finished space.</p>
+            </div>
+          </Reveal>
+          <div className="sector-grid">
+            {sectors.map((sector) => (
+              <Reveal key={sector.title}>
+                <a href="/exhibit/why-exhibit" className="sector-card" aria-label={sector.title}>
+                  <img src={sector.image} alt={sector.title} width={1600} height={1024} decoding="async" />
+                  <div className="sector-card-copy">
+                    <h3>{sector.title}</h3>
+                    <p>{sector.detail}</p>
+                  </div>
+                </a>
               </Reveal>
             ))}
           </div>

@@ -5,7 +5,7 @@ import venueImage from "@/assets/venue.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { showSiteAlert, validateContactFields } from "@/lib/formAlerts";
+import { showSiteAlert, useScrollOnSuccess, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
@@ -55,6 +55,7 @@ function BookYourSpacePage() {
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
   const [country, setCountry] = useState("Egypt");
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+  const successRef = useScrollOnSuccess(status === "success");
 
   function toggleSector(sector: string) {
     setSelectedSectors((prev) =>
@@ -124,7 +125,6 @@ function BookYourSpacePage() {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       contact: (form.elements.namedItem("contactName") as HTMLInputElement).value,
       title: (form.elements.namedItem("jobTitle") as HTMLInputElement).value,
-      linkedin: (form.elements.namedItem("linkedin") as HTMLInputElement).value,
       sectors: selectedSectors,
       standType: (form.elements.namedItem("standType") as HTMLSelectElement)?.value || "Space Only",
       standSize: (form.elements.namedItem("standSize") as HTMLInputElement)?.value || "",
@@ -156,28 +156,70 @@ function BookYourSpacePage() {
       <PageHero
         eyebrow="Book Your Space"
         title={"SECURE YOUR EXHIBITION SPACE\nAT TURNKEY SHOW 2027."}
-        description={`${EVENT_CONFIG.dates} · ${EVENT_CONFIG.venue}`}
         image={venueImage}
         imageAlt="Al Alamein International Conference & Exhibition Center"
-        primaryBtn={{ label: "Fill the form below", href: "#booking-form-wrap" }}
-        secondaryBtn={{ label: "Download brochure", href: "/exhibit/download-brochure" }}
       />
 
-      <section className="page-width booking-page-wrap" id="booking-form-wrap" style={{ paddingTop: "clamp(2.5rem, 5vw, 4.5rem)", paddingBottom: "clamp(2.5rem, 5vw, 4.5rem)" }}>
+      <section
+        className="page-width booking-page-wrap"
+        id="booking-form-wrap"
+        style={{ paddingTop: "clamp(1.25rem, 2.5vw, 2rem)", paddingBottom: "clamp(2.5rem, 5vw, 4.5rem)" }}
+      >
         <Reveal>
-          <div className="booking-intro-banner" style={{ marginBottom: "2rem", borderBottom: "1px solid #e5e7eb", paddingBottom: "1.5rem" }}>
-            <p style={{ fontSize: "1.2rem", fontWeight: 700, color: "#111111", marginBottom: "0.5rem" }}>
-              This form is not a contract.
-            </p>
-            <p style={{ fontSize: "0.95rem", color: "#666666" }}>
-              &ldquo;*&rdquo; indicates required fields
-            </p>
+          <div className="booking-intro-banner">
+            <h3 className="booking-intro-heading">(This form is not a contract)</h3>
+            <div className="booking-intro-cols">
+              <div className="booking-intro-col">
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>
+                    Please complete the reservation form below to receive the floor plan and quotation for your stand.
+                    The form is just a reservation interest notice to the organizer. You have to ask for{" "}
+                    <strong>TURNKEY SHOW ALAMEIN 2027</strong> contract application to confirm your space reservation.
+                  </p>
+                </div>
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>
+                    <strong>* (required information)</strong>
+                  </p>
+                </div>
+              </div>
+
+              <div className="booking-intro-col">
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>
+                    Once we receive your email we will send you the floor plan with 2 location options for you to
+                    choose. Allocations will be made on a first-come, first-serve basis.
+                  </p>
+                </div>
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>
+                    <strong>For any questions please contact us on:</strong>
+                    <br />
+                    <a href={`mailto:${EVENT_CONFIG.email}`} className="booking-intro-email">
+                      {EVENT_CONFIG.email}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </Reveal>
 
         <Reveal>
           {status === "success" ? (
-            <div className="form-success-message">
+            <div ref={successRef} className="form-success-message">
               <h3>Exhibitor Application Received</h3>
               <p>
                 Thank you for applying to exhibit at Turnkey Show 2027. Our exhibition sales team will review your application and contact you promptly with stand options, hall floor plans, and pricing packages.
@@ -288,13 +330,6 @@ function BookYourSpacePage() {
                     {fieldErrors["jobTitle"] && <p className="field-error">{fieldErrors["jobTitle"]}</p>}
                   </div>
                 </div>
-
-                <div className="form-field" style={{ marginBottom: "1.5rem" }}>
-                  <label htmlFor="linkedin" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
-                    LinkedIn Profile URL
-                  </label>
-                  <Input id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/..." />
-                </div>
               </div>
 
               {/* Section 2: Exhibitor Profile */}
@@ -399,7 +434,7 @@ function BookYourSpacePage() {
                 className="show-button"
                 disabled={status === "sending"}
               >
-                {status === "sending" ? "SUBMITTING APPLICATION…" : "SUBMIT EXHIBITOR APPLICATION"}{" "}
+                {status === "sending" ? "SUBMITTING…" : "Submit"}{" "}
                 <span className="btn-arrow">&gt;</span>
               </Button>
             </form>

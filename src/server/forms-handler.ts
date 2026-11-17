@@ -296,11 +296,6 @@ export async function handleFormSubmission(
         { section: "Section 1 — Exhibitor & Company Information", label: "Contact Person Name", value: nameVal },
         { section: "Section 1 — Exhibitor & Company Information", label: "Job Title", value: titleVal || "—" },
         {
-          section: "Section 1 — Exhibitor & Company Information",
-          label: "LinkedIn Profile URL",
-          value: (payload as any).linkedin || "—",
-        },
-        {
           section: "Section 2 — Exhibitor Profile & Stand Requirements",
           label: "Core Industry Sectors",
           value: payload.sectors?.length ? payload.sectors.join(", ") : "All sectors",
@@ -375,6 +370,11 @@ export async function handleFormSubmission(
       classificationLabel = "GENERAL INQUIRY · Contact Us";
       subjectDetail = `${displayName} — ${sanitizeHeader(payload.subject)}`;
       if (!nameVal) return { success: false, message: "Full name is required." };
+      const mobileDigits = mobileVal.replace(/\D/g, "");
+      if (!mobileVal) return { success: false, message: "Mobile number is required." };
+      if (!/^\+?[0-9\s\-().]{7,20}$/.test(mobileVal) || mobileDigits.length < 7 || mobileDigits.length > 15) {
+        return { success: false, message: "Please provide a valid mobile number." };
+      }
       if (!payload.subject?.trim()) return { success: false, message: "Subject is required." };
       if (!payload.message?.trim()) return { success: false, message: "Message is required." };
 
@@ -382,7 +382,7 @@ export async function handleFormSubmission(
         { section: "Section 1 — Sender Contact Information", label: "Inquiry Reference Number", value: registrationNumber },
         { section: "Section 1 — Sender Contact Information", label: "Full Name", value: nameVal },
         { section: "Section 1 — Sender Contact Information", label: "Email Address", value: email },
-        { section: "Section 1 — Sender Contact Information", label: "Mobile Number", value: mobileVal || "—" },
+        { section: "Section 1 — Sender Contact Information", label: "Mobile Number", value: mobileVal },
         { section: "Section 2 — Inquiry Subject & Message", label: "Subject", value: payload.subject },
         { section: "Section 2 — Inquiry Subject & Message", label: "Message", value: payload.message }
       );
@@ -488,8 +488,8 @@ function renderGroupedSectionsHtmlAndText(submittedFields: SubmittedField[]): {
       </div>
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; margin-bottom: 16px;">
         ${fields
-          .map(
-            (f, idx) => `
+        .map(
+          (f, idx) => `
           <tr style="background-color: ${idx % 2 === 0 ? "#fafafa" : "#ffffff"};">
             <td style="padding: 11px 14px; border: 1px solid #e5e7eb; width: 38%; font-weight: bold; color: #111111; vertical-align: top;">
               ${escapeHtml(f.label)}
@@ -498,8 +498,8 @@ function renderGroupedSectionsHtmlAndText(submittedFields: SubmittedField[]): {
               ${escapeHtml(f.value)}
             </td>
           </tr>`
-          )
-          .join("")}
+        )
+        .join("")}
       </table>
     `;
 
@@ -635,7 +635,7 @@ function buildAutoReplyHtml({
       formTypeBadgeAr = "تأكيد تسجيل الزوار";
       enLines = [
         `Thanks for registering to Turnkey Show Alamein 2027, Your registration number is: <strong>${escapeHtml(registrationNumber)}</strong>.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention and Exhibition Center - Arab Republic of Egypt.`,
+        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
         `Please show your registration confirmation to Turnkey Show 2027 team upon arrival that will ease up your access.`,
       ];
       arLines = [
@@ -652,7 +652,7 @@ function buildAutoReplyHtml({
       enLines = [
         `Thanks for requesting the official brochure for Turnkey Show Alamein 2027 (Reference: <strong>${escapeHtml(registrationNumber)}</strong>).`,
         `We have attached a copy of <strong>Brochure Turnkey Show 2027.pdf</strong> directly to this email, and you can also download it anytime using the button below.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention and Exhibition Center - Arab Republic of Egypt.`,
+        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
       ];
       arLines = [
         `شكراً لطلب الكتيب التعريفي لمعرض تيرن كي شو العلمين 2027 (رقم المرجع: <strong>${escapeHtml(registrationNumber)}</strong>).`,
@@ -676,7 +676,7 @@ function buildAutoReplyHtml({
       enLines = [
         `Thanks for applying to exhibit at Turnkey Show Alamein 2027, Your application reference number is: <strong>${escapeHtml(registrationNumber)}</strong>.`,
         `Our exhibition sales team has received your space booking details below and will contact you shortly with stand options and floor plans.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention and Exhibition Center - Arab Republic of Egypt.`,
+        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
       ];
       arLines = [
         `شكراً لتقديم طلب حجز مساحة عرض في معرض تيرن كي شو العلمين 2027، رقم مرجع الطلب الخاص بك هو : <strong>${escapeHtml(registrationNumber)}</strong>`,
@@ -693,7 +693,7 @@ function buildAutoReplyHtml({
       enLines = [
         `Thanks for contacting Turnkey Show Alamein 2027 (Inquiry Reference: <strong>${escapeHtml(registrationNumber)}</strong>).`,
         `We have received your message and our team will review your inquiry and get back to you shortly.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention and Exhibition Center - Arab Republic of Egypt.`,
+        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
       ];
       arLines = [
         `شكراً لتواصلكم مع معرض تيرن كي شو العلمين 2027 (رقم الاستفسار: <strong>${escapeHtml(registrationNumber)}</strong>).`,
@@ -909,7 +909,7 @@ async function dispatchEmail({
       });
 
       await transporter.sendMail({
-        from: `"${mailFromName}" <${ smtpHost.includes("gmail") ? smtpUser : mailFromAddress }>`,
+        from: `"${mailFromName}" <${smtpHost.includes("gmail") ? smtpUser : mailFromAddress}>`,
         to,
         replyTo: replyTo || EVENT_CONFIG.email,
         subject,

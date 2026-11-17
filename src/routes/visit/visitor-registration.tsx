@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import chalet from "@/assets/chalet.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { showSiteAlert, validateContactFields } from "@/lib/formAlerts";
+import { showSiteAlert, useScrollOnSuccess, validateContactFields } from "@/lib/formAlerts";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_CONFIG, SHOW_SECTORS } from "@/config/event";
 
@@ -44,6 +44,7 @@ function VisitorRegistrationPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [selectedSectors, setSelectedSectors] = useState<string[]>([]);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+  const successRef = useScrollOnSuccess(status === "success");
 
   function toggleSector(sector: string) {
     setSelectedSectors((prev) =>
@@ -123,22 +124,65 @@ function VisitorRegistrationPage() {
         description={`Sign up now to receive your free entry badge, access the digital exhibitor directory, and get event updates. ${EVENT_CONFIG.dates} · ${EVENT_CONFIG.venue}`}
         image={chalet}
         imageAlt="Coastal living experience at Turnkey Show"
-        primaryBtn={{ label: "Fill the form below", href: "#registration-form" }}
-        secondaryBtn={{ label: "Exhibitor profile", href: "/visit/exhibitor-profile" }}
       />
 
-      <section className="contact-form-section contact-visitor-section section-band page-width" id="registration-form">
+      <section
+        className="contact-form-section contact-visitor-section page-width"
+        id="registration-form"
+        style={{ paddingTop: "clamp(1.25rem, 2.5vw, 2rem)" }}
+      >
+        <Reveal>
+          <div className="booking-intro-banner">
+            <h3 className="booking-intro-heading">Online Visitor Pre-Registration</h3>
+            <p className="booking-intro-lead">
+              To pre-register for <strong>TURNKEY SHOW ALAMEIN 2027</strong>, please:
+            </p>
+            <div className="booking-intro-cols">
+              <div className="booking-intro-col">
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>Complete the following details answering all questions.</p>
+                </div>
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>Click on the submit button, your entry badge will be mailed to you prior to the show.</p>
+                </div>
+              </div>
+
+              <div className="booking-intro-col">
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>Don&rsquo;t forget to register for each person separately if you intend a group visit.</p>
+                </div>
+                <div className="booking-intro-item">
+                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                    <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
+                  </svg>
+                  <p>
+                    Please provide the following contact information: <strong>(*required field).</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
         <Reveal>
           {status === "success" ? (
-            <div className="form-success-message">
+            <div ref={successRef} className="form-success-message">
               <h3>Registration Received</h3>
               <p>
                 Thank you for registering! We&rsquo;ll send your visitor pass and event details to your email address.
               </p>
             </div>
           ) : (
-            <form className="contact-form" onSubmit={handleSubmit} noValidate>
-              <p style={{ fontWeight: 700, marginBottom: "1rem" }}>This form is not a contract.</p>
+            <form className="contact-form book-space-custom-form" onSubmit={handleSubmit} noValidate>
               {/* Honeypot */}
               <input
                 type="text"

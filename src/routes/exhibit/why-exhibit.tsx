@@ -42,12 +42,10 @@ function WhyExhibitPage() {
         description="Alamein Turnkey Show comes at a pivotal moment for the residential, hospitality, and tourism market in New Alamein and the North Coast."
         image={villaShowcase}
         imageAlt="Luxury coastal villa showcase"
-        primaryBtn={{ label: "Book your space", href: "/exhibit/book-your-space" }}
-        secondaryBtn={{ label: "Download brochure", href: "/exhibit/download-brochure" }}
       />
 
       {/* Highlight Key Stat */}
-      <section className="page-width exhibit-key-stat" style={{ paddingTop: "2.5rem", paddingBottom: "2.5rem" }}>
+      <section className="page-width exhibit-key-stat">
         <Reveal className="exhibit-stat-card" style={{ minHeight: "180px", padding: "2.5rem 3rem", boxSizing: "border-box" }}>
           <div className="stat-number" style={{ minWidth: "260px", width: "260px", flexShrink: 0, fontVariantNumeric: "tabular-nums" }}>
             <AnimatedCounter value="15,000+" />
@@ -62,50 +60,56 @@ function WhyExhibitPage() {
         </Reveal>
       </section>
 
-      {/* Intro */}
-      <section className="page-width exhibit-statement" id="why-exhibit-intro">
-        <Reveal className="exhibit-statement-main">
-          <p>
-            With the 2027 delivery pipeline indicating more than 15,000 residential and tourism units entering the
-            finishing and furnishing stage, a significant new wave of demand is emerging for furniture, interiors,
-            technology, finishing, and turnkey solutions.
-          </p>
-          <p className="statement-punchline">
-            Exhibit where demand is being created — and purchasing decisions are being made.
-          </p>
-        </Reveal>
-      </section>
+      {/* 2-Row Organized Pillars */}
+      <section className="page-width turnkey-pillars-section" style={{ paddingTop: "1rem" }}>
+        <div className="turnkey-pillars-grid">
+          <Reveal className="turnkey-pillar-card">
+            <div id="why-exhibit-intro">
+              <h2>WHERE DEMAND IS CREATED</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>Exhibit where demand is being created — and purchasing decisions are being made.</strong>{" "}
+                With the 2027 delivery pipeline indicating more than 15,000 residential and tourism units entering the
+                finishing and furnishing stage, a significant new wave of demand is emerging for furniture, interiors,
+                technology, finishing, and turnkey solutions.
+              </p>
+            </div>
+          </Reveal>
 
-      {/* Under One Roof */}
-      <section className="page-width editorial-section-grid" id="all-needs">
-        <Reveal className="editorial-copy">
-          <p className="eyebrow">Comprehensive Range</p>
-          <div className="section-red-bar" aria-hidden="true" />
-          <h2>ALL NEEDS UNDER ONE <span className="headline-accent">ROOF</span>, From Smart Furniture to Full Solutions.</h2>
-          <p>
-            The show brings together the complete fitting-out sectors required to transform a property into a fully
-            furnished, finished, and ready-to-use space.
-          </p>
-          <p>
-            Specialized sectors and dedicated halls create a seamless visitor experience while giving exhibitors direct
-            access to a highly relevant target audience.
-          </p>
-          <p className="statement-punchline">One destination. Every solution. One complete purchase journey.</p>
-          <div className="exhibit-cta-row" style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", alignItems: "center", marginTop: "2rem" }}>
-            <a href="/exhibit/book-your-space" className="hero-btn hero-btn-primary">
-              Book your space
-              <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <a href="/exhibit/download-brochure" className="hero-btn subpage-btn-ghost">
-              Download brochure
-              <svg className="hero-btn-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M6 3.5L10.5 8L6 12.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-          </div>
-        </Reveal>
+          <Reveal className="turnkey-pillar-card">
+            <div id="all-needs">
+              <h2>ALL NEEDS UNDER ONE <span className="headline-accent">ROOF</span></h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>From Smart Furniture to Full Solutions.</strong> The show brings together the complete
+                fitting-out sectors required to transform a property into a fully furnished, finished, and ready-to-use
+                space.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="turnkey-pillar-card">
+            <div id="targeted-audience">
+              <h2>SPECIALIZED SECTORS &amp; DEDICATED HALLS</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                Specialized sectors and dedicated halls create a seamless visitor experience while giving exhibitors
+                direct access to a highly relevant target audience.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="turnkey-pillar-card">
+            <div id="purchase-journey">
+              <h2>ONE COMPLETE PURCHASE JOURNEY</h2>
+              <div className="section-red-bar" aria-hidden="true" />
+              <p>
+                <strong>One destination. Every solution. One complete purchase journey.</strong> Covering Furniture,
+                Appliances, Outdoor, Smart Home, Hospitality Fit-Out, and Complete Solutions.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </section>
 
     </SiteLayout>

@@ -2,6 +2,7 @@
 @source "../src";
 @import "tw-animate-css";
 @import "./site.css";
+@import "./styles/book-your-space.css";
 
 @custom-variant dark (&:is(.dark *));
 
