@@ -119,7 +119,7 @@ $submittedFields     = [];
 
 switch ($formKey) {
     case 'exhibitor_booking':
-        $formTitleEn         = 'FORM 1: BOOK YOUR SPACE (Exhibitor Application Form)';
+        $formTitleEn         = 'Book Your Space (Exhibitor Application Form)';
         $formTitleAr         = 'نموذج حجز مساحة عرض (طلب مشاركة عارض)';
         $formPagePath        = $isAr ? '/ar/exhibit/book-your-space' : '/exhibit/book-your-space';
         $classificationLabel = 'EXHIBITOR · Book Your Space';
@@ -169,7 +169,7 @@ switch ($formKey) {
         break;
 
     case 'exhibitor_brochure':
-        $formTitleEn         = 'FORM 2: DOWNLOAD BROCHURE (Sales Brochure Request Form)';
+        $formTitleEn         = 'Download Brochure (Sales Brochure Request Form)';
         $formTitleAr         = 'نموذج تحميل البروشور التعريفي للمعرض';
         $formPagePath        = $isAr ? '/ar/exhibit/download-brochure' : '/exhibit/download-brochure';
         $classificationLabel = 'EXHIBITOR · Sales Brochure Download';
@@ -201,7 +201,7 @@ switch ($formKey) {
         break;
 
     case 'visitor_registration':
-        $formTitleEn         = 'FORM 3: VISITOR REGISTRATION (Visitor Entry Badge Form)';
+        $formTitleEn         = 'Visitor Registration (Visitor Entry Badge Form)';
         $formTitleAr         = 'نموذج تسجيل الزوار (بطاقة الدخول للمعرض)';
         $formPagePath        = $isAr ? '/ar/visit/visitor-registration' : '/visit/visitor-registration';
         $classificationLabel = 'VISITOR · Registration';
@@ -240,7 +240,7 @@ switch ($formKey) {
         break;
 
     case 'general_inquiry':
-        $formTitleEn         = 'FORM 4: CONTACT US (General Inquiry Form)';
+        $formTitleEn         = 'Contact Us (General Inquiry Form)';
         $formTitleAr         = 'نموذج تواصل معنا (استفسار عام)';
         $formPagePath        = $isAr ? '/ar/contact' : '/contact';
         $classificationLabel = 'GENERAL INQUIRY · Contact Us';

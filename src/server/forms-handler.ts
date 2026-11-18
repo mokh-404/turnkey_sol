@@ -325,7 +325,7 @@ export async function handleFormSubmission(
   // 4. Form-specific field extraction with clear section separation (English & Arabic labels)
   switch (payload.form_key) {
     case "exhibitor_booking": {
-      formTitle = "FORM 1: BOOK YOUR SPACE (Exhibitor Application Form)";
+      formTitle = "Book Your Space (Exhibitor Application Form)";
       formTitleAr = "نموذج حجز مساحة عرض (طلب مشاركة عارض)";
       formPagePath = isAr ? "/ar/exhibit/book-your-space" : "/exhibit/book-your-space";
       classificationLabel = "EXHIBITOR · Book Your Space";
@@ -449,7 +449,7 @@ export async function handleFormSubmission(
     }
 
     case "exhibitor_brochure": {
-      formTitle = "FORM 2: DOWNLOAD BROCHURE (Sales Brochure Request Form)";
+      formTitle = "Download Brochure (Sales Brochure Request Form)";
       formTitleAr = "نموذج تحميل البروشور التعريفي للمعرض";
       formPagePath = isAr ? "/ar/exhibit/download-brochure" : "/exhibit/download-brochure";
       classificationLabel = "EXHIBITOR · Sales Brochure Download";
@@ -518,7 +518,7 @@ export async function handleFormSubmission(
     }
 
     case "visitor_registration": {
-      formTitle = "FORM 3: VISITOR REGISTRATION (Visitor Entry Badge Form)";
+      formTitle = "Visitor Registration (Visitor Entry Badge Form)";
       formTitleAr = "نموذج تسجيل الزوار (بطاقة الدخول للمعرض)";
       formPagePath = isAr ? "/ar/visit/visitor-registration" : "/visit/visitor-registration";
       classificationLabel = "VISITOR · Registration";
@@ -596,7 +596,7 @@ export async function handleFormSubmission(
     }
 
     case "general_inquiry": {
-      formTitle = "FORM 4: CONTACT US (General Inquiry Form)";
+      formTitle = "Contact Us (General Inquiry Form)";
       formTitleAr = "نموذج تواصل معنا (استفسار عام)";
       formPagePath = isAr ? "/ar/contact" : "/contact";
       classificationLabel = "GENERAL INQUIRY · Contact Us";

@@ -446,7 +446,7 @@ div.eyebrow,
 /* Main Header Bar */
 .header-main-bar {
   position: relative;
-  z-index: 101;
+  z-index: 120;
   background-color: #ffffff;
 }
 
@@ -652,7 +652,7 @@ div.eyebrow,
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 99;
+  z-index: 115;
 }
 
 .mobile-drawer.is-open {
@@ -3916,7 +3916,7 @@ textarea::placeholder {
 /* Majestic Architectural Crown Separator Band */
 .footer-crown-bar {
   background: linear-gradient(90deg, #080808 0%, #141418 50%, #080808 100%);
-  border-top: 4px solid var(--tk-red);
+  border-top: 1.5px solid var(--tk-red);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.15rem 0;
   position: relative;
@@ -3929,7 +3929,7 @@ textarea::placeholder {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 1px;
   background: linear-gradient(90deg, transparent 0%, rgba(233, 41, 36, 0.45) 50%, transparent 100%);
 }
 
@@ -5591,7 +5591,7 @@ textarea.field-invalid {
   background-color: var(--tk-red);
   transform-origin: left;
   will-change: transform;
-  z-index: 105;
+  z-index: 90;
   pointer-events: none;
 }
 

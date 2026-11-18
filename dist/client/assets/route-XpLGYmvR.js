@@ -1,0 +1,1 @@
+import{h as e,l as t}from"./index-CrDd-6mT.js";var n=e(),r=()=>(0,n.jsx)(t,{});export{r as component};
