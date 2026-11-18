@@ -1,0 +1,95 @@
+# ============================================================================
+# Turnkey Show Alamein 2027 — Production Apache Configuration (.htaccess)
+# Target: /home/turnkeyshow/public_html (https://turnkeyshow.com)
+# ============================================================================
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html index.php
+ErrorDocument 404 /404.html
+
+# ----------------------------------------------------------------------------
+# 1. Block direct browser access to sensitive files (.env, .git, mail-config)
+# ----------------------------------------------------------------------------
+<FilesMatch "^(\.env(\..*)?|\.git.*|\.cpanel\.yml|mail-config(\.example)?\.php|composer\.(json|lock)|package(-lock)?\.json)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Block any request targeting .git/, .env*, mail-config*.php, or internal PHP library files (/api/lib/)
+  RewriteRule ^(\.git|\.env|mail-config|api/lib(/|$)) - [F,L,NC]
+
+  # --------------------------------------------------------------------------
+  # 2. Force HTTPS and canonical apex domain (https://turnkeyshow.com)
+  # --------------------------------------------------------------------------
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\.turnkeyshow\.com$ [NC]
+  RewriteRule ^ https://turnkeyshow.com%{REQUEST_URI} [L,R=301]
+
+  # --------------------------------------------------------------------------
+  # 3. Map clean API paths to self-contained cPanel PHP endpoints
+  # --------------------------------------------------------------------------
+  RewriteRule ^api/forms/?$ api/send-mail.php [L,QSA]
+  RewriteRule ^api/brochure/?$ api/brochure.php [L,QSA]
+
+  # Never rewrite direct requests to /api/* or *.php endpoints into the SPA
+  RewriteRule ^api/ - [L]
+  RewriteRule \.php$ - [L]
+
+  # --------------------------------------------------------------------------
+  # 4. Section root redirects (matching client-side section redirects)
+  # --------------------------------------------------------------------------
+  RewriteRule ^about/?$ /about/turnkey-show [L,R=301]
+  RewriteRule ^ar/about/?$ /ar/about/turnkey-show [L,R=301]
+  RewriteRule ^exhibit/?$ /exhibit/why-exhibit [L,R=301]
+  RewriteRule ^ar/exhibit/?$ /ar/exhibit/why-exhibit [L,R=301]
+  RewriteRule ^visit/?$ /visit/exhibitor-profile [L,R=301]
+  RewriteRule ^ar/visit/?$ /ar/visit/exhibitor-profile [L,R=301]
+  RewriteRule ^services/?$ /services/special-decoration [L,R=301]
+  RewriteRule ^ar/services/?$ /ar/services/special-decoration [L,R=301]
+
+  # --------------------------------------------------------------------------
+  # 5. Serve existing static files & prerendered route folders directly
+  # --------------------------------------------------------------------------
+  # If a clean URL maps to a prerendered directory containing index.html, serve it directly without a trailing-slash redirect loop
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.+?)/?$ $1/index.html [L]
+
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # --------------------------------------------------------------------------
+  # 6. SPA client-side routing fallback (excluding /api/ and .php)
+  # --------------------------------------------------------------------------
+  RewriteCond %{REQUEST_URI} !^/api/ [NC]
+  RewriteCond %{REQUEST_URI} !\.php$ [NC]
+  RewriteRule ^ /index.html [L]
+</IfModule>
+
+# ----------------------------------------------------------------------------
+# 7. Security & Performance Headers
+# ----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  <FilesMatch "\.(webp|png|jpg|jpeg|gif|ico|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt|json)$">
+    Header set Cache-Control "public, max-age=300, must-revalidate"
+  </FilesMatch>
+</IfModule>

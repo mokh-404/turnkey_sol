@@ -1,0 +1,22 @@
+{
+  "name": "Turnkey Show Alamein 2027",
+  "short_name": "Turnkey Show",
+  "description": "The Alamein Trade Show for Furniture, Smart Furnishing Technologies & Complete Fit-Out Solutions for Coastal Units",
+  "start_url": "https://turnkeyshow.com/",
+  "scope": "https://turnkeyshow.com/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#E92824",
+  "icons": [
+    {
+      "src": "/turnkey-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

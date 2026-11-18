@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://turnkeyshow.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/about/turnkey-show</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/turnkey-show" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/turnkey-show" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/turnkey-show" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/about/turnkey-show</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/turnkey-show" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/turnkey-show" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/turnkey-show" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/about/market-overview</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/market-overview" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/market-overview" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/market-overview" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/about/market-overview</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/market-overview" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/market-overview" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/market-overview" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/about/organizer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/organizer" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/organizer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/organizer" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/about/organizer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/organizer" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/organizer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/organizer" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/about/venue</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/venue" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/venue" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/venue" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/about/venue</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/about/venue" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/about/venue" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/about/venue" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/contact" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/contact" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/contact" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/contact" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/exhibit/why-exhibit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/why-exhibit" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/why-exhibit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/why-exhibit" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/exhibit/why-exhibit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/why-exhibit" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/why-exhibit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/why-exhibit" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/exhibit/visitor-profile</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/visitor-profile" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/visitor-profile" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/visitor-profile" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/exhibit/visitor-profile</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/visitor-profile" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/visitor-profile" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/visitor-profile" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/exhibit/book-your-space</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/book-your-space" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/book-your-space" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/book-your-space" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/exhibit/book-your-space</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/book-your-space" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/book-your-space" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/book-your-space" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/exhibit/download-brochure</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/download-brochure" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/download-brochure" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/download-brochure" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/exhibit/download-brochure</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/exhibit/download-brochure" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/exhibit/download-brochure" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/exhibit/download-brochure" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/visit/exhibitor-profile</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/visit/exhibitor-profile" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/visit/exhibitor-profile" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/visit/exhibitor-profile" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/visit/exhibitor-profile</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/visit/exhibitor-profile" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/visit/exhibitor-profile" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/visit/exhibitor-profile" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/visit/why-visit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/visit/why-visit" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/visit/why-visit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/visit/why-visit" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/visit/why-visit</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/visit/why-visit" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/visit/why-visit" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/visit/why-visit" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/visit/visitor-registration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/visit/visitor-registration" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/visit/visitor-registration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/visit/visitor-registration" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/visit/visitor-registration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/visit/visitor-registration" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/visit/visitor-registration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/visit/visitor-registration" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/services/special-decoration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/services/special-decoration" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/services/special-decoration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/services/special-decoration" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/services/special-decoration</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/services/special-decoration" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/services/special-decoration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/services/special-decoration" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/services/freight-forwarding</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/services/freight-forwarding" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/services/freight-forwarding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/services/freight-forwarding" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/services/freight-forwarding</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/services/freight-forwarding" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/services/freight-forwarding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/services/freight-forwarding" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/services/travel</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/services/travel" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/services/travel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/services/travel" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://turnkeyshow.com/ar/services/travel</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://turnkeyshow.com/services/travel" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://turnkeyshow.com/ar/services/travel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://turnkeyshow.com/services/travel" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
