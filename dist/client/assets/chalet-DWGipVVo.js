@@ -1,0 +1,1 @@
+var e=`/assets/chalet-rYz6MPCx.webp`;export{e as t};

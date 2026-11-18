@@ -1,0 +1,1 @@
+import{c as e,l as t,u as n}from"./index-DB3Puym4.js";function r(r){let i=n();return t(i.stores.location,e(r,i))}export{r as t};

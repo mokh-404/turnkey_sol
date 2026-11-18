@@ -11,7 +11,8 @@ export const EVENT_CONFIG = {
   venue: "New Alamein International Convention & Exhibition Center",
   venueShort: "New Alamein Convention Center",
   email: "info@turnkeyshow.com",
-  website: "www.turnkeyshow.com",
+  website: "turnkeyshow.com",
+  siteUrl: "https://turnkeyshow.com",
 
   // D9: Social links configuration
   socialLinks: {

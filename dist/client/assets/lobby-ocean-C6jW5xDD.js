@@ -1,0 +1,1 @@
+var e=`/assets/lobby-ocean-CSdyoY8k.webp`;export{e as t};

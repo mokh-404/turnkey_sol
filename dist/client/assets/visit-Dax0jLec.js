@@ -1,0 +1,1 @@
+import{t as e}from"./useLocation-DIRFuOQP.js";import{a as t,d as n,i as r,r as i,s as a}from"./index-DB3Puym4.js";var o=n();function s(){let n=e(),{isAr:s}=r(),c=i(n.pathname);return c===`/visit`||c===`/visit/`?(0,o.jsx)(a,{to:`/{-$locale}/visit/exhibitor-profile`,params:{locale:s?`ar`:void 0},replace:!0}):(0,o.jsx)(t,{})}export{s as component};

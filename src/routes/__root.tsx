@@ -10,7 +10,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import { getLocaleFromPath, LocaleLink, useLocale } from "@/lib/i18n";
+import { getLocaleFromPath, LocaleLink, localizePath, stripLocale, useLocale } from "@/lib/i18n";
+import { EVENT_CONFIG } from "@/config/event";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -79,28 +80,47 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "Turnkey Show" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=League+Spartan:wght@300;400;500;600;700;800;900&family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&display=swap",
-      },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "icon", href: "/turnkey-logo.png", type: "image/png" },
-      { rel: "apple-touch-icon", href: "/turnkey-logo.png" },
-    ],
-  }),
+  head: ({ matches }) => {
+    const lastMatch = matches[matches.length - 1];
+    const rawPath = lastMatch?.pathname || "/";
+    const cleanPath = rawPath === "/" ? "/" : rawPath.replace(/\/+$/, "");
+    const siteUrl = EVENT_CONFIG.siteUrl;
+    const canonicalUrl = `${siteUrl}${cleanPath}`;
+    const neutralPath = stripLocale(cleanPath);
+    const enUrl = `${siteUrl}${localizePath(neutralPath, "en")}`;
+    const arUrl = `${siteUrl}${localizePath(neutralPath, "ar")}`;
+
+    return {
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "author", content: "Turnkey Show" },
+        { property: "og:site_name", content: "Turnkey Show Alamein 2027" },
+        { property: "og:url", content: canonicalUrl },
+        { property: "og:image", content: `${siteUrl}/turnkey-logo.png` },
+      ],
+      links: [
+        {
+          rel: "stylesheet",
+          href: appCss,
+        },
+        { rel: "canonical", href: canonicalUrl },
+        { rel: "alternate", hrefLang: "en", href: enUrl },
+        { rel: "alternate", hrefLang: "ar", href: arUrl },
+        { rel: "alternate", hrefLang: "x-default", href: enUrl },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=League+Spartan:wght@300;400;500;600;700;800;900&family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&display=swap",
+        },
+        { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+        { rel: "icon", href: "/turnkey-logo.png", type: "image/png" },
+        { rel: "apple-touch-icon", href: "/turnkey-logo.png" },
+        { rel: "manifest", href: "/site.webmanifest" },
+      ],
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
