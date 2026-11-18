@@ -260,8 +260,8 @@ export async function handleFormSubmission(
   const isAr = rawLocale === "ar";
   const locale: "en" | "ar" = isAr ? "ar" : "en";
 
-  // 1. Honeypot check: silently succeed if bot filled the honeypot
-  const honeypot = payload.website_hp || payload.website;
+  // 1. Honeypot check (never check generic `website` field to avoid browser autofill collisions)
+  const honeypot = payload.website_hp;
   if (honeypot && typeof honeypot === "string" && honeypot.trim().length > 0) {
     console.warn(`[Security] Honeypot triggered from ${clientIp}. Silently dropping.`);
     return {

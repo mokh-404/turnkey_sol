@@ -68,7 +68,6 @@ function DownloadBrochurePage() {
       title: (form.elements.namedItem("title") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
-      website_hp: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
     setSubmittedName(nameVal);
     try {
@@ -174,15 +173,6 @@ function DownloadBrochurePage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="brochure-form" noValidate>
-                {/* Honeypot */}
-                <input
-                  type="text"
-                  name="website"
-                  aria-hidden="true"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  style={{ position: "absolute", left: "-9999px", opacity: 0 }}
-                />
                 <div className="brochure-form-grid">
                   <div className="form-field">
                     <label htmlFor="b-name">{isAr ? "الاسم الكامل *" : "Your Name *"}</label>

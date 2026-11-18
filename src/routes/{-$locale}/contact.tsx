@@ -120,7 +120,6 @@ function ContactPage() {
       mobile: mobileVal,
       subject: subjectEl.value,
       message: messageEl.value,
-      website: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
     try {
       const res = await fetch("/api/send-mail.php", {
@@ -299,15 +298,6 @@ function ContactPage() {
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit} noValidate>
-                {/* Honeypot */}
-                <input
-                  type="text"
-                  name="website"
-                  aria-hidden="true"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  style={{ position: "absolute", left: "-9999px", opacity: 0 }}
-                />
                 <div className="form-group">
                   <div className="form-field">
                     <label

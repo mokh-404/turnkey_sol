@@ -149,7 +149,6 @@ function BookYourSpacePage() {
       standType: (form.elements.namedItem("standType") as HTMLSelectElement)?.value || "Space Only",
       standSize: (form.elements.namedItem("standSize") as HTMLInputElement)?.value || "",
       message: (form.elements.namedItem("message") as HTMLTextAreaElement)?.value || "",
-      website_hp: (form.elements.namedItem("website") as HTMLInputElement)?.value || "",
     };
 
     try {
@@ -319,16 +318,6 @@ function BookYourSpacePage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="book-space-custom-form" noValidate>
-              {/* Honeypot */}
-              <input
-                type="text"
-                name="website"
-                aria-hidden="true"
-                tabIndex={-1}
-                autoComplete="off"
-                style={{ position: "absolute", left: "-9999px", opacity: 0 }}
-              />
-
               {/* Section 1: Exhibitor Information */}
               <div className="form-section-block" style={{ marginBottom: "3rem" }}>
                 <h3

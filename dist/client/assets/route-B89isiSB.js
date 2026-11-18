@@ -1,1 +1,0 @@
-import{h as e,l as t}from"./index-CQgQg2eL.js";var n=e(),r=()=>(0,n.jsx)(t,{});export{r as component};

@@ -1,1 +1,0 @@
-import{t as e}from"./useLocation-zQg2tPAY.js";import{c as t,d as n,h as r,l as i,s as a}from"./index-CQgQg2eL.js";var o=r();function s(){let r=e(),{isAr:s}=t(),c=a(r.pathname);return c===`/exhibit`||c===`/exhibit/`?(0,o.jsx)(n,{to:`/{-$locale}/exhibit/why-exhibit`,params:{locale:s?`ar`:void 0},replace:!0}):(0,o.jsx)(i,{})}export{s as component};

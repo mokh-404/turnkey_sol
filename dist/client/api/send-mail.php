@@ -77,16 +77,7 @@ if ($rawLocale !== 'ar' && $rawLocale !== 'en') {
 }
 $isAr = ($rawLocale === 'ar');
 
-// 1. Honeypot spam protection (website_hp or website)
-$honeypot = tk_line($payload['website_hp'] ?? $payload['website'] ?? '', 200);
-if ($honeypot !== '') {
-    tk_json(200, [
-        'success' => true,
-        'message' => $isAr ? 'شكراً لتواصلكم معنا.' : 'Thank you for your submission.',
-    ]);
-}
-
-// 2. Validate & sanitize email address (strips CR/LF to prevent header injection)
+// 1. Validate & sanitize email address (strips CR/LF to prevent header injection)
 $email = tk_line($payload['email'] ?? '', 254);
 if (!tk_valid_email($email)) {
     $msg = $isAr ? 'يرجى إدخال بريد إلكتروني صحيح.' : 'Please provide a valid email address.';
@@ -421,6 +412,7 @@ if ((string) $config['smtp_password'] === '') {
 }
 
 // 9. Send Owner Notification Email via SMTPS (mail.turnkeyshow.com:465)
+$ownerMail = null;
 try {
     $ownerMail = tk_mailer($config);
     $ownerMail->addAddress((string) $config['to_email'], (string) $config['from_name']);
@@ -431,12 +423,17 @@ try {
     $ownerMail->Body    = $teamHtml;
     $ownerMail->AltBody = $teamText;
     tk_embed_logos($ownerMail);
-    $ownerMail->send();
-} catch (PHPMailerException $e) {
-    error_log('[turnkey-mail] Owner SMTP send failed: ' . $e->getMessage());
+    if (!$ownerMail->send()) {
+        throw new RuntimeException($ownerMail->ErrorInfo ?: 'Unknown PHPMailer send() failure');
+    }
+} catch (Throwable $e) {
+    $errInfo = ($ownerMail instanceof \PHPMailer\PHPMailer\PHPMailer && $ownerMail->ErrorInfo !== '')
+        ? $ownerMail->ErrorInfo
+        : $e->getMessage();
+    error_log('[turnkey-mail] Owner SMTP send failed: ' . $errInfo);
     $m = $isAr
-        ? 'تعذر إرسال رسالتك حالياً. يرجى المحاولة مرة أخرى أو مراسلتنا على info@turnkeyshow.com.'
-        : 'Unable to send your message right now. Please try again or email info@turnkeyshow.com.';
+        ? 'تعذر إرسال رسالتك حالياً (' . $errInfo . '). يرجى المحاولة مرة أخرى أو مراسلتنا على info@turnkeyshow.com.'
+        : 'Unable to send your message right now (' . $errInfo . '). Please try again or email info@turnkeyshow.com.';
     tk_json(500, ['success' => false, 'message' => $m, 'error' => $m]);
 }
 
@@ -638,6 +635,7 @@ if (!empty($config['send_autoreply'])) {
             . "Email: info@turnkeyshow.com | Website: https://turnkeyshow.com\n";
     }
 
+    $replyMail = null;
     try {
         $replyMail = tk_mailer($config);
         $replyMail->addAddress($email, $displayName);
@@ -650,9 +648,14 @@ if (!empty($config['send_autoreply'])) {
         if (!empty($config['attach_brochure']) && $brochureAttachPath && is_file($brochureAttachPath)) {
             $replyMail->addAttachment($brochureAttachPath, basename($brochureAttachPath));
         }
-        $replyMail->send();
-    } catch (PHPMailerException $e) {
-        error_log('[turnkey-mail] Visitor auto-reply failed: ' . $e->getMessage());
+        if (!$replyMail->send()) {
+            throw new RuntimeException($replyMail->ErrorInfo ?: 'Unknown auto-reply send() failure');
+        }
+    } catch (Throwable $e) {
+        $errInfo = ($replyMail instanceof \PHPMailer\PHPMailer\PHPMailer && $replyMail->ErrorInfo !== '')
+            ? $replyMail->ErrorInfo
+            : $e->getMessage();
+        error_log('[turnkey-mail] Visitor auto-reply failed: ' . $errInfo);
     }
 }
 

@@ -297,9 +297,15 @@ function tk_mailer(array $config): PHPMailer
     $mail->CharSet    = PHPMailer::CHARSET_UTF8;
     $mail->Encoding   = PHPMailer::ENCODING_BASE64;
     $mail->XMailer    = ' ';
-    if (empty($config['smtp_verify_peer'])) {
-        $mail->SMTPOptions = ['ssl' => ['verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true]];
-    }
+    // On cPanel shared hosting, mail.turnkeyshow.com often presents the host server's
+    // shared SSL certificate on port 465; allow peer name mismatch while keeping SSL encryption.
+    $mail->SMTPOptions = [
+        'ssl' => [
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true,
+        ],
+    ];
     $mail->setFrom((string) $config['from_email'], (string) $config['from_name'], false);
     $mail->Sender = (string) $config['from_email']; // Envelope sender / Return-Path
     $host = parse_url((string) $config['site_url'], PHP_URL_HOST) ?: 'turnkeyshow.com';

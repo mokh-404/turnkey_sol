@@ -124,7 +124,6 @@ function VisitorRegistrationPage() {
       jobTitle: (form.elements.namedItem("jobTitle") as HTMLInputElement).value,
       visitorCategory: categoryEl.value,
       sectors: selectedSectors,
-      website_hp: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
 
     try {
@@ -299,15 +298,6 @@ function VisitorRegistrationPage() {
               onSubmit={handleSubmit}
               noValidate
             >
-              {/* Honeypot */}
-              <input
-                type="text"
-                name="website"
-                aria-hidden="true"
-                tabIndex={-1}
-                autoComplete="off"
-                style={{ position: "absolute", left: "-9999px", opacity: 0 }}
-              />
               <div className="form-group">
                 <div className="form-field">
                   <label htmlFor="visitor-name">{isAr ? "الاسم الكامل *" : "Full Name *"}</label>
