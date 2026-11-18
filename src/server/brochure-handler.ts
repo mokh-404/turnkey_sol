@@ -2,7 +2,10 @@ import fs from "fs";
 import path from "path";
 import { verifyBrochureToken, DEFAULT_BROCHURE_SECRET } from "./forms-handler";
 
-export function handleBrochureDownload(request: Request, env: Record<string, string | undefined> = {}): Response {
+export function handleBrochureDownload(
+  request: Request,
+  env: Record<string, string | undefined> = {},
+): Response {
   const url = new URL(request.url);
   const token = url.searchParams.get("token") || "";
   const email = url.searchParams.get("email") || "";
@@ -15,7 +18,9 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
   // Check token validity
   const isValid = verifyBrochureToken(email, exp, token, secret);
   if (!isValid) {
-    const expiredTitle = isAr ? "انتهت صلاحية رابط التحميل | معرض تيرن كي" : "Download Link Expired | Turnkey Show";
+    const expiredTitle = isAr
+      ? "انتهت صلاحية رابط التحميل | معرض تيرن كي"
+      : "Download Link Expired | Turnkey Show";
     const expiredHeading = isAr ? "انتهت صلاحية رابط التحميل" : "Brochure Link Expired";
     const expiredBody = isAr
       ? "انتهت صلاحية هذا الرابط أو أنه غير صالح. يرجى طلب نسخة جديدة عبر نموذج تحميل البروشور."
@@ -47,37 +52,32 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
       {
         status: 403,
         headers: { "Content-Type": "text/html; charset=utf-8" },
-      }
+      },
     );
   }
 
-  // Find brochure file
+  // Find brochure file using project-relative paths only
   const candidatePaths = isAr
-    ? [
+    ? ([
         env["ARABIC_BROCHURE_FILE_PATH"],
         path.resolve(process.cwd(), "public", "Brochure Turnkey Show Arabic 2027.pdf"),
         path.resolve(process.cwd(), "Brochure Turnkey Show Arabic 2027.pdf"),
         path.resolve(process.cwd(), "..", "Brochure Turnkey Show Arabic 2027_compressed.pdf"),
         path.resolve(process.cwd(), "..", "Brochure Turnkey Show Arabic 2027.pdf"),
-        "z:\\molla\\Turnkey_Developer_Handoff\\red-thread-visitor-guide\\public\\Brochure Turnkey Show Arabic 2027.pdf",
-        "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show Arabic 2027_compressed.pdf",
-      ].filter(Boolean) as string[]
-    : [
+      ].filter(Boolean) as string[])
+    : ([
         env["BROCHURE_FILE_PATH"],
         path.resolve(process.cwd(), "public", "Brochure Turnkey Show 2027.pdf"),
         path.resolve(process.cwd(), "Brochure Turnkey Show 2027.pdf"),
         path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027_compressed.pdf"),
         path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027.pdf"),
-        "z:\\molla\\Turnkey_Developer_Handoff\\red-thread-visitor-guide\\public\\Brochure Turnkey Show 2027.pdf",
-        "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027_compressed.pdf",
-        "z:\\molla\\Turnkey_Developer_Handoff\\Brochure Turnkey Show 2027.pdf",
-      ].filter(Boolean) as string[];
+      ].filter(Boolean) as string[]);
 
   const downloadFilename = isAr
     ? "Brochure Turnkey Show Arabic 2027.pdf"
     : "Brochure Turnkey Show 2027.pdf";
 
-  let filePath = candidatePaths.find((p) => fs.existsSync(p));
+  const filePath = candidatePaths.find((p) => fs.existsSync(p));
 
   if (!filePath) {
     console.error(`[Brochure] Could not locate ${downloadFilename} on disk.`);
@@ -87,7 +87,6 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
   const stat = fs.statSync(filePath);
   const stream = fs.createReadStream(filePath);
 
-  // Convert Node ReadStream to Web ReadableStream
   const webStream = new ReadableStream({
     start(controller) {
       stream.on("data", (chunk) => controller.enqueue(chunk));
@@ -109,4 +108,3 @@ export function handleBrochureDownload(request: Request, env: Record<string, str
     },
   });
 }
-

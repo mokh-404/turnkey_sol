@@ -1,1 +1,0 @@
-import{a as e,d as t}from"./index-DB3Puym4.js";var n=t(),r=()=>(0,n.jsx)(e,{});export{r as component};

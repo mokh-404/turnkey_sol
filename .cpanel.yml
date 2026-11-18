@@ -1,0 +1,17 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/turnkeyshow/public_html
+    - /bin/mkdir -p $DEPLOYPATH
+    # Preserve server-only secret config files (mail-config.php and .env) if present in public_html
+    - if [ -f "$DEPLOYPATH/mail-config.php" ]; then /bin/cp -p "$DEPLOYPATH/mail-config.php" /tmp/tk_mail_config.bak; fi
+    - if [ -f "$DEPLOYPATH/.env" ]; then /bin/cp -p "$DEPLOYPATH/.env" /tmp/tk_dotenv.bak; fi
+    # Copy prerendered static build output (HTML permalinks, hashed assets/images, PDFs, .htaccess, and PHP API endpoints)
+    - /bin/cp -Rf dist/client/* $DEPLOYPATH/
+    - /bin/cp -f dist/client/.htaccess $DEPLOYPATH/.htaccess
+    # Restore server-only secret config files so deployment never overwrites or removes them
+    - if [ -f /tmp/tk_mail_config.bak ]; then /bin/mv -f /tmp/tk_mail_config.bak "$DEPLOYPATH/mail-config.php"; fi
+    - if [ -f /tmp/tk_dotenv.bak ]; then /bin/mv -f /tmp/tk_dotenv.bak "$DEPLOYPATH/.env"; fi
+    # Restrict permissions on sensitive config files if present
+    - if [ -f "$DEPLOYPATH/mail-config.php" ]; then /bin/chmod 600 "$DEPLOYPATH/mail-config.php"; fi
+    - if [ -f "$DEPLOYPATH/.env" ]; then /bin/chmod 600 "$DEPLOYPATH/.env"; fi

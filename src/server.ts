@@ -50,15 +50,26 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const url = new URL(request.url);
-      const envRecord = (env && typeof env === "object" ? env : process.env) as Record<string, string | undefined>;
+      const envRecord = (env && typeof env === "object" ? env : process.env) as Record<
+        string,
+        string | undefined
+      >;
 
-      // 1. Intercept Form Submissions API
-      if (url.pathname === "/api/forms" && request.method === "POST") {
+      // 1. Intercept Form Submissions API (/api/send-mail.php and /api/forms)
+      if (
+        (url.pathname === "/api/forms" || url.pathname === "/api/send-mail.php") &&
+        request.method === "POST"
+      ) {
         try {
           const payload = (await request.json()) as FormSubmissionPayload;
-          const clientIp = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
-          const proto = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
-          const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || url.host;
+          const clientIp =
+            request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "0.0.0.0";
+          const proto =
+            request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+          const host =
+            request.headers.get("x-forwarded-host") ||
+            request.headers.get("host") ||
+            url.host;
           const detectedOrigin = `${proto}://${host}`;
           const result = await handleFormSubmission(payload, clientIp, {
             SITE_URL: envRecord["SITE_URL"] || detectedOrigin,
@@ -68,16 +79,20 @@ export default {
             status: result.success ? 200 : 400,
             headers: { "Content-Type": "application/json" },
           });
-        } catch (err: any) {
-          return new Response(JSON.stringify({ success: false, message: err?.message || "Invalid submission" }), {
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : "Invalid submission";
+          return new Response(JSON.stringify({ success: false, message, error: message }), {
             status: 400,
             headers: { "Content-Type": "application/json" },
           });
         }
       }
 
-      // 2. Intercept Brochure Download API
-      if (url.pathname === "/api/brochure" && request.method === "GET") {
+      // 2. Intercept Brochure Download API (/api/brochure.php and /api/brochure)
+      if (
+        (url.pathname === "/api/brochure" || url.pathname === "/api/brochure.php") &&
+        request.method === "GET"
+      ) {
         return handleBrochureDownload(request, envRecord);
       }
 

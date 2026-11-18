@@ -5,12 +5,21 @@ import nodemailer from "nodemailer";
 import { EVENT_CONFIG } from "../config/event";
 
 export interface FormSubmissionPayload {
-  form_key: "exhibitor_booking" | "exhibitor_brochure" | "visitor_registration" | "general_inquiry";
+  form_key:
+    | "exhibitor_booking"
+    | "exhibitor_brochure"
+    | "visitor_registration"
+    | "general_inquiry";
+  locale?: "en" | "ar" | string;
+  lang?: "en" | "ar" | string;
   // Honeypot field (hidden in UI)
   website_hp?: string;
+  website?: string;
   // Common fields
   name?: string;
   fullName?: string;
+  full_name?: string;
+  contact?: string;
   email: string;
   mobile?: string;
   phone?: string;
@@ -18,18 +27,28 @@ export interface FormSubmissionPayload {
   companyName?: string;
   title?: string;
   jobTitle?: string;
+  job_title?: string;
   // Exhibitor booking
+  companyWebsite?: string;
+  websiteUrl?: string;
+  country?: string;
+  city?: string;
+  standType?: string;
+  standSize?: string;
   sectors?: string[];
   message?: string;
   // Visitor registration
   visitorCategory?: string;
+  interest?: string;
   // General inquiry
   subject?: string;
 }
 
 interface SubmittedField {
   section?: string;
+  sectionAr?: string;
   label: string;
+  labelAr?: string;
   value: string;
 }
 
@@ -59,7 +78,10 @@ function loadDotEnv(): Record<string, string> {
       if (eqIdx === -1) continue;
       const key = line.slice(0, eqIdx).trim();
       let val = line.slice(eqIdx + 1).trim();
-      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      if (
+        (val.startsWith('"') && val.endsWith('"')) ||
+        (val.startsWith("'") && val.endsWith("'"))
+      ) {
         val = val.slice(1, -1);
       }
       if (key) result[key] = val;
@@ -107,9 +129,8 @@ export const DEFAULT_BROCHURE_SECRET = "turnkey-show-secret-token-key-2027";
 export function generateBrochureToken(
   email: string,
   secret: string = DEFAULT_BROCHURE_SECRET,
-  customExp?: number
+  customExp?: number,
 ): { token: string; exp: number } {
-  // 14 days expiry (in milliseconds) unless customExp provided
   const exp = customExp ?? Date.now() + 14 * 24 * 60 * 60 * 1000;
   const hmac = crypto.createHmac("sha256", secret || DEFAULT_BROCHURE_SECRET);
   hmac.update(`${email}:${exp}`);
@@ -121,10 +142,10 @@ export function verifyBrochureToken(
   email: string,
   exp: number,
   token: string,
-  secret: string = DEFAULT_BROCHURE_SECRET
+  secret: string = DEFAULT_BROCHURE_SECRET,
 ): boolean {
   if (!email || !exp || !token) return false;
-  if (Date.now() > exp) return false; // Expired
+  if (Date.now() > exp) return false;
   const hmac = crypto.createHmac("sha256", secret || DEFAULT_BROCHURE_SECRET);
   hmac.update(`${email}:${exp}`);
   const expected = hmac.digest("hex");
@@ -149,7 +170,7 @@ function getCairoTimeString(): string {
   }
 }
 
-function getLogoPaths(): { turnkeyPath?: string; apexPath?: string } {
+function getLogoPaths(): { turnkeyPath: string | undefined; apexPath: string | undefined } {
   const turnkeyCandidates = [
     path.resolve(process.cwd(), "public", "logos", "turnkey-show-logo.png"),
     path.resolve(process.cwd(), "src", "assets", "logos", "turnkey-show-logo.png"),
@@ -168,7 +189,10 @@ function getLogoPaths(): { turnkeyPath?: string; apexPath?: string } {
 
 let cachedLogos: { turnkeyDataUri: string; apexDataUri: string } | null = null;
 
-function getEmbeddedLogoDataUris(siteUrl: string): { turnkeyDataUri: string; apexDataUri: string } {
+function getEmbeddedLogoDataUris(siteUrl: string): {
+  turnkeyDataUri: string;
+  apexDataUri: string;
+} {
   if (cachedLogos) return cachedLogos;
   const { turnkeyPath, apexPath } = getLogoPaths();
 
@@ -195,12 +219,18 @@ function getEmbeddedLogoDataUris(siteUrl: string): { turnkeyDataUri: string; ape
   return cachedLogos;
 }
 
-function findBrochurePdfPath(env: Record<string, string | undefined> = {}): string | undefined {
+function findBrochurePdfPath(
+  env: Record<string, string | undefined> = {},
+  isAr = false,
+): string | undefined {
+  const filename = isAr
+    ? "Brochure Turnkey Show Arabic 2027.pdf"
+    : "Brochure Turnkey Show 2027.pdf";
   const candidates = [
-    env["BROCHURE_FILE_PATH"],
-    path.resolve(process.cwd(), "public", "Brochure Turnkey Show 2027.pdf"),
-    path.resolve(process.cwd(), "Brochure Turnkey Show 2027.pdf"),
-    path.resolve(process.cwd(), "..", "Brochure Turnkey Show 2027.pdf"),
+    isAr ? env["ARABIC_BROCHURE_FILE_PATH"] : env["BROCHURE_FILE_PATH"],
+    path.resolve(process.cwd(), "public", filename),
+    path.resolve(process.cwd(), filename),
+    path.resolve(process.cwd(), "..", filename),
   ].filter(Boolean) as string[];
   return candidates.find((p) => fs.existsSync(p));
 }
@@ -213,9 +243,16 @@ function generateRegistrationNumber(email: string): string {
 
 export async function handleFormSubmission(
   payload: FormSubmissionPayload,
-  clientIp = "127.0.0.1",
-  passedEnv: Record<string, string | undefined> = {}
-): Promise<{ success: boolean; message: string; brochureUrl?: string }> {
+  clientIp = "0.0.0.0",
+  passedEnv: Record<string, string | undefined> = {},
+): Promise<{
+  success: boolean;
+  message: string;
+  error?: string;
+  brochureUrl?: string;
+  registrationNumber?: string;
+  locale?: "en" | "ar";
+}> {
   const dotEnv = loadDotEnv();
   const env: Record<string, string | undefined> = {
     ...process.env,
@@ -223,33 +260,55 @@ export async function handleFormSubmission(
     ...passedEnv,
   };
 
+  const rawLocale = (payload.locale || payload.lang || "en").toString().toLowerCase().trim();
+  const isAr = rawLocale === "ar";
+  const locale: "en" | "ar" = isAr ? "ar" : "en";
+
   // 1. Honeypot check: silently succeed if bot filled the honeypot
-  const honeypot = payload.website_hp || (payload as any).website;
+  const honeypot = payload.website_hp || payload.website;
   if (honeypot && typeof honeypot === "string" && honeypot.trim().length > 0) {
     console.warn(`[Security] Honeypot triggered from ${clientIp}. Silently dropping.`);
-    return { success: true, message: "Thank you for your submission." };
+    return {
+      success: true,
+      message: isAr ? "شكراً لتواصلكم معنا." : "Thank you for your submission.",
+      locale,
+    };
   }
 
   // 2. Validate email
   const email = sanitizeHeader(payload.email);
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return { success: false, message: "Please provide a valid email address." };
+    const msg = isAr
+      ? "يرجى إدخال بريد إلكتروني صحيح."
+      : "Please provide a valid email address.";
+    return { success: false, message: msg, error: msg };
   }
 
-  // 3. Rate limiting (skip or soften in development / localhost)
-  const isLocalDev = clientIp === "127.0.0.1" || clientIp === "::1" || clientIp === "localhost";
+  // 3. Rate limiting (skip or soften in development)
+  const isLocalDev =
+    clientIp === "0.0.0.0" ||
+    clientIp === "127.0.0.1" ||
+    clientIp === "::1" ||
+    clientIp === "localhost";
   if (!isLocalDev && (!checkRateLimit(clientIp, 15) || !checkRateLimit(email, 10))) {
+    const msg = isAr
+      ? "تم إرسال عدد كبير من الطلبات. يرجى الانتظار قليلاً قبل المحاولة مرة أخرى."
+      : "Too many submissions. Please wait a little while before trying again.";
     return {
       success: false,
-      message: "Too many submissions. Please wait a little while before trying again.",
+      message: msg,
+      error: msg,
     };
   }
 
-  const siteUrl = env["SITE_URL"] || dotEnv["SITE_URL"] || "http://localhost:8080";
-  const formsToEmail = env["FORMS_TO_EMAIL"] || dotEnv["FORMS_TO_EMAIL"] || "mustafa.khafaga@gmail.com";
-  const brochureSecret = env["BROCHURE_TOKEN_SECRET"] || dotEnv["BROCHURE_TOKEN_SECRET"] || DEFAULT_BROCHURE_SECRET;
+  const siteUrl = env["SITE_URL"] || dotEnv["SITE_URL"] || EVENT_CONFIG.siteUrl;
+  const formsToEmail =
+    env["FORMS_TO_EMAIL"] || dotEnv["FORMS_TO_EMAIL"] || EVENT_CONFIG.email;
+  const brochureSecret =
+    env["BROCHURE_TOKEN_SECRET"] || dotEnv["BROCHURE_TOKEN_SECRET"] || DEFAULT_BROCHURE_SECRET;
 
   let formTitle = "";
+  let formTitleAr = "";
   let formPagePath = "";
   let classificationLabel = "";
   let subjectDetail = "";
@@ -259,138 +318,380 @@ export async function handleFormSubmission(
   const nameVal = (
     payload.fullName ||
     payload.name ||
-    (payload as any).contact ||
-    (payload as any).full_name ||
+    payload.contact ||
+    payload.full_name ||
     ""
   ).trim();
   const companyVal = (payload.companyName || payload.company || "").trim();
   const mobileVal = (payload.mobile || payload.phone || "").trim();
-  const titleVal = (payload.title || payload.jobTitle || (payload as any).job_title || "").trim();
+  const titleVal = (payload.title || payload.jobTitle || payload.job_title || "").trim();
 
-  const displayName = sanitizeHeader(nameVal || "Subscriber");
+  const displayName = sanitizeHeader(nameVal || (isAr ? "عميلنا الكريم" : "Subscriber"));
   const displayCompany = sanitizeHeader(companyVal || "");
 
-  // 4. Form-specific field extraction with clear section separation
+  // 4. Form-specific field extraction with clear section separation (English & Arabic labels)
   switch (payload.form_key) {
     case "exhibitor_booking": {
       formTitle = "FORM 1: BOOK YOUR SPACE (Exhibitor Application Form)";
-      formPagePath = "/exhibit/book-your-space";
+      formTitleAr = "نموذج حجز مساحة عرض (طلب مشاركة عارض)";
+      formPagePath = isAr ? "/ar/exhibit/book-your-space" : "/exhibit/book-your-space";
       classificationLabel = "EXHIBITOR · Book Your Space";
       subjectDetail = `${displayCompany || displayName} (${displayName})`;
-      if (!companyVal) return { success: false, message: "Company name is required." };
-      if (!nameVal) return { success: false, message: "Contact person name is required." };
-      if (!mobileVal) return { success: false, message: "Mobile number is required." };
+      if (!companyVal) {
+        const m = isAr ? "يرجى إدخال اسم الشركة." : "Company name is required.";
+        return { success: false, message: m, error: m };
+      }
+      if (!nameVal) {
+        const m = isAr ? "يرجى إدخال اسم مسؤول التواصل." : "Contact person name is required.";
+        return { success: false, message: m, error: m };
+      }
+      if (!mobileVal) {
+        const m = isAr ? "يرجى إدخال رقم الموبايل." : "Mobile number is required.";
+        return { success: false, message: m, error: m };
+      }
+
+      const sec1En = "Section 1 — Exhibitor & Company Information";
+      const sec1Ar = "القسم الأول — بيانات الشركة والعارض";
+      const sec2En = "Section 2 — Exhibitor Profile & Stand Requirements";
+      const sec2Ar = "القسم الثاني — ملف المشاركة ومتطلبات الجناح";
 
       submittedFields.push(
-        { section: "Section 1 — Exhibitor & Company Information", label: "Application Reference Number", value: registrationNumber },
-        { section: "Section 1 — Exhibitor & Company Information", label: "Company Name", value: companyVal },
         {
-          section: "Section 1 — Exhibitor & Company Information",
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Application Reference Number",
+          labelAr: "رقم مرجع الطلب",
+          value: registrationNumber,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Company Name",
+          labelAr: "اسم الشركة",
+          value: companyVal,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
           label: "Company Website",
-          value: (payload as any).companyWebsite || (payload as any).websiteUrl || "—",
+          labelAr: "الموقع الإلكتروني للشركة",
+          value: payload.companyWebsite || payload.websiteUrl || "—",
         },
-        { section: "Section 1 — Exhibitor & Company Information", label: "Country", value: (payload as any).country || "—" },
-        { section: "Section 1 — Exhibitor & Company Information", label: "City", value: (payload as any).city || "—" },
-        { section: "Section 1 — Exhibitor & Company Information", label: "Phone / Mobile Number", value: mobileVal },
-        { section: "Section 1 — Exhibitor & Company Information", label: "Email Address", value: email },
-        { section: "Section 1 — Exhibitor & Company Information", label: "Contact Person Name", value: nameVal },
-        { section: "Section 1 — Exhibitor & Company Information", label: "Job Title", value: titleVal || "—" },
         {
-          section: "Section 2 — Exhibitor Profile & Stand Requirements",
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Country",
+          labelAr: "الدولة",
+          value: payload.country || "—",
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "City",
+          labelAr: "المدينة",
+          value: payload.city || "—",
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Phone / Mobile Number",
+          labelAr: "رقم الهاتف / الموبايل",
+          value: mobileVal,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Email Address",
+          labelAr: "البريد الإلكتروني",
+          value: email,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Contact Person Name",
+          labelAr: "اسم مسؤول التواصل",
+          value: nameVal,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Job Title",
+          labelAr: "المسمى الوظيفي",
+          value: titleVal || "—",
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
           label: "Core Industry Sectors",
-          value: payload.sectors?.length ? payload.sectors.join(", ") : "All sectors",
+          labelAr: "القطاعات الرئيسية",
+          value: payload.sectors?.length
+            ? payload.sectors.join(", ")
+            : isAr
+              ? "جميع القطاعات"
+              : "All sectors",
         },
         {
-          section: "Section 2 — Exhibitor Profile & Stand Requirements",
+          section: sec2En,
+          sectionAr: sec2Ar,
           label: "Preferred Stand Type",
-          value: (payload as any).standType || "—",
+          labelAr: "نوع الجناح المفضل",
+          value: payload.standType || "—",
         },
         {
-          section: "Section 2 — Exhibitor Profile & Stand Requirements",
+          section: sec2En,
+          sectionAr: sec2Ar,
           label: "Estimated Booth Space (SQM)",
-          value: (payload as any).standSize || "—",
+          labelAr: "المساحة التقديرية المطلوبة (م²)",
+          value: payload.standSize || "—",
         },
         {
-          section: "Section 2 — Exhibitor Profile & Stand Requirements",
+          section: sec2En,
+          sectionAr: sec2Ar,
           label: "Additional Requirements / Space Inquiries",
+          labelAr: "متطلبات إضافية / استفسارات المساحة",
           value: payload.message || "—",
-        }
+        },
       );
       break;
     }
 
     case "exhibitor_brochure": {
       formTitle = "FORM 2: DOWNLOAD BROCHURE (Sales Brochure Request Form)";
-      formPagePath = "/exhibit/download-brochure";
+      formTitleAr = "نموذج تحميل البروشور التعريفي للمعرض";
+      formPagePath = isAr ? "/ar/exhibit/download-brochure" : "/exhibit/download-brochure";
       classificationLabel = "EXHIBITOR · Sales Brochure Download";
       subjectDetail = `${displayCompany || displayName} (${displayName})`;
-      if (!nameVal) return { success: false, message: "Name is required." };
-      if (!mobileVal) return { success: false, message: "Mobile number is required." };
-      if (!companyVal) return { success: false, message: "Company name is required." };
+      if (!nameVal) {
+        const m = isAr ? "يرجى إدخال الاسم." : "Name is required.";
+        return { success: false, message: m, error: m };
+      }
+      if (!mobileVal) {
+        const m = isAr ? "يرجى إدخال رقم الموبايل." : "Mobile number is required.";
+        return { success: false, message: m, error: m };
+      }
+      if (!companyVal) {
+        const m = isAr ? "يرجى إدخال اسم الشركة." : "Company name is required.";
+        return { success: false, message: m, error: m };
+      }
+
+      const secEn = "Brochure Request Form Fields";
+      const secAr = "بيانات طلب تحميل البروشور التعريفي";
 
       submittedFields.push(
-        { section: "Brochure Request Form Fields", label: "Reference Number", value: registrationNumber },
-        { section: "Brochure Request Form Fields", label: "Your Name", value: nameVal },
-        { section: "Brochure Request Form Fields", label: "Mobile / Phone", value: mobileVal },
-        { section: "Brochure Request Form Fields", label: "Business Email", value: email },
-        { section: "Brochure Request Form Fields", label: "Company Name", value: companyVal },
-        { section: "Brochure Request Form Fields", label: "Job Title", value: titleVal || "—" }
+        {
+          section: secEn,
+          sectionAr: secAr,
+          label: "Reference Number",
+          labelAr: "رقم المرجع",
+          value: registrationNumber,
+        },
+        {
+          section: secEn,
+          sectionAr: secAr,
+          label: "Your Name",
+          labelAr: "الاسم الكامل",
+          value: nameVal,
+        },
+        {
+          section: secEn,
+          sectionAr: secAr,
+          label: "Mobile / Phone",
+          labelAr: "رقم الموبايل / الهاتف",
+          value: mobileVal,
+        },
+        {
+          section: secEn,
+          sectionAr: secAr,
+          label: "Business Email",
+          labelAr: "البريد الإلكتروني للعمل",
+          value: email,
+        },
+        {
+          section: secEn,
+          sectionAr: secAr,
+          label: "Company Name",
+          labelAr: "اسم الشركة",
+          value: companyVal,
+        },
+        {
+          section: secEn,
+          sectionAr: secAr,
+          label: "Job Title",
+          labelAr: "المسمى الوظيفي",
+          value: titleVal || "—",
+        },
       );
       break;
     }
 
     case "visitor_registration": {
       formTitle = "FORM 3: VISITOR REGISTRATION (Visitor Entry Badge Form)";
-      formPagePath = "/visit/visitor-registration";
+      formTitleAr = "نموذج تسجيل الزوار (بطاقة الدخول للمعرض)";
+      formPagePath = isAr
+        ? "/ar/visit/visitor-registration"
+        : "/visit/visitor-registration";
       classificationLabel = "VISITOR · Registration";
       subjectDetail = `${displayName} (${registrationNumber})`;
-      if (!nameVal) return { success: false, message: "Full name is required." };
-      const category = (payload.visitorCategory || (payload as any).interest || "General Visitor").trim();
+      if (!nameVal) {
+        const m = isAr ? "يرجى إدخال الاسم الكامل." : "Full name is required.";
+        return { success: false, message: m, error: m };
+      }
+      const category = (payload.visitorCategory || payload.interest || "General Visitor").trim();
+
+      const sec1En = "Section 1 — Visitor Personal & Contact Information";
+      const sec1Ar = "القسم الأول — البيانات الشخصية وبيانات التواصل للزائر";
+      const sec2En = "Section 2 — Visitor Profile & Interests";
+      const sec2Ar = "القسم الثاني — فئة الزائر والقطاعات محل الاهتمام";
 
       submittedFields.push(
-        { section: "Section 1 — Visitor Personal & Contact Information", label: "Registration Number", value: registrationNumber },
-        { section: "Section 1 — Visitor Personal & Contact Information", label: "Full Name", value: nameVal },
-        { section: "Section 1 — Visitor Personal & Contact Information", label: "Email Address", value: email },
-        { section: "Section 1 — Visitor Personal & Contact Information", label: "Mobile Number", value: mobileVal || "—" },
-        { section: "Section 2 — Visitor Profile & Interests", label: "Visitor Category", value: category },
-        { section: "Section 2 — Visitor Profile & Interests", label: "Company / Organization", value: companyVal || "—" },
-        { section: "Section 2 — Visitor Profile & Interests", label: "Job Title", value: titleVal || "—" },
         {
-          section: "Section 2 — Visitor Profile & Interests",
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Registration Number",
+          labelAr: "رقم التسجيل",
+          value: registrationNumber,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Full Name",
+          labelAr: "الاسم الكامل",
+          value: nameVal,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Email Address",
+          labelAr: "البريد الإلكتروني",
+          value: email,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Mobile Number",
+          labelAr: "رقم الموبايل",
+          value: mobileVal || "—",
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
+          label: "Visitor Category",
+          labelAr: "فئة الزائر",
+          value: category,
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
+          label: "Company / Organization",
+          labelAr: "الشركة / المؤسسة",
+          value: companyVal || "—",
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
+          label: "Job Title",
+          labelAr: "المسمى الوظيفي",
+          value: titleVal || "—",
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
           label: "Sectors of Interest",
+          labelAr: "القطاعات محل الاهتمام",
           value: payload.sectors?.length ? payload.sectors.join(", ") : "—",
-        }
+        },
       );
       break;
     }
 
     case "general_inquiry": {
       formTitle = "FORM 4: CONTACT US (General Inquiry Form)";
-      formPagePath = "/contact";
+      formTitleAr = "نموذج تواصل معنا (استفسار عام)";
+      formPagePath = isAr ? "/ar/contact" : "/contact";
       classificationLabel = "GENERAL INQUIRY · Contact Us";
       subjectDetail = `${displayName} — ${sanitizeHeader(payload.subject)}`;
-      if (!nameVal) return { success: false, message: "Full name is required." };
-      const mobileDigits = mobileVal.replace(/\D/g, "");
-      if (!mobileVal) return { success: false, message: "Mobile number is required." };
-      if (!/^\+?[0-9\s\-().]{7,20}$/.test(mobileVal) || mobileDigits.length < 7 || mobileDigits.length > 15) {
-        return { success: false, message: "Please provide a valid mobile number." };
+      if (!nameVal) {
+        const m = isAr ? "يرجى إدخال الاسم الكامل." : "Full name is required.";
+        return { success: false, message: m, error: m };
       }
-      if (!payload.subject?.trim()) return { success: false, message: "Subject is required." };
-      if (!payload.message?.trim()) return { success: false, message: "Message is required." };
+      const mobileDigits = mobileVal.replace(/\D/g, "");
+      if (!mobileVal) {
+        const m = isAr ? "يرجى إدخال رقم الموبايل." : "Mobile number is required.";
+        return { success: false, message: m, error: m };
+      }
+      if (
+        !/^\+?[0-9\s\-().]{7,20}$/.test(mobileVal) ||
+        mobileDigits.length < 7 ||
+        mobileDigits.length > 15
+      ) {
+        const m = isAr
+          ? "يرجى إدخال رقم موبايل صحيح."
+          : "Please provide a valid mobile number.";
+        return { success: false, message: m, error: m };
+      }
+      if (!payload.subject?.trim()) {
+        const m = isAr ? "يرجى إدخال موضوع الرسالة." : "Subject is required.";
+        return { success: false, message: m, error: m };
+      }
+      if (!payload.message?.trim()) {
+        const m = isAr ? "يرجى كتابة نص الرسالة." : "Message is required.";
+        return { success: false, message: m, error: m };
+      }
+
+      const sec1En = "Section 1 — Sender Contact Information";
+      const sec1Ar = "القسم الأول — بيانات التواصل للمرسل";
+      const sec2En = "Section 2 — Inquiry Subject & Message";
+      const sec2Ar = "القسم الثاني — موضوع وتفاصيل الاستفسار";
 
       submittedFields.push(
-        { section: "Section 1 — Sender Contact Information", label: "Inquiry Reference Number", value: registrationNumber },
-        { section: "Section 1 — Sender Contact Information", label: "Full Name", value: nameVal },
-        { section: "Section 1 — Sender Contact Information", label: "Email Address", value: email },
-        { section: "Section 1 — Sender Contact Information", label: "Mobile Number", value: mobileVal },
-        { section: "Section 2 — Inquiry Subject & Message", label: "Subject", value: payload.subject },
-        { section: "Section 2 — Inquiry Subject & Message", label: "Message", value: payload.message }
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Inquiry Reference Number",
+          labelAr: "رقم مرجع الاستفسار",
+          value: registrationNumber,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Full Name",
+          labelAr: "الاسم الكامل",
+          value: nameVal,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Email Address",
+          labelAr: "البريد الإلكتروني",
+          value: email,
+        },
+        {
+          section: sec1En,
+          sectionAr: sec1Ar,
+          label: "Mobile Number",
+          labelAr: "رقم الموبايل",
+          value: mobileVal,
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
+          label: "Subject",
+          labelAr: "الموضوع",
+          value: payload.subject,
+        },
+        {
+          section: sec2En,
+          sectionAr: sec2Ar,
+          label: "Message",
+          labelAr: "الرسالة",
+          value: payload.message,
+        },
       );
       break;
     }
 
     default:
-      return { success: false, message: "Invalid form key." };
+      return { success: false, message: "Invalid form key.", error: "Invalid form key." };
   }
 
   // 5. Generate brochure link & attachment if brochure download
@@ -400,20 +701,22 @@ export async function handleFormSubmission(
 
   if (payload.form_key === "exhibitor_brochure") {
     const { token, exp } = generateBrochureToken(email, brochureSecret);
-    brochureDownloadUrl = `/api/brochure?token=${token}&email=${encodeURIComponent(email)}&exp=${exp}`;
+    brochureDownloadUrl = `/api/brochure?token=${token}&email=${encodeURIComponent(email)}&exp=${exp}${isAr ? "&lang=ar" : ""}`;
     fullBrochureEmailUrl = `${siteUrl.replace(/\/$/, "")}${brochureDownloadUrl}`;
 
-    const brochureFilePath = findBrochurePdfPath(env);
+    const brochureFilePath = findBrochurePdfPath(env, isAr);
     if (brochureFilePath) {
       userAttachments.push({
-        filename: "Brochure Turnkey Show 2027.pdf",
+        filename: isAr
+          ? "Brochure Turnkey Show Arabic 2027.pdf"
+          : "Brochure Turnkey Show 2027.pdf",
         contentType: "application/pdf",
         filePath: brochureFilePath,
       });
     }
   }
 
-  // 6. Build Owner Notification Email (to mustafa.khafaga@gmail.com)
+  // 6. Build Owner Notification Email (to info@turnkeyshow.com)
   const teamSubject = `[Turnkey Show 2027] ${classificationLabel} — ${subjectDetail}`;
   const teamEmail = buildOwnerNotificationEmail({
     formTitle,
@@ -424,17 +727,20 @@ export async function handleFormSubmission(
     senderEmail: email,
     senderName: displayName,
     siteUrl,
+    isAr,
   });
 
-  // 7. Build User Auto-Reply Email (separated by form type, styled like Registration (updated).docx)
+  // 7. Build User Auto-Reply Email (English-only for EN forms, Arabic-only for AR forms, styled after Registration (updated).docx)
   const userAutoReply = buildAutoReplyHtml({
     form_key: payload.form_key,
     formTitle,
+    formTitleAr,
     fullName: displayName,
     registrationNumber,
     submittedFields,
     brochureUrl: fullBrochureEmailUrl || brochureDownloadUrl,
     siteUrl,
+    isAr,
   });
 
   // 8. Dispatch Both Emails (Owner + User Auto-Reply)
@@ -445,7 +751,7 @@ export async function handleFormSubmission(
     html: teamEmail.html,
     text: teamEmail.text,
     env,
-    tag: `team_${payload.form_key}`,
+    tag: `team_${payload.form_key}_${locale}`,
   });
 
   await dispatchEmail({
@@ -456,56 +762,73 @@ export async function handleFormSubmission(
     text: userAutoReply.text,
     attachments: userAttachments,
     env,
-    tag: `reply_${payload.form_key}`,
+    tag: `reply_${payload.form_key}_${locale}`,
   });
 
   return {
     success: true,
-    message: "Thank you. Your submission has been received.",
-    brochureUrl: brochureDownloadUrl,
+    message: isAr
+      ? "شكراً لك، تم استلام طلبك بنجاح."
+      : "Thank you. Your submission has been received.",
+    brochureUrl: brochureDownloadUrl || undefined,
+    registrationNumber,
+    locale,
   };
 }
 
-function renderGroupedSectionsHtmlAndText(submittedFields: SubmittedField[]): {
+function renderGroupedSectionsHtmlAndText(
+  submittedFields: SubmittedField[],
+  forAr = false,
+): {
   sectionsHtml: string;
   sectionsText: string;
 } {
   const sectionsMap = new Map<string, SubmittedField[]>();
   for (const field of submittedFields) {
-    const secName = field.section || "Submitted Form Fields";
+    const secName = forAr
+      ? field.sectionAr || field.section || "البيانات المرسلة"
+      : field.section || "Submitted Form Fields";
     const list = sectionsMap.get(secName) || [];
     list.push(field);
     sectionsMap.set(secName, list);
   }
+
+  const borderSide = forAr
+    ? "border-right: 4px solid #E92924;"
+    : "border-left: 4px solid #E92924;";
+  const textAlign = forAr ? "right" : "left";
+  const dirAttr = forAr ? ' dir="rtl"' : "";
+  const fontStack = forAr ? "'Segoe UI', Tahoma, Arial, sans-serif" : "Arial, sans-serif";
 
   let sectionsHtml = "";
   let sectionsText = "";
 
   for (const [sectionTitle, fields] of sectionsMap.entries()) {
     sectionsHtml += `
-      <div style="margin-top: 20px; margin-bottom: 8px; padding: 9px 14px; background-color: #080808; color: #ffffff; font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.8px; border-left: 4px solid #E92924;">
+      <div${dirAttr} style="margin-top: 20px; margin-bottom: 8px; padding: 9px 14px; background-color: #080808; color: #ffffff; font-family: ${fontStack}; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.8px; text-align: ${textAlign}; ${borderSide}">
         ${escapeHtml(sectionTitle)}
       </div>
-      <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; margin-bottom: 16px;">
+      <table${dirAttr} width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; font-family: ${fontStack}; font-size: 14px; margin-bottom: 16px;">
         ${fields
-        .map(
-          (f, idx) => `
+          .map(
+            (f, idx) => `
           <tr style="background-color: ${idx % 2 === 0 ? "#fafafa" : "#ffffff"};">
-            <td style="padding: 11px 14px; border: 1px solid #e5e7eb; width: 38%; font-weight: bold; color: #111111; vertical-align: top;">
-              ${escapeHtml(f.label)}
+            <td style="padding: 11px 14px; border: 1px solid #e5e7eb; width: 38%; font-weight: bold; color: #111111; vertical-align: top; text-align: ${textAlign};">
+              ${escapeHtml(forAr ? f.labelAr || f.label : f.label)}
             </td>
-            <td style="padding: 11px 14px; border: 1px solid #e5e7eb; color: #222222; vertical-align: top; white-space: pre-wrap;">
+            <td style="padding: 11px 14px; border: 1px solid #e5e7eb; color: #222222; vertical-align: top; white-space: pre-wrap; text-align: ${textAlign};">
               ${escapeHtml(f.value)}
             </td>
-          </tr>`
-        )
-        .join("")}
+          </tr>`,
+          )
+          .join("")}
       </table>
     `;
 
     sectionsText += `\n=== ${sectionTitle.toUpperCase()} ===\n`;
     for (const f of fields) {
-      sectionsText += `${f.label}: ${f.value}\n----------------------------------------\n`;
+      const label = forAr ? f.labelAr || f.label : f.label;
+      sectionsText += `${label}: ${f.value}\n----------------------------------------\n`;
     }
   }
 
@@ -521,6 +844,7 @@ function buildOwnerNotificationEmail({
   senderEmail,
   senderName,
   siteUrl,
+  isAr,
 }: {
   formTitle: string;
   formKey: string;
@@ -530,10 +854,12 @@ function buildOwnerNotificationEmail({
   senderEmail: string;
   senderName: string;
   siteUrl: string;
+  isAr: boolean;
 }): { html: string; text: string } {
   const { turnkeyDataUri, apexDataUri } = getEmbeddedLogoDataUris(siteUrl);
   const cairoTime = getCairoTimeString();
-  const { sectionsHtml, sectionsText } = renderGroupedSectionsHtmlAndText(submittedFields);
+  const { sectionsHtml, sectionsText } = renderGroupedSectionsHtmlAndText(submittedFields, false);
+  const langLabel = isAr ? "Arabic (AR)" : "English (EN)";
 
   const html = `
     <!DOCTYPE html>
@@ -541,7 +867,6 @@ function buildOwnerNotificationEmail({
     <head><meta charset="utf-8" /></head>
     <body style="font-family: Arial, Helvetica, sans-serif; background-color: #f3f4f6; margin: 0; padding: 24px;">
       <div style="max-width: 680px; margin: 0 auto; background: #ffffff; border: 1px solid #d1d5db; border-top: 5px solid #E92924;">
-        <!-- Header with Official Site Logo & New Apex Logo -->
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="padding: 20px 28px; border-bottom: 2px solid #e5e7eb; background: #ffffff;">
           <tr>
             <td align="left" valign="middle">
@@ -553,7 +878,6 @@ function buildOwnerNotificationEmail({
           </tr>
         </table>
 
-        <!-- Clear Form Identification Banner -->
         <div style="background-color: #fef2f2; border-bottom: 2px solid #E92924; padding: 18px 28px;">
           <div style="display: inline-block; padding: 4px 10px; background: #E92924; color: #ffffff; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
             ${escapeHtml(classificationLabel)}
@@ -563,12 +887,12 @@ function buildOwnerNotificationEmail({
           </h2>
           <div style="font-size: 13px; color: #374151; line-height: 1.6;">
             <strong>Form Identifier:</strong> <code>${escapeHtml(formKey)}</code> &nbsp;|&nbsp;
+            <strong>Language:</strong> <code>${langLabel}</code> &nbsp;|&nbsp;
             <strong>Submitted From Page:</strong> <code>${escapeHtml(formPagePath)}</code><br />
             <strong>Submitted At:</strong> ${escapeHtml(cairoTime)}
           </div>
         </div>
 
-        <!-- All Form Fields Separated by Section -->
         <div style="padding: 20px 28px 28px;">
           ${sectionsHtml}
 
@@ -590,6 +914,7 @@ NEW WEBSITE FORM SUBMISSION — TURNKEY SHOW ALAMEIN 2027
 FORM SPECIFIED : ${formTitle}
 CATEGORY       : ${classificationLabel}
 FORM KEY       : ${formKey}
+LANGUAGE       : ${langLabel}
 SOURCE PAGE    : ${formPagePath}
 SUBMITTED AT   : ${cairoTime}
 SUBMITTER      : ${senderName} <${senderEmail}>
@@ -603,61 +928,197 @@ ${sectionsText}
 function buildAutoReplyHtml({
   form_key,
   formTitle,
+  formTitleAr,
   fullName,
   registrationNumber,
   submittedFields,
   brochureUrl,
   siteUrl,
+  isAr,
 }: {
   form_key: string;
   formTitle: string;
+  formTitleAr: string;
   fullName: string;
   registrationNumber: string;
   submittedFields: SubmittedField[];
   brochureUrl?: string;
   siteUrl: string;
+  isAr: boolean;
 }): { subject: string; html: string; text: string } {
   const { turnkeyDataUri, apexDataUri } = getEmbeddedLogoDataUris(siteUrl);
-  const { sectionsHtml, sectionsText } = renderGroupedSectionsHtmlAndText(submittedFields);
+  const { sectionsHtml, sectionsText } = renderGroupedSectionsHtmlAndText(
+    submittedFields,
+    isAr,
+  );
 
-  let subject = "Your Submission in Turnkey Show Alamein 2027";
-  let formTypeBadgeEn = "";
-  let formTypeBadgeAr = "";
-  let enLines: string[] = [];
-  let arLines: string[] = [];
+  let subject = "";
+  let formTypeBadge = "";
+  let bodyLines: string[] = [];
   let brochureButtonHtml = "";
   let brochureTextLink = "";
 
+  if (isAr) {
+    // Arabic-only Auto-Reply for Arabic form submissions (styled after Registration (updated).docx)
+    switch (form_key) {
+      case "visitor_registration":
+        subject = "تأكيد تسجيل الزوار — معرض العلمين تيرن كي شو 2027";
+        formTypeBadge = "تأكيد تسجيل الزوار";
+        bodyLines = [
+          `شكراً لتسجيل زيارة <strong style="color: #1D2228;">معرض العلمين تيرن كي شو 2027</strong>، رقم التسجيل الخاص بك هو : <strong style="color: #C00000;">${escapeHtml(registrationNumber)}</strong>.`,
+          `نتطلع للترحيب بك خلال الفترة من <strong>06 – 09 مايو 2027</strong> بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+          `يرجى إظهار تأكيد التسجيل الخاص بك لفريق تيرن كي شو 2027 عند الوصول لقاعات المعرض لتسهيل دخولك.`,
+        ];
+        break;
+
+      case "exhibitor_brochure":
+        subject = "الكتيب التعريفي الرسمي — معرض العلمين تيرن كي شو 2027";
+        formTypeBadge = "تأكيد طلب وتحميل الكتيب التعريفي للمعرض";
+        bodyLines = [
+          `شكراً لطلب الكتيب التعريفي الخاص بـ <strong style="color: #1D2228;">معرض العلمين تيرن كي شو 2027</strong>، رقم المرجع الخاص بك هو : <strong style="color: #C00000;">${escapeHtml(registrationNumber)}</strong>.`,
+          `تم إرفاق نسخة من الكتيب التعريفي الرسمي (PDF) مع هذا البريد الإلكتروني، كما يمكنك تحميله في أي وقت عبر الزر أدناه.`,
+          `نتطلع للترحيب بك خلال الفترة من <strong>06 – 09 مايو 2027</strong> بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+        ];
+        brochureButtonHtml = `
+          <div style="margin: 22px 0; text-align: right;">
+            <a href="${escapeHtml(brochureUrl)}" target="_blank" style="background: #E92924; color: #ffffff; text-decoration: none; padding: 14px 28px; font-weight: bold; font-size: 14px; display: inline-block;">
+              تحميل الكتيب التعريفي (PDF)
+            </a>
+          </div>
+        `;
+        brochureTextLink = `\nرابط تحميل الكتيب التعريفي (PDF): ${brochureUrl}\n`;
+        break;
+
+      case "exhibitor_booking":
+        subject = "تأكيد طلب حجز مساحة عرض — معرض العلمين تيرن كي شو 2027";
+        formTypeBadge = "تأكيد استلام طلب حجز مساحة عرض";
+        bodyLines = [
+          `شكراً لتقديم طلب حجز مساحة عرض في <strong style="color: #1D2228;">معرض العلمين تيرن كي شو 2027</strong>، رقم مرجع الطلب الخاص بك هو : <strong style="color: #C00000;">${escapeHtml(registrationNumber)}</strong>.`,
+          `لقد تلقى فريق مبيعات المعرض تفاصيل طلبكم الموضحة أدناه، وسيتواصل معكم قريباً بمخطط القاعات وخيارات الأجنحة المتاحة.`,
+          `نتطلع للترحيب بك خلال الفترة من <strong>06 – 09 مايو 2027</strong> بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+        ];
+        break;
+
+      case "general_inquiry":
+      default:
+        subject = "تأكيد استلام استفساركم — معرض العلمين تيرن كي شو 2027";
+        formTypeBadge = "تأكيد استلام استفساركم — تواصل معنا";
+        bodyLines = [
+          `شكراً لتواصلكم مع <strong style="color: #1D2228;">معرض العلمين تيرن كي شو 2027</strong>، رقم مرجع الاستفسار الخاص بك هو : <strong style="color: #C00000;">${escapeHtml(registrationNumber)}</strong>.`,
+          `لقد تم استلام رسالتكم بنجاح وسيقوم فريق إدارة المعرض بمراجعتها والرد عليكم في أقرب وقت ممكن.`,
+          `نتطلع للترحيب بك خلال الفترة من <strong>06 – 09 مايو 2027</strong> بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+        ];
+        break;
+    }
+
+    const html = `
+      <!DOCTYPE html>
+      <html lang="ar" dir="rtl">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>${escapeHtml(subject)}</title>
+      </head>
+      <body dir="rtl" style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: #1D2228; -webkit-font-smoothing: antialiased;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="background-color: #ffffff; padding: 24px 12px;">
+          <tr>
+            <td align="center">
+              <table width="680" cellpadding="0" cellspacing="0" border="0" dir="rtl" style="max-width: 680px; width: 100%; background-color: #ffffff; border: 1px solid #e5e7eb; border-top: 4px solid #E92924; padding: 12px 24px;">
+                <tr>
+                  <td style="padding: 16px 4px 24px 4px; border-bottom: 2px solid #e5e7eb;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" dir="rtl">
+                      <tr>
+                        <td align="right" valign="middle" style="width: 50%;">
+                          <img src="${turnkeyDataUri}" data-cid="turnkey-logo" alt="Turnkey Show Alamein" style="height: 110px; width: auto; display: block;" />
+                        </td>
+                        <td align="left" valign="middle" style="width: 50%; text-align: left;">
+                          <div style="display: inline-block; text-align: center;">
+                            <div style="font-size: 11px; font-weight: bold; color: #666666; margin-bottom: 6px;">
+                              تنظيم
+                            </div>
+                            <img src="${apexDataUri}" data-cid="apex-logo" alt="Apex Conventions & Trade Fairs" style="height: 58px; width: auto; display: block; margin: 0 auto;" />
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td dir="rtl" style="padding: 14px 16px; background-color: #fafafa; border-bottom: 1px solid #e5e7eb; text-align: right; font-size: 13px; font-weight: bold; color: #E92924;">
+                    ${escapeHtml(formTypeBadge)}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td dir="rtl" style="padding: 24px 4px 24px 4px; text-align: right; font-size: 15px; line-height: 1.85; color: #1D2228; border-bottom: 1px solid #e5e7eb;">
+                    <p style="margin: 0 0 14px 0;">مرحبا <strong style="color: #C00000;">${escapeHtml(fullName)}</strong>،</p>
+                    ${bodyLines.map((line) => `<p style="margin: 0 0 14px 0;">${line}</p>`).join("")}
+                    ${brochureButtonHtml}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td dir="rtl" style="padding: 18px 4px 10px 4px; text-align: right;">
+                    <div style="font-size: 12px; font-weight: bold; color: #6b7280; margin-bottom: 4px;">
+                      ملخص البيانات المرسلة (${escapeHtml(formTitleAr)})
+                    </div>
+                    ${sectionsHtml}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td dir="rtl" style="padding: 18px 4px; border-top: 1px solid #e5e7eb; text-align: right; font-size: 13px; color: #555555; line-height: 1.8;">
+                    <strong>معرض العلمين تيرن كي شو ٢٠٢٧</strong> &middot; ٠٦ – ٠٩ مايو ٢٠٢٧ &middot; مركز العلمين الدولي للمؤتمرات والمعارض<br />
+                    تنظيم <strong>${EVENT_CONFIG.organizer.name}</strong> | هاتف: <span dir="ltr">${EVENT_CONFIG.organizer.phone}</span> | موبايل: <span dir="ltr">${EVENT_CONFIG.organizer.mobile}</span><br />
+                    البريد الإلكتروني: <a href="mailto:${EVENT_CONFIG.email}" style="color: #E92924; text-decoration: none;">${EVENT_CONFIG.email}</a> | الموقع الإلكتروني: <a href="https://${EVENT_CONFIG.website}/ar" style="color: #E92924; text-decoration: none;">${EVENT_CONFIG.website}</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `;
+
+    const text = `[${formTypeBadge}]
+
+مرحبا ${fullName}،
+
+${bodyLines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n")}
+${brochureTextLink}
+${sectionsText}
+--------------------------------------------------------
+معرض العلمين تيرن كي شو 2027 | 06 – 09 مايو 2027
+مركز العلمين الدولي للمؤتمرات والمعارض – جمهورية مصر العربية
+تنظيم ${EVENT_CONFIG.organizer.name}
+هاتف: ${EVENT_CONFIG.organizer.phone} | موبايل: ${EVENT_CONFIG.organizer.mobile}
+البريد الإلكتروني: ${EVENT_CONFIG.email}
+`;
+
+    return { subject, html, text };
+  }
+
+  // English-only Auto-Reply for English form submissions (styled after Registration (updated).docx)
   switch (form_key) {
     case "visitor_registration":
       subject = "Visitor Registration Confirmation — Turnkey Show Alamein 2027";
-      formTypeBadgeEn = "VISITOR REGISTRATION CONFIRMATION";
-      formTypeBadgeAr = "تأكيد تسجيل الزوار";
-      enLines = [
-        `Thanks for registering to Turnkey Show Alamein 2027, Your registration number is: <strong>${escapeHtml(registrationNumber)}</strong>.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
+      formTypeBadge = "VISITOR REGISTRATION CONFIRMATION";
+      bodyLines = [
+        `Thanks for registering to <strong style="color: #1D2228;">Turnkey Show Alamein 2027</strong>, Your registration number is: <strong style="color: #C00000;">${escapeHtml(registrationNumber)}.</strong>`,
+        `Looking forward welcoming you during <strong>06 – 09 May 2027</strong> at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
         `Please show your registration confirmation to Turnkey Show 2027 team upon arrival that will ease up your access.`,
-      ];
-      arLines = [
-        `شكراً لتسجيل زيارة معرض تيرن كي شو العلمين 2027، رقم التسجيل الخاص بك هو : <strong>${escapeHtml(registrationNumber)}</strong>`,
-        `نتطلع للترحيب بك خلال الفترة من 06 – 09 مايو 2027 بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
-        `يرجى إظهار تأكيد التسجيل الخاص بك لفريق تيرن كي شو 2027 عند الوصول لقاعات المعرض.`,
       ];
       break;
 
     case "exhibitor_brochure":
       subject = "Official Sales Brochure — Turnkey Show Alamein 2027";
-      formTypeBadgeEn = "SALES BROCHURE DOWNLOAD & REQUEST CONFIRMATION";
-      formTypeBadgeAr = "تأكيد طلب وتحميل الكتيب التعريفي للمعرض";
-      enLines = [
-        `Thanks for requesting the official brochure for Turnkey Show Alamein 2027 (Reference: <strong>${escapeHtml(registrationNumber)}</strong>).`,
+      formTypeBadge = "SALES BROCHURE DOWNLOAD & REQUEST CONFIRMATION";
+      bodyLines = [
+        `Thanks for requesting the official brochure for <strong style="color: #1D2228;">Turnkey Show Alamein 2027</strong>, Your reference number is: <strong style="color: #C00000;">${escapeHtml(registrationNumber)}.</strong>`,
         `We have attached a copy of <strong>Brochure Turnkey Show 2027.pdf</strong> directly to this email, and you can also download it anytime using the button below.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
-      ];
-      arLines = [
-        `شكراً لطلب الكتيب التعريفي لمعرض تيرن كي شو العلمين 2027 (رقم المرجع: <strong>${escapeHtml(registrationNumber)}</strong>).`,
-        `تم إرفاق نسخة من الكتيب التعريفي (PDF) مع هذا البريد الإلكتروني، كما يمكنك تحميله مباشرة عبر الزر أدناه.`,
-        `نتطلع للترحيب بك خلال الفترة من 06 – 09 مايو 2027 بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+        `Looking forward welcoming you during <strong>06 – 09 May 2027</strong> at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
       ];
       brochureButtonHtml = `
         <div style="margin: 22px 0; text-align: left;">
@@ -671,54 +1132,39 @@ function buildAutoReplyHtml({
 
     case "exhibitor_booking":
       subject = "Exhibitor Space Booking Confirmation — Turnkey Show Alamein 2027";
-      formTypeBadgeEn = "EXHIBITOR SPACE BOOKING APPLICATION";
-      formTypeBadgeAr = "تأكيد استلام طلب حجز مساحة عرض";
-      enLines = [
-        `Thanks for applying to exhibit at Turnkey Show Alamein 2027, Your application reference number is: <strong>${escapeHtml(registrationNumber)}</strong>.`,
+      formTypeBadge = "EXHIBITOR SPACE BOOKING APPLICATION";
+      bodyLines = [
+        `Thanks for applying to exhibit at <strong style="color: #1D2228;">Turnkey Show Alamein 2027</strong>, Your application reference number is: <strong style="color: #C00000;">${escapeHtml(registrationNumber)}.</strong>`,
         `Our exhibition sales team has received your space booking details below and will contact you shortly with stand options and floor plans.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
-      ];
-      arLines = [
-        `شكراً لتقديم طلب حجز مساحة عرض في معرض تيرن كي شو العلمين 2027، رقم مرجع الطلب الخاص بك هو : <strong>${escapeHtml(registrationNumber)}</strong>`,
-        `لقد تلقى فريق المبيعات تفاصيل طلبكم الموضحة أدناه وسيتواصل معكم قريباً.`,
-        `نتطلع للترحيب بك خلال الفترة من 06 – 09 مايو 2027 بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+        `Looking forward welcoming you during <strong>06 – 09 May 2027</strong> at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
       ];
       break;
 
     case "general_inquiry":
     default:
       subject = "We Received Your Inquiry — Turnkey Show Alamein 2027";
-      formTypeBadgeEn = "CONTACT US — GENERAL INQUIRY CONFIRMATION";
-      formTypeBadgeAr = "تأكيد استلام استفساركم — تواصل معنا";
-      enLines = [
-        `Thanks for contacting Turnkey Show Alamein 2027 (Inquiry Reference: <strong>${escapeHtml(registrationNumber)}</strong>).`,
+      formTypeBadge = "CONTACT US — GENERAL INQUIRY CONFIRMATION";
+      bodyLines = [
+        `Thanks for contacting <strong style="color: #1D2228;">Turnkey Show Alamein 2027</strong>, Your inquiry reference number is: <strong style="color: #C00000;">${escapeHtml(registrationNumber)}.</strong>`,
         `We have received your message and our team will review your inquiry and get back to you shortly.`,
-        `Looking forward welcoming you during 06 – 09 May 2027 at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
-      ];
-      arLines = [
-        `شكراً لتواصلكم مع معرض تيرن كي شو العلمين 2027 (رقم الاستفسار: <strong>${escapeHtml(registrationNumber)}</strong>).`,
-        `لقد تم استلام رسالتكم بنجاح وسيقوم فريقنا بالرد عليكم في أقرب وقت ممكن.`,
-        `نتطلع للترحيب بك خلال الفترة من 06 – 09 مايو 2027 بمركز العلمين الجديدة الدولي للمؤتمرات والمعارض – جمهورية مصر العربية.`,
+        `Looking forward welcoming you during <strong>06 – 09 May 2027</strong> at New Alamein International Convention & Exhibition Center - Arab Republic of Egypt.`,
       ];
       break;
   }
 
-  // Built strictly after Registration (updated).docx layout, with ONLY the official site logo and new Apex logo,
-  // plus clear form-type separation and submitted fields summary
   const html = `
     <!DOCTYPE html>
-    <html>
+    <html lang="en" dir="ltr">
     <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>${escapeHtml(subject)}</title>
     </head>
-    <body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Calibri, Arial, Helvetica, sans-serif; color: #111111; -webkit-font-smoothing: antialiased;">
+    <body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Helvetica, Calibri, Arial, sans-serif; color: #1D2228; -webkit-font-smoothing: antialiased;">
       <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; padding: 24px 12px;">
         <tr>
           <td align="center">
             <table width="680" cellpadding="0" cellspacing="0" border="0" style="max-width: 680px; width: 100%; background-color: #ffffff; border: 1px solid #e5e7eb; border-top: 4px solid #E92924; padding: 12px 24px;">
-              <!-- Top Header Row: Official Site Logo & New Apex Logo Only (No partner logos) -->
               <tr>
                 <td style="padding: 16px 4px 24px 4px; border-bottom: 2px solid #e5e7eb;">
                   <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -739,40 +1185,20 @@ function buildAutoReplyHtml({
                 </td>
               </tr>
 
-              <!-- Form Type Separation Banner -->
               <tr>
-                <td style="padding: 14px 16px; background-color: #fafafa; border-bottom: 1px solid #e5e7eb;">
-                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                    <tr>
-                      <td align="left" style="font-size: 12px; font-weight: bold; color: #E92924; text-transform: uppercase; letter-spacing: 0.8px;">
-                        ${escapeHtml(formTypeBadgeEn)}
-                      </td>
-                      <td align="right" dir="rtl" style="font-size: 13px; font-weight: bold; color: #111111; font-family: 'Segoe UI', Tahoma, Arial, sans-serif;">
-                        ${escapeHtml(formTypeBadgeAr)}
-                      </td>
-                    </tr>
-                  </table>
+                <td style="padding: 14px 16px; background-color: #fafafa; border-bottom: 1px solid #e5e7eb; text-align: left; font-size: 12px; font-weight: bold; color: #E92924; text-transform: uppercase; letter-spacing: 0.8px;">
+                  ${escapeHtml(formTypeBadge)}
                 </td>
               </tr>
 
-              <!-- English Greeting & Confirmation -->
               <tr>
-                <td style="padding: 24px 4px 14px 4px; text-align: left; font-size: 15px; line-height: 1.7; color: #111111;">
-                  <p style="margin: 0 0 14px 0;">Hello ${escapeHtml(fullName)},</p>
-                  ${enLines.map((line) => `<p style="margin: 0 0 12px 0;">${line}</p>`).join("")}
+                <td style="padding: 24px 4px 24px 4px; text-align: left; font-size: 15px; line-height: 1.75; color: #1D2228; border-bottom: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 14px 0;">Hello <strong style="color: #C00000;">${escapeHtml(fullName)},</strong></p>
+                  ${bodyLines.map((line) => `<p style="margin: 0 0 14px 0;">${line}</p>`).join("")}
                   ${brochureButtonHtml}
                 </td>
               </tr>
 
-              <!-- Arabic Greeting & Confirmation -->
-              <tr>
-                <td dir="rtl" style="padding: 14px 4px 24px 4px; text-align: right; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; font-size: 15px; line-height: 1.8; color: #111111; border-bottom: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 14px 0;">مرحبا ${escapeHtml(fullName)}</p>
-                  ${arLines.map((line) => `<p style="margin: 0 0 12px 0;">${line}</p>`).join("")}
-                </td>
-              </tr>
-
-              <!-- Submitted Details Summary Separated by Section -->
               <tr>
                 <td style="padding: 18px 4px 10px 4px;">
                   <div style="font-size: 12px; font-weight: bold; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px;">
@@ -782,7 +1208,6 @@ function buildAutoReplyHtml({
                 </td>
               </tr>
 
-              <!-- Footer Contact Bar -->
               <tr>
                 <td style="padding: 18px 4px; border-top: 1px solid #e5e7eb; font-size: 13px; color: #555555; line-height: 1.6;">
                   <strong>${EVENT_CONFIG.fullName}</strong> &middot; ${EVENT_CONFIG.dates} &middot; ${EVENT_CONFIG.venue}<br />
@@ -798,15 +1223,12 @@ function buildAutoReplyHtml({
     </html>
   `;
 
-  const text = `[${formTypeBadgeEn} | ${formTypeBadgeAr}]
+  const text = `[${formTypeBadge}]
 
 Hello ${fullName},
 
-${enLines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n")}
+${bodyLines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n")}
 ${brochureTextLink}
-مرحبا ${fullName}
-
-${arLines.map((l) => l.replace(/<[^>]+>/g, "")).join("\n")}
 ${sectionsText}
 --------------------------------------------------------
 ${EVENT_CONFIG.fullName} | ${EVENT_CONFIG.dates}
@@ -873,13 +1295,16 @@ async function dispatchEmail({
     console.error(`[Email Preview Error] Failed to write preview file:`, err);
   }
 
-  // Replace data-cid images with cid: references for real email clients (like Gmail)
+  // Replace data-cid images with cid: references for real email clients
   const { turnkeyPath, apexPath } = getLogoPaths();
   let smtpHtml = html;
   const inlineAttachments: Array<{ filename: string; path: string; cid: string }> = [];
 
   if (turnkeyPath) {
-    smtpHtml = smtpHtml.replace(/src="data:image\/png;base64,[^"]+"\s+data-cid="turnkey-logo"/g, 'src="cid:turnkey-logo"');
+    smtpHtml = smtpHtml.replace(
+      /src="data:image\/png;base64,[^"]+"\s+data-cid="turnkey-logo"/g,
+      'src="cid:turnkey-logo"',
+    );
     inlineAttachments.push({
       filename: "turnkey-show-logo.png",
       path: turnkeyPath,
@@ -887,7 +1312,10 @@ async function dispatchEmail({
     });
   }
   if (apexPath) {
-    smtpHtml = smtpHtml.replace(/src="data:image\/png;base64,[^"]+"\s+data-cid="apex-logo"/g, 'src="cid:apex-logo"');
+    smtpHtml = smtpHtml.replace(
+      /src="data:image\/png;base64,[^"]+"\s+data-cid="apex-logo"/g,
+      'src="cid:apex-logo"',
+    );
     inlineAttachments.push({
       filename: "apex-logo.png",
       path: apexPath,
@@ -895,8 +1323,9 @@ async function dispatchEmail({
     });
   }
 
-  // 1. Send via SMTP (Gmail / custom SMTP) if configured
-  if (smtpHost && smtpUser && smtpPass) {
+  // 1. Send via SMTP if configured (skip network in Vitest runs)
+  const isVitest = Boolean(process.env["VITEST"]);
+  if (!isVitest && smtpHost && smtpUser && smtpPass && !smtpPass.startsWith("[PASTE_")) {
     try {
       const transporter = nodemailer.createTransport({
         host: smtpHost,
@@ -934,7 +1363,7 @@ async function dispatchEmail({
   }
 
   // 2. Or send via Resend API if RESEND_API_KEY is configured
-  if (resendApiKey) {
+  if (!isVitest && resendApiKey) {
     try {
       const resendAttachments = attachments
         .filter((a) => fs.existsSync(a.filePath))
@@ -970,6 +1399,6 @@ async function dispatchEmail({
   }
 
   console.warn(
-    `[Email Notice] Real email delivery skipped because SMTP_USER / SMTP_PASS are not set in .env yet. Preview saved to .mail-preview/ for ${to}.`
+    `[Email Notice] Preview saved to .mail-preview/ for ${to}.`,
   );
 }

@@ -106,6 +106,7 @@ function ContactPage() {
 
     const data = {
       form_key: "general_inquiry",
+      locale: isAr ? "ar" : "en",
       full_name: nameEl.value,
       email: emailEl.value,
       mobile: mobileVal,
@@ -114,7 +115,7 @@ function ContactPage() {
       website: (form.elements.namedItem("website") as HTMLInputElement).value,
     };
     try {
-      const res = await fetch("/api/forms", {
+      const res = await fetch("/api/send-mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -125,8 +126,11 @@ function ContactPage() {
       } else {
         setStatus("error");
         setErrorMsg(
-          json.error ??
-          (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
+          json.message ??
+            json.error ??
+            (isAr
+              ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً."
+              : "Something went wrong. Please try again."),
         );
       }
     } catch {

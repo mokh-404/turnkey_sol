@@ -136,6 +136,7 @@ function BookYourSpacePage() {
 
     const data = {
       form_key: "exhibitor_booking",
+      locale: isAr ? "ar" : "en",
       companyName: (form.elements.namedItem("companyName") as HTMLInputElement).value,
       companyWebsite: (form.elements.namedItem("companyWebsite") as HTMLInputElement).value,
       country: country,
@@ -152,7 +153,7 @@ function BookYourSpacePage() {
     };
 
     try {
-      const res = await fetch("/api/forms", {
+      const res = await fetch("/api/send-mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -163,7 +164,11 @@ function BookYourSpacePage() {
       } else {
         setStatus("error");
         setErrorMsg(
-          json.message ?? (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
+          json.message ??
+            json.error ??
+            (isAr
+              ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً."
+              : "Something went wrong. Please try again."),
         );
       }
     } catch {

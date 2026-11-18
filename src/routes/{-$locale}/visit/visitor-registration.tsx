@@ -112,6 +112,7 @@ function VisitorRegistrationPage() {
 
     const data = {
       form_key: "visitor_registration",
+      locale: isAr ? "ar" : "en",
       fullName: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       mobile: (form.elements.namedItem("mobile") as HTMLInputElement).value,
@@ -123,7 +124,7 @@ function VisitorRegistrationPage() {
     };
 
     try {
-      const res = await fetch("/api/forms", {
+      const res = await fetch("/api/send-mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -135,6 +136,7 @@ function VisitorRegistrationPage() {
         setStatus("error");
         setErrorMsg(
           json.message ??
+            json.error ??
             (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
         );
       }

@@ -62,6 +62,7 @@ function DownloadBrochurePage() {
     const nameVal = (form.elements.namedItem("name") as HTMLInputElement).value;
     const data = {
       form_key: "exhibitor_brochure",
+      locale: isAr ? "ar" : "en",
       name: nameVal,
       company: (form.elements.namedItem("company") as HTMLInputElement).value,
       title: (form.elements.namedItem("title") as HTMLInputElement).value,
@@ -71,7 +72,7 @@ function DownloadBrochurePage() {
     };
     setSubmittedName(nameVal);
     try {
-      const res = await fetch("/api/forms", {
+      const res = await fetch("/api/send-mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -97,7 +98,8 @@ function DownloadBrochurePage() {
       } else {
         setStatus("error");
         setErrorMsg(
-          json.error ??
+          json.message ??
+            json.error ??
             (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
         );
       }

@@ -1,1 +1,0 @@
-var e=`/assets/villa-showcase-D_fl30hd.webp`;export{e as t};
