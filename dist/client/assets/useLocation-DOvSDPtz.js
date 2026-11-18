@@ -1,0 +1,1 @@
+import{f as e,m as t,p as n}from"./index-Bi1moizF.js";function r(r){let i=t();return n(i.stores.location,e(r,i))}export{r as t};

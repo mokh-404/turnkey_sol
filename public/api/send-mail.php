@@ -437,6 +437,37 @@ try {
     tk_json(500, ['success' => false, 'message' => $m, 'error' => $m]);
 }
 
+// Flush the HTTP 200 JSON response to the browser immediately after the owner notification succeeds,
+// so the user's browser triggers the automatic brochure download right away without waiting for the
+// 2.4 MB PDF attachment auto-reply to finish uploading over SMTP.
+$response = [
+    'success'            => true,
+    'message'            => $isAr ? 'شكراً لك، تم استلام طلبك بنجاح.' : 'Thank you. Your submission has been received.',
+    'registrationNumber' => $regNum,
+    'locale'             => $isAr ? 'ar' : 'en',
+];
+if ($brochureDownloadUrl !== '') {
+    $response['brochureUrl'] = $brochureDownloadUrl;
+}
+
+ignore_user_abort(true);
+$jsonOutput = json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+http_response_code(200);
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
+header('X-Content-Type-Options: nosniff');
+header('Connection: close');
+header('Content-Length: ' . strlen((string) $jsonOutput));
+echo $jsonOutput;
+if (function_exists('fastcgi_finish_request')) {
+    fastcgi_finish_request();
+} else {
+    if (ob_get_level() > 0) {
+        @ob_end_flush();
+    }
+    @flush();
+}
+
 // 10. Build & Send Locale-Specific Auto-Reply Confirmation to the Visitor
 //     (English-only when submitted in English; Arabic-only when submitted in Arabic;
 //      differentiated per form and styled after Registration (updated).docx)
@@ -659,14 +690,4 @@ if (!empty($config['send_autoreply'])) {
     }
 }
 
-$response = [
-    'success'            => true,
-    'message'            => $isAr ? 'شكراً لك، تم استلام طلبك بنجاح.' : 'Thank you. Your submission has been received.',
-    'registrationNumber' => $regNum,
-    'locale'             => $isAr ? 'ar' : 'en',
-];
-if ($brochureDownloadUrl !== '') {
-    $response['brochureUrl'] = $brochureDownloadUrl;
-}
-
-tk_json(200, $response);
+exit;

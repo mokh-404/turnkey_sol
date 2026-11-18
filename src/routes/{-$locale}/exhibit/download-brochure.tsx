@@ -49,6 +49,23 @@ function DownloadBrochurePage() {
   const brochureFilename = isAr
     ? "Brochure Turnkey Show Arabic 2027.pdf"
     : "Brochure Turnkey Show 2027.pdf";
+  const directBrochurePath = encodeURI(
+    isAr ? "/Brochure Turnkey Show Arabic 2027.pdf" : "/Brochure Turnkey Show 2027.pdf",
+  );
+
+  function triggerAutoDownload(url: string, filename: string) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", filename);
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      if (link.parentNode) {
+        link.parentNode.removeChild(link);
+      }
+    }, 1000);
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -79,21 +96,9 @@ function DownloadBrochurePage() {
       const json = await res.json();
       if (json.success) {
         setStatus("success");
-        const rawUrl: string =
-          json.brochureUrl ||
-          (isAr ? "/Brochure Turnkey Show Arabic 2027.pdf" : "/Brochure Turnkey Show 2027.pdf");
-        const downloadUrl =
-          isAr && rawUrl.startsWith("/api/brochure") && !rawUrl.includes("lang=")
-            ? `${rawUrl}&lang=ar`
-            : rawUrl;
-        setBrochureUrl(downloadUrl);
-        // Auto-trigger download without leaving the page
-        const link = document.createElement("a");
-        link.href = downloadUrl;
-        link.download = brochureFilename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        setBrochureUrl(directBrochurePath);
+        // Auto-trigger brochure download immediately for both EN and AR while keeping the download button on screen
+        triggerAutoDownload(directBrochurePath, brochureFilename);
       } else {
         setStatus("error");
         setErrorMsg(
@@ -149,19 +154,17 @@ function DownloadBrochurePage() {
                     ? "بدأ تحميل البروشور التعريفي تلقائيًا. وفي حال لم يبدأ التحميل، يمكنك تنزيله مباشرة عبر الزر أدناه."
                     : "Your sales brochure download has started automatically. If it didn’t start, please click the button below."}
                 </p>
-                {brochureUrl && (
-                  <Button
-                    asChild
-                    size="lg"
-                    className="show-button"
-                    style={{ marginTop: "1rem", marginBottom: "1rem" }}
-                  >
-                    <a href={brochureUrl} download={brochureFilename}>
-                      <Download aria-hidden="true" className="w-4 h-4 me-2" />{" "}
-                      {isAr ? "حمّل البروشور" : "Download brochure"}
-                    </a>
-                  </Button>
-                )}
+                <Button
+                  asChild
+                  size="lg"
+                  className="show-button"
+                  style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                >
+                  <a href={brochureUrl || directBrochurePath} download={brochureFilename}>
+                    <Download aria-hidden="true" className="w-4 h-4 me-2" />{" "}
+                    {isAr ? "حمّل البروشور" : "Download brochure"}
+                  </a>
+                </Button>
                 <p
                   className="brochure-email-note"
                   style={{ color: "#555555", fontSize: "0.95rem" }}
