@@ -48,7 +48,8 @@ const SECTORS_BY_LOCALE = {
     {
       title: "Kitchens & Equipment",
       image: warmKitchen,
-      detail: "Custom kitchen cabinetry, built-in appliances, fixtures and premium kitchen fit-outs.",
+      detail:
+        "Custom kitchen cabinetry, built-in appliances, fixtures and premium kitchen fit-outs.",
     },
     {
       title: "Home Appliances",
@@ -68,12 +69,14 @@ const SECTORS_BY_LOCALE = {
     {
       title: "Modern Lighting Technology",
       image: smartLiving,
-      detail: "Architectural lighting, ambient systems, modern illumination and decorative fixtures.",
+      detail:
+        "Architectural lighting, ambient systems, modern illumination and decorative fixtures.",
     },
     {
       title: "Hospitality Fit-Out",
       image: lobbyOcean,
-      detail: "High-spec commercial solutions for hotels, serviced apartments and rental properties.",
+      detail:
+        "High-spec commercial solutions for hotels, serviced apartments and rental properties.",
     },
     {
       title: "Complete Solutions",
@@ -132,7 +135,11 @@ const STATS_BY_LOCALE = {
     { value: "46,189+", label: "Residential Units", sub: "New Alamein" },
   ],
   ar: [
-    { value: "1.2 تريليون جنيه", label: "حجم التعاملات العقارية", sub: "الساحل الشمالي | ٢٠٢٤ - ٢٠٢٥" },
+    {
+      value: "1.2 تريليون جنيه",
+      label: "حجم التعاملات العقارية",
+      sub: "الساحل الشمالي | ٢٠٢٤ - ٢٠٢٥",
+    },
     { value: "145 مليار جنيه", label: "الاستثمارات المستهدفة", sub: "العلمين الجديدة" },
     { value: "46,189+", label: "وحدة سكنية", sub: "العلمين الجديدة" },
   ],
@@ -301,29 +308,91 @@ function Index() {
                   معرض تيرن كي... المنصة المتكاملة لحلول تجهيز{" "}
                   <span className="headline-accent">الوحدات الساحلية</span>
                 </h2>
-                <p style={{ fontSize: "1.08rem", lineHeight: 1.75, color: "#222222", marginBottom: "1rem" }}>
-                  الحدث التجاري الأول من نوعه في قلب مدينة العلمين الجديدة، ومنصة استراتيجية متكاملة تجمع كبار المستثمرين وملاك الوحدات الساحلية والمنشآت الفندقية والمطورين العقاريين بأبرز العلامات التجارية والشركات المتخصصة في الأثاث والتصميم الداخلي والحلول العقارية الذكية.
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.75,
+                    color: "#222222",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  الحدث التجاري الأول من نوعه في قلب مدينة العلمين الجديدة، ومنصة استراتيجية متكاملة
+                  تجمع كبار المستثمرين وملاك الوحدات الساحلية والمنشآت الفندقية والمطورين العقاريين
+                  بأبرز العلامات التجارية والشركات المتخصصة في الأثاث والتصميم الداخلي والحلول
+                  العقارية الذكية.
                 </p>
-                <p style={{ fontSize: "1.08rem", lineHeight: 1.75, color: "#333333", marginBottom: "1rem" }}>
-                  صُمم المعرض ليقدم تجربة متكاملة تغني عن عناء البحث المطوّل وتعدد الموردين؛ حيث يجمع تحت سقف واحد الأثاث الفاخر والتشطيبات العصرية، وأنظمة المنازل الذكية، وحلول الطاقة المستدامة، وكل ما يلزم لتحويل الوحدة العقارية إلى مساحة متكاملة وعملية وجذابة.
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.75,
+                    color: "#333333",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  صُمم المعرض ليقدم تجربة متكاملة تغني عن عناء البحث المطوّل وتعدد الموردين؛ حيث
+                  يجمع تحت سقف واحد الأثاث الفاخر والتشطيبات العصرية، وأنظمة المنازل الذكية، وحلول
+                  الطاقة المستدامة، وكل ما يلزم لتحويل الوحدة العقارية إلى مساحة متكاملة وعملية
+                  وجذابة.
                 </p>
-                <p style={{ fontSize: "1.08rem", lineHeight: 1.75, color: "#333333", marginBottom: 0 }}>
-                  ويمتد دور المعرض إلى ما هو أبعد من العرض التقليدي، ليكون مركزًا حيويًا للصفقات التجارية والفرص الاستثمارية، يتيح للعارضين الوصول المباشر إلى جمهور مستهدف من أصحاب المشروعات والقرار الشرائي الفعلي.
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.75,
+                    color: "#333333",
+                    marginBottom: 0,
+                  }}
+                >
+                  ويمتد دور المعرض إلى ما هو أبعد من العرض التقليدي، ليكون مركزًا حيويًا للصفقات
+                  التجارية والفرص الاستثمارية، يتيح للعارضين الوصول المباشر إلى جمهور مستهدف من
+                  أصحاب المشروعات والقرار الشرائي الفعلي.
                 </p>
               </>
             ) : (
               <>
                 <h2>
-                  TURNKEY SHOW…THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
+                  TURNKEY SHOW…THE COAST’S COMPLETE PROPERTY{" "}
+                  <span className="headline-accent">SOLUTIONS</span> PLATFORM
                 </h2>
-                <p style={{ fontSize: "1.08rem", lineHeight: 1.68, color: "#222222", marginBottom: "1rem" }}>
-                  The first-of-its-kind trade exhibition in the heart of New Alamein City, this pioneering event serves as an integrated strategic platform connecting leading investors, owners of coastal and hospitality properties, and top real estate developers with premier companies specializing in furniture, interior furnishing, and smart property solutions.
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.68,
+                    color: "#222222",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  The first-of-its-kind trade exhibition in the heart of New Alamein City, this
+                  pioneering event serves as an integrated strategic platform connecting leading
+                  investors, owners of coastal and hospitality properties, and top real estate
+                  developers with premier companies specializing in furniture, interior furnishing,
+                  and smart property solutions.
                 </p>
-                <p style={{ fontSize: "1.08rem", lineHeight: 1.68, color: "#333333", marginBottom: "1rem" }}>
-                  Designed to redefine the property furnishing experience, the exhibition offers an exclusive, all-in-one destination that eliminates the need for lengthy searches and multiple suppliers. From luxury furniture and contemporary décor to smart home management systems and sustainable energy solutions, visitors and investors can discover everything they need under one roof.
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.68,
+                    color: "#333333",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  Designed to redefine the property furnishing experience, the exhibition offers an
+                  exclusive, all-in-one destination that eliminates the need for lengthy searches
+                  and multiple suppliers. From luxury furniture and contemporary décor to smart home
+                  management systems and sustainable energy solutions, visitors and investors can
+                  discover everything they need under one roof.
                 </p>
-                <p style={{ fontSize: "1.08rem", lineHeight: 1.68, color: "#333333", marginBottom: 0 }}>
-                  More than just an exhibition, this event is a dynamic hub for business connections and investment opportunities, empowering exhibitors to maximize their sales potential and connect directly with a highly targeted audience of serious buyers with immediate purchasing intent.
+                <p
+                  style={{
+                    fontSize: "1.08rem",
+                    lineHeight: 1.68,
+                    color: "#333333",
+                    marginBottom: 0,
+                  }}
+                >
+                  More than just an exhibition, this event is a dynamic hub for business connections
+                  and investment opportunities, empowering exhibitors to maximize their sales
+                  potential and connect directly with a highly targeted audience of serious buyers
+                  with immediate purchasing intent.
                 </p>
               </>
             )}
@@ -347,7 +416,9 @@ function Index() {
                   {isAr ? "من استلام العقار إلى تعظيم قيمته" : "From Handover to Value"}
                 </span>
                 <span className="badge-subtitle">
-                  {isAr ? "مركز العلمين الدولي للمؤتمرات والمعارض" : "Alamein International Convention Center"}
+                  {isAr
+                    ? "مركز العلمين الدولي للمؤتمرات والمعارض"
+                    : "Alamein International Convention Center"}
                 </span>
               </div>
             </div>
@@ -409,7 +480,12 @@ function Index() {
             <div className="two-markets-grid">
               <Reveal className="market-col market-col-new">
                 <h3 className="market-col-title">
-                  <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="tk-chevron-icon"
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <span>{isAr ? "وحدات حديثة التسليم" : "NEW SUPPLY"}</span>
@@ -443,7 +519,12 @@ function Index() {
               </Reveal>
               <Reveal className="market-col market-col-existing">
                 <h3 className="market-col-title">
-                  <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="tk-chevron-icon"
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <span>{isAr ? "وحدات تحت التجديد" : "EXISTING SUPPLY"}</span>
@@ -521,8 +602,18 @@ function Index() {
           <div className="sector-grid">
             {sectors.map((sector) => (
               <Reveal key={sector.title}>
-                <LocaleLink to="/exhibit/why-exhibit" className="sector-card" aria-label={sector.title}>
-                  <img src={sector.image} alt={sector.title} width={1600} height={1024} decoding="async" />
+                <LocaleLink
+                  to="/exhibit/why-exhibit"
+                  className="sector-card"
+                  aria-label={sector.title}
+                >
+                  <img
+                    src={sector.image}
+                    alt={sector.title}
+                    width={1600}
+                    height={1024}
+                    decoding="async"
+                  />
                   <div className="sector-card-copy">
                     <h3>{sector.title}</h3>
                     <p>{sector.detail}</p>
@@ -537,13 +628,7 @@ function Index() {
       {/* Venue Section */}
       <section className="venue-section" id="venue">
         <div className="venue-image">
-          <img
-            src={venueImage}
-            alt={eventText.venue}
-            width={1600}
-            height={1024}
-            decoding="async"
-          />
+          <img src={venueImage} alt={eventText.venue} width={1600} height={1024} decoding="async" />
         </div>
         <div className="page-width venue-content-wrap">
           <Reveal className="venue-copy">

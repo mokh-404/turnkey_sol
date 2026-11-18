@@ -119,8 +119,12 @@ describe("Forms Submission Handler", () => {
 
     const previewDir = path.resolve(process.cwd(), ".mail-preview");
     const files = fs.readdirSync(previewDir).sort();
-    const lastEnReply = files.filter((f) => f.endsWith("_reply_visitor_registration_en.html")).pop();
-    const lastArReply = files.filter((f) => f.endsWith("_reply_visitor_registration_ar.html")).pop();
+    const lastEnReply = files
+      .filter((f) => f.endsWith("_reply_visitor_registration_en.html"))
+      .pop();
+    const lastArReply = files
+      .filter((f) => f.endsWith("_reply_visitor_registration_ar.html"))
+      .pop();
 
     expect(lastEnReply).toBeDefined();
     expect(lastArReply).toBeDefined();

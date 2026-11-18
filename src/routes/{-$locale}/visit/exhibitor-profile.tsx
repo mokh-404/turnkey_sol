@@ -48,7 +48,8 @@ const SECTORS_BY_LOCALE = {
     {
       title: "Kitchens & Equipment",
       image: warmKitchen,
-      detail: "Custom kitchen cabinetry, built-in appliances, fixtures and premium kitchen fit-outs.",
+      detail:
+        "Custom kitchen cabinetry, built-in appliances, fixtures and premium kitchen fit-outs.",
     },
     {
       title: "Home Appliances",
@@ -68,12 +69,14 @@ const SECTORS_BY_LOCALE = {
     {
       title: "Modern Lighting Technology",
       image: smartLiving,
-      detail: "Architectural lighting, ambient systems, modern illumination and decorative fixtures.",
+      detail:
+        "Architectural lighting, ambient systems, modern illumination and decorative fixtures.",
     },
     {
       title: "Hospitality Fit-Out",
       image: lobbyOcean,
-      detail: "High-spec commercial solutions for hotels, serviced apartments and rental properties.",
+      detail:
+        "High-spec commercial solutions for hotels, serviced apartments and rental properties.",
     },
     {
       title: "Complete Solutions",
@@ -179,8 +182,18 @@ function ExhibitorProfilePage() {
           <div className="sector-grid">
             {sectors.map((sector) => (
               <Reveal key={sector.title}>
-                <LocaleLink to="/exhibit/why-exhibit" className="sector-card" aria-label={sector.title}>
-                  <img src={sector.image} alt={sector.title} width={1600} height={1024} decoding="async" />
+                <LocaleLink
+                  to="/exhibit/why-exhibit"
+                  className="sector-card"
+                  aria-label={sector.title}
+                >
+                  <img
+                    src={sector.image}
+                    alt={sector.title}
+                    width={1600}
+                    height={1024}
+                    decoding="async"
+                  />
                   <div className="sector-card-copy">
                     <h3>{sector.title}</h3>
                     <p>{sector.detail}</p>

@@ -1,5 +1,13 @@
 import { QueryClient } from "@tanstack/react-query";
-import { createMemoryHistory, createRootRoute, createRoute, createRouter, Outlet, RouterProvider, rootRouteId } from "@tanstack/react-router";
+import {
+  createMemoryHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  Outlet,
+  RouterProvider,
+  rootRouteId,
+} from "@tanstack/react-router";
 import { render, screen, act } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
@@ -89,7 +97,10 @@ describe("i18n helpers", () => {
         observerCallback = cb;
       }
       observe() {
-        observerCallback?.([{ isIntersecting: true } as IntersectionObserverEntry], this as unknown as IntersectionObserver);
+        observerCallback?.(
+          [{ isIntersecting: true } as IntersectionObserverEntry],
+          this as unknown as IntersectionObserver,
+        );
       }
       disconnect() {}
       unobserve() {}

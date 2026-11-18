@@ -47,7 +47,7 @@ export function AnimatedCounter({ value, className = "", duration = 900 }: Anima
     const suffix = match[3] || "";
     const targetNum = parseFloat(numStr);
     const isFloat = numStr.includes(".");
-    const decimalPlaces = isFloat ? (numStr.split(".")[1]?.length || 1) : 0;
+    const decimalPlaces = isFloat ? numStr.split(".")[1]?.length || 1 : 0;
 
     let rafId = 0;
 
@@ -103,7 +103,7 @@ export function AnimatedCounter({ value, className = "", duration = 900 }: Anima
         observer.disconnect();
         runAnimation();
       },
-      { threshold: 0.01, rootMargin: "0px 0px 120px 0px" }
+      { threshold: 0.01, rootMargin: "0px 0px 120px 0px" },
     );
 
     observer.observe(el);

@@ -100,12 +100,16 @@ function DownloadBrochurePage() {
         setErrorMsg(
           json.message ??
             json.error ??
-            (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
+            (isAr
+              ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً."
+              : "Something went wrong. Please try again."),
         );
       }
     } catch {
       setStatus("error");
-      setErrorMsg(isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.");
+      setErrorMsg(
+        isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.",
+      );
     }
   }
 
@@ -120,10 +124,17 @@ function DownloadBrochurePage() {
             : "To download Brochure, please provide the following information:"
         }
         image={villaShowcase}
-        imageAlt={isAr ? "البروشور التعريفي لمعرض العلمين تيرن كي شو ٢٠٢٧" : "Turnkey Show 2027 sales brochure"}
+        imageAlt={
+          isAr
+            ? "البروشور التعريفي لمعرض العلمين تيرن كي شو ٢٠٢٧"
+            : "Turnkey Show 2027 sales brochure"
+        }
       />
 
-      <section className="brochure-download-section section-band full-width-section" id="brochure-form">
+      <section
+        className="brochure-download-section section-band full-width-section"
+        id="brochure-form"
+      >
         <div className="page-width brochure-download-inner brochure-download-inner--full">
           <Reveal className="brochure-form-card brochure-form-card--full">
             {status === "success" ? (
@@ -140,14 +151,22 @@ function DownloadBrochurePage() {
                     : "Your sales brochure download has started automatically. If it didn’t start, please click the button below."}
                 </p>
                 {brochureUrl && (
-                  <Button asChild size="lg" className="show-button" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="show-button"
+                    style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                  >
                     <a href={brochureUrl} download={brochureFilename}>
                       <Download aria-hidden="true" className="w-4 h-4 me-2" />{" "}
                       {isAr ? "حمّل البروشور" : "Download brochure"}
                     </a>
                   </Button>
                 )}
-                <p className="brochure-email-note" style={{ color: "#555555", fontSize: "0.95rem" }}>
+                <p
+                  className="brochure-email-note"
+                  style={{ color: "#555555", fontSize: "0.95rem" }}
+                >
                   {isAr
                     ? "كما تم إرسال نسخة من رابط التحميل إلى بريدك الإلكتروني."
                     : "A copy of the download link was also sent to your email."}
@@ -167,23 +186,54 @@ function DownloadBrochurePage() {
                 <div className="brochure-form-grid">
                   <div className="form-field">
                     <label htmlFor="b-name">{isAr ? "الاسم الكامل *" : "Your Name *"}</label>
-                    <Input id="b-name" name="name" placeholder={isAr ? "الاسم بالكامل" : "Full name"} required />
+                    <Input
+                      id="b-name"
+                      name="name"
+                      placeholder={isAr ? "الاسم بالكامل" : "Full name"}
+                      required
+                    />
                   </div>
                   <div className="form-field">
-                    <label htmlFor="b-phone">{isAr ? "رقم الموبايل / الهاتف *" : "Mobile / Phone *"}</label>
-                    <Input id="b-phone" name="phone" type="tel" placeholder="+20 xxx xxx xxxx" required />
+                    <label htmlFor="b-phone">
+                      {isAr ? "رقم الموبايل / الهاتف *" : "Mobile / Phone *"}
+                    </label>
+                    <Input
+                      id="b-phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="+20 xxx xxx xxxx"
+                      required
+                    />
                   </div>
                   <div className="form-field">
-                    <label htmlFor="b-email">{isAr ? "البريد الإلكتروني للعمل *" : "Business Email *"}</label>
-                    <Input id="b-email" name="email" type="email" placeholder="name@company.com" required />
+                    <label htmlFor="b-email">
+                      {isAr ? "البريد الإلكتروني للعمل *" : "Business Email *"}
+                    </label>
+                    <Input
+                      id="b-email"
+                      name="email"
+                      type="email"
+                      placeholder="name@company.com"
+                      required
+                    />
                   </div>
                   <div className="form-field">
                     <label htmlFor="b-company">{isAr ? "اسم الشركة *" : "Company Name *"}</label>
-                    <Input id="b-company" name="company" placeholder={isAr ? "اسم الشركة" : "Company name"} required />
+                    <Input
+                      id="b-company"
+                      name="company"
+                      placeholder={isAr ? "اسم الشركة" : "Company name"}
+                      required
+                    />
                   </div>
                   <div className="form-field brochure-form-field--wide">
                     <label htmlFor="b-title">{isAr ? "المسمى الوظيفي *" : "Job Title *"}</label>
-                    <Input id="b-title" name="title" placeholder={isAr ? "المسمى الوظيفي" : "Your job title"} required />
+                    <Input
+                      id="b-title"
+                      name="title"
+                      placeholder={isAr ? "المسمى الوظيفي" : "Your job title"}
+                      required
+                    />
                   </div>
                 </div>
                 {status === "error" && (
@@ -191,7 +241,12 @@ function DownloadBrochurePage() {
                     {errorMsg}
                   </p>
                 )}
-                <Button type="submit" size="lg" className="show-button w-full" disabled={status === "sending"}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="show-button w-full"
+                  disabled={status === "sending"}
+                >
                   <Download aria-hidden="true" className="w-4 h-4 me-2" />
                   {status === "sending"
                     ? isAr

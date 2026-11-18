@@ -73,11 +73,17 @@ function ContactPage() {
     if (!emailEl.value.trim()) {
       errors["email"] = isAr ? "يرجى إدخال البريد الإلكتروني." : "Email Address is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
-      errors["email"] = isAr ? "يرجى إدخال بريد إلكتروني صحيح." : "Please enter a valid email address.";
+      errors["email"] = isAr
+        ? "يرجى إدخال بريد إلكتروني صحيح."
+        : "Please enter a valid email address.";
     }
     if (!mobileVal) {
       errors["mobile"] = isAr ? "يرجى إدخال رقم الموبايل." : "Mobile number is required.";
-    } else if (!/^\+?[0-9\s\-().]{7,20}$/.test(mobileVal) || mobileDigits.length < 7 || mobileDigits.length > 15) {
+    } else if (
+      !/^\+?[0-9\s\-().]{7,20}$/.test(mobileVal) ||
+      mobileDigits.length < 7 ||
+      mobileDigits.length > 15
+    ) {
       errors["mobile"] = isAr
         ? "يرجى إدخال رقم هاتف صحيح (من ٧ إلى ١٥ رقماً مع إمكانية إضافة +)."
         : "Please enter a valid phone number (7–15 digits, optional + prefix).";
@@ -94,7 +100,9 @@ function ContactPage() {
       setStatus("error");
       const firstErr =
         Object.values(errors)[0] ||
-        (isAr ? "يرجى مراجعة الحقول الموضحة أعلاه." : "Please correct the highlighted fields above.");
+        (isAr
+          ? "يرجى مراجعة الحقول الموضحة أعلاه."
+          : "Please correct the highlighted fields above.");
       setErrorMsg(firstErr);
       showSiteAlert(firstErr);
       return;
@@ -135,7 +143,9 @@ function ContactPage() {
       }
     } catch {
       setStatus("error");
-      setErrorMsg(isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.");
+      setErrorMsg(
+        isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.",
+      );
     }
   }
 
@@ -171,7 +181,11 @@ function ContactPage() {
           <p className="eyebrow" style={{ justifyContent: "center" }}>
             {isAr ? "الاستفسارات المباشرة" : "Direct Inquiries"}
           </p>
-          <div className="section-red-bar" style={{ margin: "0.5rem auto 1rem" }} aria-hidden="true" />
+          <div
+            className="section-red-bar"
+            style={{ margin: "0.5rem auto 1rem" }}
+            aria-hidden="true"
+          />
           <h2>
             {isAr ? (
               <>
@@ -204,9 +218,20 @@ function ContactPage() {
             }}
           >
             <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.25rem" }}>
-              <img src={apexLogo} alt="Apex Conventions & Trade Fairs" style={{ height: "54px", width: "auto" }} />
+              <img
+                src={apexLogo}
+                alt="Apex Conventions & Trade Fairs"
+                style={{ height: "54px", width: "auto" }}
+              />
             </div>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "1.5rem", color: "#111111" }}>
+            <h3
+              style={{
+                fontSize: "1.25rem",
+                fontWeight: 800,
+                marginBottom: "1.5rem",
+                color: "#111111",
+              }}
+            >
               Apex Conventions &amp; Trade Fairs L.L.C
             </h3>
             <ul className="contact-apex-contact-list">
@@ -224,10 +249,18 @@ function ContactPage() {
                 <Phone className="w-4 h-4 text-red-600 flex-shrink-0" aria-hidden="true" />
                 <span className="contact-apex-mobile-numbers">
                   {isAr ? "موبايل: " : "Mobile: "}
-                  <a href="tel:+201017575757" style={{ fontWeight: 600, whiteSpace: "nowrap" }} className="ltr-inline">
+                  <a
+                    href="tel:+201017575757"
+                    style={{ fontWeight: 600, whiteSpace: "nowrap" }}
+                    className="ltr-inline"
+                  >
                     +2 010 17 57 57 57
                   </a>{" "}
-                  <a href="tel:+201041555455" style={{ fontWeight: 600, whiteSpace: "nowrap" }} className="ltr-inline">
+                  <a
+                    href="tel:+201041555455"
+                    style={{ fontWeight: 600, whiteSpace: "nowrap" }}
+                    className="ltr-inline"
+                  >
                     +2 010 41 55 54 55
                   </a>
                 </span>
@@ -279,7 +312,12 @@ function ContactPage() {
                   <div className="form-field">
                     <label
                       htmlFor="full_name"
-                      style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.4rem",
+                      }}
                     >
                       {isAr ? "الاسم الكامل *" : "Full Name *"}
                     </label>
@@ -290,12 +328,19 @@ function ContactPage() {
                       required
                       className={fieldErrors["full_name"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["full_name"] && <p className="field-error">{fieldErrors["full_name"]}</p>}
+                    {fieldErrors["full_name"] && (
+                      <p className="field-error">{fieldErrors["full_name"]}</p>
+                    )}
                   </div>
                   <div className="form-field">
                     <label
                       htmlFor="email"
-                      style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.4rem",
+                      }}
                     >
                       {isAr ? "البريد الإلكتروني *" : "Email Address *"}
                     </label>
@@ -314,7 +359,12 @@ function ContactPage() {
                   <div className="form-field">
                     <label
                       htmlFor="mobile"
-                      style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.4rem",
+                      }}
                     >
                       {isAr ? "رقم الموبايل *" : "Mobile *"}
                     </label>
@@ -326,12 +376,19 @@ function ContactPage() {
                       required
                       className={fieldErrors["mobile"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["mobile"] && <p className="field-error">{fieldErrors["mobile"]}</p>}
+                    {fieldErrors["mobile"] && (
+                      <p className="field-error">{fieldErrors["mobile"]}</p>
+                    )}
                   </div>
                   <div className="form-field">
                     <label
                       htmlFor="subject"
-                      style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.4rem",
+                      }}
                     >
                       {isAr ? "الموضوع *" : "Subject *"}
                     </label>
@@ -342,13 +399,20 @@ function ContactPage() {
                       required
                       className={fieldErrors["subject"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["subject"] && <p className="field-error">{fieldErrors["subject"]}</p>}
+                    {fieldErrors["subject"] && (
+                      <p className="field-error">{fieldErrors["subject"]}</p>
+                    )}
                   </div>
                 </div>
                 <div className="form-field" style={{ marginBottom: "1.75rem" }}>
                   <label
                     htmlFor="message"
-                    style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}
+                    style={{
+                      fontWeight: 700,
+                      fontSize: "0.95rem",
+                      display: "block",
+                      marginBottom: "0.4rem",
+                    }}
                   >
                     {isAr ? "الرسالة *" : "Message *"}
                   </label>
@@ -360,7 +424,9 @@ function ContactPage() {
                     required
                     className={fieldErrors["message"] ? "field-invalid" : ""}
                   />
-                  {fieldErrors["message"] && <p className="field-error">{fieldErrors["message"]}</p>}
+                  {fieldErrors["message"] && (
+                    <p className="field-error">{fieldErrors["message"]}</p>
+                  )}
                 </div>
                 {status === "error" && (
                   <p className="form-error-msg" role="alert" style={{ marginBottom: "1.25rem" }}>

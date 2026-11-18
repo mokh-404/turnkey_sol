@@ -32,7 +32,7 @@ export function DemandCycle() {
   const reducedMotion = useRef(
     typeof window !== "undefined"
       ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      : false
+      : false,
   );
 
   const startedRef = useRef(false);
@@ -82,7 +82,7 @@ export function DemandCycle() {
         observer.disconnect();
         startCycle();
       },
-      { threshold: 0.05, rootMargin: "0px 0px 80px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px 80px 0px" },
     );
 
     observer.observe(node);
@@ -109,7 +109,9 @@ export function DemandCycle() {
       {/* Steps as ordered list (semantic) */}
       <ol
         className="dc-steps"
-        aria-label={isAr ? "مراحل دورة الطلب العقاري السبع" : "Seven stages of property demand cycle"}
+        aria-label={
+          isAr ? "مراحل دورة الطلب العقاري السبع" : "Seven stages of property demand cycle"
+        }
       >
         {steps.map((step, idx) => (
           <li
@@ -118,13 +120,7 @@ export function DemandCycle() {
           >
             {/* Node (decorative) */}
             <div className="dc-node" aria-hidden="true">
-              <svg
-                className="dc-chevron"
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-              >
+              <svg className="dc-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
                 {isLast(idx) ? (
                   /* Loop-back arrow for last step */
                   <path

@@ -54,8 +54,19 @@ function WhyExhibitPage() {
 
       {/* Highlight Key Stat */}
       <section className="page-width exhibit-key-stat">
-        <Reveal className="exhibit-stat-card" style={{ minHeight: "180px", padding: "2.5rem 3rem", boxSizing: "border-box" }}>
-          <div className="stat-number" style={{ minWidth: "260px", width: "260px", flexShrink: 0, fontVariantNumeric: "tabular-nums" }}>
+        <Reveal
+          className="exhibit-stat-card"
+          style={{ minHeight: "180px", padding: "2.5rem 3rem", boxSizing: "border-box" }}
+        >
+          <div
+            className="stat-number"
+            style={{
+              minWidth: "260px",
+              width: "260px",
+              flexShrink: 0,
+              fontVariantNumeric: "tabular-nums",
+            }}
+          >
             <AnimatedCounter value="15,000+" />
           </div>
           <div className="stat-text">
@@ -66,16 +77,23 @@ function WhyExhibitPage() {
                   وحدة تدخل مراحل <span className="headline-accent">التشطيب والتأثيث</span>
                 </h3>
                 <p>
-                  ومع خطة تسليم أكثر من ١٥٬٠٠٠ وحدة سكنية وسياحية خلال عام ٢٠٢٧ في العلمين الجديدة والساحل الشمالي، تدخل آلاف الوحدات الجديدة مراحل التشطيب والتأثيث، مما يخلق موجة متنامية من الطلب على الأثاث والتصميمات الداخلية والتكنولوجيا والتشطيبات والحلول المتكاملة.
+                  ومع خطة تسليم أكثر من ١٥٬٠٠٠ وحدة سكنية وسياحية خلال عام ٢٠٢٧ في العلمين الجديدة
+                  والساحل الشمالي، تدخل آلاف الوحدات الجديدة مراحل التشطيب والتأثيث، مما يخلق موجة
+                  متنامية من الطلب على الأثاث والتصميمات الداخلية والتكنولوجيا والتشطيبات والحلول
+                  المتكاملة.
                 </p>
               </>
             ) : (
               <>
                 <h3>
-                  UNITS ENTERING FINISHING &amp; <span className="headline-accent">FURNISHING</span> STAGE
+                  UNITS ENTERING FINISHING &amp; <span className="headline-accent">FURNISHING</span>{" "}
+                  STAGE
                 </h3>
                 <p>
-                  With the 2027 delivery pipeline indicating more than 15,000 residential and tourism units entering delivery across New Alamein and the North Coast, a significant wave of demand is surging for furniture, interiors, technology, finishing, and turnkey solutions.
+                  With the 2027 delivery pipeline indicating more than 15,000 residential and
+                  tourism units entering delivery across New Alamein and the North Coast, a
+                  significant wave of demand is surging for furniture, interiors, technology,
+                  finishing, and turnkey solutions.
                 </p>
               </>
             )}
@@ -92,14 +110,20 @@ function WhyExhibitPage() {
               <div className="section-red-bar" aria-hidden="true" />
               {isAr ? (
                 <p>
-                  <strong>شارك حيث يتشكل الطلب وتُتخذ قرارات الشراء.</strong> مع دخول آلاف الوحدات السكنية والسياحية الجديدة مراحل التشطيب والتأثيث في ٢٠٢٧، تتصاعد موجة قوية من الطلب على الأثاث والتصميمات الداخلية والتكنولوجيا الذكية والتشطيبات والحلول المتكاملة.
+                  <strong>شارك حيث يتشكل الطلب وتُتخذ قرارات الشراء.</strong> مع دخول آلاف الوحدات
+                  السكنية والسياحية الجديدة مراحل التشطيب والتأثيث في ٢٠٢٧، تتصاعد موجة قوية من
+                  الطلب على الأثاث والتصميمات الداخلية والتكنولوجيا الذكية والتشطيبات والحلول
+                  المتكاملة.
                 </p>
               ) : (
                 <p>
-                  <strong>Exhibit where demand is being created — and purchasing decisions are being made.</strong>{" "}
-                  With the 2027 delivery pipeline indicating more than 15,000 residential and tourism units entering the
-                  finishing and furnishing stage, a significant new wave of demand is emerging for furniture, interiors,
-                  technology, finishing, and turnkey solutions.
+                  <strong>
+                    Exhibit where demand is being created — and purchasing decisions are being made.
+                  </strong>{" "}
+                  With the 2027 delivery pipeline indicating more than 15,000 residential and
+                  tourism units entering the finishing and furnishing stage, a significant new wave
+                  of demand is emerging for furniture, interiors, technology, finishing, and turnkey
+                  solutions.
                 </p>
               )}
             </div>
@@ -121,13 +145,15 @@ function WhyExhibitPage() {
               <div className="section-red-bar" aria-hidden="true" />
               {isAr ? (
                 <p>
-                  <strong>من التكنولوجيا الذكية إلى فخامة التصميمات الداخلية.</strong> يجمع المعرض جميع القطاعات اللازمة لتحويل العقار إلى مساحة متكاملة التأثيث والتشطيب وجاهزة للاستخدام.
+                  <strong>من التكنولوجيا الذكية إلى فخامة التصميمات الداخلية.</strong> يجمع المعرض
+                  جميع القطاعات اللازمة لتحويل العقار إلى مساحة متكاملة التأثيث والتشطيب وجاهزة
+                  للاستخدام.
                 </p>
               ) : (
                 <p>
-                  <strong>From Smart Technology to Full Solutions.</strong> The show brings together the complete
-                  fitting-out sectors required to transform a property into a fully furnished, finished, and ready-to-use
-                  space.
+                  <strong>From Smart Technology to Full Solutions.</strong> The show brings together
+                  the complete fitting-out sectors required to transform a property into a fully
+                  furnished, finished, and ready-to-use space.
                 </p>
               )}
             </div>
@@ -153,12 +179,15 @@ function WhyExhibitPage() {
               <div className="section-red-bar" aria-hidden="true" />
               {isAr ? (
                 <p>
-                  <strong>وجهة واحدة. كل الحلول. رحلة شراء متكاملة.</strong> يغطي المعرض قطاعات الأثاث، والأجهزة المنزلية، والمساحات الخارجية، والمنازل الذكية، وتجهيزات الضيافة، والحلول المتكاملة.
+                  <strong>وجهة واحدة. كل الحلول. رحلة شراء متكاملة.</strong> يغطي المعرض قطاعات
+                  الأثاث، والأجهزة المنزلية، والمساحات الخارجية، والمنازل الذكية، وتجهيزات الضيافة،
+                  والحلول المتكاملة.
                 </p>
               ) : (
                 <p>
-                  <strong>One destination. Every solution. One complete purchase journey.</strong> Covering Furniture,
-                  Appliances, Outdoor, Smart Home, Hospitality Fit-Out, and Complete Solutions.
+                  <strong>One destination. Every solution. One complete purchase journey.</strong>{" "}
+                  Covering Furniture, Appliances, Outdoor, Smart Home, Hospitality Fit-Out, and
+                  Complete Solutions.
                 </p>
               )}
             </div>

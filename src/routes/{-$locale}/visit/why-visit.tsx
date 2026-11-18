@@ -36,32 +36,32 @@ function WhyVisitPage() {
   const { locale, isAr } = useLocale();
   const comingSoon = EVENT_TEXT[locale].contentComingSoon;
 
-    return (
-      <SiteLayout>
-        <PageHero
-          eyebrow={isAr ? "لماذا تزور المعرض" : "Why Visit"}
-          title={isAr ? "لماذا تزور\nمعرض العلمين تيرن كي شو ٢٠٢٧" : "WHY VISIT\nTURNKEY SHOW 2027"}
-          description={
-            isAr
-              ? "خطّط لزيارتك إلى معرض تيرن كي في مركز العلمين الدولي للمؤتمرات والمعارض."
-              : "Plan your visit to Turnkey Show at Al Alamein International Conference & Exhibition Center."
-          }
-          image={chalet}
-          imageAlt={isAr ? "مساحة معيشة ساحلية متكاملة" : "Coastal living space"}
-          primaryBtn={{
-            label: isAr ? "سجّل زيارتك" : "Register to visit",
-            href: "/visit/visitor-registration",
-          }}
-          secondaryBtn={{
-            label: isAr ? "قطاعات العارضين" : "Exhibitor profile",
-            href: "/visit/exhibitor-profile",
-          }}
-        />
-        <section className="page-width" id="why-visit-content">
-          <Reveal>
-            <p className="coming-soon-text">{comingSoon}</p>
-          </Reveal>
-        </section>
-      </SiteLayout>
-    );
-  }
+  return (
+    <SiteLayout>
+      <PageHero
+        eyebrow={isAr ? "لماذا تزور المعرض" : "Why Visit"}
+        title={isAr ? "لماذا تزور\nمعرض العلمين تيرن كي شو ٢٠٢٧" : "WHY VISIT\nTURNKEY SHOW 2027"}
+        description={
+          isAr
+            ? "خطّط لزيارتك إلى معرض تيرن كي في مركز العلمين الدولي للمؤتمرات والمعارض."
+            : "Plan your visit to Turnkey Show at Al Alamein International Conference & Exhibition Center."
+        }
+        image={chalet}
+        imageAlt={isAr ? "مساحة معيشة ساحلية متكاملة" : "Coastal living space"}
+        primaryBtn={{
+          label: isAr ? "سجّل زيارتك" : "Register to visit",
+          href: "/visit/visitor-registration",
+        }}
+        secondaryBtn={{
+          label: isAr ? "قطاعات العارضين" : "Exhibitor profile",
+          href: "/visit/exhibitor-profile",
+        }}
+      />
+      <section className="page-width" id="why-visit-content">
+        <Reveal>
+          <p className="coming-soon-text">{comingSoon}</p>
+        </Reveal>
+      </section>
+    </SiteLayout>
+  );
+}

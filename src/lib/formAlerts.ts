@@ -118,9 +118,12 @@ export function validateContactFields(
     >;
     for (const el of fields) {
       if (el.required && !el.value.trim()) {
-        showSiteAlert(isAr ? "يرجى استيفاء جميع الحقول المطلوبة." : "Please fill in all required fields.", {
-          onClose: () => el.focus(),
-        });
+        showSiteAlert(
+          isAr ? "يرجى استيفاء جميع الحقول المطلوبة." : "Please fill in all required fields.",
+          {
+            onClose: () => el.focus(),
+          },
+        );
         return false;
       }
     }

@@ -83,39 +83,52 @@ function TurnkeyShowPage() {
             {isAr ? (
               <>
                 <h2>
-                  المنصة المتكاملة لحلول تجهيز <span className="headline-accent">الوحدات الساحلية</span>
+                  المنصة المتكاملة لحلول تجهيز{" "}
+                  <span className="headline-accent">الوحدات الساحلية</span>
                 </h2>
                 <p>
-                  الحدث التجاري الأول من نوعه في قلب مدينة العلمين الجديدة، ومنصة استراتيجية متكاملة تجمع كبار المستثمرين وملاك الوحدات الساحلية والمنشآت الفندقية والمطورين العقاريين بأبرز العلامات التجارية والشركات المتخصصة في الأثاث والتصميم الداخلي والحلول العقارية الذكية.
+                  الحدث التجاري الأول من نوعه في قلب مدينة العلمين الجديدة، ومنصة استراتيجية متكاملة
+                  تجمع كبار المستثمرين وملاك الوحدات الساحلية والمنشآت الفندقية والمطورين العقاريين
+                  بأبرز العلامات التجارية والشركات المتخصصة في الأثاث والتصميم الداخلي والحلول
+                  العقارية الذكية.
                 </p>
                 <p>
-                  صُمم المعرض ليقدم تجربة متكاملة تغني عن عناء البحث المطوّل وتعدد الموردين؛ حيث يجمع تحت سقف واحد الأثاث الفاخر والتشطيبات العصرية، وأنظمة المنازل الذكية، وحلول الطاقة المستدامة، وكل ما يلزم لتحويل الوحدة العقارية إلى مساحة متكاملة وعملية وجذابة.
+                  صُمم المعرض ليقدم تجربة متكاملة تغني عن عناء البحث المطوّل وتعدد الموردين؛ حيث
+                  يجمع تحت سقف واحد الأثاث الفاخر والتشطيبات العصرية، وأنظمة المنازل الذكية، وحلول
+                  الطاقة المستدامة، وكل ما يلزم لتحويل الوحدة العقارية إلى مساحة متكاملة وعملية
+                  وجذابة.
                 </p>
                 <p style={{ marginBottom: 0 }}>
-                  يربط معرض تيرن كي ملاك الوحدات والمستثمرين والمطورين العقاريين والمتخصصين في قطاع الضيافة بأبرز العلامات التجارية ومقدمي الحلول المتكاملة، ويوفر كل ما يلزم لتحويل الوحدات العقارية المستلمة إلى مساحات جاهزة للسكن والتأجير والاستثمار.
+                  يربط معرض تيرن كي ملاك الوحدات والمستثمرين والمطورين العقاريين والمتخصصين في قطاع
+                  الضيافة بأبرز العلامات التجارية ومقدمي الحلول المتكاملة، ويوفر كل ما يلزم لتحويل
+                  الوحدات العقارية المستلمة إلى مساحات جاهزة للسكن والتأجير والاستثمار.
                 </p>
               </>
             ) : (
               <>
                 <h2>
-                  CONNECTING THE COAST'S COMPLETE PROPERTY <span className="headline-accent">ECOSYSTEM</span>
+                  CONNECTING THE COAST'S COMPLETE PROPERTY{" "}
+                  <span className="headline-accent">ECOSYSTEM</span>
                 </h2>
                 <p>
-                  The first-of-its-kind trade exhibition in the heart of New Alamein City, this pioneering event serves as
-                  an integrated strategic platform connecting leading investors, owners of coastal and hospitality
-                  properties, and top real estate developers with premier companies specializing in furniture, interior
-                  furnishing, and smart property solutions.
+                  The first-of-its-kind trade exhibition in the heart of New Alamein City, this
+                  pioneering event serves as an integrated strategic platform connecting leading
+                  investors, owners of coastal and hospitality properties, and top real estate
+                  developers with premier companies specializing in furniture, interior furnishing,
+                  and smart property solutions.
                 </p>
                 <p>
-                  Designed to redefine the property furnishing experience, the exhibition offers an exclusive, all-in-one
-                  destination that eliminates the need for lengthy searches and multiple suppliers. From luxury furniture
-                  and contemporary décor to smart home management systems and sustainable energy solutions, visitors and
-                  investors can discover everything they need under one roof.
+                  Designed to redefine the property furnishing experience, the exhibition offers an
+                  exclusive, all-in-one destination that eliminates the need for lengthy searches
+                  and multiple suppliers. From luxury furniture and contemporary décor to smart home
+                  management systems and sustainable energy solutions, visitors and investors can
+                  discover everything they need under one roof.
                 </p>
                 <p style={{ marginBottom: 0 }}>
-                  More than just an exhibition, this event is a dynamic hub for business connections and investment
-                  opportunities, empowering exhibitors to maximize their sales potential and connect directly with a highly
-                  targeted audience of serious buyers with immediate purchasing intent.
+                  More than just an exhibition, this event is a dynamic hub for business connections
+                  and investment opportunities, empowering exhibitors to maximize their sales
+                  potential and connect directly with a highly targeted audience of serious buyers
+                  with immediate purchasing intent.
                 </p>
               </>
             )}
@@ -125,7 +138,11 @@ function TurnkeyShowPage() {
           <div className="expo-media-frame">
             <img
               src={terraceSunset}
-              alt={isAr ? "أسلوب الحياة الساحلي والتصميم الداخلي الفاخر" : "Mediterranean coastal living and luxury interiors"}
+              alt={
+                isAr
+                  ? "أسلوب الحياة الساحلي والتصميم الداخلي الفاخر"
+                  : "Mediterranean coastal living and luxury interiors"
+              }
               width={1600}
               height={1024}
               decoding="async"
@@ -148,21 +165,24 @@ function TurnkeyShowPage() {
               {isAr ? (
                 <>
                   <p>
-                    <strong>من استلام العقار إلى تعظيم قيمته.</strong> لا تنتهي رحلة العقار عند استلامه، بل يحتاج إلى التأثيث والتجهيز وربطه بالتكنولوجيا وتطويره باستمرار.
+                    <strong>من استلام العقار إلى تعظيم قيمته.</strong> لا تنتهي رحلة العقار عند
+                    استلامه، بل يحتاج إلى التأثيث والتجهيز وربطه بالتكنولوجيا وتطويره باستمرار.
                   </p>
                   <p>
-                    يجمع معرض تيرن كي جميع القطاعات المتكاملة في مكان واحد، ليربط بين سوق الوحدات الساحلية المتنامي والعلامات التجارية والحلول التي تساهم في تشكيل مرحلته المقبلة.
+                    يجمع معرض تيرن كي جميع القطاعات المتكاملة في مكان واحد، ليربط بين سوق الوحدات
+                    الساحلية المتنامي والعلامات التجارية والحلول التي تساهم في تشكيل مرحلته المقبلة.
                   </p>
                 </>
               ) : (
                 <>
                   <p>
-                    <strong>From property delivery to property value.</strong> A property&apos;s journey doesn&apos;t end at
-                    handover. It needs to be furnished, equipped, connected and continuously upgraded.
+                    <strong>From property delivery to property value.</strong> A property&apos;s
+                    journey doesn&apos;t end at handover. It needs to be furnished, equipped,
+                    connected and continuously upgraded.
                   </p>
                   <p>
-                    Turnkey Show brings these complete sectors together — connecting the growing coastal property market
-                    with the brands and solutions that shape its next stage.
+                    Turnkey Show brings these complete sectors together — connecting the growing
+                    coastal property market with the brands and solutions that shape its next stage.
                   </p>
                 </>
               )}
@@ -176,12 +196,16 @@ function TurnkeyShowPage() {
               {isAr ? (
                 <>
                   <p>
-                    <strong>وجهة واحدة. حلول متكاملة لتجهيز الوحدات.</strong> من أول قطعة أثاث إلى أحدث حلول المنازل الذكية، صُمم المعرض ليقدم كل ما يلزم لتحويل الوحدة العقارية إلى مساحة متكاملة وعملية وجذابة.
+                    <strong>وجهة واحدة. حلول متكاملة لتجهيز الوحدات.</strong> من أول قطعة أثاث إلى
+                    أحدث حلول المنازل الذكية، صُمم المعرض ليقدم كل ما يلزم لتحويل الوحدة العقارية
+                    إلى مساحة متكاملة وعملية وجذابة.
                   </p>
                   <p>
                     ويجمع تحت سقف واحد{" "}
                     <strong>
-                      الأثاث والتصميم الداخلي، والأجهزة المنزلية، وحلول المساحات الخارجية، وتكنولوجيا المنازل الذكية، والإضاءة والإكسسوارات، وتجهيزات الضيافة، والحلول العقارية المتكاملة
+                      الأثاث والتصميم الداخلي، والأجهزة المنزلية، وحلول المساحات الخارجية،
+                      وتكنولوجيا المنازل الذكية، والإضاءة والإكسسوارات، وتجهيزات الضيافة، والحلول
+                      العقارية المتكاملة
                     </strong>
                     .
                   </p>
@@ -189,15 +213,17 @@ function TurnkeyShowPage() {
               ) : (
                 <>
                   <p>
-                    <strong>One destination. The complete property fit-out.</strong> From the first furniture piece to the
-                    latest smart-home solution, the show is designed to showcase everything required to create a complete,
-                    functional and attractive coastal property.
+                    <strong>One destination. The complete property fit-out.</strong> From the first
+                    furniture piece to the latest smart-home solution, the show is designed to
+                    showcase everything required to create a complete, functional and attractive
+                    coastal property.
                   </p>
                   <p>
                     It connects{" "}
                     <strong>
-                      Furniture &amp; Interiors, Home Appliances, Outdoor Living, Smart Home Technology, Lighting &amp;
-                      Accessories, Hospitality Fit-Out, Property Solutions
+                      Furniture &amp; Interiors, Home Appliances, Outdoor Living, Smart Home
+                      Technology, Lighting &amp; Accessories, Hospitality Fit-Out, Property
+                      Solutions
                     </strong>{" "}
                     under one roof.
                   </p>
@@ -212,13 +238,16 @@ function TurnkeyShowPage() {
               <div className="section-red-bar" aria-hidden="true" />
               {isAr ? (
                 <p>
-                  <strong>الوجهة الرائدة لحلول الوحدات الساحلية.</strong> أن يصبح المعرض المنصة الرائدة التي تربط بين الوحدات الساحلية والتصميم والتكنولوجيا والضيافة، لتحويل الوحدات إلى مساحات متكاملة ومفروشة ومتصلة بالتكنولوجيا وعملية وجاهزة للاستثمار.
+                  <strong>الوجهة الرائدة لحلول الوحدات الساحلية.</strong> أن يصبح المعرض المنصة
+                  الرائدة التي تربط بين الوحدات الساحلية والتصميم والتكنولوجيا والضيافة، لتحويل
+                  الوحدات إلى مساحات متكاملة ومفروشة ومتصلة بالتكنولوجيا وعملية وجاهزة للاستثمار.
                 </p>
               ) : (
                 <p>
-                  <strong>The destination for coastal property solutions.</strong> To create the leading platform
-                  connecting real estate, design, technology and hospitality — transforming coastal properties into
-                  furnished, connected, functional and investment-ready experiences.
+                  <strong>The destination for coastal property solutions.</strong> To create the
+                  leading platform connecting real estate, design, technology and hospitality —
+                  transforming coastal properties into furnished, connected, functional and
+                  investment-ready experiences.
                 </p>
               )}
             </div>
@@ -230,13 +259,17 @@ function TurnkeyShowPage() {
               <div className="section-red-bar" aria-hidden="true" />
               {isAr ? (
                 <p>
-                  <strong>من تسليم العقار إلى تعظيم قيمته.</strong> يساهم النمو المتسارع في الساحل الشمالي ومدينة العلمين الجديدة في خلق فرص تتجاوز مجرد زيادة المعروض العقاري، فهو يفتح المجال أمام منظومة متنامية من الوحدات المفروشة والمجهزة والمتصلة بالتكنولوجيا، والجاهزة للتشغيل والاستثمار.
+                  <strong>من تسليم العقار إلى تعظيم قيمته.</strong> يساهم النمو المتسارع في الساحل
+                  الشمالي ومدينة العلمين الجديدة في خلق فرص تتجاوز مجرد زيادة المعروض العقاري، فهو
+                  يفتح المجال أمام منظومة متنامية من الوحدات المفروشة والمجهزة والمتصلة
+                  بالتكنولوجيا، والجاهزة للتشغيل والاستثمار.
                 </p>
               ) : (
                 <p>
-                  <strong>From property delivery... to property value.</strong> The growth of North Coast &amp; New
-                  Alamein is creating more than real estate supply. It is creating a growing ecosystem of Furnished,
-                  Equipped, Connected, Operated and Investment-ready properties.
+                  <strong>From property delivery... to property value.</strong> The growth of North
+                  Coast &amp; New Alamein is creating more than real estate supply. It is creating a
+                  growing ecosystem of Furnished, Equipped, Connected, Operated and Investment-ready
+                  properties.
                 </p>
               )}
             </div>
@@ -261,8 +294,18 @@ function TurnkeyShowPage() {
           <div className="sector-grid">
             {sectors.map((sector) => (
               <Reveal key={sector.name}>
-                <LocaleLink to="/exhibit/why-exhibit" className="sector-card" aria-label={sector.name}>
-                  <img src={sector.img} alt={sector.name} width={1600} height={1024} decoding="async" />
+                <LocaleLink
+                  to="/exhibit/why-exhibit"
+                  className="sector-card"
+                  aria-label={sector.name}
+                >
+                  <img
+                    src={sector.img}
+                    alt={sector.name}
+                    width={1600}
+                    height={1024}
+                    decoding="async"
+                  />
                   <div className="sector-card-copy">
                     <h3>{sector.name}</h3>
                   </div>

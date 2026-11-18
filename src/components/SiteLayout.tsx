@@ -186,7 +186,10 @@ export function SiteLayout({ children }: PropsWithChildren) {
   return (
     <div className="site-shell">
       {/* 4.1 Header: Solid white at all times */}
-      <header className={`site-header header-solid-white ${isScrolled ? "is-scrolled" : ""}`} role="banner">
+      <header
+        className={`site-header header-solid-white ${isScrolled ? "is-scrolled" : ""}`}
+        role="banner"
+      >
         {/* Thin red scroll progress line under header (Section 12.2.9) */}
         <div
           className="header-scroll-progress"
@@ -282,14 +285,15 @@ export function SiteLayout({ children }: PropsWithChildren) {
                     item.to === "/"
                       ? currentNeutralPath === "/"
                       : currentNeutralPath.startsWith(
-                        item.to.split("/")[1] ? `/${item.to.split("/")[1]}` : item.to,
-                      );
+                          item.to.split("/")[1] ? `/${item.to.split("/")[1]}` : item.to,
+                        );
 
                   return (
                     <li
                       key={item.to}
-                      className={`nav-item ${hasDropdown ? "has-dropdown" : ""} ${openDropdown === item.to ? "dropdown-open" : ""
-                        }`}
+                      className={`nav-item ${hasDropdown ? "has-dropdown" : ""} ${
+                        openDropdown === item.to ? "dropdown-open" : ""
+                      }`}
                       onMouseEnter={() => hasDropdown && setOpenDropdown(item.to)}
                       onMouseLeave={() => hasDropdown && setOpenDropdown(null)}
                     >
@@ -299,7 +303,9 @@ export function SiteLayout({ children }: PropsWithChildren) {
                         onFocus={() => hasDropdown && setOpenDropdown(item.to)}
                       >
                         {item.label}
-                        {hasDropdown && <ChevronDown className="w-3.5 h-3.5 ms-1 dropdown-chevron" />}
+                        {hasDropdown && (
+                          <ChevronDown className="w-3.5 h-3.5 ms-1 dropdown-chevron" />
+                        )}
                       </LocaleLink>
 
                       {hasDropdown && (
@@ -440,13 +446,19 @@ export function SiteLayout({ children }: PropsWithChildren) {
 
             <div className="mobile-drawer-footer">
               <Button asChild className="w-full mb-3" size="sm">
-                <LocaleLink to="/visit/visitor-registration" onClick={() => setMobileMenuOpen(false)}>
+                <LocaleLink
+                  to="/visit/visitor-registration"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   {isAr ? "سجّل زيارتك" : "Register to Visit"}{" "}
                   <ArrowRight className="w-4 h-4 ms-1 rtl-flip-icon" />
                 </LocaleLink>
               </Button>
               <Button asChild variant="outline" className="w-full" size="sm">
-                <LocaleLink to="/exhibit/download-brochure" onClick={() => setMobileMenuOpen(false)}>
+                <LocaleLink
+                  to="/exhibit/download-brochure"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   {isAr ? "حمّل البروشور" : "Download Brochure"}{" "}
                   <ArrowUpRight className="w-4 h-4 ms-1 rtl-flip-icon" />
                 </LocaleLink>
@@ -501,17 +513,22 @@ function SiteFooter({ pathname }: { pathname: string }) {
             <span className="footer-crown-tagline">
               {isAr ? (
                 <>
-                  المنصة المتكاملة لحلول تجهيز <span className="headline-accent">الوحدات الساحلية</span>
+                  المنصة المتكاملة لحلول تجهيز{" "}
+                  <span className="headline-accent">الوحدات الساحلية</span>
                 </>
               ) : (
                 <>
-                  THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span> PLATFORM
+                  THE COAST’S COMPLETE PROPERTY <span className="headline-accent">SOLUTIONS</span>{" "}
+                  PLATFORM
                 </>
               )}
             </span>
           </div>
           <div className="footer-crown-actions">
-            <LocaleLink to={secondaryAction.to} className="footer-crown-cta footer-crown-cta-secondary">
+            <LocaleLink
+              to={secondaryAction.to}
+              className="footer-crown-cta footer-crown-cta-secondary"
+            >
               {secondaryAction.label}
               <ArrowUpRight className="w-4 h-4 rtl-flip-icon" aria-hidden="true" />
             </LocaleLink>
@@ -589,7 +606,9 @@ function SiteFooter({ pathname }: { pathname: string }) {
 
         {/* Contact & Inquiries Column */}
         <div className="footer-column footer-contact-column">
-          <span className="footer-label">{isAr ? "للتواصل والاستفسارات" : "Contact & Inquiries"}</span>
+          <span className="footer-label">
+            {isAr ? "للتواصل والاستفسارات" : "Contact & Inquiries"}
+          </span>
           <div className="footer-contact-info" style={{ marginBottom: 0 }}>
             <a href={`mailto:${EVENT_CONFIG.email}`} className="footer-contact-item">
               <span className="footer-contact-icon" aria-hidden="true">
@@ -597,7 +616,12 @@ function SiteFooter({ pathname }: { pathname: string }) {
               </span>
               <span className="ltr-inline">{EVENT_CONFIG.email}</span>
             </a>
-            <a href="https://wa.me/201017575757" className="footer-contact-item" target="_blank" rel="noreferrer">
+            <a
+              href="https://wa.me/201017575757"
+              className="footer-contact-item"
+              target="_blank"
+              rel="noreferrer"
+            >
               <span className="footer-contact-icon" aria-hidden="true">
                 <Phone className="w-4 h-4" />
               </span>
@@ -622,7 +646,11 @@ function SiteFooter({ pathname }: { pathname: string }) {
         <div className="footer-organizer-block">
           <span className="footer-label">{isAr ? "تنظيم:" : "Organized By:"}</span>
           <div className="organizer-logo-card">
-            <img src={apexLogo} alt="Apex Conventions and Trade Fairs" className="apex-footer-logo" />
+            <img
+              src={apexLogo}
+              alt="Apex Conventions and Trade Fairs"
+              className="apex-footer-logo"
+            />
           </div>
           <strong className="organizer-company-name">{eventText.organizerName}</strong>
           <div className="organizer-contact-lines">
@@ -674,7 +702,7 @@ export function Reveal({
         node.dataset["revealed"] = "true";
         observer.disconnect();
       },
-      { threshold: 0.01, rootMargin: "0px 0px 80px 0px" }
+      { threshold: 0.01, rootMargin: "0px 0px 80px 0px" },
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -714,10 +742,7 @@ export function PageHero({
 }) {
   const bannerTitle = (pageName || eyebrow || "").trim();
   const hasIntroContent = Boolean(
-    (title && title.trim()) ||
-    (description && description.trim()) ||
-    primaryBtn ||
-    secondaryBtn
+    (title && title.trim()) || (description && description.trim()) || primaryBtn || secondaryBtn,
   );
 
   return (
@@ -744,9 +769,7 @@ export function PageHero({
       {hasIntroContent && (
         <section className="subpage-intro-section page-width">
           <Reveal className="subpage-intro-wrap">
-            {title && title.trim() && (
-              <h2 className="subpage-intro-title">{title}</h2>
-            )}
+            {title && title.trim() && <h2 className="subpage-intro-title">{title}</h2>}
             <div className="subpage-intro-red-rule" aria-hidden="true" />
             {description && description.trim() && (
               <p className="subpage-intro-desc">{description}</p>

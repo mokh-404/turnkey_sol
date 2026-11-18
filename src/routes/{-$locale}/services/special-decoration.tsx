@@ -41,7 +41,9 @@ function SpecialDecorationPage() {
         eyebrow={isAr ? "التجهيزات والديكورات الخاصة" : "Special Decoration"}
         title={isAr ? "المقاول الرسمي المعتمد" : "Official Contractor"}
         image={lobbyImage}
-        imageAlt={isAr ? "خدمات تصميم وتنفيذ أجنحة العرض" : "Exhibition stand and decoration services"}
+        imageAlt={
+          isAr ? "خدمات تصميم وتنفيذ أجنحة العرض" : "Exhibition stand and decoration services"
+        }
       />
 
       <section className="services-grid-section page-width" id="contractor-contact">

@@ -60,26 +60,29 @@ function OrganizerPage() {
             {isAr ? (
               <>
                 <p>
-                  شركة متخصصة في تنظيم المعارض والمؤتمرات بخبرة تتجاوز ١٥ عامًا في تطوير وإدارة المعارض التجارية المتخصصة.
+                  شركة متخصصة في تنظيم المعارض والمؤتمرات بخبرة تتجاوز ١٥ عامًا في تطوير وإدارة
+                  المعارض التجارية المتخصصة.
                 </p>
-                <p>
-                  يقوم عملنا على مبدأ واضح: نجاح أي معرض تجاري يبدأ من الفهم الدقيق للسوق.
-                </p>
+                <p>يقوم عملنا على مبدأ واضح: نجاح أي معرض تجاري يبدأ من الفهم الدقيق للسوق.</p>
                 <p style={{ marginBottom: 0 }}>
-                  نحلل طبيعة القطاع وبيئة الأعمال المحيطة به، ونحدد الجمهور المستهدف بدقة، لنبني منصة معرض متكاملة تجمع الشركات الرائدة وصنّاع القرار والمتخصصين تحت سقف واحد.
+                  نحلل طبيعة القطاع وبيئة الأعمال المحيطة به، ونحدد الجمهور المستهدف بدقة، لنبني
+                  منصة معرض متكاملة تجمع الشركات الرائدة وصنّاع القرار والمتخصصين تحت سقف واحد.
                 </p>
               </>
             ) : (
               <>
                 <p>
-                  Apex is a trade-fair organizer with more than 15 years of experience in developing and delivering specialized exhibitions.
+                  Apex is a trade-fair organizer with more than 15 years of experience in developing
+                  and delivering specialized exhibitions.
                 </p>
                 <p>
-                  Our work is built around a simple principle: a successful trade fair starts with understanding the market.
+                  Our work is built around a simple principle: a successful trade fair starts with
+                  understanding the market.
                 </p>
                 <p style={{ marginBottom: 0 }}>
-                  We identify the industry, understand its business environment, define the right audience, and develop an
-                  exhibition platform that brings the relevant companies and professionals together.
+                  We identify the industry, understand its business environment, define the right
+                  audience, and develop an exhibition platform that brings the relevant companies
+                  and professionals together.
                 </p>
               </>
             )}

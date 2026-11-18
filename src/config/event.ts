@@ -73,7 +73,8 @@ export const EVENT_TEXT = {
     dates: EVENT_CONFIG.dates,
     venue: EVENT_CONFIG.venue,
     venueShort: EVENT_CONFIG.venueShort,
-    tagline: "The Alamein Trade Show for Furniture, Smart Furnishing Technologies & Complete Fit-Out Solutions for Coastal Units",
+    tagline:
+      "The Alamein Trade Show for Furniture, Smart Furnishing Technologies & Complete Fit-Out Solutions for Coastal Units",
     organizerName: EVENT_CONFIG.organizer.name,
     contentComingSoon: EVENT_CONFIG.contentComingSoon,
   },
@@ -102,4 +103,3 @@ export const SHOW_SECTORS_AR = [
   "تجهيزات الضيافة",
   "الحلول المتكاملة",
 ] as const;
-

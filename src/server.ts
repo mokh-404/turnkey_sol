@@ -64,12 +64,9 @@ export default {
           const payload = (await request.json()) as FormSubmissionPayload;
           const clientIp =
             request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "0.0.0.0";
-          const proto =
-            request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
+          const proto = request.headers.get("x-forwarded-proto") || url.protocol.replace(":", "");
           const host =
-            request.headers.get("x-forwarded-host") ||
-            request.headers.get("host") ||
-            url.host;
+            request.headers.get("x-forwarded-host") || request.headers.get("host") || url.host;
           const detectedOrigin = `${proto}://${host}`;
           const result = await handleFormSubmission(payload, clientIp, {
             SITE_URL: envRecord["SITE_URL"] || detectedOrigin,

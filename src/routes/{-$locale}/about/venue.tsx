@@ -36,7 +36,11 @@ export const Route = createFileRoute("/{-$locale}/about/venue")({
  * Venue feature icons traced 1:1 from the vector artwork on page 15 of the
  * Turnkey Show 2027 brochure.
  */
-function BrochureIcon({ viewBox, children, ...props }: SVGProps<SVGSVGElement> & { children: ReactNode }) {
+function BrochureIcon({
+  viewBox,
+  children,
+  ...props
+}: SVGProps<SVGSVGElement> & { children: ReactNode }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -170,18 +174,27 @@ function VenuePage() {
       />
 
       {/* Venue description */}
-      <section className="page-width editorial-section-grid" id="venue-info" style={{ paddingTop: "0.5rem" }}>
+      <section
+        className="page-width editorial-section-grid"
+        id="venue-info"
+        style={{ paddingTop: "0.5rem" }}
+      >
         <Reveal className="editorial-copy">
           {isAr ? (
             <>
               <p>
-                يُقام المعرض في مركز العلمين الدولي للمؤتمرات والمعارض، وهو وجهة مجهزة خصيصًا لاستضافة الفعاليات الدولية رفيعة المستوى.
+                يُقام المعرض في مركز العلمين الدولي للمؤتمرات والمعارض، وهو وجهة مجهزة خصيصًا
+                لاستضافة الفعاليات الدولية رفيعة المستوى.
               </p>
               <p>
-                يضم المركز قاعات مؤتمرات حديثة، وغرف اجتماعات مجهزة بالكامل، وأنظمة متطورة للصوت والصورة والترجمة الفورية، بما يتيح استضافة الجلسات العامة والاجتماعات المتوازية بكفاءة.
+                يضم المركز قاعات مؤتمرات حديثة، وغرف اجتماعات مجهزة بالكامل، وأنظمة متطورة للصوت
+                والصورة والترجمة الفورية، بما يتيح استضافة الجلسات العامة والاجتماعات المتوازية
+                بكفاءة.
               </p>
               <p>
-                وتشمل الخدمات المتاحة داخل المركز مناطق التسجيل واعتماد المشاركين، ومكاتب الاستعلامات، ومرافق الأعمال والإعلام، ومساحات مخصصة للاجتماعات الثنائية. وقد صُمم المركز لتوفير بيئة آمنة وفعّالة ومريحة لجميع المشاركين.
+                وتشمل الخدمات المتاحة داخل المركز مناطق التسجيل واعتماد المشاركين، ومكاتب
+                الاستعلامات، ومرافق الأعمال والإعلام، ومساحات مخصصة للاجتماعات الثنائية. وقد صُمم
+                المركز لتوفير بيئة آمنة وفعّالة ومريحة لجميع المشاركين.
               </p>
               <a
                 className="text-link"
@@ -198,15 +211,17 @@ function VenuePage() {
           ) : (
             <>
               <p>
-                The Show will be hosted at the New Alamein International Convention &amp; Exhibition Center — a purpose-built
-                venue equipped to support high-level international events. The facility offers modern conference halls,
-                fully equipped meeting rooms, and advanced audiovisual and interpretation systems to accommodate plenary
-                sessions and parallel meetings.
+                The Show will be hosted at the New Alamein International Convention &amp; Exhibition
+                Center — a purpose-built venue equipped to support high-level international events.
+                The facility offers modern conference halls, fully equipped meeting rooms, and
+                advanced audiovisual and interpretation systems to accommodate plenary sessions and
+                parallel meetings.
               </p>
               <p>
-                On-site services include registration and accreditation areas, information desks, business and media
-                facilities, and dedicated spaces for bilateral engagements. The venue is designed to ensure a secure,
-                efficient, and comfortable environment, Powered By professional staff and integrated technical services.
+                On-site services include registration and accreditation areas, information desks,
+                business and media facilities, and dedicated spaces for bilateral engagements. The
+                venue is designed to ensure a secure, efficient, and comfortable environment,
+                Powered By professional staff and integrated technical services.
               </p>
               <a
                 className="text-link"
@@ -235,7 +250,10 @@ function VenuePage() {
       </section>
 
       {/* Feature Blocks */}
-      <section className="venue-features-section section-band full-width-section" id="venue-features">
+      <section
+        className="venue-features-section section-band full-width-section"
+        id="venue-features"
+      >
         <div className="page-width">
           <div className="venue-features-grid">
             {featureBlocks.map((block) => (

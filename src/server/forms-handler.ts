@@ -5,11 +5,7 @@ import nodemailer from "nodemailer";
 import { EVENT_CONFIG } from "../config/event";
 
 export interface FormSubmissionPayload {
-  form_key:
-    | "exhibitor_booking"
-    | "exhibitor_brochure"
-    | "visitor_registration"
-    | "general_inquiry";
+  form_key: "exhibitor_booking" | "exhibitor_brochure" | "visitor_registration" | "general_inquiry";
   locale?: "en" | "ar" | string;
   lang?: "en" | "ar" | string;
   // Honeypot field (hidden in UI)
@@ -248,10 +244,10 @@ export async function handleFormSubmission(
 ): Promise<{
   success: boolean;
   message: string;
-  error?: string;
-  brochureUrl?: string;
-  registrationNumber?: string;
-  locale?: "en" | "ar";
+  error?: string | undefined;
+  brochureUrl?: string | undefined;
+  registrationNumber?: string | undefined;
+  locale?: "en" | "ar" | undefined;
 }> {
   const dotEnv = loadDotEnv();
   const env: Record<string, string | undefined> = {
@@ -278,9 +274,7 @@ export async function handleFormSubmission(
   // 2. Validate email
   const email = sanitizeHeader(payload.email);
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    const msg = isAr
-      ? "يرجى إدخال بريد إلكتروني صحيح."
-      : "Please provide a valid email address.";
+    const msg = isAr ? "يرجى إدخال بريد إلكتروني صحيح." : "Please provide a valid email address.";
     return { success: false, message: msg, error: msg };
   }
 
@@ -302,8 +296,7 @@ export async function handleFormSubmission(
   }
 
   const siteUrl = env["SITE_URL"] || dotEnv["SITE_URL"] || EVENT_CONFIG.siteUrl;
-  const formsToEmail =
-    env["FORMS_TO_EMAIL"] || dotEnv["FORMS_TO_EMAIL"] || EVENT_CONFIG.email;
+  const formsToEmail = env["FORMS_TO_EMAIL"] || dotEnv["FORMS_TO_EMAIL"] || EVENT_CONFIG.email;
   const brochureSecret =
     env["BROCHURE_TOKEN_SECRET"] || dotEnv["BROCHURE_TOKEN_SECRET"] || DEFAULT_BROCHURE_SECRET;
 
@@ -527,9 +520,7 @@ export async function handleFormSubmission(
     case "visitor_registration": {
       formTitle = "FORM 3: VISITOR REGISTRATION (Visitor Entry Badge Form)";
       formTitleAr = "نموذج تسجيل الزوار (بطاقة الدخول للمعرض)";
-      formPagePath = isAr
-        ? "/ar/visit/visitor-registration"
-        : "/visit/visitor-registration";
+      formPagePath = isAr ? "/ar/visit/visitor-registration" : "/visit/visitor-registration";
       classificationLabel = "VISITOR · Registration";
       subjectDetail = `${displayName} (${registrationNumber})`;
       if (!nameVal) {
@@ -624,9 +615,7 @@ export async function handleFormSubmission(
         mobileDigits.length < 7 ||
         mobileDigits.length > 15
       ) {
-        const m = isAr
-          ? "يرجى إدخال رقم موبايل صحيح."
-          : "Please provide a valid mobile number.";
+        const m = isAr ? "يرجى إدخال رقم موبايل صحيح." : "Please provide a valid mobile number.";
         return { success: false, message: m, error: m };
       }
       if (!payload.subject?.trim()) {
@@ -707,9 +696,7 @@ export async function handleFormSubmission(
     const brochureFilePath = findBrochurePdfPath(env, isAr);
     if (brochureFilePath) {
       userAttachments.push({
-        filename: isAr
-          ? "Brochure Turnkey Show Arabic 2027.pdf"
-          : "Brochure Turnkey Show 2027.pdf",
+        filename: isAr ? "Brochure Turnkey Show Arabic 2027.pdf" : "Brochure Turnkey Show 2027.pdf",
         contentType: "application/pdf",
         filePath: brochureFilePath,
       });
@@ -793,9 +780,7 @@ function renderGroupedSectionsHtmlAndText(
     sectionsMap.set(secName, list);
   }
 
-  const borderSide = forAr
-    ? "border-right: 4px solid #E92924;"
-    : "border-left: 4px solid #E92924;";
+  const borderSide = forAr ? "border-right: 4px solid #E92924;" : "border-left: 4px solid #E92924;";
   const textAlign = forAr ? "right" : "left";
   const dirAttr = forAr ? ' dir="rtl"' : "";
   const fontStack = forAr ? "'Segoe UI', Tahoma, Arial, sans-serif" : "Arial, sans-serif";
@@ -947,10 +932,7 @@ function buildAutoReplyHtml({
   isAr: boolean;
 }): { subject: string; html: string; text: string } {
   const { turnkeyDataUri, apexDataUri } = getEmbeddedLogoDataUris(siteUrl);
-  const { sectionsHtml, sectionsText } = renderGroupedSectionsHtmlAndText(
-    submittedFields,
-    isAr,
-  );
+  const { sectionsHtml, sectionsText } = renderGroupedSectionsHtmlAndText(submittedFields, isAr);
 
   let subject = "";
   let formTypeBadge = "";
@@ -1398,7 +1380,5 @@ async function dispatchEmail({
     }
   }
 
-  console.warn(
-    `[Email Notice] Preview saved to .mail-preview/ for ${to}.`,
-  );
+  console.warn(`[Email Notice] Preview saved to .mail-preview/ for ${to}.`);
 }

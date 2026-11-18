@@ -87,7 +87,9 @@ function VisitorRegistrationPage() {
     if (!emailEl.value.trim()) {
       errors["email"] = isAr ? "يرجى إدخال البريد الإلكتروني." : "Email Address is required.";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
-      errors["email"] = isAr ? "يرجى إدخال بريد إلكتروني صحيح." : "Please enter a valid email address.";
+      errors["email"] = isAr
+        ? "يرجى إدخال بريد إلكتروني صحيح."
+        : "Please enter a valid email address.";
     }
     if (!mobileEl.value.trim()) {
       errors["mobile"] = isAr ? "يرجى إدخال رقم الموبايل." : "Mobile number is required.";
@@ -101,7 +103,9 @@ function VisitorRegistrationPage() {
       setStatus("error");
       const firstErr =
         Object.values(errors)[0] ||
-        (isAr ? "يرجى مراجعة الحقول الموضحة أعلاه." : "Please correct the highlighted fields above.");
+        (isAr
+          ? "يرجى مراجعة الحقول الموضحة أعلاه."
+          : "Please correct the highlighted fields above.");
       setErrorMsg(firstErr);
       showSiteAlert(firstErr);
       return;
@@ -137,12 +141,16 @@ function VisitorRegistrationPage() {
         setErrorMsg(
           json.message ??
             json.error ??
-            (isAr ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً." : "Something went wrong. Please try again."),
+            (isAr
+              ? "حدث خطأ أثناء الإرسال. يرجى المحاولة مجدداً."
+              : "Something went wrong. Please try again."),
         );
       }
     } catch {
       setStatus("error");
-      setErrorMsg(isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.");
+      setErrorMsg(
+        isAr ? "تعذر الاتصال بالخادم. يرجى المحاولة مجدداً." : "Network error. Please try again.",
+      );
     }
   }
 
@@ -150,14 +158,22 @@ function VisitorRegistrationPage() {
     <SiteLayout>
       <PageHero
         eyebrow={isAr ? "سجّل زيارتك" : "Visitor Registration"}
-        title={isAr ? "التسجيل المسبق لزيارة\nمعرض العلمين تيرن كي شو ٢٠٢٧" : "REGISTER TO VISIT\nTURNKEY SHOW 2027"}
+        title={
+          isAr
+            ? "التسجيل المسبق لزيارة\nمعرض العلمين تيرن كي شو ٢٠٢٧"
+            : "REGISTER TO VISIT\nTURNKEY SHOW 2027"
+        }
         description={
           isAr
             ? `سجّل حضورك الآن للحصول على بطاقة الدخول المجانية والوصول إلى دليل العارضين الرقمي ومستجدات المعرض. ${eventText.dates} · ${eventText.venue}`
             : `Sign up now to receive your free entry badge, access the digital exhibitor directory, and get event updates. ${eventText.dates} · ${eventText.venue}`
         }
         image={chalet}
-        imageAlt={isAr ? "تجربة المعيشة الساحلية في معرض تيرن كي" : "Coastal living experience at Turnkey Show"}
+        imageAlt={
+          isAr
+            ? "تجربة المعيشة الساحلية في معرض تيرن كي"
+            : "Coastal living experience at Turnkey Show"
+        }
       />
 
       <section
@@ -173,7 +189,8 @@ function VisitorRegistrationPage() {
             <p className="booking-intro-lead">
               {isAr ? (
                 <>
-                  للتسجيل المسبق لحضور <strong>معرض العلمين تيرن كي شو ٢٠٢٧</strong>، يرجى اتباع الخطوات التالية:
+                  للتسجيل المسبق لحضور <strong>معرض العلمين تيرن كي شو ٢٠٢٧</strong>، يرجى اتباع
+                  الخطوات التالية:
                 </>
               ) : (
                 <>
@@ -184,7 +201,14 @@ function VisitorRegistrationPage() {
             <div className="booking-intro-cols">
               <div className="booking-intro-col">
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
@@ -194,7 +218,14 @@ function VisitorRegistrationPage() {
                   </p>
                 </div>
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
@@ -207,7 +238,14 @@ function VisitorRegistrationPage() {
 
               <div className="booking-intro-col">
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
@@ -217,7 +255,14 @@ function VisitorRegistrationPage() {
                   </p>
                 </div>
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
@@ -227,7 +272,8 @@ function VisitorRegistrationPage() {
                       </>
                     ) : (
                       <>
-                        Please provide the following contact information: <strong>(*required field).</strong>
+                        Please provide the following contact information:{" "}
+                        <strong>(*required field).</strong>
                       </>
                     )}
                   </p>
@@ -248,7 +294,11 @@ function VisitorRegistrationPage() {
               </p>
             </div>
           ) : (
-            <form className="contact-form book-space-custom-form" onSubmit={handleSubmit} noValidate>
+            <form
+              className="contact-form book-space-custom-form"
+              onSubmit={handleSubmit}
+              noValidate
+            >
               {/* Honeypot */}
               <input
                 type="text"
@@ -271,7 +321,9 @@ function VisitorRegistrationPage() {
                   {fieldErrors["name"] && <p className="field-error">{fieldErrors["name"]}</p>}
                 </div>
                 <div className="form-field">
-                  <label htmlFor="visitor-email">{isAr ? "البريد الإلكتروني *" : "Email Address *"}</label>
+                  <label htmlFor="visitor-email">
+                    {isAr ? "البريد الإلكتروني *" : "Email Address *"}
+                  </label>
                   <Input
                     id="visitor-email"
                     name="email"
@@ -298,7 +350,9 @@ function VisitorRegistrationPage() {
                   {fieldErrors["mobile"] && <p className="field-error">{fieldErrors["mobile"]}</p>}
                 </div>
                 <div className="form-field">
-                  <label htmlFor="visitor-category">{isAr ? "فئة الزائر *" : "Visitor Category *"}</label>
+                  <label htmlFor="visitor-category">
+                    {isAr ? "فئة الزائر *" : "Visitor Category *"}
+                  </label>
                   <select
                     id="visitor-category"
                     name="category"
@@ -307,7 +361,9 @@ function VisitorRegistrationPage() {
                       height: "44px",
                       width: "100%",
                       borderRadius: "4px",
-                      border: fieldErrors["category"] ? "1px solid var(--tk-red)" : "1px solid #e5e7eb",
+                      border: fieldErrors["category"]
+                        ? "1px solid var(--tk-red)"
+                        : "1px solid #e5e7eb",
                       padding: "0 12px",
                       background: "#ffffff",
                       fontSize: "0.95rem",
@@ -325,7 +381,9 @@ function VisitorRegistrationPage() {
                       </option>
                     ))}
                   </select>
-                  {fieldErrors["category"] && <p className="field-error">{fieldErrors["category"]}</p>}
+                  {fieldErrors["category"] && (
+                    <p className="field-error">{fieldErrors["category"]}</p>
+                  )}
                 </div>
               </div>
 
@@ -349,7 +407,11 @@ function VisitorRegistrationPage() {
                   <Input
                     id="visitor-title"
                     name="jobTitle"
-                    placeholder={isAr ? "مثال: مصمم داخلي، مدير مشروعات" : "e.g. Interior Designer, Project Manager"}
+                    placeholder={
+                      isAr
+                        ? "مثال: مصمم داخلي، مدير مشروعات"
+                        : "e.g. Interior Designer, Project Manager"
+                    }
                   />
                 </div>
               </div>

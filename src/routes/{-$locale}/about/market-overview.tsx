@@ -39,11 +39,16 @@ function MarketOverviewPage() {
       <PageHero
         eyebrow={isAr ? "نظرة عامة على السوق" : "Market Overview"}
         image={lobbyOcean}
-        imageAlt={isAr ? "تصميم معماري لمنتجعات الضيافة" : "Hospitality and resort architectural design"}
+        imageAlt={
+          isAr ? "تصميم معماري لمنتجعات الضيافة" : "Hospitality and resort architectural design"
+        }
       />
 
       {/* Block M-1 */}
-      <section className="page-width editorial-section-grid editorial-section-grid--fit-copy" id="market-intro">
+      <section
+        className="page-width editorial-section-grid editorial-section-grid--fit-copy"
+        id="market-intro"
+      >
         <Reveal className="editorial-copy">
           <p className="eyebrow">{isAr ? "رؤى السوق" : "Market Context"}</p>
           <div className="section-red-bar" aria-hidden="true" />
@@ -61,23 +66,29 @@ function MarketOverviewPage() {
           {isAr ? (
             <>
               <p>
-                يشهد الساحل الشمالي ومدينة العلمين الجديدة مرحلة جديدة من النمو، مدفوعة بالتوسع العقاري، وزيادة الطاقة الاستيعابية للفنادق والوحدات السكنية، وارتفاع النشاط السياحي، إلى جانب التوجه لتحويل المنطقة إلى وجهة تعمل على مدار العام.
+                يشهد الساحل الشمالي ومدينة العلمين الجديدة مرحلة جديدة من النمو، مدفوعة بالتوسع
+                العقاري، وزيادة الطاقة الاستيعابية للفنادق والوحدات السكنية، وارتفاع النشاط السياحي،
+                إلى جانب التوجه لتحويل المنطقة إلى وجهة تعمل على مدار العام.
               </p>
               <p className="editorial-copy-statement">
-                ولا يقتصر هذا النمو على زيادة المعروض العقاري، بل يخلق سوقًا متناميًا للوحدات الجاهزة للسكن والتأجير والتشغيل والاستثمار، وما يرتبط بها من أثاث وأجهزة منزلية وإضاءة وإكسسوارات وتجهيزات وحلول للمساحات الخارجية والمنازل الذكية.
+                ولا يقتصر هذا النمو على زيادة المعروض العقاري، بل يخلق سوقًا متناميًا للوحدات
+                الجاهزة للسكن والتأجير والتشغيل والاستثمار، وما يرتبط بها من أثاث وأجهزة منزلية
+                وإضاءة وإكسسوارات وتجهيزات وحلول للمساحات الخارجية والمنازل الذكية.
               </p>
             </>
           ) : (
             <>
               <p>
-                The North Coast and the city of New Alamein are experiencing a new phase of growth, driven by real estate
-                expansion, increased hotel and residential capacity, and a surge in tourism activity, alongside a growing
-                trend to transform the region into a year-round destination.
+                The North Coast and the city of New Alamein are experiencing a new phase of growth,
+                driven by real estate expansion, increased hotel and residential capacity, and a
+                surge in tourism activity, alongside a growing trend to transform the region into a
+                year-round destination.
               </p>
               <p className="editorial-copy-statement">
-                This growth is generating not only new real estate units but also a burgeoning market for properties ready
-                for occupancy, rental, operation, and investment—as well as the associated Furniture, Home Appliances,
-                Lighting &amp; Accessories, fixtures, outdoor living solutions, Smart Home Solutions, Complete Fit-Out.
+                This growth is generating not only new real estate units but also a burgeoning
+                market for properties ready for occupancy, rental, operation, and investment—as well
+                as the associated Furniture, Home Appliances, Lighting &amp; Accessories, fixtures,
+                outdoor living solutions, Smart Home Solutions, Complete Fit-Out.
               </p>
             </>
           )}
@@ -119,7 +130,12 @@ function MarketOverviewPage() {
         <div className="two-markets-grid">
           <Reveal className="market-col market-col-new">
             <h3 className="market-col-title">
-              <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+              <svg
+                className="tk-chevron-icon"
+                viewBox="0 0 100 120"
+                fill="currentColor"
+                aria-hidden="true"
+              >
                 <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
               </svg>
               <span>{isAr ? "وحدات حديثة التسليم" : "NEW SUPPLY"}</span>
@@ -153,7 +169,12 @@ function MarketOverviewPage() {
           </Reveal>
           <Reveal className="market-col market-col-existing">
             <h3 className="market-col-title">
-              <svg className="tk-chevron-icon" viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+              <svg
+                className="tk-chevron-icon"
+                viewBox="0 0 100 120"
+                fill="currentColor"
+                aria-hidden="true"
+              >
                 <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
               </svg>
               <span>{isAr ? "وحدات تحت التجديد" : "EXISTING SUPPLY"}</span>

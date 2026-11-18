@@ -103,9 +103,7 @@ function BookYourSpacePage() {
     for (const field of required) {
       const el = form.elements.namedItem(field.name) as HTMLInputElement | null;
       if (!el || !el.value.trim()) {
-        errors[field.name] = isAr
-          ? `يرجى إدخال ${field.arLabel}.`
-          : `${field.label} is required.`;
+        errors[field.name] = isAr ? `يرجى إدخال ${field.arLabel}.` : `${field.label} is required.`;
       }
     }
     const emailEl = form.elements.namedItem("email") as HTMLInputElement | null;
@@ -125,7 +123,9 @@ function BookYourSpacePage() {
       setStatus("error");
       const firstErr =
         Object.values(errors)[0] ||
-        (isAr ? "يرجى مراجعة الحقول الموضحة أعلاه." : "Please correct the highlighted fields above.");
+        (isAr
+          ? "يرجى مراجعة الحقول الموضحة أعلاه."
+          : "Please correct the highlighted fields above.");
       setErrorMsg(firstErr);
       showSiteAlert(firstErr);
       return;
@@ -199,7 +199,10 @@ function BookYourSpacePage() {
       <section
         className="page-width booking-page-wrap"
         id="booking-form-wrap"
-        style={{ paddingTop: "clamp(1.25rem, 2.5vw, 2rem)", paddingBottom: "clamp(2.5rem, 5vw, 4.5rem)" }}
+        style={{
+          paddingTop: "clamp(1.25rem, 2.5vw, 2rem)",
+          paddingBottom: "clamp(2.5rem, 5vw, 4.5rem)",
+        }}
       >
         <Reveal>
           <div className="booking-intro-banner">
@@ -209,25 +212,44 @@ function BookYourSpacePage() {
             <div className="booking-intro-cols">
               <div className="booking-intro-col">
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
                     {isAr ? (
                       <>
-                        يرجى استيفاء طلب الحجز أدناه لتلقي مخطط قاعات العرض وعرض السعر الخاص بجناحكم. يمثل هذا النموذج إبداء رغبة في المشاركة فقط، ويتطلب تأكيد الحجز النهائي طلب استمارة التعاقد الرسمية لمعرض <strong>العلمين تيرن كي شو ٢٠٢٧</strong>.
+                        يرجى استيفاء طلب الحجز أدناه لتلقي مخطط قاعات العرض وعرض السعر الخاص
+                        بجناحكم. يمثل هذا النموذج إبداء رغبة في المشاركة فقط، ويتطلب تأكيد الحجز
+                        النهائي طلب استمارة التعاقد الرسمية لمعرض{" "}
+                        <strong>العلمين تيرن كي شو ٢٠٢٧</strong>.
                       </>
                     ) : (
                       <>
-                        Please complete the reservation form below to receive the floor plan and quotation for your stand.
-                        The form is just a reservation interest notice to the organizer. You have to ask for{" "}
-                        <strong>TURNKEY SHOW ALAMEIN 2027</strong> contract application to confirm your space reservation.
+                        Please complete the reservation form below to receive the floor plan and
+                        quotation for your stand. The form is just a reservation interest notice to
+                        the organizer. You have to ask for{" "}
+                        <strong>TURNKEY SHOW ALAMEIN 2027</strong> contract application to confirm
+                        your space reservation.
                       </>
                     )}
                   </p>
                 </div>
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
@@ -238,7 +260,14 @@ function BookYourSpacePage() {
 
               <div className="booking-intro-col">
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
@@ -248,13 +277,27 @@ function BookYourSpacePage() {
                   </p>
                 </div>
                 <div className="booking-intro-item">
-                  <svg className="booking-intro-chevron" width={11} height={14} viewBox="0 0 100 120" fill="currentColor" aria-hidden="true">
+                  <svg
+                    className="booking-intro-chevron"
+                    width={11}
+                    height={14}
+                    viewBox="0 0 100 120"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
                     <polygon points="0,0 45,0 100,60 45,120 0,120 55,60" />
                   </svg>
                   <p>
-                    <strong>{isAr ? "لأي استفسارات، تواصلوا معنا عبر البريد الإلكتروني:" : "For any questions please contact us on:"}</strong>
+                    <strong>
+                      {isAr
+                        ? "لأي استفسارات، تواصلوا معنا عبر البريد الإلكتروني:"
+                        : "For any questions please contact us on:"}
+                    </strong>
                     <br />
-                    <a href={`mailto:${EVENT_CONFIG.email}`} className="booking-intro-email ltr-inline">
+                    <a
+                      href={`mailto:${EVENT_CONFIG.email}`}
+                      className="booking-intro-email ltr-inline"
+                    >
                       {EVENT_CONFIG.email}
                     </a>
                   </p>
@@ -288,26 +331,62 @@ function BookYourSpacePage() {
 
               {/* Section 1: Exhibitor Information */}
               <div className="form-section-block" style={{ marginBottom: "3rem" }}>
-                <h3 style={{ color: "var(--tk-red)", fontSize: "1.5rem", fontWeight: 900, marginBottom: "1.5rem", textTransform: "none" }}>
+                <h3
+                  style={{
+                    color: "var(--tk-red)",
+                    fontSize: "1.5rem",
+                    fontWeight: 900,
+                    marginBottom: "1.5rem",
+                    textTransform: "none",
+                  }}
+                >
                   {isAr ? "بيانات العارض" : "Exhibitor Information"}
                 </h3>
 
-                <div className="form-two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+                <div
+                  className="form-two-col-grid"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "1.5rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
                   <div className="form-field">
-                    <label htmlFor="companyName" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="companyName"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "اسم الشركة *" : "Company Name *"}
                     </label>
                     <Input
                       id="companyName"
                       name="companyName"
-                      placeholder={isAr ? "الاسم التجاري المسجل للشركة" : "Your registered company name"}
+                      placeholder={
+                        isAr ? "الاسم التجاري المسجل للشركة" : "Your registered company name"
+                      }
                       required
                       className={fieldErrors["companyName"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["companyName"] && <p className="field-error">{fieldErrors["companyName"]}</p>}
+                    {fieldErrors["companyName"] && (
+                      <p className="field-error">{fieldErrors["companyName"]}</p>
+                    )}
                   </div>
                   <div className="form-field">
-                    <label htmlFor="companyWebsite" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="companyWebsite"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "الموقع الإلكتروني للشركة *" : "Company Website *"}
                     </label>
                     <Input
@@ -317,13 +396,31 @@ function BookYourSpacePage() {
                       required
                       className={fieldErrors["companyWebsite"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["companyWebsite"] && <p className="field-error">{fieldErrors["companyWebsite"]}</p>}
+                    {fieldErrors["companyWebsite"] && (
+                      <p className="field-error">{fieldErrors["companyWebsite"]}</p>
+                    )}
                   </div>
                 </div>
 
-                <div className="form-two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+                <div
+                  className="form-two-col-grid"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "1.5rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
                   <div className="form-field">
-                    <label htmlFor="country" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="country"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "الدولة *" : "Country *"}
                     </label>
                     <select
@@ -350,13 +447,25 @@ function BookYourSpacePage() {
                     </select>
                   </div>
                   <div className="form-field">
-                    <label htmlFor="city" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="city"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "المدينة *" : "City *"}
                     </label>
                     <Input
                       id="city"
                       name="city"
-                      placeholder={isAr ? "مثال: القاهرة، الإسكندرية، دبي، الرياض" : "e.g. Cairo, Dubai, Riyadh"}
+                      placeholder={
+                        isAr
+                          ? "مثال: القاهرة، الإسكندرية، دبي، الرياض"
+                          : "e.g. Cairo, Dubai, Riyadh"
+                      }
                       required
                       className={fieldErrors["city"] ? "field-invalid" : ""}
                     />
@@ -364,9 +473,25 @@ function BookYourSpacePage() {
                   </div>
                 </div>
 
-                <div className="form-two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+                <div
+                  className="form-two-col-grid"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "1.5rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
                   <div className="form-field">
-                    <label htmlFor="phone" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="phone"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "رقم الهاتف *" : "Phone Number *"}
                     </label>
                     <Input
@@ -380,7 +505,15 @@ function BookYourSpacePage() {
                     {fieldErrors["phone"] && <p className="field-error">{fieldErrors["phone"]}</p>}
                   </div>
                   <div className="form-field">
-                    <label htmlFor="email" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="email"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "البريد الإلكتروني *" : "Email *"}
                     </label>
                     <Input
@@ -395,46 +528,100 @@ function BookYourSpacePage() {
                   </div>
                 </div>
 
-                <div className="form-two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+                <div
+                  className="form-two-col-grid"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "1.5rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
                   <div className="form-field">
-                    <label htmlFor="contactName" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="contactName"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "اسم مسؤول التواصل *" : "Contact Person Name *"}
                     </label>
                     <Input
                       id="contactName"
                       name="contactName"
-                      placeholder={isAr ? "الاسم الكامل لممثل الشركة" : "Full name of representative"}
+                      placeholder={
+                        isAr ? "الاسم الكامل لممثل الشركة" : "Full name of representative"
+                      }
                       required
                       className={fieldErrors["contactName"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["contactName"] && <p className="field-error">{fieldErrors["contactName"]}</p>}
+                    {fieldErrors["contactName"] && (
+                      <p className="field-error">{fieldErrors["contactName"]}</p>
+                    )}
                   </div>
                   <div className="form-field">
-                    <label htmlFor="jobTitle" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="jobTitle"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "المسمى الوظيفي *" : "Job Title *"}
                     </label>
                     <Input
                       id="jobTitle"
                       name="jobTitle"
-                      placeholder={isAr ? "مثال: المدير العام، مدير المبيعات" : "e.g. Managing Director, Sales Head"}
+                      placeholder={
+                        isAr
+                          ? "مثال: المدير العام، مدير المبيعات"
+                          : "e.g. Managing Director, Sales Head"
+                      }
                       required
                       className={fieldErrors["jobTitle"] ? "field-invalid" : ""}
                     />
-                    {fieldErrors["jobTitle"] && <p className="field-error">{fieldErrors["jobTitle"]}</p>}
+                    {fieldErrors["jobTitle"] && (
+                      <p className="field-error">{fieldErrors["jobTitle"]}</p>
+                    )}
                   </div>
                 </div>
               </div>
 
               {/* Section 2: Exhibitor Profile */}
-              <div className="form-section-block" style={{ marginBottom: "3rem", paddingTop: "1rem", borderTop: "1px solid #e5e7eb" }}>
-                <h3 style={{ color: "var(--tk-red)", fontSize: "1.5rem", fontWeight: 900, marginBottom: "1.5rem", textTransform: "none" }}>
+              <div
+                className="form-section-block"
+                style={{ marginBottom: "3rem", paddingTop: "1rem", borderTop: "1px solid #e5e7eb" }}
+              >
+                <h3
+                  style={{
+                    color: "var(--tk-red)",
+                    fontSize: "1.5rem",
+                    fontWeight: 900,
+                    marginBottom: "1.5rem",
+                    textTransform: "none",
+                  }}
+                >
                   {isAr ? "ملف المشاركة والقطاعات" : "Exhibitor Profile"}
                 </h3>
 
                 {/* Sectors of interest */}
                 <div className="form-field" style={{ marginBottom: "2rem" }}>
-                  <label style={{ fontWeight: 700, fontSize: "1rem", display: "block", marginBottom: "0.75rem" }}>
-                    {isAr ? "القطاعات الرئيسية (اختر جميع القطاعات ذات الصلة) *" : "Core Industry Sectors (Select all that apply) *"}
+                  <label
+                    style={{
+                      fontWeight: 700,
+                      fontSize: "1rem",
+                      display: "block",
+                      marginBottom: "0.75rem",
+                    }}
+                  >
+                    {isAr
+                      ? "القطاعات الرئيسية (اختر جميع القطاعات ذات الصلة) *"
+                      : "Core Industry Sectors (Select all that apply) *"}
                   </label>
                   <div
                     className="form-sectors-grid"
@@ -469,12 +656,32 @@ function BookYourSpacePage() {
                       </label>
                     ))}
                   </div>
-                  {fieldErrors["sectors"] && <p className="field-error" style={{ marginTop: "0.5rem" }}>{fieldErrors["sectors"]}</p>}
+                  {fieldErrors["sectors"] && (
+                    <p className="field-error" style={{ marginTop: "0.5rem" }}>
+                      {fieldErrors["sectors"]}
+                    </p>
+                  )}
                 </div>
 
-                <div className="form-two-col-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+                <div
+                  className="form-two-col-grid"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: "1.5rem",
+                    marginBottom: "1.5rem",
+                  }}
+                >
                   <div className="form-field">
-                    <label htmlFor="standType" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="standType"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "نوع الجناح المفضل" : "Preferred Stand Type"}
                     </label>
                     <select
@@ -502,20 +709,40 @@ function BookYourSpacePage() {
                     </select>
                   </div>
                   <div className="form-field">
-                    <label htmlFor="standSize" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
+                    <label
+                      htmlFor="standSize"
+                      style={{
+                        fontWeight: 700,
+                        fontSize: "0.95rem",
+                        display: "block",
+                        marginBottom: "0.5rem",
+                      }}
+                    >
                       {isAr ? "المساحة التقديرية المطلوبة (م²)" : "Estimated Booth Space (SQM)"}
                     </label>
                     <Input
                       id="standSize"
                       name="standSize"
-                      placeholder={isAr ? "مثال: ١٨ م²، ٣٦ م²، +٥٤ م²" : "e.g. 18 SQM, 36 SQM, 54+ SQM"}
+                      placeholder={
+                        isAr ? "مثال: ١٨ م²، ٣٦ م²، +٥٤ م²" : "e.g. 18 SQM, 36 SQM, 54+ SQM"
+                      }
                     />
                   </div>
                 </div>
 
                 <div className="form-field" style={{ marginBottom: "2rem" }}>
-                  <label htmlFor="message" style={{ fontWeight: 700, fontSize: "0.95rem", display: "block", marginBottom: "0.5rem" }}>
-                    {isAr ? "متطلبات إضافية أو استفسارات حول المساحة" : "Additional Requirements or Space Inquiries"}
+                  <label
+                    htmlFor="message"
+                    style={{
+                      fontWeight: 700,
+                      fontSize: "0.95rem",
+                      display: "block",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    {isAr
+                      ? "متطلبات إضافية أو استفسارات حول المساحة"
+                      : "Additional Requirements or Space Inquiries"}
                   </label>
                   <Textarea
                     id="message"
@@ -531,12 +758,21 @@ function BookYourSpacePage() {
               </div>
 
               {status === "error" && (
-                <p className="form-error-msg" role="alert" style={{ marginBottom: "1.5rem", fontSize: "1rem" }}>
+                <p
+                  className="form-error-msg"
+                  role="alert"
+                  style={{ marginBottom: "1.5rem", fontSize: "1rem" }}
+                >
                   {errorMsg}
                 </p>
               )}
 
-              <Button type="submit" size="lg" className="show-button" disabled={status === "sending"}>
+              <Button
+                type="submit"
+                size="lg"
+                className="show-button"
+                disabled={status === "sending"}
+              >
                 {status === "sending"
                   ? isAr
                     ? "جارٍ الإرسال…"
