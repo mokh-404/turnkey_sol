@@ -60,8 +60,7 @@ const MEANINGFUL_CHUNK_NAMES: Record<string, string> = {
   index: "app-main-client-entry",
   SiteLayout: "layout-global-header-footer-and-scroll-reveal-animation",
   Animation_StatsCountUp_HeroAndMarketNumbers: "animation-stats-count-up-numbers",
-  Animation_InfiniteSectorsTickerRibbon_HomeBelowAbout:
-    "animation-infinite-sectors-ticker-ribbon",
+  Animation_InfiniteSectorsTickerRibbon_HomeBelowAbout: "animation-infinite-sectors-ticker-ribbon",
   Animation_PropertyDemandCycleTimeline_HomeAndMarketOverview:
     "animation-property-demand-cycle-timeline",
   formAlerts: "form-validation-popup-alert-modal",
