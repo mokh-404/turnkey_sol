@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import venueImage from "@/assets/venue.webp";
+import venueImage from "@/assets/alamein-convention-center-venue-photo-and-book-space-banner.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

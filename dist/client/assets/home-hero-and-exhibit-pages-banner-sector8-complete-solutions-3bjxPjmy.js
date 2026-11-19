@@ -1,0 +1,1 @@
+var e=`/assets/home-hero-and-exhibit-pages-banner-sector8-complete-solutions-D_fl30hd.webp`;export{e as t};

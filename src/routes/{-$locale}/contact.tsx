@@ -2,8 +2,8 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Phone } from "lucide-react";
 
-import coastImage from "@/assets/turquoise-skyline.webp";
-import apexLogo from "@/assets/logos/apex-logo.png";
+import coastImage from "@/assets/contact-us-and-organizer-page-banner.webp";
+import apexLogo from "@/assets/logos/footer-and-contact-organizer-apex-logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Clock } from "lucide-react";
 
-import lobbyImage from "@/assets/lobby-ocean.webp";
+import lobbyImage from "@/assets/sector7-hospitality-fitout-and-market-services-banner.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { resolveLocale, useLocale } from "@/lib/i18n";
 

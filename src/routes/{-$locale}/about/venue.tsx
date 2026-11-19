@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import venueImage from "@/assets/venue.webp";
+import venueImage from "@/assets/alamein-convention-center-venue-photo-and-book-space-banner.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { resolveLocale, useLocale } from "@/lib/i18n";
 import type { ReactNode, SVGProps } from "react";

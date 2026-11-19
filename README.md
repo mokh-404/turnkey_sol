@@ -98,8 +98,13 @@ red-thread-visitor-guide/
 │           ├── bootstrap.php         # Config loader, sanitizers, rate limiter, PHPMailer factory
 │           └── PHPMailer/            # Bundled PHPMailer v6.10.0 (PHPMailer.php, SMTP.php, Exception.php)
 ├── src/
-│   ├── assets/                       # Optimized .webp & .png images bundled by Vite into dist/client/assets/
-│   ├── components/                   # SiteLayout (Header/Footer), AnimatedCounter, DemandCycle, MarqueeRibbon, UI kit
+│   ├── assets/                       # Descriptive, section-named .webp & .png images + ASSETS_AND_ANIMATIONS_MAP.md
+│   ├── components/
+│   │   ├── Animation_StatsCountUp_HeroAndMarketNumbers.tsx
+│   │   ├── Animation_InfiniteSectorsTickerRibbon_HomeBelowAbout.tsx
+│   │   ├── Animation_PropertyDemandCycleTimeline_HomeAndMarketOverview.tsx
+│   │   ├── SiteLayout.tsx            # Global Header, Footer, PageHero, and Scroll Reveal Animation
+│   │   └── ui/                       # UI primitives
 │   ├── config/event.ts               # Single source of truth for event dates, venue, emails, phones, sectors (EN/AR)
 │   ├── lib/
 │   │   ├── i18n.tsx                  # Locale detection, LocaleLink, Arabic-Indic digit conversion
@@ -112,6 +117,41 @@ red-thread-visitor-guide/
 └── dist/
     └── client/                       # Tracked production build output deployed to /home/turnkeyshow/public_html
 ```
+
+### Visual Assets & Animations Map (What & Where on the Site)
+
+See also [src/assets/ASSETS_AND_ANIMATIONS_MAP.md](src/assets/ASSETS_AND_ANIMATIONS_MAP.md) for the complete reference.
+
+#### Animations (`src/components/` & `src/site.css`)
+
+| File / Selector | Which Animation It Is | Where It Is on the Site |
+| :--- | :--- | :--- |
+| `src/components/Animation_StatsCountUp_HeroAndMarketNumbers.tsx` | **Stats Count-Up Number Animation (`AnimatedCounter`)** — Counts numbers up from `0` on scroll into view (`13,000 SQM`, `120`, `8,000+`, `EGP 1.2T`, `EGP 185B`, `46,189+`, `15,000+`), with automatic Arabic-Indic numeral conversion on `/ar/...`. | **Homepage Hero Bottom Bar**, **Homepage Market at a Glance**, **About → Market Overview**, and **Exhibit → Why Exhibit** |
+| `src/components/Animation_InfiniteSectorsTickerRibbon_HomeBelowAbout.tsx` | **Infinite 8-Sectors Horizontal Ticker Ribbon (`MarqueeRibbon`)** — Continuous horizontal scrolling loop of the 8 Core Sectors with red chevron dividers. | **Homepage (`/`)** — Directly below *"About the Expo"* and above *"Two Markets… One Opportunity"* |
+| `src/components/Animation_PropertyDemandCycleTimeline_HomeAndMarketOverview.tsx` | **7-Step Coastal Property Demand Cycle Timeline (`DemandCycle`)** — Sequential step-by-step animated timeline across the 7 property lifecycle stages. | **Homepage (`/`)** & **About → Market Overview (`/about/market-overview`)** — *"The Market: The Cycle That Creates the Demand"* |
+| `src/components/SiteLayout.tsx` (`Reveal`) | **Scroll-Into-View Section Fade-Up & Red Bar Scale (`Reveal`)** — Fades content blocks upward (`translateY(18px) -> 0`) and expands `.section-red-bar` (`scaleX(0) -> 1`) on scroll. | **All 16 Pages (EN & AR)** — Wraps every section heading, card grid, editorial photo, and form card |
+| `src/components/SiteLayout.tsx` (`.header-scroll-progress`) | **Header Bottom Red Scroll Progress Line** — 3px red bar at the bottom of the sticky header that scales `0% -> 100%` as the user scrolls (`z-index: 90`, behind menus). | **Global Sticky Header** on all pages |
+| `src/site.css` (`.hero-zoom` & `.hero-corner-chevron`) | **Hero Ken-Burns Background Zoom & Floating Red Corner Chevron** — Slow background zoom + pulsing floating red chevron in the hero corner. | **Homepage (`/`) Main Hero Banner** |
+
+#### Image Assets (`src/assets/`)
+
+| Descriptive Filename in `src/assets/` | Where It Is Used on the Site |
+| :--- | :--- |
+| `home-hero-and-exhibit-pages-banner-sector8-complete-solutions.webp` | **Homepage Main Hero background**, **Exhibit pages top hero banner** (`/exhibit/why-exhibit`, `/exhibit/visitor-profile`, `/exhibit/download-brochure`), and **Sector 8 Card** (*Complete Integrated Solutions*) |
+| `home-about-expo-and-sector1-furniture-interiors.webp` | **Homepage "About the Expo" section photo**, **Sector 1 Card** (*Furniture & Interior Furnishings*), and top hero banner on **About → Turnkey Show** & **Visit → Exhibitor Profile** |
+| `sector2-kitchens-and-equipment-card.webp` | **Sector 2 Card (*Kitchens & Equipment*)** on Homepage, About → Turnkey Show, and Visit → Exhibitor Profile |
+| `sector3-home-appliances-card.webp` | **Sector 3 Card (*Home Appliances*)** on Homepage, About → Turnkey Show, and Visit → Exhibitor Profile |
+| `sector4-outdoor-living-and-about-concept-photo.webp` | **Sector 4 Card (*Outdoor Living*)** + **"The Concept" section photo** on About → Turnkey Show |
+| `sector5-smart-unit-automation-card.webp` | **Sector 5 Card (*Smart Unit Automation*)** on Homepage, About → Turnkey Show, and Visit → Exhibitor Profile |
+| `sector6-modern-lighting-technology-card.webp` | **Sector 6 Card (*Modern Lighting Technology*)** on Homepage, About → Turnkey Show, and Visit → Exhibitor Profile |
+| `sector7-hospitality-fitout-and-market-services-banner.webp` | **Sector 7 Card (*Hospitality Fit-Out*)**, **About → Market Overview** hero banner & photo, and **all 3 Services pages** top hero banner |
+| `home-two-markets-north-coast-section-photo.webp` | **Homepage "The North Coast Is Entering a New Era / Two Markets… One Opportunity" section photo** |
+| `alamein-convention-center-venue-photo-and-book-space-banner.webp` | **Homepage bottom "Venue" section photo**, **About → Venue** hero banner & photo, and **Exhibit → Book Your Space** top hero banner |
+| `visit-why-visit-and-visitor-registration-banner.webp` | **Visit → Why Visit** and **Visit → Visitor Registration** top hero banner |
+| `contact-us-and-organizer-page-banner.webp` | **Contact Us (`/contact`)** and **About → The Organizer (`/about/organizer`)** top hero banner |
+| `default-subpage-hero-fallback-banner.webp` | Default fallback subpage hero banner in `SiteLayout.tsx` (`PageHero`) |
+| `logos/header-and-footer-turnkey-show-logo.png` | **Global Header & Footer** Turnkey Show Alamein logo |
+| `logos/footer-and-contact-organizer-apex-logo.png` | **Global Footer ("Organized By")**, **About → Organizer**, and **Contact Us** organizer card Apex logo |
 
 ---
 

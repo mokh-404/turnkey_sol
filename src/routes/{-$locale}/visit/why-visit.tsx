@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import chalet from "@/assets/chalet.webp";
+import chalet from "@/assets/visit-why-visit-and-visitor-registration-banner.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_TEXT } from "@/config/event";
 import { resolveLocale, useLocale } from "@/lib/i18n";

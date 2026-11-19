@@ -13,9 +13,9 @@ import {
   Facebook,
 } from "lucide-react";
 
-import turnkeyLogo from "@/assets/logos/turnkey-show-logo.png";
-import apexLogo from "@/assets/logos/apex-logo.png";
-import heroCoast from "@/assets/hero-coast.webp";
+import turnkeyLogo from "@/assets/logos/header-and-footer-turnkey-show-logo.png";
+import apexLogo from "@/assets/logos/footer-and-contact-organizer-apex-logo.png";
+import heroCoast from "@/assets/default-subpage-hero-fallback-banner.webp";
 import { Button } from "@/components/ui/button";
 import { EVENT_CONFIG, EVENT_TEXT } from "@/config/event";
 import { LocaleLink, stripLocale, useLocale, type Locale } from "@/lib/i18n";
@@ -827,4 +827,4 @@ export function PageHero({
   );
 }
 
-export { AnimatedCounter } from "./AnimatedCounter";
+export { AnimatedCounter } from "./Animation_StatsCountUp_HeroAndMarketNumbers";

@@ -1,0 +1,1 @@
+import{t as e}from"./useLocation-D9HexHLj.js";import{c as t,d as n,h as r,l as i,s as a}from"./index-DzSRXeK5.js";var o=r();function s(){let r=e(),{isAr:s}=t(),c=a(r.pathname);return c===`/about`||c===`/about/`?(0,o.jsx)(n,{to:`/{-$locale}/about/turnkey-show`,params:{locale:s?`ar`:void 0},replace:!0}):(0,o.jsx)(i,{})}export{s as component};

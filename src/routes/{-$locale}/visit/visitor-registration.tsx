@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 
-import chalet from "@/assets/chalet.webp";
+import chalet from "@/assets/visit-why-visit-and-visitor-registration-banner.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { showSiteAlert, useScrollOnSuccess, validateContactFields } from "@/lib/formAlerts";

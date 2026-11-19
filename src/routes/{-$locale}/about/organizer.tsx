@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import turquoiseSkyline from "@/assets/turquoise-skyline.webp";
-import apexLogo from "@/assets/logos/apex-logo.png";
+import turquoiseSkyline from "@/assets/contact-us-and-organizer-page-banner.webp";
+import apexLogo from "@/assets/logos/footer-and-contact-organizer-apex-logo.png";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { resolveLocale, useLocale } from "@/lib/i18n";
 

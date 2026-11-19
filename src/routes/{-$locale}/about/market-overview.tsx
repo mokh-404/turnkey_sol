@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import lobbyOcean from "@/assets/lobby-ocean.webp";
+import lobbyOcean from "@/assets/sector7-hospitality-fitout-and-market-services-banner.webp";
 import { AnimatedCounter, PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { resolveLocale, useLocale } from "@/lib/i18n";
 

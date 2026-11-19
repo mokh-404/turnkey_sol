@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import villaShowcase from "@/assets/villa-showcase.webp";
+import villaShowcase from "@/assets/home-hero-and-exhibit-pages-banner-sector8-complete-solutions.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { resolveLocale, useLocale } from "@/lib/i18n";
 

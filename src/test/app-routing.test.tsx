@@ -11,7 +11,7 @@ import {
 import { render, screen, act } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { AnimatedCounter } from "@/components/Animation_StatsCountUp_HeroAndMarketNumbers";
 import { routeTree } from "@/routeTree.gen";
 import { localizePath, stripLocale, toArabicDigits, useLocale } from "@/lib/i18n";
 

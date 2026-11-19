@@ -1,1 +1,0 @@
-var e=`/assets/turquoise-skyline-CmGuC3DE.webp`;export{e as t};

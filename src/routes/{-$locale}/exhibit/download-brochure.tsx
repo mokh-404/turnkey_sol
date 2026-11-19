@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, Download } from "lucide-react";
 
-import villaShowcase from "@/assets/villa-showcase.webp";
+import villaShowcase from "@/assets/home-hero-and-exhibit-pages-banner-sector8-complete-solutions.webp";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useScrollOnSuccess, validateContactFields } from "@/lib/formAlerts";

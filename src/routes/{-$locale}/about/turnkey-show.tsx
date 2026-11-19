@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import livingRoom from "@/assets/living-room.webp";
-import smokedOakApplianceWall from "@/assets/smoked-oak-appliance-wall.webp";
-import warmKitchen from "@/assets/warm-kitchen.webp";
-import smartHome from "@/assets/smart-home.webp";
-import smartLiving from "@/assets/smart-living.webp";
-import terraceSunset from "@/assets/terrace-sunset.webp";
-import lobbyOcean from "@/assets/lobby-ocean.webp";
-import villaShowcase from "@/assets/villa-showcase.webp";
+import livingRoom from "@/assets/home-about-expo-and-sector1-furniture-interiors.webp";
+import smokedOakApplianceWall from "@/assets/sector3-home-appliances-card.webp";
+import warmKitchen from "@/assets/sector2-kitchens-and-equipment-card.webp";
+import smartHome from "@/assets/sector5-smart-unit-automation-card.webp";
+import smartLiving from "@/assets/sector6-modern-lighting-technology-card.webp";
+import terraceSunset from "@/assets/sector4-outdoor-living-and-about-concept-photo.webp";
+import lobbyOcean from "@/assets/sector7-hospitality-fitout-and-market-services-banner.webp";
+import villaShowcase from "@/assets/home-hero-and-exhibit-pages-banner-sector8-complete-solutions.webp";
 import { PageHero, Reveal, SiteLayout } from "@/components/SiteLayout";
 import { EVENT_TEXT } from "@/config/event";
 import { LocaleLink, resolveLocale, useLocale } from "@/lib/i18n";
