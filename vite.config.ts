@@ -71,8 +71,12 @@ const MEANINGFUL_CHUNK_NAMES: Record<string, string> = {
 };
 
 function getMeaningfulJsName(rawName: string): string {
-  const mapped = MEANINGFUL_CHUNK_NAMES[rawName] || rawName;
-  return `assets/${mapped}.js`;
+  const mapped = MEANINGFUL_CHUNK_NAMES[rawName];
+  if (mapped) {
+    return `assets/${mapped}.js`;
+  }
+  // Shared image-URL reference modules generated when multiple routes import the same .webp image
+  return `assets/image-url-module-${rawName}.js`;
 }
 
 function getMeaningfulAssetName(assetInfo: { name?: string; names?: string[] }): string {

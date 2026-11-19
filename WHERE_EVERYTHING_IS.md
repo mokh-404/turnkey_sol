@@ -148,3 +148,53 @@ Every route file in `src/routes/{-$locale}/` contains **both** the English (`en`
 | `public/sitemap.xml` | Bilingual XML sitemap for `https://turnkeyshow.com` (regenerated automatically on every `npm run build`). |
 | `public/robots.txt` | Search crawler rules pointing to `https://turnkeyshow.com/sitemap.xml`. |
 | `dist/client/` | Compiled production folder ready for cPanel deployment. Always run `npm run build` after making code/asset edits so `dist/client/` is updated before committing. |
+
+---
+
+## 9. Every File Inside `public_html/assets/` on the Live cPanel Server
+
+All random hash suffixes (`-BYZ3ur9d`, `-sHA9craO`, etc.) and cryptic names (`_-_locale_`) have been removed from the production build output. Every file inside `/home/turnkeyshow/public_html/assets/` (and `dist/client/assets/`) is named after its exact role on the website:
+
+### A. Images & Logos in `public_html/assets/`
+You can replace any of these `.webp` or `.png` files directly in cPanel File Manager (`public_html/assets/`) using the exact same filename:
+- `home-hero-and-exhibit-pages-banner-sector8-complete-solutions.webp`
+- `home-about-expo-and-sector1-furniture-interiors.webp`
+- `home-two-markets-north-coast-section-photo.webp`
+- `sector2-kitchens-and-equipment-card.webp`
+- `sector3-home-appliances-card.webp`
+- `sector4-outdoor-living-and-about-concept-photo.webp`
+- `sector5-smart-unit-automation-card.webp`
+- `sector6-modern-lighting-technology-card.webp`
+- `sector7-hospitality-fitout-and-market-services-banner.webp`
+- `alamein-convention-center-venue-photo-and-book-space-banner.webp`
+- `visit-why-visit-and-visitor-registration-banner.webp`
+- `contact-us-and-organizer-page-banner.webp`
+- `default-subpage-hero-fallback-banner.webp`
+- `header-and-footer-turnkey-show-logo.png`
+- `footer-and-contact-organizer-apex-logo.png`
+
+### B. Stylesheet in `public_html/assets/`
+- `site-master-styles.css` — Compiled master CSS stylesheet (`src/site.css` + `src/styles/rtl.css` + `src/styles/book-your-space.css`).
+
+### C. Page, Animation & Layout Scripts in `public_html/assets/`
+- `page-homepage.js` — Homepage (`/`, `/ar`) + Infinite 8-Sectors Ticker Ribbon animation
+- `page-about-turnkey-show.js` — About → Turnkey Show (`/about/turnkey-show`)
+- `page-about-market-overview.js` — About → Market Overview (`/about/market-overview`)
+- `page-about-organizer.js` — About → The Organizer (`/about/organizer`)
+- `page-about-venue.js` — About → The Venue (`/about/venue`)
+- `page-exhibit-why-exhibit.js` — Exhibit → Why Exhibit (`/exhibit/why-exhibit`)
+- `page-exhibit-visitor-profile.js` — Exhibit → Visitor Profile (`/exhibit/visitor-profile`)
+- `page-exhibit-book-your-space-form.js` — Exhibit → Book Your Space form (`/exhibit/book-your-space`)
+- `page-exhibit-download-brochure-form.js` — Exhibit → Download Brochure form (`/exhibit/download-brochure`)
+- `page-visit-exhibitor-profile.js` — Visit → Exhibitor Profile (`/visit/exhibitor-profile`)
+- `page-visit-why-visit.js` — Visit → Why Visit (`/visit/why-visit`)
+- `page-visit-visitor-registration-form.js` — Visit → Visitor Registration form (`/visit/visitor-registration`)
+- `page-services-special-decoration.js` — Services → Special Decoration (`/services/special-decoration`)
+- `page-services-freight-forwarding.js` — Services → Freight Forwarding (`/services/freight-forwarding`)
+- `page-services-travel-and-accommodation.js` — Services → Travel & Accommodation (`/services/travel`)
+- `page-contact-us-form.js` — Contact Us form (`/contact`)
+- `animation-stats-count-up-numbers.js` — Animated number counter (`13,000 SQM`, `120`, `8,000+`, `1.2T`, `185B`, `46,189+`)
+- `layout-global-header-footer-and-scroll-reveal-animation.js` — Global Header, Footer, PageHero, and Scroll Fade-Up Reveal animation
+- `form-validation-popup-alert-modal.js` — In-website form validation popup alert modal (`showSiteAlert`)
+- `app-main-client-entry.js` — React & TanStack Router core runtime
+
