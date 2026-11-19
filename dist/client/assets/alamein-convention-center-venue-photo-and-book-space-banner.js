@@ -1,0 +1,1 @@
+var e=`/assets/alamein-convention-center-venue-photo-and-book-space-banner.webp`;export{e as t};

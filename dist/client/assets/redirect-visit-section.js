@@ -1,0 +1,1 @@
+import{t as e}from"./router-location-hook.js";import{c as t,d as n,h as r,l as i,s as a}from"./app-main-client-entry.js";var o=r();function s(){let r=e(),{isAr:s}=t(),c=a(r.pathname);return c===`/visit`||c===`/visit/`?(0,o.jsx)(n,{to:`/{-$locale}/visit/exhibitor-profile`,params:{locale:s?`ar`:void 0},replace:!0}):(0,o.jsx)(i,{})}export{s as component};

@@ -1,0 +1,1 @@
+import{h as e,l as t}from"./app-main-client-entry.js";var n=e(),r=()=>(0,n.jsx)(t,{});export{r as component};

@@ -1,0 +1,1 @@
+var e=`/assets/sector7-hospitality-fitout-and-market-services-banner.webp`;export{e as t};

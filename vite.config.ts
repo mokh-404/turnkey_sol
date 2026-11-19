@@ -31,6 +31,60 @@ const EN_PATHS = [
 
 const ALL_PATHS = EN_PATHS.flatMap((p) => [p, p === "/" ? "/ar" : `/ar${p}`]);
 
+/**
+ * Maps internal Vite/TanStack route & component chunk names to clear, self-explanatory
+ * filenames in `public_html/assets/` with no random hash suffixes.
+ */
+const MEANINGFUL_CHUNK_NAMES: Record<string, string> = {
+  "_-_locale_": "page-homepage",
+  "turnkey-show": "page-about-turnkey-show",
+  "market-overview": "page-about-market-overview",
+  organizer: "page-about-organizer",
+  venue: "page-about-venue",
+  "why-exhibit": "page-exhibit-why-exhibit",
+  "visitor-profile": "page-exhibit-visitor-profile",
+  "book-your-space": "page-exhibit-book-your-space-form",
+  "download-brochure": "page-exhibit-download-brochure-form",
+  "exhibitor-profile": "page-visit-exhibitor-profile",
+  "why-visit": "page-visit-why-visit",
+  "visitor-registration": "page-visit-visitor-registration-form",
+  "special-decoration": "page-services-special-decoration",
+  "freight-forwarding": "page-services-freight-forwarding",
+  travel: "page-services-travel-and-accommodation",
+  contact: "page-contact-us-form",
+  about: "redirect-about-section",
+  exhibit: "redirect-exhibit-section",
+  visit: "redirect-visit-section",
+  services: "redirect-services-section",
+  route: "locale-language-route-guard",
+  index: "app-main-client-entry",
+  SiteLayout: "layout-global-header-footer-and-scroll-reveal-animation",
+  Animation_StatsCountUp_HeroAndMarketNumbers: "animation-stats-count-up-numbers",
+  Animation_InfiniteSectorsTickerRibbon_HomeBelowAbout:
+    "animation-infinite-sectors-ticker-ribbon",
+  Animation_PropertyDemandCycleTimeline_HomeAndMarketOverview:
+    "animation-property-demand-cycle-timeline",
+  formAlerts: "form-validation-popup-alert-modal",
+  textarea: "ui-form-textarea-input",
+  clock: "ui-clock-icon",
+  useLocation: "router-location-hook",
+};
+
+function getMeaningfulJsName(rawName: string): string {
+  const mapped = MEANINGFUL_CHUNK_NAMES[rawName] || rawName;
+  return `assets/${mapped}.js`;
+}
+
+function getMeaningfulAssetName(assetInfo: { name?: string; names?: string[] }): string {
+  const raw = assetInfo.names?.[0] || assetInfo.name || "asset";
+  const ext = path.extname(raw);
+  const base = path.basename(raw, ext);
+  if (base === "styles") {
+    return `assets/site-master-styles${ext}`;
+  }
+  return `assets/${base}${ext}`;
+}
+
 function buildSitemapXml(): string {
   const entries = EN_PATHS.flatMap((enPath) => {
     const arPath = enPath === "/" ? "/ar" : `/ar${enPath}`;
@@ -128,6 +182,19 @@ export default defineConfig({
   vite: {
     server: {
       allowedHosts: true,
+    },
+    environments: {
+      client: {
+        build: {
+          rollupOptions: {
+            output: {
+              entryFileNames: (chunkInfo) => getMeaningfulJsName(chunkInfo.name),
+              chunkFileNames: (chunkInfo) => getMeaningfulJsName(chunkInfo.name),
+              assetFileNames: (assetInfo) => getMeaningfulAssetName(assetInfo),
+            },
+          },
+        },
+      },
     },
     plugins: [cpanelInProcessPrerenderPlugin()],
   },
